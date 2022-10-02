@@ -45,11 +45,32 @@ namespace TravellingSalesmanProblem
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
             ////Console.WriteLine(files[2]);
+            ///
+            Console.WriteLine(files[3]);
 
             stopwatch.Start();
-            var matrix = new TSPLIBDeserializer(files[2]).DeserializeToEdges2();
+            var matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
             stopwatch.Stop();
             Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
+
+            foreach (var node in matrix)
+                Console.WriteLine(node);
+
+            stopwatch.Start();
+            var NearestAddition = new NearestAddition();
+            var edge = NearestAddition.FindShortestEdge(matrix, matrix);
+            stopwatch.Stop();
+            Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
+            Console.WriteLine($"Result: {edge}, distance: {Edge.Distance(edge.Item1, edge.Item2)}");
+
+            List<Node> result = NearestAddition.FindShortestPath(matrix);
+
+            foreach (var node in result)
+            {
+                Console.WriteLine(node);
+            }
+
+
 
             //for (int i = 0; i < matrix.Count; i++)
             //{

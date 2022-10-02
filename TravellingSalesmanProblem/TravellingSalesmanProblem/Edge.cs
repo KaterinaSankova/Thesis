@@ -6,19 +6,8 @@ using System.Threading.Tasks;
 
 namespace TravellingSalesmanProblem
 {
-    public class Edge
+    public static class Edge
     {
-        public Node node1;
-        public Node node2;
-
-        public Edge(Node node1, Node node2)
-        {
-            this.node1 = node1;
-            this.node2 = node2;
-        }
-        public override string ToString()
-        {
-            return $"{{{node1}, {node2}}}";
-        }
+        public static double Distance(Node node1, Node node2) => Math.Sqrt(Math.Pow((node2.x - node1.x), 2) + Math.Pow((node2.y - node1.y), 2));
     }
 }
