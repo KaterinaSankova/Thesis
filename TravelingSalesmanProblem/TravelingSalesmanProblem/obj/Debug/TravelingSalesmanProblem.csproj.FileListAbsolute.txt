@@ -1,8 +1,0 @@
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\bin\Debug\TravelingSalesmanProblem.exe.config
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\bin\Debug\TravelingSalesmanProblem.exe
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\bin\Debug\TravelingSalesmanProblem.pdb
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\obj\Debug\TravelingSalesmanProblem.csproj.AssemblyReference.cache
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\obj\Debug\TravelingSalesmanProblem.csproj.SuggestedBindingRedirects.cache
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\obj\Debug\TravelingSalesmanProblem.csproj.CoreCompileInputs.cache
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\obj\Debug\TravelingSalesmanProblem.exe
-D:\Documents\Výška\Thesis\TravelingSalesmanProblem\TravelingSalesmanProblem\obj\Debug\TravelingSalesmanProblem.pdb
