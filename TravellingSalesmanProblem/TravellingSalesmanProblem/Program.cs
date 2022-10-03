@@ -70,6 +70,14 @@ namespace TravellingSalesmanProblem
                 Console.WriteLine(node);
             }
 
+            var Prims = new Prims();
+
+            var spanningTree = Prims.FindSpanningTree(matrix);
+
+            foreach (var edge in spanningTree)
+	        {
+                Console.WriteLine($"{edge.Item1} {edge.Item2}");
+	        }
 
 
             //for (int i = 0; i < matrix.Count; i++)

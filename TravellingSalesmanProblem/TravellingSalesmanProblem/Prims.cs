@@ -7,25 +7,29 @@ using System.Xml.Linq;
 
 namespace TravellingSalesmanProblem
 {
-    public class NearestAddition : AlgorithmBase
+    public class Prims : AlgorithmBase
     {
-        public List<Node> FindShortestPath(List<Node> nodes)
+        public List<(Node, Node)> FindSpanningTree(List<Node> nodes)
         {
             (Node, Node) firstPair = FindShortestEdge(nodes, nodes);
             (Node, Node) shortestEdge;
-            List<Node> path = new List<Node>();
+            List<Node> includedCities = new List<Node>();
             List<Node> remainingCities = nodes;
+            List<Tuple<Node, Node>> path = new List<Tuple<Node, Node>>;
 
-            path.Add(firstPair.Item1);
-            path.Add(firstPair.Item2);
+            includedCities.Add(firstPair.Item1);
+            includedCities.Add(firstPair.Item2);
 
             remainingCities.Remove(firstPair.Item1);
             remainingCities.Remove(firstPair.Item2);
 
+            path.Add(firstPair);
+
             while (remainingCities.Count > 0)
             {
-                shortestEdge = FindShortestEdge(path, remainingCities);
-                path.Insert(path.IndexOf(shortestEdge.Item1) + 1, shortestEdge.Item2);
+                shortestEdge = FindShortestEdge(includedCities, remainingCities);
+                path.Add(shortestEdge);
+                includedCities.Add(shortestEdge.Item2);
                 remainingCities.Remove(shortestEdge.Item2);
             }
             return path;
