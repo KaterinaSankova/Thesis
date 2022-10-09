@@ -20,7 +20,7 @@ namespace TravellingSalesmanProblem
 
             Stopwatch stopwatch = new Stopwatch();
 
-            Console.WriteLine(files[0]);
+            Console.WriteLine(files[3]);
 
             //stopwatch.Start();
             //var matrix = new TSPLIBDeserializer(files[0]).DeserializeToEdges2();
@@ -45,40 +45,48 @@ namespace TravellingSalesmanProblem
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
             ////Console.WriteLine(files[2]);
-            ///
-            Console.WriteLine(files[3]);
+            //   ///
+            //   Console.WriteLine(files[3]);
 
-            stopwatch.Start();
-            var matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
-            stopwatch.Stop();
-            Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
+            //   stopwatch.Start();
+            //   var matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
+            //   stopwatch.Stop();
+            //   Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
-            foreach (var node in matrix)
-                Console.WriteLine(node);
+            //   foreach (var node in matrix)
+            //       Console.WriteLine(node);
 
-            stopwatch.Start();
-            var NearestAddition = new NearestAddition();
-            var edge = NearestAddition.FindShortestEdge(matrix, matrix);
-            stopwatch.Stop();
-            Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
-            Console.WriteLine($"Result: {edge}, distance: {Edge.Distance(edge.Item1, edge.Item2)}");
+            //   stopwatch.Start();
+            //   var NearestAddition = new NearestAddition();
+            //   var edge = NearestAddition.FindShortestEdge(matrix, matrix);
+            //   stopwatch.Stop();
+            //   Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
+            //   Console.WriteLine($"Result: {edge}, distance: {Edge.Distance(edge.Item1, edge.Item2)}");
 
-            List<Node> result = NearestAddition.FindShortestPath(matrix);
+            //   List<Node> result = NearestAddition.FindShortestPath(matrix);
 
-            foreach (var node in result)
-            {
-                Console.WriteLine(node);
-            }
+            //   foreach (var node in result)
+            //   {
+            //       Console.WriteLine(node);
+            //   }
 
-            var Prims = new Prims();
+            //   matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
+            //   var Prims = new Prims();
 
-            var spanningTree = Prims.FindSpanningTree(matrix);
+            //   var spanningTree = Prims.FindSpanningTree(matrix);
 
-            foreach (var edge in spanningTree)
-	        {
-                Console.WriteLine($"{edge.Item1} {edge.Item2}");
-	        }
+            //   Console.WriteLine("************\nPRIMS\n************");
+            //   foreach (var e in spanningTree)
+            //{
+            //       Console.WriteLine($"{e.Item1} {e.Item2}");
+            //}
 
+            var oddNodes = new Christofides().FindShortestPath(new TSPLIBDeserializer(files[3]).DeserializeNodes());
+
+            Console.WriteLine("***ODD NODES***");
+
+            for (int i = 0; i < oddNodes.Count; i++)
+                Console.WriteLine($"{oddNodes[i]}\t");
 
             //for (int i = 0; i < matrix.Count; i++)
             //{

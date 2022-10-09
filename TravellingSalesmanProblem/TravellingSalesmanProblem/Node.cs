@@ -21,5 +21,21 @@ namespace TravellingSalesmanProblem
         {
             return $"[{x}, {y}]";
         }
+
+        public override bool Equals(object obj)
+        {
+            /// if () idk, checknout aby objekt bl Node
+
+            Node node = obj as Node;
+
+            return node.x == x && node.y == y;
+        }
+
+        public List<(Node, Node)> OutgoingEdges(List<(Node, Node)> edges) //refactor
+        {
+            return edges.Where(edge => edge.Item1.Equals(x) || edge.Item2.Equals(x)).ToList();
+        }
+
+        public bool IsOdd(List<(Node, Node)> edges) => OutgoingEdges(edges).Count % 2 == 1;
     }
 }
