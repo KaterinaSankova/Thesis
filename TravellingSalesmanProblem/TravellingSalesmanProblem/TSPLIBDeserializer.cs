@@ -1,4 +1,6 @@
-﻿namespace TravellingSalesmanProblem
+﻿using TravellingSalesmanProblem.GraphStructures;
+
+namespace TravellingSalesmanProblem
 {
     public class TSPLIBDeserializer
     {
@@ -12,7 +14,10 @@
         private Node LineToNode(string line) //tryparse
         {
             double x, y;
+            int id;
             string[] coordinates;
+
+            int.TryParse(line[0..line.IndexOf(' ')], out id);
 
             line = line.Substring(line.IndexOf(' ') + 1);
 
@@ -20,7 +25,7 @@
             double.TryParse(coordinates[0], out x);
             double.TryParse(coordinates[1], out y);
 
-            return new Node(x, y);
+            return new Node(id, x, y);
         }
 
         private List<Node> DeserializeToNodes(StreamReader reader) //null

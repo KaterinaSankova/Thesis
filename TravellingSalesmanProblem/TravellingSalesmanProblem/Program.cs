@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TravellingSalesmanProblem.Algorithms.TSP;
+using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem
 {
@@ -81,7 +83,7 @@ namespace TravellingSalesmanProblem
             //       Console.WriteLine($"{e.Item1} {e.Item2}");
             //}
 
-            var oddNodes = new Christofides().FindShortestPath(new TSPLIBDeserializer(files[3]).DeserializeNodes());
+            var oddNodes = new DoubleTree().FindShortestPath(new Graph(files[3]));
 
             Console.WriteLine("***ODD NODES***");
 

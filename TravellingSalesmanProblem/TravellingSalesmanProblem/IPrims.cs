@@ -1,7 +1,9 @@
-﻿namespace TravellingSalesmanProblem
+﻿using TravellingSalesmanProblem.GraphStructures;
+
+namespace TravellingSalesmanProblem
 {
     public interface IPrims
     {
-        List<(Node, Node)> FindSpanningTree(List<Node> nodes);
+        List<Edge> FindSpanningTree(Graph graph);
     }
 }
