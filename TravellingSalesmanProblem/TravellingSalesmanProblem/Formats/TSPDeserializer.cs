@@ -1,12 +1,12 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
 
-namespace TravellingSalesmanProblem
+namespace TravellingSalesmanProblem.Formats
 {
-    public class TSPLIBDeserializer
+    public class TSPDeserializer
     {
         string path;
 
-        public TSPLIBDeserializer(string path)
+        public TSPDeserializer(string path)
         {
             this.path = path;
         }
@@ -19,11 +19,13 @@ namespace TravellingSalesmanProblem
 
             int.TryParse(line[0..line.IndexOf(' ')], out id);
 
-            line = line.Substring(line.IndexOf(' ') + 1);
+            line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
 
-            coordinates = line.Split(' ');
-            double.TryParse(coordinates[0], out x);
-            double.TryParse(coordinates[1], out y);
+            double.TryParse(line[0..line.IndexOf(' ')], out x);
+
+            line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
+
+            double.TryParse(line, out y);
 
             return new Node(id, x, y);
         }
@@ -35,7 +37,7 @@ namespace TravellingSalesmanProblem
             string? line = reader.ReadLine();
             while (line != "EOF")
             {
-                nodes.Add(LineToNode(line));
+                nodes.Add(LineToNode(line.TrimStart(' '))); //in some files spaces are in the beggining of lines for alignment
                 line = reader.ReadLine();
             }
 

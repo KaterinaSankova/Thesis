@@ -32,7 +32,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
             Node node = obj as Node;
 
-            return node.x == x && node.y == y;
+            return node.id == id;
         }
 
         public List<Edge> OutgoingEdges(List<Edge> edges) //refactor 
@@ -46,5 +46,8 @@ namespace TravellingSalesmanProblem.GraphStructures
         }
 
         public bool IsOdd(List<Edge> edges) => OutgoingEdges(edges).Count % 2 == 1;
+
+
+        public double Distance(Node node) => Math.Sqrt(Math.Pow(this.x - node.x, 2) + Math.Pow(this.y - node.y, 2));
     }
 }

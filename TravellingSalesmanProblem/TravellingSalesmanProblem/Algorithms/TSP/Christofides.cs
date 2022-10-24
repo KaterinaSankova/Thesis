@@ -8,19 +8,19 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         public List<Node> FindShortestPath(Graph graph)
         {
-            Console.WriteLine("***ALL NODES***");
+            //Console.WriteLine("***ALL NODES***");
 
-            for (int i = 0; i < graph.Size; i++)
-                Console.WriteLine($"{graph.nodes[i]}\t");
+            //for (int i = 0; i < graph.Size; i++)
+            //    Console.WriteLine($"{graph.nodes[i]}\t");
 
             List<Node> path = new List<Node>();
 
             List<Edge> minimalSpanningTree = prims.FindSpanningTree(graph);
 
-            Console.WriteLine("***SPANNING TREE***");
+            //Console.WriteLine("***SPANNING TREE***");
 
-            for (int i = 0; i < minimalSpanningTree.Count; i++)
-                Console.WriteLine($"{minimalSpanningTree[i]}\t");
+            //for (int i = 0; i < minimalSpanningTree.Count; i++)
+            //    Console.WriteLine($"{minimalSpanningTree[i]}\t");
 
             List<Node> oddDegreeNodes = graph.OddDegreeNodes(minimalSpanningTree);
 

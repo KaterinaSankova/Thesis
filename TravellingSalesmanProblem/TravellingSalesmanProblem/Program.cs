@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TravellingSalesmanProblem.Algorithms.TSP;
+using TravellingSalesmanProblem.Formats;
 using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem
@@ -18,40 +19,87 @@ namespace TravellingSalesmanProblem
         {
             string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData"));
 
-            string[] files = Directory.GetFiles(path, "*.tsp");
+            string[] dataFiles = Directory.GetFiles(path, "*.tsp");
+
+            string[] tourFiles = Directory.GetFiles(path, "*.opt.tour");
 
             Stopwatch stopwatch = new Stopwatch();
 
-            Console.WriteLine(files[3]);
+            int dataFile = 1;
+            int tourFile = 0;
+
+            Console.WriteLine(dataFiles[dataFile]);
+
+            var input = new TSPDeserializer(dataFiles[dataFile]).DeserializeNodes();
+            var output = new OptTourDeserializer(tourFiles[tourFile], input).DeserializeNodes();
+
+            foreach (var node in output)
+            {
+                Console.WriteLine(node.id);
+            }
+
+            var length = new Graph(output).GetLength();
+
+            Console.WriteLine($"Length from file = {length}");
+
+            var nearestAddition = new NearestAddition();
+            var doubleTree = new DoubleTree();
+            var christofides = new Christofides();
+
+            var result = new Graph(nearestAddition.FindShortestPath(new Graph(input)));
+
+            double algoLen = result.GetLength();
+
+            Console.WriteLine($"Length from NearestAddition algorithm = {algoLen}");
+
+            Console.WriteLine($"{length <= 2 * algoLen}");
+
+
+            result = new Graph(doubleTree.FindShortestPath(new Graph(input)));
+
+            algoLen = result.GetLength();
+
+            Console.WriteLine($"Length from DoubleTree algorithm = {algoLen}");
+
+            Console.WriteLine($"{length <= 2 * algoLen}");
+
+
+            result = new Graph(christofides.FindShortestPath(new Graph(input)));
+
+            algoLen = result.GetLength();
+
+            Console.WriteLine($"Length from Christofides algorithm = {algoLen}");
+
+            Console.WriteLine($"{length <= 3 / 2 * algoLen}");
 
             //stopwatch.Start();
-            //var matrix = new TSPLIBDeserializer(files[0]).DeserializeToEdges2();
+            //var matrix = new TSPLIBDeserializer(dataFiles[0]).DeserializeToEdges2();
             //stopwatch.Stop();
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
             //stopwatch.Start();
-            //matrix = new TSPLIBDeserializer(files[0]).DeserializeToEdges3();
+            //matrix = new TSPLIBDeserializer(dataFiles[0]).DeserializeToEdges3();
             //stopwatch.Stop();
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
-            //Console.WriteLine(files[1]);
+            //Console.WriteLine(dataFiles[1]);
 
             //stopwatch.Start();
-            //matrix = new TSPLIBDeserializer(files[1]).DeserializeToEdges2();
+            //matrix = new TSPLIBDeserializer(dataFiles[1]).DeserializeToEdges2();
             //stopwatch.Stop();
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
             //stopwatch.Start();
-            //matrix = new TSPLIBDeserializer(files[1]).DeserializeToEdges3();
+            //matrix = new TSPLIBDeserializer(dataFiles[1]).DeserializeToEdges3();
             //stopwatch.Stop();
             //Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
-            ////Console.WriteLine(files[2]);
+            ////Console.WriteLine(dataFiles[2]);
             //   ///
-            //   Console.WriteLine(files[3]);
+            //   Console.WriteLine(dataFiles[3]);
 
             //   stopwatch.Start();
-            //   var matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
+            //   var matrix = new TSPLIBDeserializer(dataFiles[3]).DeserializeNodes();
             //   stopwatch.Stop();
             //   Console.WriteLine($"{stopwatch.Elapsed.Hours}H {stopwatch.Elapsed.Minutes}M {stopwatch.Elapsed.Seconds}S {stopwatch.Elapsed.Milliseconds}MS");
 
@@ -72,7 +120,7 @@ namespace TravellingSalesmanProblem
             //       Console.WriteLine(node);
             //   }
 
-            //   matrix = new TSPLIBDeserializer(files[3]).DeserializeNodes();
+            //   matrix = new TSPLIBDeserializer(dataFiles[3]).DeserializeNodes();
             //   var Prims = new Prims();
 
             //   var spanningTree = Prims.FindSpanningTree(matrix);
@@ -83,12 +131,12 @@ namespace TravellingSalesmanProblem
             //       Console.WriteLine($"{e.Item1} {e.Item2}");
             //}
 
-            var oddNodes = new DoubleTree().FindShortestPath(new Graph(files[3]));
+            //var oddNodes = new DoubleTree().FindShortestPath(new Graph(dataFiles[3]));
 
-            Console.WriteLine("***ODD NODES***");
+            //Console.WriteLine("***ODD NODES***");
 
-            for (int i = 0; i < oddNodes.Count; i++)
-                Console.WriteLine($"{oddNodes[i]}\t");
+            //for (int i = 0; i < oddNodes.Count; i++)
+            //    Console.WriteLine($"{oddNodes[i]}\t");
 
             //for (int i = 0; i < matrix.Count; i++)
             //{
@@ -98,6 +146,8 @@ namespace TravellingSalesmanProblem
             //    }
             //    Console.Write($"\n");
             //}
+
+
 
             Console.ReadKey();
         }

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using TravellingSalesmanProblem.Formats;
 
 namespace TravellingSalesmanProblem.GraphStructures
 {
-    public class Graph
+    public class Graph //add dimension property //osetrit grafy s 0 nebo 1 nodem
     {
-        public readonly List<Node> nodes;
+        public readonly List<Node> nodes; 
         public int Size
         {
             get { return nodes.Count; }
@@ -17,7 +18,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public Graph(string path)
         {
-            nodes = new TSPLIBDeserializer(path).DeserializeNodes();
+            nodes = new TSPDeserializer(path).DeserializeNodes();
         }
 
         public Edge ShortestEdge(List<Node> fromNodes = null, List<Node> toNodes = null) //hledam jako debil //node s- null + overeni
@@ -72,6 +73,31 @@ namespace TravellingSalesmanProblem.GraphStructures
             }
 
             return sequence;
+        }
+
+        public double GetLength(List<Edge> edges) //property?
+        {
+            double length = 0;
+
+            foreach (var edge in edges)
+                length += edge.Distance();
+
+            return length;
+        }
+
+        public double GetLength()
+        {
+            double length = 0;
+
+            for (int i = 0; i < nodes.Count - 1; i++)
+            {
+                for (int j = 1; j < nodes.Count; j++)
+                {
+                    length += nodes[i].Distance(nodes[j]);
+                }
+            }
+
+            return length;
         }
     }
 }

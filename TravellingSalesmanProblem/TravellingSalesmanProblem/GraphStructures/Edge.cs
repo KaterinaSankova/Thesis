@@ -24,7 +24,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public bool Contains(Node node) => node1.Equals(node) || node2.Equals(node);
 
-        public double Distance() => Math.Sqrt(Math.Pow(node2.x - node1.x, 2) + Math.Pow(node2.y - node1.y, 2));
+        public double Distance() => node1.Distance(node2);
 
         public bool IsBridge(Graph graph, List<Edge> edges) => graph.DepthFirstSearch(edges, node1) == graph.DepthFirstSearch(edges.Where(edge => edge != this).ToList(), node1);
     }
