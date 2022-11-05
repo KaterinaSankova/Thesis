@@ -13,7 +13,7 @@ namespace TravellingSalesmanProblem.Algorithms
 
             List<Edge> unvisitedEdges = edges.ToList();
 
-            Node currentNode = unvisitedEdges.First().node1;
+            Node currentNode = graph.nodes.First();
 
             List<Edge> outgoingEdges = currentNode.OutgoingEdges(unvisitedEdges);
 
@@ -23,12 +23,12 @@ namespace TravellingSalesmanProblem.Algorithms
             {
                 currentEdge = outgoingEdges.First();
                 if (outgoingEdges.Count >= 1)
-                    if (currentEdge.IsBridge(graph, edges))
+                    if (currentEdge.IsBridge(graph, unvisitedEdges))
                         currentEdge = outgoingEdges.Last();
-                    
+
                 result.Add(currentNode);
                 currentNode = currentEdge.node1 == currentNode ? currentEdge.node2 : currentEdge.node1;
-                unvisitedEdges.Remove(outgoingEdges.First());
+                unvisitedEdges.Remove(currentEdge);
 
                 outgoingEdges = currentNode.OutgoingEdges(unvisitedEdges);
             }

@@ -1,30 +1,29 @@
-﻿using TravellingSalesmanProblem.GraphStructures;
+﻿using System.Xml.Linq;
+using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
     public class Christofides
     {
         private readonly IPrims prims = new Prims();
+        private readonly PerfectMatchingGreedyAlgorithm perfectMatchingAlgorithm = new PerfectMatchingGreedyAlgorithm();
+        private readonly Fleurys fleurys = new Fleurys(); //interface
 
         public List<Node> FindShortestPath(Graph graph)
         {
-            //Console.WriteLine("***ALL NODES***");
-
-            //for (int i = 0; i < graph.Size; i++)
-            //    Console.WriteLine($"{graph.nodes[i]}\t");
-
             List<Node> path = new List<Node>();
 
             List<Edge> minimalSpanningTree = prims.FindSpanningTree(graph);
 
-            //Console.WriteLine("***SPANNING TREE***");
+            List<Edge> perfectMatching = perfectMatchingAlgorithm.FindPerfectMatching(new Graph(graph.OddDegreeNodes(minimalSpanningTree)));
 
-            //for (int i = 0; i < minimalSpanningTree.Count; i++)
-            //    Console.WriteLine($"{minimalSpanningTree[i]}\t");
+            path = fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList());
 
-            List<Node> oddDegreeNodes = graph.OddDegreeNodes(minimalSpanningTree);
+            path = path.Distinct().ToList(); //shortcutting
 
-            return oddDegreeNodes;
+            path.Add(path[0]);
+
+            return path;
         }
     }
 }

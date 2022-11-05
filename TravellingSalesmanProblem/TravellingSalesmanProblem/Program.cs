@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.Formats;
 using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Testing;
 
 namespace TravellingSalesmanProblem
 {
@@ -17,7 +18,13 @@ namespace TravellingSalesmanProblem
     {
         static void Main()
         {
-            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData"));
+            var test = new Test();
+
+            test.TestAlgorithm();
+
+
+            /*
+            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 
             string[] dataFiles = Directory.GetFiles(path, "*.tsp");
 
@@ -70,7 +77,7 @@ namespace TravellingSalesmanProblem
 
             Console.WriteLine($"Length from Christofides algorithm = {algoLen}");
 
-            Console.WriteLine($"{length <= 3 / 2 * algoLen}");
+            Console.WriteLine($"{length <= 3 / 2 * algoLen}");*/
 
             //stopwatch.Start();
             //var matrix = new TSPLIBDeserializer(dataFiles[0]).DeserializeToEdges2();

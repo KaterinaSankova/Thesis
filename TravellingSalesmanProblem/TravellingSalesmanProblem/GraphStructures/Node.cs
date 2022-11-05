@@ -23,7 +23,8 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public override string ToString()
         {
-            return $"{id}:[{x}, {y}]";
+            //return $"{id}:[{x}, {y}]";
+            return $"{id}";
         }
 
         public override bool Equals(object obj)
@@ -35,14 +36,25 @@ namespace TravellingSalesmanProblem.GraphStructures
             return node.id == id;
         }
 
+        public override int GetHashCode()
+        {
+
+            //Get hash code for the Name field if it is not null.
+            int hashId = id.GetHashCode();
+
+
+            //Calculate the hash code for the product.
+            return hashId;
+        }
+
         public List<Edge> OutgoingEdges(List<Edge> edges) //refactor 
         {
-            return edges.Where(edge => edge.Contains(this)).ToList();
+            return edges.Where((edge) => edge.Contains(this)).ToList();
         }
 
         public List<Node> ConnectedNodes(List<Edge> edges)
         {
-            return OutgoingEdges(edges).Select(edge => this == edge.node1 ? edge.node1 : edge.node2).ToList();
+            return OutgoingEdges(edges).Select((edge) => this == edge.node1 ? edge.node2 : edge.node1).ToList();
         }
 
         public bool IsOdd(List<Edge> edges) => OutgoingEdges(edges).Count % 2 == 1;

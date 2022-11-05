@@ -11,6 +11,11 @@ namespace TravellingSalesmanProblem.GraphStructures
             get { return nodes.Count; }
         }
 
+        public bool IsEmpty
+        {
+            get { return nodes.Count == 0; }
+        }
+
         public Graph(List<Node> input) //bude potřeba?
         {
             nodes = input;
@@ -52,27 +57,27 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public List<Node> DepthFirstSearch(List<Edge> edges, Node node)
         {
-            List<Node> sequence = new List<Node>();
             List<Node> visited = new List<Node>();
             Stack<Node> stack = new Stack<Node>();
 
             stack.Push(node);
+            visited.Add(node);
+
             while (stack.Count > 0)
             {
                 node = stack.Pop();
 
-                if (!visited.Contains(node))
-                {
-                    sequence.Add(node);
-                    visited.Add(node);
-                }
+                var connectedNodes = node.ConnectedNodes(edges);
 
-                foreach (Node adjacentNode in node.ConnectedNodes(edges))
+                foreach (Node adjacentNode in connectedNodes)
                     if (!visited.Contains(adjacentNode))
+                    {
+                        stack.Push(adjacentNode);
                         visited.Add(adjacentNode);
+                    }
             }
 
-            return sequence;
+            return visited;
         }
 
         public double GetLength(List<Edge> edges) //property?

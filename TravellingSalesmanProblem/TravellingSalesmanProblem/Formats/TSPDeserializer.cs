@@ -35,7 +35,7 @@ namespace TravellingSalesmanProblem.Formats
             var nodes = new List<Node>();
 
             string? line = reader.ReadLine();
-            while (line != "EOF")
+            while (line != "EOF" && line != null)
             {
                 nodes.Add(LineToNode(line.TrimStart(' '))); //in some files spaces are in the beggining of lines for alignment
                 line = reader.ReadLine();

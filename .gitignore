@@ -1,3 +1,5 @@
 *.vsidx
 /.vs
 /TravellingSalesmanProblem/.vs
+/TravellingSalesmanProblem/obj/Debug
+/TravellingSalesmanProblem/bin
