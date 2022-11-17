@@ -1,6 +1,6 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
 
-namespace TravellingSalesmanProblem.Algorithms.TSP
+namespace TravellingSalesmanProblem.Algorithms
 {
     public class PerfectMatchingGreedyAlgorithm
     {

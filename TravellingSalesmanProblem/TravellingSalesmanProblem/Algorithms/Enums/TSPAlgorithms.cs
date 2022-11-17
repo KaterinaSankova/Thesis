@@ -1,4 +1,4 @@
-﻿namespace TravellingSalesmanProblem.Testing
+﻿namespace TravellingSalesmanProblem.Algorithms.Enums
 {
     public enum TSPAlgorithms
     {

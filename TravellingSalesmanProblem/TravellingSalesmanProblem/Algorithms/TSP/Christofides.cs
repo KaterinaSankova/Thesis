@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using TravellingSalesmanProblem.GraphStructures;
+﻿using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
