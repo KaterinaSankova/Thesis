@@ -4,7 +4,7 @@ using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Testing
 {
-    public class Test
+    public class AlgorithmsTest
     {
         string dataFile;
         string tourFile;
@@ -72,7 +72,7 @@ namespace TravellingSalesmanProblem.Testing
 
         public bool ExcuteTest(string dataFile, string tourFile)
         {
-            var input = new TSPDeserializer(dataFile).DeserializeNodes();
+            var input = new TSPLib(dataFile).DeserializeToNodes();
             var output = new OptTourDeserializer(tourFile, input).DeserializeNodes();
 
             var length = new Graph(output).GetLength();

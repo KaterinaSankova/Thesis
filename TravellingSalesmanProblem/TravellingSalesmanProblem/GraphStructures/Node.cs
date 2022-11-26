@@ -20,7 +20,7 @@
             return $"{id}";
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             /// if () idk, checknout aby objekt bl Node
 

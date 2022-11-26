@@ -16,7 +16,7 @@
             return $"({node1}, {node2})";
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object? obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
             {
