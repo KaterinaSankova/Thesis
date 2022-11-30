@@ -4,12 +4,8 @@ using TravellingSalesmanProblem.GraphStructures;
 using Type = TravellingSalesmanProblem.Algorithms.Enums.TSPLib.Type;
 using EdgeWeightType = TravellingSalesmanProblem.Algorithms.Enums.TSPLib.EdgeWeightType;
 using System.Text;
-using System.Reflection.PortableExecutable;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
-using System.Text.RegularExpressions;
 
-namespace TravellingSalesmanProblem
+namespace TravellingSalesmanProblem.Formats.TSPLib
 {
     public class TSPLib
     {
@@ -37,7 +33,7 @@ namespace TravellingSalesmanProblem
         public string? EdgeWeightSection; //asi ne?
 
         //helpers
-        private EnumRecognizer EnumRecognizer = new EnumRecognizer();
+        private readonly EnumRecognizer EnumRecognizer = new EnumRecognizer();
 
         public TSPLib(string path)
         {
@@ -47,7 +43,7 @@ namespace TravellingSalesmanProblem
             while ((line = reader.ReadLine()) != null && line != "EOF") //EOF is optional
                 RedirectToSection(line, reader);
 
-            //pokud by nebylo zadany jmeno, tak jmeno filu
+            Name ??= Path.GetFileName(path)[0..^4]; //if there is no Name, it will set it to the name of the file
 
             return;
         }
@@ -93,9 +89,11 @@ namespace TravellingSalesmanProblem
             }
         }
 
-        private static string GetName(string? content) => content ?? throw new Exception("Name cannot be null");
+        private static string GetName(string? content) =>
+            content ?? throw new Exception("Name cannot be null");
 
-        private Type GetType(string? content) => content != null ? EnumRecognizer.RecognizeType(content) : throw new Exception("Name cannot be null");
+        private Type GetType(string? content) =>
+            content != null ? EnumRecognizer.RecognizeType(content) : throw new Exception("Name cannot be null");
 
         private static int GetDimensions(string? content) =>
             int.TryParse(content, out int dimensions) ? dimensions : throw new Exception($"Invalid dimension value: {content}");
@@ -177,18 +175,20 @@ namespace TravellingSalesmanProblem
         public override string ToString()
         {
             return GetType().GetFields()
-                .Select(info => (info.Name, Value: info.GetValue(this)))
+                .Select(field => (field.Name, Value: field.GetValue(this)))
                 .Aggregate(new StringBuilder(),
-                (sb, pair) =>
+                (stringBuilder, info) =>
                 {
-                    if (pair.Value == null)
-                        return sb;
-                    else if (pair.Name.ToString().EndsWith("Section"))
-                        return sb.AppendLine($"{pair.Name}:\n{pair.Value}");
+                    if (info.Value == null)
+                        return stringBuilder;
+                    else if (info.Name.ToString().EndsWith("Section"))
+                        return stringBuilder.AppendLine($"{info.Name}:\n{info.Value}");
                     else
-                        return sb.AppendLine($"{pair.Name}: {pair.Value}");
+                        return stringBuilder.AppendLine($"{info.Name}: {info.Value}");
                 },
-                sb => sb.ToString());
+                stringBuilder => stringBuilder.ToString());
         }
+
+        public 
     }
 }

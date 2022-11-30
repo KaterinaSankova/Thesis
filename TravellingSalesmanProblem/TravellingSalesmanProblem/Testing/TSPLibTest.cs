@@ -8,7 +8,7 @@ namespace TravellingSalesmanProblem.Testing
 {
     public class TSPLibTest
     {
-        static void TestTPSLib()
+        public void TestTPSLib()
         {
             //var test = new Test();
 
@@ -24,6 +24,7 @@ namespace TravellingSalesmanProblem.Testing
             {
                 Console.WriteLine(item);
                 var lib = new TSPLib(item);
+                Console.WriteLine(lib);
 
                 try
                 {

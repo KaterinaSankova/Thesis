@@ -34,7 +34,7 @@ namespace TravellingSalesmanProblem.Testing
 
         public bool TestAlgorithm()
         {
-            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\GoodFormat"));
+            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\"));
 
             string[] dataFiles = Directory.GetFiles(path, "*.tsp");
 
@@ -72,7 +72,17 @@ namespace TravellingSalesmanProblem.Testing
 
         public bool ExcuteTest(string dataFile, string tourFile)
         {
-            var input = new TSPLib(dataFile).DeserializeToNodes();
+            List<Node> input;
+
+            try
+            {
+                input = new TSPLib(dataFile).DeserializeToNodes();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine();
+                return false;
+            }
             var output = new OptTourDeserializer(tourFile, input).DeserializeNodes();
 
             var length = new Graph(output).GetLength();
@@ -106,6 +116,7 @@ namespace TravellingSalesmanProblem.Testing
             Console.WriteLine($"{length <= 2 * algoLen}");
 
             pass = pass && length <= 2 * algoLen;
+
 
             result = new Graph(christofides.FindShortestPath(new Graph(input)));
 

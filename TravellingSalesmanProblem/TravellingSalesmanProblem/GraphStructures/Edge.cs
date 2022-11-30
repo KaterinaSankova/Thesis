@@ -11,10 +11,7 @@
             this.node2 = node2;
         }
 
-        public override string ToString()
-        {
-            return $"({node1}, {node2})";
-        }
+        public override string ToString() => $"({node1}, {node2})";
 
         public override bool Equals(object? obj)
         {
