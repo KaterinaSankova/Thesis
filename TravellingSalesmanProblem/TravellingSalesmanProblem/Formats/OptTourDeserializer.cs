@@ -39,9 +39,11 @@ namespace TravellingSalesmanProblem.Formats
                 if (currNode != null)
                     nodes.Add(currNode);
                 else
-                    return nodes; //some files end with EOF some with -1 as an id of last node - in this case LineToNode returns null
+                    break; //some files end with EOF some with -1 as an id of last node - in this case LineToNode returns null
                 line = reader.ReadLine();
             }
+
+            nodes.Add(nodes.First());
 
             return nodes;
         }

@@ -1,5 +1,6 @@
 ﻿using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.Formats;
+using TravellingSalesmanProblem.Formats.TSPLib;
 using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Testing
@@ -34,7 +35,7 @@ namespace TravellingSalesmanProblem.Testing
 
         public bool TestAlgorithm()
         {
-            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\"));
+            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\GoodFormat\"));
 
             string[] dataFiles = Directory.GetFiles(path, "*.tsp");
 
@@ -85,6 +86,9 @@ namespace TravellingSalesmanProblem.Testing
             }
             var output = new OptTourDeserializer(tourFile, input).DeserializeNodes();
 
+            if (input.Count + 1 != output.Count)
+                return false;
+
             var length = new Graph(output).GetLength();
 
             bool pass = false;
@@ -104,7 +108,7 @@ namespace TravellingSalesmanProblem.Testing
             Console.WriteLine($"{length <= 2 * algoLen}");
 
 
-            pass = length <= 2 * algoLen;
+            pass = length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
             result = new Graph(doubleTree.FindShortestPath(new Graph(input)));
@@ -115,7 +119,7 @@ namespace TravellingSalesmanProblem.Testing
 
             Console.WriteLine($"{length <= 2 * algoLen}");
 
-            pass = pass && length <= 2 * algoLen;
+            pass = pass && length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
             result = new Graph(christofides.FindShortestPath(new Graph(input)));
@@ -126,9 +130,25 @@ namespace TravellingSalesmanProblem.Testing
 
             Console.WriteLine($"{length <= 3 / 2 * algoLen}\n\n\n");
 
-            pass = pass && length <= 3 / 2 * algoLen;
+            pass = pass && length <= 3 / 2 * algoLen && CheckResult(input, result.nodes);
 
             return pass;
+        }
+
+        public bool CheckResult(List<Node> inputNodes, List<Node> path)
+        {
+            var nodes = path.ToList();
+
+            foreach (var node in inputNodes)
+                if (!nodes.Remove(node))
+                    return false;
+
+            if (nodes.Count != 1)
+                return false;
+            else if (nodes.First() != path.First())
+                return false;
+            else
+                return true;
         }
     }
 }

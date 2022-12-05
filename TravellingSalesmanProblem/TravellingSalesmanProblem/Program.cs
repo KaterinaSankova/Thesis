@@ -9,9 +9,9 @@ namespace TravellingSalesmanProblem
             var test = new TSPLibTest();
             test.TestTPSLib();
 
-        //    var test = new AlgorithmsTest();
+           // var test = new AlgorithmsTest();
 
-        //    test.TestAlgorithm();
+           // test.TestAlgorithm();
 
             //string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 

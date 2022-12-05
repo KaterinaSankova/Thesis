@@ -171,6 +171,19 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
             
             return nodes;
         }
+        public List<string> NonNullProperties()
+        {
+            return GetType().GetFields()
+                .Where((field) => field.GetValue(this) != null)
+                .Select((info) => info.Name.ToString()).ToList();
+        }
+
+        public List<(string, string?)> NonNullPropertiesWithValues()
+        {
+            return GetType().GetFields()
+                .Where((field) => field.GetValue(this) != null)
+                .Select((info) => (info.Name.ToString(), info.GetValue(this).ToString())).ToList();
+        }
 
         public override string ToString()
         {
@@ -189,6 +202,5 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
                 stringBuilder => stringBuilder.ToString());
         }
 
-        public 
     }
 }

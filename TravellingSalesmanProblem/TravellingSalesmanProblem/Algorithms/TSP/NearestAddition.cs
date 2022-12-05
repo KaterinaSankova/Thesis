@@ -13,6 +13,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             path.Add(firstEdge.node1);
             path.Add(firstEdge.node2);
+            path.Add(firstEdge.node1);
 
             remainingCities.Remove(firstEdge.node1);
             remainingCities.Remove(firstEdge.node2);
