@@ -5,8 +5,9 @@ namespace TravellingSalesmanProblem.Algorithms
     public class NiceInstanceTransformer
     {
         public Graph TransformToNiceInstance(Graph graph, float epsilon)
-        {
-            var boundingValues = graph.GetExtremeCoordinatesValues();
+        { 
+            var boundingValues = graph.GetExtremeCoordinatesValues(); 
+            d
 
         }
 }

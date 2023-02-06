@@ -2,7 +2,7 @@
 
 namespace TravellingSalesmanProblem.Algorithms
 {
-    public class Prims : IPrims
+    public class Prims : IPrims  
     {
         public List<Edge> FindSpanningTree(Graph graph)
         {
