@@ -9,7 +9,7 @@ namespace TravellingSalesmanProblem
         static void Main()
         {
             var a = new Node(0, 1.9, -9.36);
-            var b = new Node(1, -2.867445, 225.56454); 
+            var b = new Node(1, -2.867445, 24425.56454); 
             var f = 10.2545;
             var l1 = a.Distance(b);
 
