@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using TravellingSalesmanProblem.Formats;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TravellingSalesmanProblem.GraphStructures
 {
     public class Graph //add dimension property //osetrit grafy s 0 nebo 1 nodem
     {
-        public readonly List<Node> nodes; 
+        public List<Node> nodes;
         public int Size
         {
             get { return nodes.Count; }
@@ -103,6 +105,35 @@ namespace TravellingSalesmanProblem.GraphStructures
             }
 
             return length;
+        }
+
+        public (double MaxX, double MaxY, double MinX, double MinY) GetExtremeCoordinatesValues()
+        {
+            double maxX = double.MinValue, maxY = double.MinValue, minX = double.MaxValue, minY = double.MaxValue;
+
+            foreach (Node node in nodes)
+            {
+                if (node.x > maxX) maxX = node.x;
+                if (node.x < minX) minX = node.x;
+
+                if (node.y > maxY) maxY = node.y;
+                if (node.y < minY) minY = node.y;
+            }
+
+            return (maxX, maxY, minX, minY);
+
+        }
+
+        public void MoveGraphInDirections(double x, double y) => nodes = nodes.Select((node) => node.Move(node.x + x, node.y + y)).ToList();
+
+        public void Scale(double factor) => nodes = nodes.Select((node) => node.Move(node.x * factor, node.y * factor)).ToList();
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var node in nodes)
+                sb.Append(node + "\t");
+            return sb.Append('\n').ToString();
         }
     }
 }

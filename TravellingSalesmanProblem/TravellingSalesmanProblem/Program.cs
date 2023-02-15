@@ -1,4 +1,6 @@
-﻿using TravellingSalesmanProblem.Testing;
+﻿using TravellingSalesmanProblem.Algorithms;
+using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Testing;
 
 namespace TravellingSalesmanProblem
 {
@@ -6,12 +8,46 @@ namespace TravellingSalesmanProblem
     {
         static void Main()
         {
+            var a = new Node(0, 1.9, -9.36);
+            var b = new Node(1, -2.865, 225.56454);
+            var f = 10.2545;
+            var l1 = a.Distance(b);
+
+
+          //  Console.WriteLine($"a: {a}\nb:{b}\nf: {f}\nl1: {l1}");
+
+            a.x *= f;
+            a.y *= f;
+            b.x *= f;
+            b.y *= f;
+
+
+            var l2 = b.Distance(a);
+
+           // Console.WriteLine($"a': {a}\nb':{b}\nl2: {l2}\nl1*f: {l1*f}\n");
+
+            var graph = new Graph(new List<Node> {
+                new Node(0, -1, -2),
+                new Node(1, -0.7, 0.3),
+                new Node(2, 2, 2.7),
+                new Node(3, 4, -2),
+                new Node(4, 4, 3)
+            });
+
+            var nit = new NiceInstanceTransformer();
+            nit.TransformToNiceInstance(graph, 1);
+
+            //  var test = new Noice();
+            // test.Test();
+
+            /*
             var test = new TSPLibTest();
             test.TestTPSLib();
+            */
 
-           // var test = new AlgorithmsTest();
+            // var test = new AlgorithmsTest();
 
-           // test.TestAlgorithm();
+            // test.TestAlgorithm();
 
             //string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 
@@ -35,7 +71,7 @@ namespace TravellingSalesmanProblem
             //                Console.Write($"{node}; ");
             //            Console.WriteLine();
             //        }
-                        
+
             //    }
             //    catch (Exception)
             //    {

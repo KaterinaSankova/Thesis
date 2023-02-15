@@ -16,8 +16,8 @@
 
         public override string ToString()
         {
-            //return $"{id}:[{x}, {y}]";
-            return $"{id}";
+            return $"{id}:[{x}, {y}]";
+           // return $"{id}";
         }
 
         public override bool Equals(object? obj)
@@ -54,5 +54,13 @@
 
 
         public double Distance(Node node) => Math.Sqrt(Math.Pow(this.x - node.x, 2) + Math.Pow(this.y - node.y, 2));
+
+        public Node Move(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+
+            return this;
+        }
     }
 }
