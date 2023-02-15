@@ -7,8 +7,12 @@ namespace TravellingSalesmanProblem.Algorithms
         public Graph TransformToNiceInstance(Graph graph, float epsilon)
         {
             var boundingValues = graph.GetExtremeCoordinatesValues();
+<<<<<<< Updated upstream
             double sideLengthOfABondingSquare = Math.Max(Math.Abs(boundingValues.MinX - boundingValues.MaxX), Math.Abs(boundingValues.MinY - boundingValues.MaxY));
             double spacing = epsilon * sideLengthOfABondingSquare / (2 * graph.nodes.Count());
+=======
+            return null;
+>>>>>>> Stashed changes
 
             var grid = new Grid(spacing, (boundingValues.MinX, boundingValues.MinY));
 

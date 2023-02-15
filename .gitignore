@@ -1,5 +1,5 @@
 *.vsidx
-/.vs
-/TravellingSalesmanProblem/.vs
-/TravellingSalesmanProblem/obj/Debug
-/TravellingSalesmanProblem/bin
+TravellingSalesmanProblem/.vs
+TravellingSalesmanProblem//TravellingSalesmanProblem/.vs
+TravellingSalesmanProblem//TravellingSalesmanProblem/obj/Debug
+TravellingSalesmanProblem//TravellingSalesmanProblem/bin

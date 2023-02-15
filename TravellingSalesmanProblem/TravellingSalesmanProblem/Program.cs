@@ -8,6 +8,7 @@ namespace TravellingSalesmanProblem
     {
         static void Main()
         {
+<<<<<<< Updated upstream
             var a = new Node(0, 1.9, -9.36);
             var b = new Node(1, -2.865, 225.56454);
             var f = 10.2545;
@@ -39,6 +40,10 @@ namespace TravellingSalesmanProblem
 
             //  var test = new Noice();
             // test.Test();
+=======
+            var test = new Noice();
+            test.Test();
+>>>>>>> Stashed changes
 
             /*
             var test = new TSPLibTest();
