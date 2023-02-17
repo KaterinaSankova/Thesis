@@ -19,3 +19,24 @@ E:\Documents\Škola\Výška\Bakalářská práce\Thesis\GraphTry\GraphTry\obj\De
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.pdb
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.genruntimeconfig.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\ref\GraphTry.dll
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\bin\Debug\net7.0-windows\GraphTry.exe
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\bin\Debug\net7.0-windows\GraphTry.deps.json
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\bin\Debug\net7.0-windows\GraphTry.runtimeconfig.json
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\bin\Debug\net7.0-windows\GraphTry.dll
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\bin\Debug\net7.0-windows\GraphTry.pdb
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.csproj.AssemblyReference.cache
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\MainWindow.g.cs
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\App.g.cs
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry_MarkupCompile.cache
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry_MarkupCompile.lref
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\MainWindow.baml
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.g.resources
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.AssemblyInfoInputs.cache
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.AssemblyInfo.cs
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.csproj.CoreCompileInputs.cache
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.dll
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\refint\GraphTry.dll
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.pdb
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\GraphTry.genruntimeconfig.cache
+D:\Documents\Výška\Thesis\GraphTry\GraphTry\obj\Debug\net7.0-windows\ref\GraphTry.dll
