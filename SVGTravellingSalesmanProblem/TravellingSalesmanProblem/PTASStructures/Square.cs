@@ -28,60 +28,83 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             this.internalSides = (new SquareSide(r), new SquareSide(r), new SquareSide(r), new SquareSide(r));
         }
 
-        public List<List<Node>> FindPTour()
+        public Square((SquareSide Left, SquareSide Right, SquareSide Top, SquareSide Bottom) internalSides,
+            (SquareSide TopLeft, SquareSide TopRight, SquareSide LeftTop, SquareSide LeftBottom,
+            SquareSide RightTop, SquareSide RightBottom, SquareSide BottomLeft, SquareSide BottomRight) externalSides)
+        {
+            this.middleX = origin.X + sideLenght / 2;
+            this.middleY = origin.Y + sideLenght / 2;
+            this.externalSides = externalSides;
+            this.internalSides = internalSides;
+        }
+
+        public bool Check(SquareSide newSide)
+        {
+            bool works = false;
+            foreach (var p in newSide.portals)
+            {
+                if (p.isCenter) { }
+                else if (p.hasTwoSides)
+                {
+                    works = works || (p.side == newSide || p.secondSide == newSide);
+                }
+                else
+                {
+                    works = works || p.side == newSide;
+                }
+            }
+            Console.WriteLine($"{works}");
+            return works;
+        }
+
+        public List<List<Node>> FindPTour(List<Node> inputNodes)
         {
             List<List<Node>> paths = new List<List<Node>>();
-            /*
-            NoSidePortal inPortal = outsidePortals.First();
-            NoSidePortal outPortal = outsidePortals.Where((x) => x.id == 4).First();
+            var draw = new Squares(m, r);
+            var nodes = inputNodes.Select((x) => draw.ToRelativePoint(x)).ToList();
 
-            (int Crosses, List<NoSidePortal> portals) sideA = (r, insidePortals.Where((x) => x.id < 2).ToList());
-            (int Crosses, List<NoSidePortal> portals) sideB = (r, insidePortals.Where((x) => x.id >= 1 && x.id < 3).ToList());
-            (int Crosses, List<NoSidePortal> portals) sideC = (r, insidePortals.Where((x) => (x.id >= 3 && x.id < 4) || x.id == m - 1).ToList());
-            (int Crosses, List<NoSidePortal> portals) sideD = (r, insidePortals.Where((x) => (x.id >= 4 && x.id < 5) || x.id == m - 1).ToList());
-            */
-            var a = GetOutsidePortals();
-            var b = GetInsidePortals();
+            var internalPortals = GetInsidePortals();
+            var outsidePortals = GetOutsidePortals();
 
-            Console.Write($"\t");
-            foreach (var p in externalSides.TopLeft.portals)
-                Console.Write($"{p} ");
+            FindPath(ref paths, outsidePortals.Find((x) => x.id == 4), internalPortals.Find((x) => x.id == 0), new List<Node>() { outsidePortals.Find((x)=> x.id == 0)});
 
-            Console.Write($"\t");
-
-            foreach (var p in externalSides.TopRight.portals)
-                Console.Write($"{p} ");
-
-            Console.Write($"\n");
-
-            foreach (var p in externalSides.LeftTop.portals)
-                Console.Write($"{p} ");
-
-            Console.Write($"\t\t\t");
-            foreach (var p in externalSides.RightTop.portals)
-                Console.Write($"{p} ");
-            Console.Write($"\n");
-
-            foreach (var p in externalSides.LeftBottom.portals)
-                Console.Write($"{p} ");
-
-            Console.Write($"\t\t\t");
-            foreach (var p in externalSides.RightBottom.portals)
-                Console.Write($"{p} ");
-            Console.Write($"\n");
-
-            Console.Write($"\t");
-            foreach (var p in externalSides.BottomLeft.portals)
-                Console.Write($"{p} ");
-
-            Console.Write($"\t");
-
-            foreach (var p in externalSides.BottomRight.portals)
-                Console.Write($"{p} ");
-
-            Console.Write($"\n");
+            DirectoryInfo di = new DirectoryInfo("../../../Squares/TestResults");
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
+            for (int i = 0; i < paths.Count; i++)
+                draw.DrawSquareWithPath(paths[i], $"../../../Squares/TestResults/square{i}.svg");
 
             return paths;
+        }
+
+        public List<Portal> AllPortals()
+        {
+            return internalSides.Left.portals.Concat(internalSides.Right.portals.Concat(internalSides.Top.portals.Concat(internalSides.Bottom.portals))).ToList();
+        }
+
+        public void FindPath(ref List<List<Node>> paths, Portal outPortal, Portal currentPortal, List<Node> currentPath)
+        {
+            Console.WriteLine("Current path: ");
+            foreach (var node in currentPath)
+            {
+                Console.Write($"{node} -> ");
+            }
+            Console.WriteLine();
+
+            if (currentPortal.isCenter)
+                return;
+            if (AreReachable(currentPortal, outPortal))
+                paths.Add(currentPath.Append(outPortal).ToList());
+            foreach (var reachablePortal in ReachablePortals(currentPortal))
+            {
+                if (reachablePortal.isCenter)
+                    continue;
+                var updatedSquare = new Square(CrossPortalsSide(reachablePortal), externalSides);
+                var newPortal = updatedSquare.AllPortals().Find((x) => x.id == reachablePortal.id);
+                updatedSquare.FindPath(ref paths, outPortal, newPortal, currentPath.Append(reachablePortal).ToList());
+            }
         }
 
         private List<Portal> GetOutsidePortals()
@@ -97,7 +120,14 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             {
                 previous.x += step;
 
-                if (previous.x < middleX)
+                if (previous.x == origin.X)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopLeft, externalSides.LeftTop);
+                    portals.Add(portal);
+                    externalSides.TopLeft.portals.Add(portal);
+                    externalSides.LeftTop.portals.Add(portal);
+                }
+                else if (previous.x < middleX)
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.TopLeft);
                     portals.Add(portal);
@@ -110,6 +140,13 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                     externalSides.TopLeft.portals.Add(portal);
                     externalSides.TopRight.portals.Add(portal);
                 }
+                else if (previous.x == origin.X + sideLenght)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopRight, externalSides.RightTop);
+                    portals.Add(portal);
+                    externalSides.TopRight.portals.Add(portal);
+                    externalSides.RightTop.portals.Add(portal);
+                }
                 else
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.TopRight);
@@ -120,12 +157,17 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-            previous.y -= step;
-
             while (previous.y < origin.Y + sideLenght)
             {
                 previous.y += step;
 
+                if (previous.y == origin.Y)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.RightTop, externalSides.TopRight);
+                    portals.Add(portal);
+                    externalSides.RightTop.portals.Add(portal);
+                    externalSides.TopRight.portals.Add(portal);
+                }
                 if (previous.y < middleY)
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.RightTop);
@@ -139,6 +181,13 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                     externalSides.RightTop.portals.Add(portal);
                     externalSides.RightBottom.portals.Add(portal);
                 }
+                else if (previous.y == origin.Y + sideLenght)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.BottomRight, externalSides.RightBottom);
+                    portals.Add(portal);
+                    externalSides.RightBottom.portals.Add(portal);
+                    externalSides.BottomRight.portals.Add(portal);
+                }
                 else
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.RightBottom);
@@ -149,14 +198,11 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-
-            previous.x += step;
-
             while (previous.x > origin.X)
             {
                 previous.x -= step;
 
-                if (previous.x < middleX)
+                if (previous.x > middleX)
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.BottomRight);
                     portals.Add(portal);
@@ -169,6 +215,13 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                     externalSides.BottomRight.portals.Add(portal);
                     externalSides.BottomLeft.portals.Add(portal);
                 }
+                else if (previous.x == origin.X)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom, externalSides.BottomLeft);
+                    portals.Add(portal);
+                    externalSides.BottomLeft.portals.Add(portal);
+                    externalSides.LeftBottom.portals.Add(portal);
+                }
                 else
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.BottomLeft);
@@ -179,12 +232,11 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-            previous.y += step;
             while (previous.y > origin.Y + step)
             {
                 previous.y -= step;
 
-                if (previous.y < middleY)
+                if (previous.y > middleY)
                 {
                     var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom);
                     portals.Add(portal);
@@ -196,6 +248,13 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                     portals.Add(portal);
                     externalSides.LeftBottom.portals.Add(portal);
                     externalSides.LeftTop.portals.Add(portal);
+                }
+                else if (previous.y == middleY)
+                {
+                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom, externalSides.LeftTop);
+                    portals.Add(portal);
+                    externalSides.LeftTop.portals.Add(portal);
+                    externalSides.LeftBottom.portals.Add(portal);
                 }
                 else
                 {
@@ -290,14 +349,57 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
 
         public List<Portal> ReachablePortals(Portal portal)
         {
-            var perpendicularSides = GetPerpendicularInternalSides(portal.side);
-            var reachableSides = new List<SquareSide>() { portal.side, perpendicularSides.Side1, perpendicularSides.Side2 };
-            var reachablePorals = reachableSides.Where((side) => side.crosses > 0).SelectMany((side) => side.portals).ToList();
+            List <SquareSide> reachableSides = new List <SquareSide>();
+            if (portal.isCenter)
+            {
+                reachableSides.Add(internalSides.Top);
+                reachableSides.Add(internalSides.Left);
+                reachableSides.Add(internalSides.Right);
+                reachableSides.Add(internalSides.Bottom);
+            }
+            else
+            {
+                var perpendicularSides = GetPerpendicularInternalSides(portal.side);
+                reachableSides = new List<SquareSide>() { portal.side, perpendicularSides.Side1, perpendicularSides.Side2 };
+            }
+
+            var reachablePorals = reachableSides.Where((side) => side.crosses > 0).SelectMany((side) => side.portals).Distinct().ToList();
 
             return reachablePorals;
         }
 
-        public SquareSide CrossSide(SquareSide side) => new SquareSide(side.portals, side.crosses - 1);
+        public SquareSide CrossSide(SquareSide side)
+        {
+            var newSide = side.Copy();
+            newSide.crosses--;
+            return newSide;
+        }
+
+        public (SquareSide Left, SquareSide Right, SquareSide Top, SquareSide Bottom) CrossPortalsSide(Portal portal)
+        {
+            if (portal.side == internalSides.Left)
+                return (CrossSide(internalSides.Left),
+                    internalSides.Right.Copy(),
+                    internalSides.Top.Copy(),
+                    internalSides.Bottom.Copy());
+            else if (portal.side == internalSides.Right)
+                return (internalSides.Left.Copy(),
+                    CrossSide(internalSides.Right),
+                    internalSides.Top.Copy(),
+                    internalSides.Bottom.Copy());
+            else if (portal.side == internalSides.Top)
+                return (internalSides.Left.Copy(),
+                    internalSides.Right.Copy(),
+                    CrossSide(internalSides.Top),
+                    internalSides.Bottom.Copy());
+            else if (portal.side == internalSides.Bottom)
+                return (internalSides.Left.Copy(),
+                    internalSides.Right.Copy(),
+                    internalSides.Top.Copy(),
+                    CrossSide(internalSides.Bottom));
+            else
+                throw new Exception("");
+        }
 
         public bool FormSquare(SquareSide internalSide, SquareSide externalSide)
         {
@@ -321,6 +423,29 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 return false;
         }
 
-        public bool AreReachable(Portal firstPortal, Portal secondPortal) => FormSquare(firstPortal.side, secondPortal.side);
+        public bool AreReachable(Portal internalPortal, Portal outsidePortal)
+        { 
+            if(internalPortal.isCenter)
+            {
+                if (outsidePortal.hasTwoSides)
+                    return FormSquare(internalSides.Top, outsidePortal.side)
+                        || FormSquare(internalSides.Left, outsidePortal.side)
+                        || FormSquare(internalSides.Right, outsidePortal.side)
+                        || FormSquare(internalSides.Bottom, outsidePortal.side)
+                        || FormSquare(internalSides.Top, outsidePortal.secondSide)
+                        || FormSquare(internalSides.Left, outsidePortal.secondSide)
+                        || FormSquare(internalSides.Right, outsidePortal.secondSide)
+                        || FormSquare(internalSides.Bottom, outsidePortal.secondSide);
+                else
+                    return FormSquare(internalSides.Top, outsidePortal.side)
+                        || FormSquare(internalSides.Left, outsidePortal.side)
+                        || FormSquare(internalSides.Right, outsidePortal.side)
+                        || FormSquare(internalSides.Bottom, outsidePortal.side);
+            }
+            if (outsidePortal.hasTwoSides)
+                return FormSquare(internalPortal.side, outsidePortal.side) || FormSquare(internalPortal.side, outsidePortal.secondSide);
+            else
+                return FormSquare(internalPortal.side, outsidePortal.side);
+        }
     }
 }

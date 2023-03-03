@@ -1,0 +1,70 @@
+
+            var a = GetOutsidePortals();
+            var b = GetInsidePortals();
+
+            Console.WriteLine("TopLeft");
+            foreach (var p in externalSides.TopLeft.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("TopRight");
+            foreach (var p in externalSides.TopRight.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("RightTop");
+            foreach (var p in externalSides.RightTop.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("RightBottom");
+            foreach (var p in externalSides.RightBottom.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("BottomRight");
+            foreach (var p in externalSides.BottomRight.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("BottomLeft");
+            foreach (var p in externalSides.BottomLeft.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("LeftBottom");
+            foreach (var p in externalSides.LeftBottom.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            Console.WriteLine("LeftTop");
+            foreach (var p in externalSides.LeftTop.portals)
+            {
+                Console.Write($"{p} ");
+            }
+            Console.WriteLine();
+
+            var c = ReachablePortals(b.Where((x) => x.id == 1).First());
+            foreach (var i in b)
+            {
+                Console.Write($"{i}:  \n");
+                foreach (var o in a)
+                {
+                    Console.Write($"\t{o}: {AreReachable(i, o)}\n");
+                }
+                Console.WriteLine();
+            }

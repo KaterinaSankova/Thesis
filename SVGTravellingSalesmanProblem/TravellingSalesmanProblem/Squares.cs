@@ -3,6 +3,7 @@ using GrapeCity.Documents.Svg;
 using SVGTravellingSalesmanProblem.GraphStructures;
 using SVGTravellingSalesmanProblem.PTASStructures;
 using System.Drawing;
+using System.Text;
 using System.Xml.Linq;
 
 
@@ -19,6 +20,13 @@ namespace SVGTravellingSalesmanProblem
         public Squares()
         {
             svgDoc = new GcSvgDocument();
+        }
+
+        public Squares(int m, int r)
+        {
+            svgDoc = new GcSvgDocument();
+            this.m = m;
+            this.r = r;
         }
 
         public void Trying()
@@ -187,7 +195,7 @@ namespace SVGTravellingSalesmanProblem
             svgDoc.Save(filePath);
         }
 
-        private Node ToRelativePoint(Node node) => new Node(node.id, node.x + origin.X, bigSquareSideLen + origin.Y - node.y);
+        public Node ToRelativePoint(Node node) => new Node(node.id, node.x + origin.X, bigSquareSideLen + origin.Y - node.y);
 
         private void DrawNode(Node node)
         {
@@ -220,18 +228,39 @@ namespace SVGTravellingSalesmanProblem
 
         private void DrawPath(List<Node> path)
         {
+            var pathString = new StringBuilder("Current path: ");
+            foreach (var node in path)
+                pathString.Append($"{node} -> ");
+
+            var tag = new SvgTextElement()
+            {
+                X = new List<SvgLength> { new SvgLength(0, SvgLengthUnits.Pixels) },
+                Y = new List<SvgLength> { new SvgLength(20, SvgLengthUnits.Pixels) },
+                FontSize = new SvgLength(20, SvgLengthUnits.Pixels),
+            };
+
+            var tagc = new SvgContentElement()
+            {
+                Content = pathString.ToString(),
+            };
+
+            tag.Children.Add(tagc);
+            svgDoc.RootSvg.Children.Add(tag);
+
+
+
             foreach (var node in path)
                 DrawNode(node);
 
-            var relativePath = path.Select((x) => ToRelativePoint(x)).ToArray();
-            for (int i = 0; i < relativePath.Length - 1; i++)
+          //  var relativePath = path.Select((x) => ToRelativePoint(x)).ToArray();
+            for (int i = 0; i < path.Count - 1; i++)
             {
                 var line = new SvgLineElement()
                 {
-                    X1 = new SvgLength((float)relativePath[i].x, SvgLengthUnits.Pixels),
-                    Y1 = new SvgLength((float)relativePath[i].y, SvgLengthUnits.Pixels),
-                    X2 = new SvgLength((float)relativePath[i+1].x, SvgLengthUnits.Pixels),
-                    Y2 = new SvgLength((float)relativePath[i+1].y, SvgLengthUnits.Pixels),
+                    X1 = new SvgLength((float)path[i].x, SvgLengthUnits.Pixels),
+                    Y1 = new SvgLength((float)path[i].y, SvgLengthUnits.Pixels),
+                    X2 = new SvgLength((float)path[i+1].x, SvgLengthUnits.Pixels),
+                    Y2 = new SvgLength((float)path[i+1].y, SvgLengthUnits.Pixels),
                     Stroke = new SvgPaint(Color.Blue),
                     StrokeWidth = new SvgLength(1, SvgLengthUnits.Pixels),
                 };

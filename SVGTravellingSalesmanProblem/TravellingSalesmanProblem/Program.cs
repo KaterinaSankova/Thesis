@@ -20,9 +20,9 @@ namespace SVGTravellingSalesmanProblem
             };
 
             var square = new Square();
-            square.FindPTour();
+            square.FindPTour(path);
             
-
+            /*
                 
             var s = new Squares();
             s.Trying();
@@ -31,7 +31,7 @@ namespace SVGTravellingSalesmanProblem
             var b = new Node(1, -2.867445, 24425.56454); 
             var f = 10.2545;
             var l1 = a.Distance(b);
-
+            
 
           //  Console.WriteLine($"a: {a}\nb:{b}\nf: {f}\nl1: {l1}");
 
@@ -54,7 +54,7 @@ namespace SVGTravellingSalesmanProblem
             });
 
             var nit = new NiceInstanceTransformer();
-            nit.TransformToNiceInstance(graph, 1);
+            nit.TransformToNiceInstance(graph, 1);*/
 
             //  var test = new Noice();
             // test.Test();
