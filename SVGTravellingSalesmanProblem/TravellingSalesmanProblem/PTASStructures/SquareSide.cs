@@ -8,13 +8,15 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
 {
     public class SquareSide
     {
-        List<Portal> portals;
-        int crosses;
+        public List<Portal> portals = new List<Portal>();
+        public int crosses;
 
         public SquareSide(List<Portal> portals, int crosses)
         {
-            this.portals = portals; 
+            this.portals = portals;
             this.crosses = crosses;
         }
+
+        public SquareSide(int crosses) { this.crosses = crosses; }
     }
 }

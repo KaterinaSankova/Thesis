@@ -1,5 +1,6 @@
 ﻿using SVGTravellingSalesmanProblem.Algorithms;
 using SVGTravellingSalesmanProblem.GraphStructures;
+using SVGTravellingSalesmanProblem.PTASStructures;
 using SVGTravellingSalesmanProblem.Testing;
 
 namespace SVGTravellingSalesmanProblem
@@ -18,6 +19,11 @@ namespace SVGTravellingSalesmanProblem
                 new Node(4, 10, 350),
             };
 
+            var square = new Square();
+            square.FindPTour();
+            
+
+                
             var s = new Squares();
             s.Trying();
 

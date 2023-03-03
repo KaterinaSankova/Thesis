@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Výška\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj": {}
+    "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Výška\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj": {
+    "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Výška\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj",
+        "projectUniqueName": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj",
         "projectName": "SVGTravellingSalesmanProblem",
-        "projectPath": "D:\\Documents\\Výška\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj",
-        "packagesPath": "C:\\Users\\kitty\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Výška\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\obj\\",
+        "projectPath": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\SVGTravellingSalesmanProblem.csproj",
+        "packagesPath": "C:\\Users\\Kitty\\.nuget\\packages\\",
+        "outputPath": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\SVGTravellingSalesmanProblem\\TravellingSalesmanProblem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\kitty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kitty\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -10,11 +10,11 @@ namespace SVGTravellingSalesmanProblem
 {
     public class Squares
     {
-        GcSvgDocument svgDoc;
-        Point origin = new Point(100, 40);
-        int bigSquareSideLen = 400;
-        int m = 2;
-        int r = 2;
+        public GcSvgDocument svgDoc;
+        public Point origin = new Point(100, 40);
+        public int bigSquareSideLen = 400;
+        public int m = 2;
+        public int r = 2;
 
         public Squares()
         {
@@ -42,17 +42,17 @@ namespace SVGTravellingSalesmanProblem
 
         }
 
-        private List<Node> FindPTour(List<Node> nodes, List<Portal> insidePortals, List<Portal> outsidePortals)
+        private List<Node> FindPTour(List<Node> nodes, List<NoSidePortal> insidePortals, List<NoSidePortal> outsidePortals)
         {
             List<List<Node>> paths = new List<List<Node>>();
 
-            Portal inPortal = outsidePortals.First();
-            Portal outPortal = outsidePortals.Where((x) => x.id == 4).First();
+            NoSidePortal inPortal = outsidePortals.First();
+            NoSidePortal outPortal = outsidePortals.Where((x) => x.id == 4).First();
 
-            (int Crosses, List <Portal> portals) sideA = (r, insidePortals.Where((x) => x.id < 2).ToList());
-            (int Crosses, List<Portal> portals) sideB = (r, insidePortals.Where((x) => x.id >= 1 && x.id < 3).ToList());
-            (int Crosses, List<Portal> portals) sideC = (r, insidePortals.Where((x) => (x.id >= 3 && x.id < 4) || x.id == m-1).ToList());
-            (int Crosses, List<Portal> portals) sideD = (r, insidePortals.Where((x) => (x.id >= 4 && x.id < 5) || x.id == m - 1).ToList());
+            (int Crosses, List <NoSidePortal> portals) sideA = (r, insidePortals.Where((x) => x.id < 2).ToList());
+            (int Crosses, List<NoSidePortal> portals) sideB = (r, insidePortals.Where((x) => x.id >= 1 && x.id < 3).ToList());
+            (int Crosses, List<NoSidePortal> portals) sideC = (r, insidePortals.Where((x) => (x.id >= 3 && x.id < 4) || x.id == m-1).ToList());
+            (int Crosses, List<NoSidePortal> portals) sideD = (r, insidePortals.Where((x) => (x.id >= 4 && x.id < 5) || x.id == m - 1).ToList());
 
 
 
@@ -62,39 +62,39 @@ namespace SVGTravellingSalesmanProblem
             return null;
         }
 
-        private List<Portal> GetOutsidePortals()
+        private List<NoSidePortal> GetOutsidePortals()
         {
-            var portals = new List<Portal>();
-            portals.Add(new Portal(0, origin.X, origin.Y));
+            var portals = new List<NoSidePortal>();
+            portals.Add(new NoSidePortal(0, origin.X, origin.Y));
 
             int step = bigSquareSideLen / m;
-            var previous = new Portal(0, origin.X, origin.Y);
+            var previous = new NoSidePortal(0, origin.X, origin.Y);
             int id = 1;
 
             while (previous.x < origin.X + bigSquareSideLen)
             {
-                portals.Add(new Portal(id, previous.x + step, previous.y));
+                portals.Add(new NoSidePortal(id, previous.x + step, previous.y));
                 id++;
                 previous.x += step;
             }
 
             while (previous.y < origin.Y + bigSquareSideLen)
             {
-                portals.Add(new Portal(id, previous.x, previous.y + step));
+                portals.Add(new NoSidePortal(id, previous.x, previous.y + step));
                 id++;
                 previous.y += step;
             }
 
             while (previous.x > origin.X)
             {
-                portals.Add(new Portal(id, previous.x - step, previous.y));
+                portals.Add(new NoSidePortal(id, previous.x - step, previous.y));
                 id++;
                 previous.x -= step;
             }
 
             while (previous.y > origin.Y + step)
             {
-                portals.Add(new Portal(id, previous.x, previous.y - step));
+                portals.Add(new NoSidePortal(id, previous.x, previous.y - step));
                 id++;
                 previous.y -= step;
             }
@@ -102,16 +102,16 @@ namespace SVGTravellingSalesmanProblem
             return portals;
         }
 
-        private List<Portal> GetInsidePortals()
+        private List<NoSidePortal> GetInsidePortals()
         {
-            var portals = new List<Portal>();
+            var portals = new List<NoSidePortal>();
             int step = bigSquareSideLen / (2 * m);
             var portalPoint = new Point(origin.X + step, origin.Y + bigSquareSideLen / 2);
             int portalId = 0;
 
             while (portalPoint.X < bigSquareSideLen + origin.X)
             {
-                portals.Add(new Portal(portalId, portalPoint.X, portalPoint.Y));
+                portals.Add(new NoSidePortal(portalId, portalPoint.X, portalPoint.Y));
                 portalPoint.X += step;
                 portalId++;
             }
@@ -123,7 +123,7 @@ namespace SVGTravellingSalesmanProblem
             while (portalPoint.Y < bigSquareSideLen + origin.Y)
             {
                 if (portalId != skippedOne)
-                    portals.Add(new Portal(portalId, portalPoint.X, portalPoint.Y));
+                    portals.Add(new NoSidePortal(portalId, portalPoint.X, portalPoint.Y));
                 else
                 {
                     portalId--;
