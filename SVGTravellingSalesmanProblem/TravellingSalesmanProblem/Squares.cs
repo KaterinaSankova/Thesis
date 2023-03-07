@@ -195,6 +195,36 @@ namespace SVGTravellingSalesmanProblem
             svgDoc.Save(filePath);
         }
 
+        public void DrawSquareWithPaths(List<List<Node>> paths, string filePath)
+        {
+            svgDoc.RootSvg.Width = new SvgLength(1000, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(800, SvgLengthUnits.Pixels);
+
+            DrawOutlineSquares();
+            DrawGrid(40);
+            DrawPortals();
+            var colors = new List<SvgPaint> { new SvgPaint(Color.Blue), new SvgPaint(Color.Orange), new SvgPaint(Color.Purple) };
+            int colorIndex = 0;
+            int offset = 0;
+            foreach (var path in paths)
+            {
+                DrawPath(path, colors[colorIndex], offset);
+                colorIndex++;
+                offset += 10;
+            }
+
+            SvgViewBox view = new SvgViewBox();
+            view.MinX = 0;
+            view.MinY = 0;
+            view.Width = 500;
+            view.Height = 500;
+
+            svgDoc.RootSvg.ViewBox = view;
+
+
+            svgDoc.Save(filePath);
+        }
+
         public Node ToRelativePoint(Node node) => new Node(node.id, node.x + origin.X, bigSquareSideLen + origin.Y - node.y);
 
         private void DrawNode(Node node)
@@ -262,6 +292,49 @@ namespace SVGTravellingSalesmanProblem
                     X2 = new SvgLength((float)path[i+1].x, SvgLengthUnits.Pixels),
                     Y2 = new SvgLength((float)path[i+1].y, SvgLengthUnits.Pixels),
                     Stroke = new SvgPaint(Color.Blue),
+                    StrokeWidth = new SvgLength(1, SvgLengthUnits.Pixels),
+                };
+
+                svgDoc.RootSvg.Children.Add(line);
+            }
+        }
+
+        private void DrawPath(List<Node> path, SvgPaint color, int offset)
+        {
+            var pathString = new StringBuilder("Current path: ");
+            foreach (var node in path)
+                pathString.Append($"{node} -> ");
+
+            var tag = new SvgTextElement()
+            {
+                X = new List<SvgLength> { new SvgLength(0, SvgLengthUnits.Pixels) },
+                Y = new List<SvgLength> { new SvgLength(10 + offset, SvgLengthUnits.Pixels) },
+                FontSize = new SvgLength(10, SvgLengthUnits.Pixels),
+            };
+
+            var tagc = new SvgContentElement()
+            {
+                Content = pathString.ToString(),
+            };
+
+            tag.Children.Add(tagc);
+            svgDoc.RootSvg.Children.Add(tag);
+
+
+
+            foreach (var node in path)
+                DrawNode(node);
+
+            //  var relativePath = path.Select((x) => ToRelativePoint(x)).ToArray();
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                var line = new SvgLineElement()
+                {
+                    X1 = new SvgLength((float)path[i].x, SvgLengthUnits.Pixels),
+                    Y1 = new SvgLength((float)path[i].y, SvgLengthUnits.Pixels),
+                    X2 = new SvgLength((float)path[i + 1].x, SvgLengthUnits.Pixels),
+                    Y2 = new SvgLength((float)path[i + 1].y, SvgLengthUnits.Pixels),
+                    Stroke = color,
                     StrokeWidth = new SvgLength(1, SvgLengthUnits.Pixels),
                 };
 

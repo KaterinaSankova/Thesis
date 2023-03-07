@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,24 +58,54 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             return works;
         }
 
-        public List<List<Node>> FindPTour(List<Node> inputNodes)
+        public List<(List<Node> Path, Square Square)> FindPTour(List<Node> inputNodes)
         {
-            List<List<Node>> paths = new List<List<Node>>();
+            List <(List<Node> Path, Square Square)> paths = new List<(List<Node> Path, Square Square)>();
             var draw = new Squares(m, r);
             var nodes = inputNodes.Select((x) => draw.ToRelativePoint(x)).ToList();
 
             var internalPortals = GetInsidePortals();
             var outsidePortals = GetOutsidePortals();
-
-            FindPath(ref paths, outsidePortals.Find((x) => x.id == 4), internalPortals.Find((x) => x.id == 0), new List<Node>() { outsidePortals.Find((x)=> x.id == 0)});
+            internalSides.Left.crosses--;
+            FindPath(ref paths, outsidePortals.Find((x) => x.id == 4), internalPortals.Find((x) => x.id == 0), new List<Node>() { outsidePortals.Find((x) => x.id == 0), internalPortals.Find((x) => x.id == 0) });
 
             DirectoryInfo di = new DirectoryInfo("../../../Squares/TestResults");
             foreach (FileInfo file in di.GetFiles())
             {
                 file.Delete();
             }
-            for (int i = 0; i < paths.Count; i++)
-                draw.DrawSquareWithPath(paths[i], $"../../../Squares/TestResults/square{i}.svg");
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                dir.Delete(true);
+            }
+
+            //for (int i = 0; i < paths.Count; i++)
+            //{
+            //    var drawer = new Squares(m, r);
+            //    drawer.DrawSquareWithPath(paths[i].Path, $"../../../Squares/TestResults/square{i}.svg");
+            //}
+
+            int testIndex = 0;
+            foreach (var item in paths)
+            {
+                var secondPath = new List<(List<Node> Path, Square Square)>();
+                item.Square.internalSides.Left.crosses--;
+                if(item.Square.internalSides.Left.crosses==0)
+                {
+                    Console.WriteLine();
+                }
+                item.Square.FindPath(ref secondPath, outsidePortals.Find((x) => x.id == 1), item.Square.AllPortals().Find((x) => x.id == 0), new List<Node>() { outsidePortals.Find((x) => x.id == 6), internalPortals.Find((x) => x.id == 0) });
+                if(secondPath.Count > 0)
+                {
+                    DirectoryInfo directory = Directory.CreateDirectory($"../../../Squares/TestResults/Test{testIndex}");
+                    for (int i = 0; i < secondPath.Count; i++)
+                    {
+                        var drawer = new Squares(m, r);
+                        drawer.DrawSquareWithPaths(new List<List<Node>>{ item.Path, secondPath[i].Path }, $"../../../Squares/TestResults/Test{testIndex}/square{i}.svg");
+                    }
+                    testIndex++;
+                }
+            }
 
             return paths;
         }
@@ -84,8 +115,10 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             return internalSides.Left.portals.Concat(internalSides.Right.portals.Concat(internalSides.Top.portals.Concat(internalSides.Bottom.portals))).ToList();
         }
 
-        public void FindPath(ref List<List<Node>> paths, Portal outPortal, Portal currentPortal, List<Node> currentPath)
+        public void FindPath(ref List<(List<Node> Path, Square Square)> paths, Portal outPortal, Portal currentPortal, List<Node> currentPath)
         {
+            if (internalSides.Left.crosses == -1 || internalSides.Right.crosses == -1 || internalSides.Top.crosses == -1 || internalSides.Bottom.crosses == -1)
+                return;
             Console.WriteLine("Current path: ");
             foreach (var node in currentPath)
             {
@@ -96,9 +129,10 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             if (currentPortal.isCenter)
                 return;
             if (AreReachable(currentPortal, outPortal))
-                paths.Add(currentPath.Append(outPortal).ToList());
+                paths.Add((currentPath.Append(outPortal).ToList(), this));
             foreach (var reachablePortal in ReachablePortals(currentPortal))
             {
+                var rp = ReachablePortals(currentPortal);
                 if (reachablePortal.isCenter)
                     continue;
                 var updatedSquare = new Square(CrossPortalsSide(reachablePortal), externalSides);
