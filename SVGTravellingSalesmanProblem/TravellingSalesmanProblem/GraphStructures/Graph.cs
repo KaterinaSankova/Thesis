@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using SVGTravellingSalesmanProblem.Formats;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SVGTravellingSalesmanProblem.GraphStructures
 {

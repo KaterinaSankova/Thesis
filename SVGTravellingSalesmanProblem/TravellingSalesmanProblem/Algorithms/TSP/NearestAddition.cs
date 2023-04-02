@@ -1,10 +1,19 @@
-﻿using SVGTravellingSalesmanProblem.GraphStructures;
+﻿using SVGTravellingSalesmanProblem.Formats.TSPLib;
+using SVGTravellingSalesmanProblem.GraphStructures;
 
 namespace SVGTravellingSalesmanProblem.Algorithms.TSP
 {
-    public class NearestAddition
+    public class NearestAddition : ITSPHeauristic
     {
-        public List<Node> FindShortestPath(Graph graph)
+        public bool FindTour(string sourcePath, string destinationPath)
+        {
+            var tspLib = new TSPLib(sourcePath);
+            var nodes = tspLib.DeserializeToNodes();
+            var tour = FindTour(new Graph(nodes));
+            return true;
+        }
+
+        public List<Node> FindTour(Graph graph)
         {
             Edge firstEdge = graph.ShortestEdge();
             Edge shortestEdge;

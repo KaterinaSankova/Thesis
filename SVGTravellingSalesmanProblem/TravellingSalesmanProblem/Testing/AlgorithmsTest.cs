@@ -99,7 +99,7 @@ namespace SVGTravellingSalesmanProblem.Testing
             var doubleTree = new DoubleTree();
             var christofides = new Christofides();
 
-            var result = new Graph(nearestAddition.FindShortestPath(new Graph(input)));
+            var result = new Graph(nearestAddition.FindTour(new Graph(input)));
 
             double algoLen = result.GetLength();
 
@@ -111,7 +111,7 @@ namespace SVGTravellingSalesmanProblem.Testing
             pass = length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
-            result = new Graph(doubleTree.FindShortestPath(new Graph(input)));
+            result = new Graph(doubleTree.FindTour(new Graph(input)));
 
             algoLen = result.GetLength();
 
@@ -122,7 +122,7 @@ namespace SVGTravellingSalesmanProblem.Testing
             pass = pass && length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
-            result = new Graph(christofides.FindShortestPath(new Graph(input)));
+            result = new Graph(christofides.FindTour(new Graph(input)));
 
             algoLen = result.GetLength();
 

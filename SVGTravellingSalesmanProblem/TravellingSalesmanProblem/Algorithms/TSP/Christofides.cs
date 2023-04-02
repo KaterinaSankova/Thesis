@@ -1,14 +1,23 @@
-﻿using SVGTravellingSalesmanProblem.GraphStructures;
+﻿using SVGTravellingSalesmanProblem.Formats.TSPLib;
+using SVGTravellingSalesmanProblem.GraphStructures;
 
 namespace SVGTravellingSalesmanProblem.Algorithms.TSP
 {
-    public class Christofides
+    public class Christofides : ITSPHeauristic
     {
         private readonly IPrims prims = new Prims();
         private readonly PerfectMatchingGreedyAlgorithm perfectMatchingAlgorithm = new PerfectMatchingGreedyAlgorithm();
         private readonly Fleurys fleurys = new Fleurys(); //interface
 
-        public List<Node> FindShortestPath(Graph graph)
+        public bool FindTour(string sourcePath, string destinationPath)
+        {
+            var tspLib = new TSPLib(sourcePath);
+            var nodes = tspLib.DeserializeToNodes();
+            var tour = FindTour(new Graph(nodes));
+            return true;
+        }
+
+        public List<Node> FindTour(Graph graph)
         {
             List<Node> path = new List<Node>();
 

@@ -1,4 +1,5 @@
 ﻿using SVGTravellingSalesmanProblem.Algorithms;
+using SVGTravellingSalesmanProblem.Algorithms.TSP;
 using SVGTravellingSalesmanProblem.GraphStructures;
 using SVGTravellingSalesmanProblem.PTASStructures;
 using SVGTravellingSalesmanProblem.Testing;
@@ -9,7 +10,15 @@ namespace SVGTravellingSalesmanProblem
     {
         static void Main()
         {
+            string inputPath = "../../../TestData/input1.tsp";
+            string outputPath = "../../../Results/output1.tsp";
 
+            ITSPHeauristic tspHeuristic = new DoubleTree();
+            tspHeuristic.FindTour(inputPath, outputPath);
+
+
+
+                /*
             var path = new List<Node>
             {
                 new Node(0, 40, 40),
@@ -21,7 +30,7 @@ namespace SVGTravellingSalesmanProblem
 
             var square = new Square();
             square.FindPTour(path);
-            
+            */
             /*
                 
             var s = new Squares();
