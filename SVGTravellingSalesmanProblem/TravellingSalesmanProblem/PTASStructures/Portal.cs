@@ -7,42 +7,38 @@ using System.Threading.Tasks;
 
 namespace SVGTravellingSalesmanProblem.PTASStructures
 {
-    public class Portal : Node
+    public class Portal
     {
-        public int crosses = 0;
-        public SquareSide? side;
-        public bool hasTwoSides = false;
-        public SquareSide? secondSide;
-        public bool isCenter = false;
-        public bool copied = false;
+        int id;
+        public List<SquareSide> sides = new List<SquareSide>(); //??
 
-        public Portal(int id, double x, double y, SquareSide side) : base(id, x, y) => this.side = side;
-
-        public Portal(int id, double x, double y, bool isCenter) : base(id, x, y)
+        public Portal(int id, params SquareSide[] sides)
         {
-            this.isCenter = isCenter;
+            this.id= id;
+            this.sides = sides.ToList();
         }
 
-        public Portal(int id, double x, double y, SquareSide side, SquareSide secondSide) : base(id, x, y)
+        public Portal(int id, List<SquareSide> sides)
         {
-            this.side = side;
-            hasTwoSides= true;
-            this.secondSide = secondSide;
-        }
-
-        private Portal(int id, double x, double y, SquareSide? side, SquareSide? secondSide, bool isCenter, bool hasTwoSides) : base(id, x, y)
-        {
-            this.side = side;
-            this.hasTwoSides = hasTwoSides;
-            this.secondSide = secondSide;
-            this.isCenter = isCenter;
+            this.id = id;
+            this.sides = sides;
         }
 
         public Portal Copy()
         {
-            var p = new Portal(id, x, y, side, secondSide, isCenter, hasTwoSides);
-            p.copied = true;
+            var p = new Portal(id, sides);
             return p;
+        }
+
+        public void CrossSide()
+        {
+            if (this.sides.Count == 1)
+                sides[0].crosses--;
+        }
+        public void CrossSideTo(Portal portal)
+        {
+            if (this.sides.Count == 1)
+                sides[0].crosses--;
         }
     }
 }

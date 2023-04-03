@@ -19,9 +19,11 @@ namespace SVGTravellingSalesmanProblem
                 new Node(4, 10, 350),
             };
 
-            var square = new Square();
-            square.FindPTour(path);
-            
+            //var square = new Square();
+            //square.FindPTour(path);
+            var square = new NewSquare();
+            square.FindOutlinePortalPairings();
+
             /*
                 
             var s = new Squares();

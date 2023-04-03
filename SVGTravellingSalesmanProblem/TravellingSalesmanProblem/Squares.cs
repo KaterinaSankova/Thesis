@@ -3,6 +3,7 @@ using GrapeCity.Documents.Svg;
 using SVGTravellingSalesmanProblem.GraphStructures;
 using SVGTravellingSalesmanProblem.PTASStructures;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Xml.Linq;
 
@@ -79,32 +80,32 @@ namespace SVGTravellingSalesmanProblem
             var previous = new NoSidePortal(0, origin.X, origin.Y);
             int id = 1;
 
-            while (previous.x < origin.X + bigSquareSideLen)
+            while (previous.X < origin.X + bigSquareSideLen)
             {
-                portals.Add(new NoSidePortal(id, previous.x + step, previous.y));
+                portals.Add(new NoSidePortal(id, previous.X + step, previous.Y));
                 id++;
-                previous.x += step;
+                previous.X += step;
             }
 
-            while (previous.y < origin.Y + bigSquareSideLen)
+            while (previous.Y < origin.Y + bigSquareSideLen)
             {
-                portals.Add(new NoSidePortal(id, previous.x, previous.y + step));
+                portals.Add(new NoSidePortal(id, previous.X, previous.Y + step));
                 id++;
-                previous.y += step;
+                previous.Y += step;
             }
 
-            while (previous.x > origin.X)
+            while (previous.X > origin.X)
             {
-                portals.Add(new NoSidePortal(id, previous.x - step, previous.y));
+                portals.Add(new NoSidePortal(id, previous.X - step, previous.Y));
                 id++;
-                previous.x -= step;
+                previous.X -= step;
             }
 
-            while (previous.y > origin.Y + step)
+            while (previous.Y > origin.Y + step)
             {
-                portals.Add(new NoSidePortal(id, previous.x, previous.y - step));
+                portals.Add(new NoSidePortal(id, previous.X, previous.Y - step));
                 id++;
-                previous.y -= step;
+                previous.Y -= step;
             }
 
             return portals;
@@ -223,6 +224,112 @@ namespace SVGTravellingSalesmanProblem
 
 
             svgDoc.Save(filePath);
+        }
+
+        public void DrawSquareWithPairings(List<PortalPairing> pairings, string filePath)
+        {
+            svgDoc.RootSvg.Width = new SvgLength(1000, SvgLengthUnits.Pixels);
+            svgDoc.RootSvg.Height = new SvgLength(800, SvgLengthUnits.Pixels);
+
+            DrawOutlineSquares();
+            DrawGrid(40);
+            DrawPortals();
+            var rand = new Random();
+            int r = rand.Next(255);
+            int g = rand.Next(255);
+            int b = rand.Next(255);
+            var pathString = new StringBuilder("Current pairing: ");
+
+            foreach (var pairing in pairings)
+            {
+                DrawPairing(pairing, Color.FromArgb(r, g, b));
+                pathString.Append($"[{pairing.enterPortal.id}, {pairing.exitPortal.id}]; ");
+                r = Math.Abs(r + rand.Next(-50, 50)) % 255;
+                g = Math.Abs(g + rand.Next(-50, 50)) % 255;
+                b = Math.Abs(b + rand.Next(-50, 50)) % 255;
+            }
+
+            var tag = new SvgTextElement()
+            {
+                X = new List<SvgLength> { new SvgLength(0, SvgLengthUnits.Pixels) },
+                Y = new List<SvgLength> { new SvgLength(10, SvgLengthUnits.Pixels) },
+                FontSize = new SvgLength(10, SvgLengthUnits.Pixels),
+            };
+
+            var tagc = new SvgContentElement()
+            {
+                Content = pathString.ToString(),
+            };
+
+            tag.Children.Add(tagc);
+            svgDoc.RootSvg.Children.Add(tag);
+
+            SvgViewBox view = new SvgViewBox();
+            view.MinX = 0;
+            view.MinY = 0;
+            view.Width = 500;
+            view.Height = 500;
+
+            svgDoc.RootSvg.ViewBox = view;
+
+
+            svgDoc.Save(filePath);
+        }
+
+        private void DrawPairing(PortalPairing pairing, Color color)
+        {
+            var firstPortal = new SvgEllipseElement()
+            {
+                CenterX = new SvgLength((float)pairing.enterPortal.x, SvgLengthUnits.Pixels),
+                CenterY = new SvgLength((float)pairing.enterPortal.y, SvgLengthUnits.Pixels),
+                RadiusX = new SvgLength(5, SvgLengthUnits.Pixels),
+                RadiusY = new SvgLength(5, SvgLengthUnits.Pixels),
+                Fill = new SvgPaint(color),
+                Stroke = new SvgPaint(color)
+            };
+            var secondPortal = new SvgEllipseElement()
+            {
+                CenterX = new SvgLength((float)pairing.exitPortal.x, SvgLengthUnits.Pixels),
+                CenterY = new SvgLength((float)pairing.exitPortal.y, SvgLengthUnits.Pixels),
+                RadiusX = new SvgLength(5, SvgLengthUnits.Pixels),
+                RadiusY = new SvgLength(5, SvgLengthUnits.Pixels),
+                Fill = new SvgPaint(color),
+                Stroke = new SvgPaint(color)
+            };
+
+            var firstTag = new SvgTextElement()
+            {
+                X = new List<SvgLength> { new SvgLength((float)pairing.enterPortal.x + 5, SvgLengthUnits.Pixels) },
+                Y = new List<SvgLength> { new SvgLength((float)pairing.enterPortal.y, SvgLengthUnits.Pixels) },
+                FontSize = new SvgLength(25, SvgLengthUnits.Pixels),
+            };
+
+            var firstTagContent = new SvgContentElement()
+            {
+                Content = $"{pairing.enterPortal.id}",
+            };
+            
+            var secongTag = new SvgTextElement()
+            {
+                X = new List<SvgLength> { new SvgLength((float)pairing.exitPortal.x + 5, SvgLengthUnits.Pixels) },
+                Y = new List<SvgLength> { new SvgLength((float)pairing.exitPortal.y, SvgLengthUnits.Pixels) },
+                FontSize = new SvgLength(25, SvgLengthUnits.Pixels),
+            };
+
+            var secondTagContent = new SvgContentElement()
+            {
+                Content = $"{pairing.exitPortal.id}",
+            };
+
+            firstTag.Children.Add(firstTagContent);
+            svgDoc.RootSvg.Children.Add(firstTag);
+
+            svgDoc.RootSvg.Children.Add(firstPortal);
+
+            secongTag.Children.Add(secondTagContent);
+            svgDoc.RootSvg.Children.Add(secongTag);
+
+            svgDoc.RootSvg.Children.Add(secondPortal);
         }
 
         public Node ToRelativePoint(Node node) => new Node(node.id, node.x + origin.X, bigSquareSideLen + origin.Y - node.y);

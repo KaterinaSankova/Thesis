@@ -28,7 +28,7 @@ namespace SVGTravellingSalesmanProblem.GraphStructures
             nodes = new TSPDeserializer(path).DeserializeNodes();
         }
 
-        public Edge ShortestEdge(List<Node> fromNodes = null, List<Node> toNodes = null) //hledam jako debil //node s- null + overeni
+        public Edge ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null) //hledam jako debil //node s- null + overeni
         {
             if (fromNodes == null)
                 fromNodes = nodes;

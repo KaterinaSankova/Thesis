@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="PTASStructures\Square.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="GrapeCity.Documents.Imaging" Version="6.0.5" />
   </ItemGroup>
 

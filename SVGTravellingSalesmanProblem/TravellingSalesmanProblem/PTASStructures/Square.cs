@@ -150,40 +150,40 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
             var previous = new Portal(0, origin.X - step, origin.Y, externalSides.TopLeft, externalSides.LeftTop); //stačí point
             int id = 0;
 
-            while (previous.x < origin.X + sideLenght)
+            while (previous.X < origin.X + sideLenght)
             {
-                previous.x += step;
+                previous.X += step;
 
-                if (previous.x == origin.X)
+                if (previous.X == origin.X)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopLeft, externalSides.LeftTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.TopLeft, externalSides.LeftTop);
                     portals.Add(portal);
                     externalSides.TopLeft.portals.Add(portal);
                     externalSides.LeftTop.portals.Add(portal);
                 }
-                else if (previous.x < middleX)
+                else if (previous.X < middleX)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopLeft);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.TopLeft);
                     portals.Add(portal);
                     externalSides.TopLeft.portals.Add(portal);
                 }                    
-                else if(previous.x == middleX)
+                else if(previous.X == middleX)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopLeft, externalSides.TopRight);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.TopLeft, externalSides.TopRight);
                     portals.Add(portal);
                     externalSides.TopLeft.portals.Add(portal);
                     externalSides.TopRight.portals.Add(portal);
                 }
-                else if (previous.x == origin.X + sideLenght)
+                else if (previous.X == origin.X + sideLenght)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopRight, externalSides.RightTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.TopRight, externalSides.RightTop);
                     portals.Add(portal);
                     externalSides.TopRight.portals.Add(portal);
                     externalSides.RightTop.portals.Add(portal);
                 }
                 else
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.TopRight);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.TopRight);
                     portals.Add(portal);
                     externalSides.TopRight.portals.Add(portal);
                 }
@@ -191,40 +191,40 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-            while (previous.y < origin.Y + sideLenght)
+            while (previous.Y < origin.Y + sideLenght)
             {
-                previous.y += step;
+                previous.Y += step;
 
-                if (previous.y == origin.Y)
+                if (previous.Y == origin.Y)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.RightTop, externalSides.TopRight);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.RightTop, externalSides.TopRight);
                     portals.Add(portal);
                     externalSides.RightTop.portals.Add(portal);
                     externalSides.TopRight.portals.Add(portal);
                 }
-                if (previous.y < middleY)
+                if (previous.Y < middleY)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.RightTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.RightTop);
                     portals.Add(portal);
                     externalSides.RightTop.portals.Add(portal);
                 }
-                else if (previous.y == middleY)
+                else if (previous.Y == middleY)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.RightTop, externalSides.RightBottom);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.RightTop, externalSides.RightBottom);
                     portals.Add(portal);
                     externalSides.RightTop.portals.Add(portal);
                     externalSides.RightBottom.portals.Add(portal);
                 }
-                else if (previous.y == origin.Y + sideLenght)
+                else if (previous.Y == origin.Y + sideLenght)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.BottomRight, externalSides.RightBottom);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.BottomRight, externalSides.RightBottom);
                     portals.Add(portal);
                     externalSides.RightBottom.portals.Add(portal);
                     externalSides.BottomRight.portals.Add(portal);
                 }
                 else
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.RightBottom);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.RightBottom);
                     portals.Add(portal);
                     externalSides.RightBottom.portals.Add(portal);
                 }
@@ -232,33 +232,33 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-            while (previous.x > origin.X)
+            while (previous.X > origin.X)
             {
-                previous.x -= step;
+                previous.X -= step;
 
-                if (previous.x > middleX)
+                if (previous.X > middleX)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.BottomRight);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.BottomRight);
                     portals.Add(portal);
                     externalSides.BottomRight.portals.Add(portal);
                 }
-                else if (previous.x == middleX)
+                else if (previous.X == middleX)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.BottomRight, externalSides.BottomLeft);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.BottomRight, externalSides.BottomLeft);
                     portals.Add(portal);
                     externalSides.BottomRight.portals.Add(portal);
                     externalSides.BottomLeft.portals.Add(portal);
                 }
-                else if (previous.x == origin.X)
+                else if (previous.X == origin.X)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom, externalSides.BottomLeft);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.LeftBottom, externalSides.BottomLeft);
                     portals.Add(portal);
                     externalSides.BottomLeft.portals.Add(portal);
                     externalSides.LeftBottom.portals.Add(portal);
                 }
                 else
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.BottomLeft);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.BottomLeft);
                     portals.Add(portal);
                     externalSides.BottomLeft.portals.Add(portal);
                 }
@@ -266,33 +266,33 @@ namespace SVGTravellingSalesmanProblem.PTASStructures
                 id++;
             }
 
-            while (previous.y > origin.Y + step)
+            while (previous.Y > origin.Y + step)
             {
-                previous.y -= step;
+                previous.Y -= step;
 
-                if (previous.y > middleY)
+                if (previous.Y > middleY)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.LeftBottom);
                     portals.Add(portal);
                     externalSides.LeftBottom.portals.Add(portal);
                 }
-                else if (previous.y == middleY)
+                else if (previous.Y == middleY)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom, externalSides.LeftTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.LeftBottom, externalSides.LeftTop);
                     portals.Add(portal);
                     externalSides.LeftBottom.portals.Add(portal);
                     externalSides.LeftTop.portals.Add(portal);
                 }
-                else if (previous.y == middleY)
+                else if (previous.Y == middleY)
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftBottom, externalSides.LeftTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.LeftBottom, externalSides.LeftTop);
                     portals.Add(portal);
                     externalSides.LeftTop.portals.Add(portal);
                     externalSides.LeftBottom.portals.Add(portal);
                 }
                 else
                 {
-                    var portal = new Portal(id, previous.x, previous.y, externalSides.LeftTop);
+                    var portal = new Portal(id, previous.X, previous.Y, externalSides.LeftTop);
                     portals.Add(portal);
                     externalSides.LeftTop.portals.Add(portal);
                 }
