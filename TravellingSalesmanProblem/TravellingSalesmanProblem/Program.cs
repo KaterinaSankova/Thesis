@@ -1,4 +1,6 @@
-﻿using TravellingSalesmanProblem.Testing;
+﻿using TravellingSalesmanProblem.Algorithms.TSP;
+using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Testing;
 
 namespace TravellingSalesmanProblem
 {
@@ -6,12 +8,22 @@ namespace TravellingSalesmanProblem
     {
         static void Main()
         {
-            var test = new TSPLibTest();
-            test.TestTPSLib();
+            Random rand = new Random();
+            List<Node> nodes = new List<Node>();
+            for (int i = 0; i < 10; i++)
+            {
+                nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
+            }
 
-           // var test = new AlgorithmsTest();
+            var kl = new KeringhanLin();
+            kl.FindShortestPath(new Graph(nodes));
 
-           // test.TestAlgorithm();
+            /*  var test = new TSPLibTest();
+              test.TestTPSLib();*/
+
+            // var test = new AlgorithmsTest();
+
+            // test.TestAlgorithm();
 
             //string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 
@@ -35,7 +47,7 @@ namespace TravellingSalesmanProblem
             //                Console.Write($"{node}; ");
             //            Console.WriteLine();
             //        }
-                        
+
             //    }
             //    catch (Exception)
             //    {
