@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,11 +32,19 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         public List<Node> FindShortestPath(Graph graph)
         {
-            //pro 0 prvků // pro 1 prvek
+            //@TODO pro 0-1 prvků
             this.graph = graph;
-            var path = graph.nodes.OrderBy(_ => rand.Next()).ToList();
+            var path = graph.nodes.OrderBy(_ => rand.Next()).ToList(); //random path
 
-            //SETUP
+            SetupFromPath(path);
+
+            FindShortestPathA(graph);
+
+            return new List<Node>();
+        }
+
+        public void SetupFromPath(List<Node> path)
+        {
             for (int j = 0; j < path.Count - 1; j++)
                 available.Add(new Edge(path[j], path[j + 1]));
             available.Add(new Edge(path[path.Count - 1], path[0]));
@@ -45,10 +54,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             foreach (var node in graph.nodes)
                 Console.Write($"({node.x}, {node.y})");
             Console.WriteLine();
-
-            FindShortestPathA(graph);
-
-            return new List<Node>();
         }
 
         public void FindShortestPathA(Graph graph)
@@ -78,11 +83,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Add(y1);
 
             Step45(x1, y1);         
-
-
         }
 
-        public void Step45(Edge x1, Edge y1)
+        public void Step45 (Edge x1, Edge y1)
         {
             double bestImprovement = 0;
             //STEP 4
