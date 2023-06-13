@@ -4,7 +4,7 @@ namespace TravellingSalesmanProblem.Algorithms
 {
     public class Fleurys
     {
-        public List<Node> FindEulerCircuit(Graph graph, List<Edge> edges)
+        public static List<Node> FindEulerCircuit(Graph graph, List<Edge> edges)
         {
             List<Node> result = new List<Node>();
 

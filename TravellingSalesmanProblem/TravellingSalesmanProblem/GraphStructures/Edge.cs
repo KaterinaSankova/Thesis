@@ -10,6 +10,8 @@
             this.node1 = node1;
             this.node2 = node2;
         }
+        
+        //chce to konstruktor bez argumentů a pak přidat do metod check, jestli nejsou nody null
 
         public override string ToString() => $"({node1}, {node2})";
 
@@ -41,7 +43,7 @@
 
         public bool Contains(Node node) => node1.Equals(node) || node2.Equals(node);
 
-        public double Distance() => node1.Distance(node2); //property
+        public double Length() => node1.Distance(node2); //property
 
         public bool IsBridge(Graph graph, List<Edge> edges)
         {
@@ -49,6 +51,37 @@
             edgesWithoutSelf.Remove(this);
 
             return graph.DepthFirstSearch(edges, node1).Count != graph.DepthFirstSearch(edgesWithoutSelf, node1).Count;
+        }
+
+        public void MakeNode1(Node node1)
+        {
+            if (this.node1 == node1) return;
+            if(this.node2 == node1)
+            {
+                (this.node1, this.node2) = (this.node2, this.node1);
+                return;
+            }
+            else
+                throw new ArgumentException($"Edge {this} does not contain node {node1}");
+        }
+
+        public void MakeNode2(Node node2)
+        {
+            if (this.node2 == node2) return;
+            if (this.node1 == node2)
+            {
+                (this.node1, this.node2) = (this.node2, this.node1);
+                return;
+            }
+            else
+                throw new ArgumentException($"Edge {this} does not contain node {node2}");
+        }
+
+        public Node GetOtherNode(Node node)
+        {
+            if (node1 == node) return node2;
+            if (node2 == node) return node1;
+            else throw new ArgumentException($"Edge {this} does not contain node {node}");
         }
     }
 }

@@ -20,11 +20,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         private double _partialSum { get; } = 0;
 
-        private double GetPartialSum() => broken.Select(e => e.Distance()).Sum() - added.Select(e => e.Distance()).Sum();
+        private double GetPartialSum() => broken.Select(e => e.Length()).Sum() - added.Select(e => e.Length()).Sum();
         private double GetPartialSum(int i)
         {
-            var brokenSum = broken.Take(i).Select(e => e.Distance()).ToList().Sum();
-            var addedSum = added.Take(i).Select(e => e.Distance()).ToList().Sum();
+            var brokenSum = broken.Take(i).Select(e => e.Length()).ToList().Sum();
+            var addedSum = added.Take(i).Select(e => e.Length()).ToList().Sum();
             return brokenSum - addedSum;
         }
 
@@ -74,7 +74,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 y1.node2 = node;
                 if (unuseableEdges.Contains(y1))
                     continue;
-                if (x1.Distance() - y1.Distance() <= 0) //y1 distance only decreases, because node2 are are picked from a list ordered by distance to node1
+                if (x1.Length() - y1.Length() <= 0) //y1 distance only decreases, because node2 are are picked from a list ordered by distance to node1
                 {
                     //go to backtracking 6(d)
                 }
@@ -82,73 +82,73 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             }            
             Add(y1);
 
-            Step45(x1, y1);         
+            //Step45(x1, y1);         
         }
 
-        public void Step45 (Edge x1, Edge y1)
-        {
-            double bestImprovement = 0;
-            //STEP 4
-            Edge? xi = x1, yi = y1;
-            while (GetPartialSum(i) > bestImprovement)
-            {
-                Console.WriteLine($"i: {i}, xi: {xi}, yi:{yi}");
-                PrintState();
+        //public void Step45 (Edge x1, Edge y1)
+        //{
+        //    double bestImprovement = 0;
+        //    //STEP 4
+        //    Edge? xi = x1, yi = y1;
+        //    while (GetPartialSum(i) > bestImprovement)
+        //    {
+        //        Console.WriteLine($"i: {i}, xi: {xi}, yi:{yi}");
+        //        PrintState();
 
-                i++;
-                xi = FindX(yi.node2);
+        //        i++;
+        //        xi = FindX(yi.node2);
 
-                if (xi == null)
-                {
-                    Console.WriteLine("POSSIBLE ERROR: xi was not found");
-                    break; //asi by  nikdy nemelo nastat?
-                }
-                yi = FindY(xi);
+        //        if (xi == null)
+        //        {
+        //            Console.WriteLine("POSSIBLE ERROR: xi was not found");
+        //            break; //asi by  nikdy nemelo nastat?
+        //        }
+        //        yi = FindY(xi);
 
-                if (yi == null)
-                    break;
+        //        if (yi == null)
+        //            break;
 
-                Break(xi);
+        //        Break(xi);
 
-                double improvement = GetPartialSum(i - 1) + xi.node2.Distance(t1) - xi.Distance();
+        //        double improvement = GetPartialSum(i - 1) + xi.node2.Distance(t1) - xi.Length();
 
-                if (improvement > bestImprovement)
-                {
-                    bestImprovement = improvement;
-                    k = i;
-                }
+        //        if (improvement > bestImprovement)
+        //        {
+        //            bestImprovement = improvement;
+        //            k = i;
+        //        }
 
-                Add(yi);
-            }
+        //        Add(yi);
+        //    }
 
-            //STEP 5
-            if (bestImprovement > 0)
-            {
-                for (int j = 0; j < added.Count - 1; j++) //last yi is not used
-                    available.Add(added[j]);
-                available.Add(new Edge(xi.node2, t1)); //add closing edge to make a tour
+        //    //STEP 5
+        //    if (bestImprovement > 0)
+        //    {
+        //        for (int j = 0; j < added.Count - 1; j++) //last yi is not used
+        //            available.Add(added[j]);
+        //        available.Add(new Edge(xi.node2, t1)); //add closing edge to make a tour
 
-                FindShortestPathA(graph);
-            }
-        }
+        //        FindShortestPathA(graph);
+        //    }
+        //}
 
-        public void PrintState()
-        {
-            Console.Write($"available: ");
-            foreach (var edge in available)
-                Console.Write($"{edge}, ");
-            Console.WriteLine();
+        //public void PrintState()
+        //{
+        //    Console.Write($"available: ");
+        //    foreach (var edge in available)
+        //        Console.Write($"{edge}, ");
+        //    Console.WriteLine();
 
-            Console.Write($"broken: ");
-            foreach (var edge in broken)
-                Console.Write($"{edge}, ");
-            Console.WriteLine();
+        //    Console.Write($"broken: ");
+        //    foreach (var edge in broken)
+        //        Console.Write($"{edge}, ");
+        //    Console.WriteLine();
 
-            Console.Write($"added: ");
-            foreach (var edge in added)
-                Console.Write($"{edge}, ");
-            Console.WriteLine();
-        }
+        //    Console.Write($"added: ");
+        //    foreach (var edge in added)
+        //        Console.Write($"{edge}, ");
+        //    Console.WriteLine();
+        //}
 
         public bool CheckGainCriterion() => GetPartialSum() > 0;
 
@@ -197,7 +197,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     continue;
                 else if (available.Where(edge => edge.Contains(node)).Where(e => CheckIfTourIsClosable(e)).ToList().Count() == 0) ///does not permit breaking xi+1
                     continue;
-                else if (!CheckGainCriterion(xEdge.Distance(), y.Distance())) //partial sum isnt positive
+                else if (!CheckGainCriterion(xEdge.Length(), y.Length())) //partial sum isnt positive
                     continue;
                 else return y;     
             }

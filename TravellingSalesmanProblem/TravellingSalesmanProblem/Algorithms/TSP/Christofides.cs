@@ -6,7 +6,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
     {
         private readonly IPrims prims = new Prims();
         private readonly PerfectMatchingGreedyAlgorithm perfectMatchingAlgorithm = new PerfectMatchingGreedyAlgorithm();
-        private readonly Fleurys fleurys = new Fleurys(); //interface
 
         public List<Node> FindShortestPath(Graph graph)
         {
@@ -16,7 +15,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<Edge> perfectMatching = perfectMatchingAlgorithm.FindPerfectMatching(new Graph(graph.OddDegreeNodes(minimalSpanningTree)));
 
-            path = fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList());
+            path = Fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList());
 
             path = path.Distinct().ToList(); //shortcutting
 

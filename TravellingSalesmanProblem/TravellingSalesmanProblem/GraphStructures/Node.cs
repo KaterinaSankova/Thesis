@@ -16,8 +16,8 @@
 
         public override string ToString()
         {
-            //return $"{id}:[{x}, {y}]";
-            return $"{id}";
+            return $"{id}:[{x}, {y}]";
+            //return $"{id}";
         }
 
         public override bool Equals(object? obj)

@@ -5,7 +5,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
     public class DoubleTree
     {
         private readonly IPrims prims = new Prims();
-        private readonly Fleurys fleurys = new Fleurys(); //interface
 
         public List<Node> FindShortestPath(Graph graph)
         {
@@ -13,7 +12,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<Edge>  multiGraph = minimalSpanningTree.Concat(minimalSpanningTree).ToList(); //refactor
 
-            List<Node> eulerCircuit = fleurys.FindEulerCircuit(graph, multiGraph);
+            List<Node> eulerCircuit = Fleurys.FindEulerCircuit(graph, multiGraph);
 
             List<Node> path = eulerCircuit.Distinct().ToList(); //shortcutting
 

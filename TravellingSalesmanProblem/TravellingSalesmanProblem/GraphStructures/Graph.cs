@@ -44,7 +44,7 @@ namespace TravellingSalesmanProblem.GraphStructures
                 foreach (Node toNode in toNodes)
                 {
                     currentEdge = new Edge(fromNode, toNode);
-                    currDistance = currentEdge.Distance();
+                    currDistance = currentEdge.Length();
                     if (currDistance < minDistance && fromNode != toNode)
                     {
                         minDistance = currDistance;
@@ -63,19 +63,45 @@ namespace TravellingSalesmanProblem.GraphStructures
             Stack<Node> stack = new Stack<Node>();
 
             stack.Push(node);
-            visited.Add(node);
 
             while (stack.Count > 0)
             {
                 node = stack.Pop();
+
+                if(!visited.Contains(node))
+                {
+                    visited.Add(node);
+
+                    var connectedNodes = node.ConnectedNodes(edges);
+                    foreach (Node adjacentNode in connectedNodes)
+                        if (!visited.Contains(adjacentNode))
+                            stack.Push(adjacentNode);
+                }
+
+            }
+
+            return visited;
+        }
+
+        public List<Node> BreadthFirstSearch(List<Edge> edges, Node node)
+        {
+            List<Node> visited = new List<Node>();
+            Queue<Node> queue = new Queue<Node>();
+
+            queue.Enqueue(node);
+            visited.Add(node);
+
+            while (queue.Count > 0)
+            {
+                node = queue.Dequeue();
 
                 var connectedNodes = node.ConnectedNodes(edges);
 
                 foreach (Node adjacentNode in connectedNodes)
                     if (!visited.Contains(adjacentNode))
                     {
-                        stack.Push(adjacentNode);
                         visited.Add(adjacentNode);
+                        queue.Enqueue(adjacentNode);
                     }
             }
 
@@ -87,7 +113,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             double length = 0;
 
             foreach (var edge in edges)
-                length += edge.Distance();
+                length += edge.Length();
 
             return length;
         }
