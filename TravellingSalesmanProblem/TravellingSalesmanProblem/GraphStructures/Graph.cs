@@ -8,6 +8,8 @@ namespace TravellingSalesmanProblem.GraphStructures
     public class Graph //add dimension property //osetrit grafy s 0 nebo 1 nodem
     {
         public readonly List<Node> nodes;
+        public List<Edge>? edges;
+
         public int Size
         {
             get { return nodes.Count; }

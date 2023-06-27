@@ -23,7 +23,7 @@ namespace TravellingSalesmanProblem.Testing
             switch (algorithm)
             {
                 case TSPAlgorithms.Christofides:
-                    return 3 / 2;
+                    return 1.5f;
                 case TSPAlgorithms.DoubleTree:
                     return 2;
                 case TSPAlgorithms.NearestAddition:
@@ -128,9 +128,9 @@ namespace TravellingSalesmanProblem.Testing
 
             Console.Write($"Christofides algorith: {algoLen}, ");
 
-            Console.WriteLine($"{length <= 3 / 2 * algoLen}\n\n\n");
+            Console.WriteLine($"{length <= 1.5f * algoLen}\n\n\n");
 
-            pass = pass && length <= 3 / 2 * algoLen && CheckResult(input, result.nodes);
+            pass = pass && length <= 1.5f * algoLen && CheckResult(input, result.nodes);
 
             return pass;
         }

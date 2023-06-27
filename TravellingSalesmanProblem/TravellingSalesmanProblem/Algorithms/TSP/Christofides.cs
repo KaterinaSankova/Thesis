@@ -13,7 +13,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<Edge> minimalSpanningTree = prims.FindSpanningTree(graph);
 
-            List<Edge> perfectMatching = perfectMatchingAlgorithm.FindPerfectMatching(new Graph(graph.OddDegreeNodes(minimalSpanningTree)));
+            List<Edge> perfectMatching = PerfectMatching.FindMinimalPerfectMatching(new Graph(graph.OddDegreeNodes(minimalSpanningTree)));
 
             path = Fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList());
 

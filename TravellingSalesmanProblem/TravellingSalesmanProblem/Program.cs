@@ -50,7 +50,9 @@ namespace TravellingSalesmanProblem
 
             List<Node> square = new List<Node>() {new Node(0, -1, -1) , new Node(1, -1, 1) , new Node(2, 1, -1) , new Node(3, 1, 1) };
 
-            kl.FindShortestPath(new Graph(square));
+            var at = new AlgorithmsTest();
+            at.TestAlgorithm();
+           // kl.FindShortestPath(new Graph(square));
 
             /*  var test = new TSPLibTest();
               test.TestTPSLib();*/

@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\GEOM">
+      <UniqueIdentifier>{fa3e5f2c-a1f2-4e89-a2ac-49f7d6982fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MinCost">
+      <UniqueIdentifier>{93ea1418-67ff-49e6-b467-f2c60ea7549d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GEOM">
+      <UniqueIdentifier>{c34197c9-e5f4-419d-8e34-96c12bd18f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MinCost">
+      <UniqueIdentifier>{bf53a4c6-a3ab-4c88-bb85-70ab2556d5ce}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\GEOM\GeomPerfectMatching.h">
+      <Filter>Header Files\GEOM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\GEOM\GPMkdtree.h">
+      <Filter>Header Files\GEOM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\MinCost\MinCost.h">
+      <Filter>Header Files\MinCost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\LCA.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\PerfectMatching.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\PMimplementation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\PQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\blossomV\timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\GEOM\GPMinit.cpp">
+      <Filter>Source Files\GEOM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\GEOM\GPMinterface.cpp">
+      <Filter>Source Files\GEOM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\GEOM\GPMkdtree.cpp">
+      <Filter>Source Files\GEOM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\GEOM\GPMmain.cpp">
+      <Filter>Source Files\GEOM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\MinCost\MinCost.cpp">
+      <Filter>Source Files\MinCost</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMshrink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMrepair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMinterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMinit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMexpand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMduals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\misc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\blossomV\PMSolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\blossomV\MinCost\instances.inc">
+      <Filter>Source Files\MinCost</Filter>
+    </None>
+    <None Include="..\blossomV\MinCost\MinCost.cpp.orig">
+      <Filter>Source Files\MinCost</Filter>
+    </None>
+    <None Include="..\blossomV\MinCost\MinCost.cpp.rej">
+      <Filter>Source Files\MinCost</Filter>
+    </None>
+    <None Include="..\blossomV\MinCost\p">
+      <Filter>Source Files\MinCost</Filter>
+    </None>
+  </ItemGroup>
+</Project>
