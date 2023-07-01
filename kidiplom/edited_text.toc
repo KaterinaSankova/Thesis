@@ -1,0 +1,25 @@
+\babel@toc {czech}{}\relax 
+\contentsline {section}{\numberline {1}Teorie}{7}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Graf}{7}{subsection.1.1}%
+\contentsline {subsubsection}{\numberline {1.1.1}Cestování v grafech}{7}{subsubsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.2}Problém}{8}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Složitost}{10}{subsubsection.1.2.1}%
+\contentsline {section}{\numberline {2}Problém obchodního cestujícího}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Složitost}{11}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Metrický problém obchodního cestujícího}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Euklidovský problém obchodního cestujícího}{12}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Algoritmy}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Nearest addition}{13}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Aproximační faktor}{13}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Double-tree}{15}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Aproximační faktor}{16}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.3}Christofides'}{16}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{17}{subsubsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.4}Keringhan - Lin}{18}{subsection.3.4}%
+\contentsline {section}{Z\'av\v er}{19}{section*.3}%
+\babel@toc {czech}{}\relax 
+\babel@toc {czech}{}\relax 
+\contentsline {section}{Conclusions}{20}{section*.5}%
+\babel@toc {english}{}\relax 
+\babel@toc {czech}{}\relax 
+\contentsline {section}{Seznam zkratek}{21}{section*.7}%
