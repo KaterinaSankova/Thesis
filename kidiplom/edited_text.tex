@@ -158,41 +158,83 @@ Každý optimalizační problém má svoji \textit{rozhodovací verzi}. Místo, 
 \subsubsection{Složitost}
 Na začátku je třeba si zavést třídy \textbf{P} a \textbf{NP}. Algoritmy, které spadají do třídy \textbf{P} jsou řešitelné deterministickými stroji v polynomiálním čase a bereme je za praktický zvládnutelné. Na nedeterministických strojích můžeme řešit v polynomiálním čase \textbf{NP} problémy. U těchto strojů předpokládáme, že z možných kroků provede vždy ten žádaný a dostane se tak ke správnému výsledku bez nutnosti zkoušet všechny možnosti. Jistě platí $\textbf{P} \subseteq \textbf{NP}$, jelikož deterministické stoje jsou speciálním případem nedeterministických, které pouze nevyužívají možnosti nedeterministického výběru.
 
-Některé rozhodovací problémy mají navíc tu vlastnost, že jsou na ně polynomiálně redukovatelné všechny rozhodovací problémy v \textbf{NP}. To znamená, že pro každý vstup libovolného problému $P_1$ můžeme v polynomiálním čase najít vstup pro $P_2$, který bude vracet stejnou odpověď, jakou by vrátil $P_1$ na původní vstup. Problémům s touto vlastností se říká \textit{\textbf{NP}-těžké}.
+Některé rozhodovací problémy mají navíc tu vlastnost, že jsou na ně polynomiálně redukovatelné všechny rozhodovací problémy v \textbf{NP}. To znamená, že pro každý vstup libovolného problému $P_1$ můžeme v polynomiálním čase najít vstup pro $P_2$, který bude vracet stejnou odpověď, jakou by vrátil $P_1$ na původní vstup. Problémům s touto vlastností se říká \textit{\textbf{NP}\textendash těžké}.
 
 Pokud jsou navíc \textbf{NP}, říká se jim \textit{\textbf{NP}-úplné}. Tyto problémy jsou důležité, protože kdyby se podařilo najít algoritmus řešící kterýkoli z nich v polynomiálním čase, pak bychom jistě zvládli vyřešit i všechny \textbf{NP} problémy v polynomiálním čase, tedy $\textbf{NP} \subseteq \textbf{P}$ a z toho $\textbf{NP} = \textbf{P}$. Naopak, pokud bychom zjistili, že $\textbf{NP} \neq \textbf{P}$, pak pro žádný \textbf{NP}\textendash úplný problém jistě nemůže existovat polynomiální algoritmus, který ho řeší.
 
-     - Zavest rozhodovaci verzi optimalizacniho problemu a ukazat, ze kdyz je NP-tezka,
-       tak neexistuje polynomicky algoritmus, ktery vzdy vrati optimalni reseni
-     - Nakonec rict, ze z P != NP muze vyplyvat i to, ze neexistuje polynomicky algoritmus
-       s aproximacni faktorem lepsim nez nejaka fce.
-
+Z $\textbf{P} \neq \textbf{NP}$ jde vyvodit ještě jedno důležité tvrzení. Nechť $P_O$ je optimalizační problém a $P_D$ je jeho rozhodovací verze. Pokud dokážeme, že $P_D$ je \textbf{NP}\textendash těžký, pak pro $P_O$ neexistuje polynomický algoritmus. Kdyby totiž takový algoritmus existoval, stačilo by ho využít pro nalezení optimálního řešení, porovnat jeho cenu s se zadaným číslem $k$ pro $P_D$ a na základě toho, jestli by bylo větší nebo menší v závislosti na povaze $P_O$ vydat \textsc{Ano} nebo \textsc{Ne}. Tímto bychom tedy získali polynomiální algoritmus řešící také $P_D$. Jenže protože $P_D$ je \textbf{NP}\textendash těžký, tak všechny \textbf{NP} problémy jsou na něj polynomiálně redukovatelné a zvládli bychom je tedy i v polynomiálním čase řešit a tedy \textbf{P} = \textbf{NP}, což je spor.
 
 
 \pagebreak
 \section{Problém obchodního cestujícího}
-Problém obchodního cestujícího (TSP - \textit{Travelling Salesman Problem}) je jedním z nejstudovanějších kombinatorických úloh. Podstatou je mezi zadanými městy nalézt cestu, která začíná i končí ve stejném místě a zbytek měst navštíví právě jedenkrát. Jelikož seznam měst můžeme brát jako množinu vrcholů grafu, můžeme o TSP uvažovat jako o úloze o cestování v grafu. Cestou, kterou hledáme je pak \textit{hamiltonovská kružnice}.
+Problém obchodního cestujícího (TSP - \textit{Travelling Salesman Problem}) je jedním z nejstudovanějších optimalizačních problémů. Podstatou je mezi zadanými městy nalézt cestu, která začíná i končí ve stejném místě a zbytek měst navštíví právě jedenkrát. Jelikož seznam měst můžeme brát jako množinu vrcholů grafu, můžeme o TSP uvažovat jako o úloze o cestování v grafu. Cestou, kterou hledáme je pak \textit{hamiltonovská kružnice}.
 
 Formálně bychom mohli TSP definovat následně:
 \begin{definition}[Problém obchodního cestujícího]
 \begin{itemize}[label={}]
   \item
-  \item NÁZEV: TSP
-  \item VSTUP: Úplný neorientovaný graf $G=\langle V, E \rangle$,
+  \item \textsc{Název}: TSP
+  \item \textsc{Vstup}: Úplný neorientovaný graf $G=\langle V, E \rangle$,
   \begin{itemize}[label={}]
   \item \begin{itemize}[label={}]
   \item hranové ohodnocení $c : E \leftarrow R^+$
   \end{itemize}
   \end{itemize}
-  \item VÝSTUP: Hamiltonovská kružnice v $G$ minimální délky
+  \item \textsc{Výstup}: Hamiltonovská kružnice v $G$ minimální délky
 \end{itemize}
 \end{definition}
 
 Ceny hran budeme nazývat také \textit{délky} a pro jednoduchost budeme místo $c(\{u, v\})$ psát $c_{u, v}$.
 
-TSP patří do skupiny tzv. \textit{optimalizačních problémů}. U těchto problémů existuje pro každý vstup několik přípustných řešení a máme zadanou funkci $f$ přiřazující každému z těchto řešení číselnou hodnotu. Úlohou je pak najít pro vstup $I$ některé z řešení, jehož hodnota $f(I)$ je mezi všemi minimální, případně maximální. Zde bude funkce přiřazovat každé nalezené cestě součet délek jejich hran daných ohodnocením $c$.
-
 \subsection{Složitost}
+Jedním z důvodů, proč je TSP tak zkoumaným problémem, je jeho složitost. Samotný problém je jistě v \textbf{NP}. Nedeterministický stroj, který by měl za úkol ho vyřešit, by prostě vybral $|V|$ hran z $E$ a jelikož by vždy volil správně, vrátil by nejkratší hamiltonovskou kružnici v grafu. Tohle by samozřejmě zvládnul provést v  polynomiálním čase.
+
+Zavedeme si nyní rozhodovací verzi k TSP.
+\begin{definition}[Rozhodovací verze TSP]
+\begin{itemize}[label={}]
+  \item
+  \item \textsc{Název}: TSP
+  \item \textsc{Vstup}: Úplný neorientovaný graf $G=\langle V, E \rangle$,
+  \begin{itemize}[label={}]
+  \item \begin{itemize}[label={}]
+  \item hranové ohodnocení $c : E \leftarrow R^+$,
+  \item číslo $k$
+  \end{itemize}
+  \end{itemize}
+  \item \textsc{Otázka} Existuje v $G$ hamiltonovská kružnice délky nejvýš $k$?
+\end{itemize}
+\end{definition}
+
+Ví se, že tato verze problému je \textbf{NP}\textendash úplná. Tedy platí, že pokud nalezneme polynomiální algoritmus řešící TSP, pak dokážeme \textbf{P} = \textbf{NP}.
+
+Nyní si dokážeme ještě zajímavější tvrzení.
+\begin{theorem}
+Pokud by existoval $2^n$\textendash aproximační polynomiální algoritmus pro TSP, pak~$\textbf{P} = \textbf{NP}$.
+\end{theorem}
+
+
+
+Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamiltonovské kružnice (\textit{HC - Hamiltonian Cycle}) v grafu.
+\begin{definition}[Rozhodovací verze HC]
+\begin{itemize}[label={}]
+  \item
+  \item \textsc{Název}: HC
+  \item \textsc{Vstup}: Neorientovaný graf $G=\langle V, E \rangle$
+  \item \textsc{Otázka} Existuje v $G$ hamiltonovská kružnice?
+\end{itemize}
+\end{definition}
+
+O tomto problému je známo, že je \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP. To uděláme tak, že pro každou hranu $e$ úplného grafu s vrcholy původní instance nastavíme ohodnocení následovně:
+$$c_e = \begin{cases}
+1  & \text{for } e \in E\\
+|V|*2^{|V|} & \text{for } e \not\in E\\
+\end{cases}$$
+Pokud bude $OPT_{TSP} = |V|$, pak v původním grafu existovala hamiltonovská kružnice, v opačném případě bude $OPT_{TSP} \ge |V|*2^{|V|}$. Uvědomme si, že hrany s cenou $|V|*2^{|V|}$ budou vybrány pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu.
+
+Díky takovému ohodnocení existuje exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pro pozitivní instance by tedy algoritmus našel v nejhorším případě 
+
+
+\pagebreak
 Jedním z důvodů, proč je TSP tak zkoumaným problémem, je jeho složitost. Abychom našli správné (optimální) řešení, museli bychom projít všechna přípustná řešení a porovnat je mezi sebou. Takových řešení je ale vůči počtu měst exponenciálně. Pokud bychom ale měli k dispozici nedeterministický stroj, pak bychom se mohli spolehnout na to, že vždy najde nejkratší cestu hned. Samotné nalezení cesty je pak zvládnutelné v polynomiálním čase a můžeme o TSP říct, že je to nedeterministický polynomiálním problém (\textit{NP - problém}). Tohle platí i pro jeho \textit{rozhodovací verzi}.
 
 \textit{Rozhodovací problémy} se vyznačují tím, že jako výstupem je pouze \textit{Ano} nebo \textit{Ne}. TSP můžeme upravit následovně.
