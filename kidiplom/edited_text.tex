@@ -224,14 +224,21 @@ Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamilto
 \end{itemize}
 \end{definition}
 
-O tomto problému je známo, že je \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP. To uděláme tak, že pro každou hranu $e$ úplného grafu s vrcholy původní instance nastavíme ohodnocení následovně:
+O tomto problému je známo, že je \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP. Jak jsme již zmínili, TSP má ve své klasické podobě na vstupu graf a jeho příslušné hranové ohodnocení. Vstup $x$ pro HC bychom mohli redukovat na vstup $r(x)$ pro TSP tak, že bychom vytvořili úplný graf mezi uzly z původní instance a ohodnotili bychom jeho hrany následovně:
 $$c_e = \begin{cases}
-1  & \text{for } e \in E\\
-|V|*2^{|V|} & \text{for } e \not\in E\\
+1  & \text{pro } e \in E\\
+|V|\cdot2^{|V|} + 1 & \text{pro } e \not\in E\\
 \end{cases}$$
-Pokud bude $OPT_{TSP} = |V|$, pak v původním grafu existovala hamiltonovská kružnice, v opačném případě bude $OPT_{TSP} \ge |V|*2^{|V|}$. Uvědomme si, že hrany s cenou $|V|*2^{|V|}$ budou vybrány pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu.
+Snadno můžeme dojít k tomu, že
+$$OPT_{TSP}(r(x)) = \begin{cases}
+= |V|  & \text{pro } x \in HC\\
+> |V|\cdot2^{|V|} & \text{pro } x \not\in HC\\
+\end{cases}$$
+Uvědomme si, že hrany s cenou $|V|\cdot2^{|V|}$ budou obsaženy v optimálním řešení pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu. Pokud by byla musela být vybrána pouze jedna taková hrana, pak bude cena nalezené cesty $$(|V| - 1) + (|V|\cdot2^{|V|} + 1) > |V|\cdot2^{|V|}$$
 
-Díky takovému ohodnocení existuje exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pro pozitivní instance by tedy algoritmus našel v nejhorším případě 
+Díky takovému ohodnocení existuje tedy exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pokud bychom měli $2^n$\textendash aproximační polynomiální algoritmus $A$ pro TSP, pak pro pozitivní instance HC by našel cestu délky nejhůře $|V|\cdot2^{|V|}$, pro negativní instance zase nejlépe délky $|V|\cdot2^{|V|} + 1$.
+
+HC bychom mohli vyřešit tak, že bychom spustili $A$ na $r(x)$ a pokud by délka vrácené cesty byla menší nebo rovna $|V|\cdot2^{|V|}$, pak bychom vrátili \textsc{Ano}, v opačném případě \textsc{Ne}. Vzhledem k tomu, že převod na $r(x)$, $A$ i porovnání na konci běží v polynomiálním čase, pak bychom celý HC mohli rozhodnout v polynomiálním čase. Uvedli jsme navíc, že HC je \textbf{NP}\textendash úplný. V kapitole o složitosti jsme řešili, že nalezení polynomiálního algoritmu pro kterýkoli z problémů této množiny by znamenalo, že $\textbf{N} = \textbf{NP}$.
 
 
 \pagebreak

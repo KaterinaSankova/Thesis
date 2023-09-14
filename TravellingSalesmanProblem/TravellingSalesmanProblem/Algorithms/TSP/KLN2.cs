@@ -46,6 +46,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 this.path = GenerateRandomStartingTour();
             else
                 this.path = path;
+            //neco jako if path==null tak nastavit hodnoty zpet na default
 
             Console.WriteLine();
             foreach (var node in this.path)
@@ -81,7 +82,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         {
             int i;
             k = 0;
-            globalBestPathImprovement = 0;
+            globalBestPathImprovement = 0; //aha? ....current?
             var ranomizedNodes = path.OrderBy(_ => rand.Next()).ToList();
             //Node
             foreach (var firstNode in ranomizedNodes)
