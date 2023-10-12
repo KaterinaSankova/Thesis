@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Algorithms\Constants\" />
     <Folder Include="libs\" />
   </ItemGroup>
 

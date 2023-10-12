@@ -1,0 +1,3 @@
+Reflexivní a tranz>tivní binární relace R na X se nazývá kvaz>uspořádání. Antisymetrické kvaz>uspořádání se nazývá uspořádání. Uplné uspořádání 
+se nazývá lineární uspořádání neboli řetězec. Pokud je R uspořádání na X, pak se
+<X, R> nazývá uspořádaná množina.

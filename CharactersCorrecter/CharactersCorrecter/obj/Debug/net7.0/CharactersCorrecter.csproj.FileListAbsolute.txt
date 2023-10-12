@@ -1,0 +1,15 @@
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\bin\Debug\net7.0\CharactersCorrecter.exe
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\bin\Debug\net7.0\CharactersCorrecter.deps.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\bin\Debug\net7.0\CharactersCorrecter.runtimeconfig.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\bin\Debug\net7.0\CharactersCorrecter.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\bin\Debug\net7.0\CharactersCorrecter.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.csproj.AssemblyReference.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.GeneratedMSBuildEditorConfig.editorconfig
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.AssemblyInfoInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.AssemblyInfo.cs
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.csproj.CoreCompileInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\refint\CharactersCorrecter.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\CharactersCorrecter.genruntimeconfig.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\CharactersCorrecter\CharactersCorrecter\obj\Debug\net7.0\ref\CharactersCorrecter.dll

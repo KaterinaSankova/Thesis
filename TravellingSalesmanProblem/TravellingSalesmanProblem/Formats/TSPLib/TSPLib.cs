@@ -43,7 +43,7 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
             while ((line = reader.ReadLine()) != null && line != "EOF") //EOF is optional
                 RedirectToSection(line, reader);
 
-            Name ??= Path.GetFileName(path)[0..^4]; //if there is no Name, it will set it to the name of the file
+            Name ??= System.IO.Path.GetFileName(path)[0..^4]; //if there is no Name, it will set it to the name of the file
 
             return;
         }

@@ -35,7 +35,7 @@ namespace TravellingSalesmanProblem.Testing
 
         public bool TestAlgorithm()
         {
-            string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\GoodFormat\"));
+            string path = System.IO.Path.GetFullPath(System.IO.Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest\GoodFormat\"));
 
             string[] dataFiles = Directory.GetFiles(path, "*.tsp");
 

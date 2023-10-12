@@ -53,29 +53,7 @@
             return graph.DepthFirstSearch(edges, node1).Count != graph.DepthFirstSearch(edgesWithoutSelf, node1).Count;
         }
 
-        public void MakeNode1(Node node1)
-        {
-            if (this.node1 == node1) return;
-            if(this.node2 == node1)
-            {
-                (this.node1, this.node2) = (this.node2, this.node1);
-                return;
-            }
-            else
-                throw new ArgumentException($"Edge {this} does not contain node {node1}");
-        }
-
-        public void MakeNode2(Node node2)
-        {
-            if (this.node2 == node2) return;
-            if (this.node1 == node2)
-            {
-                (this.node1, this.node2) = (this.node2, this.node1);
-                return;
-            }
-            else
-                throw new ArgumentException($"Edge {this} does not contain node {node2}");
-        }
+        public bool SharesNode(Edge edge) => edge.Contains(this.node1) || edge.Equals(this.node2);
 
         public Node GetOtherNode(Node node)
         {

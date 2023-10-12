@@ -1,0 +1,5 @@
+D:\Documents\Výška\Thesis\GraphicTravellingSalesmanProblem\GraphicTravellingSalesmanProblem\obj\Any CPU\Debug\net7.0-windows\GraphicTravellingSalesmanProblem.csproj.AssemblyReference.cache
+D:\Documents\Výška\Thesis\GraphicTravellingSalesmanProblem\GraphicTravellingSalesmanProblem\obj\Any CPU\Debug\net7.0-windows\MainWindow.g.cs
+D:\Documents\Výška\Thesis\GraphicTravellingSalesmanProblem\GraphicTravellingSalesmanProblem\obj\Any CPU\Debug\net7.0-windows\App.g.cs
+D:\Documents\Výška\Thesis\GraphicTravellingSalesmanProblem\GraphicTravellingSalesmanProblem\obj\Any CPU\Debug\net7.0-windows\GraphicTravellingSalesmanProblem_MarkupCompile.cache
+D:\Documents\Výška\Thesis\GraphicTravellingSalesmanProblem\GraphicTravellingSalesmanProblem\obj\Any CPU\Debug\net7.0-windows\GraphicTravellingSalesmanProblem_MarkupCompile.lref

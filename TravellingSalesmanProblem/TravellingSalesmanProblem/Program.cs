@@ -45,14 +45,22 @@ namespace TravellingSalesmanProblem
             nodes.Add(node9);
             Console.WriteLine();
 
-            var kl = new KLN2();
-           // kl.FindShortestPath(new Graph(nodes));
+            var saved = Console.Out;
+            FileStream filestream = new FileStream("D:\\Documents\\Výška\\Thesis\\log.txt", FileMode.Create);
+            var streamwriter = new StreamWriter(filestream);
+            streamwriter.AutoFlush = true;
+            Console.SetOut(streamwriter);
 
-            List<Node> square = new List<Node>() {new Node(0, -1, -1) , new Node(1, -1, 1) , new Node(2, 1, -1) , new Node(3, 1, 1) };
+            var path = KernighanLin.FindShortestPath(new Graph(nodes));
 
-            var at = new AlgorithmsTest();
-            at.TestAlgorithm();
-           // kl.FindShortestPath(new Graph(square));
+            Console.SetOut(saved);
+            Console.WriteLine("End");
+
+            //  List<Node> square = new List<Node>() {new Node(0, -1, -1) , new Node(1, -1, 1) , new Node(2, 1, -1) , new Node(3, 1, 1) };
+
+            //    var at = new AlgorithmsTest();
+            //    at.TestAlgorithm();
+            // kl.FindShortestPath(new Graph(square));
 
             /*  var test = new TSPLibTest();
               test.TestTPSLib();*/

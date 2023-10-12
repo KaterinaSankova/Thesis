@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\GraphicTravellingSalesmanProblem",
+    "\\GraphicTravellingSalesmanProblem\\obj\\Release",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\TSPLib",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Formats",
+    "\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures"
+  ],
+  "SelectedNode": "\\GraphicTravellingSalesmanProblem.sln",
+  "PreviewInSolutionExplorer": false
+}

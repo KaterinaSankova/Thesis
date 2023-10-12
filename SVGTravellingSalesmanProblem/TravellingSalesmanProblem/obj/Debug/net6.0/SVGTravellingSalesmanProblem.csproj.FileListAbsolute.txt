@@ -1,0 +1,36 @@
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.AssemblyReference.cache
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.GeneratedMSBuildEditorConfig.editorconfig
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.AssemblyInfoInputs.cache
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.AssemblyInfo.cs
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.CoreCompileInputs.cache
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.exe
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.deps.json
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.runtimeconfig.json
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.dll
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.pdb
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\GrapeCity.Documents.Imaging.dll
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\ja\GrapeCity.Documents.Imaging.resources.dll
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.CopyComplete
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.dll
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\refint\SVGTravellingSalesmanProblem.dll
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.pdb
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.genruntimeconfig.cache
+D:\Documents\Výška\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\ref\SVGTravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.exe
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.deps.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.runtimeconfig.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\SVGTravellingSalesmanProblem.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\GrapeCity.Documents.Imaging.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\bin\Debug\net6.0\ja\GrapeCity.Documents.Imaging.resources.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.AssemblyReference.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.GeneratedMSBuildEditorConfig.editorconfig
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.AssemblyInfoInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.AssemblyInfo.cs
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.CoreCompileInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.csproj.CopyComplete
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\refint\SVGTravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\SVGTravellingSalesmanProblem.genruntimeconfig.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\SVGTravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\ref\SVGTravellingSalesmanProblem.dll

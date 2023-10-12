@@ -458,7 +458,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             {
                 edges.Add(edge);
             }
-            edges.Concat(brokenEdges.Skip(k).ToList());
+            edges = edges.Concat(brokenEdges.Skip(k).ToList()).ToList();
             edges.Add(new Edge(startingNode, enclosingNode));
 
             return graph.DepthFirstSearch(edges, startingNode);
