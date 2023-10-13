@@ -113,6 +113,11 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4) //connected properly
         {
+            Console.WriteLine("[+] RECONNECTING EDGES");
+            Console.WriteLine($"\tSTARTING NODE: {node1}");
+            Console.WriteLine($"\tENCLOSING NODE: {node2}");
+            Console.WriteLine($"\tNODE: {node3}");
+            Console.WriteLine($"\tNODE: {node4}");
             List<Node> newPath = new List<Node>();
 
             SetDirection(node2, node1);
@@ -136,13 +141,8 @@ namespace TravellingSalesmanProblem.GraphStructures
             }
             newPath.Add(node4);
 
-            Length += new Edge(node1, node2).Length() + new Edge(node3, node4).Length() - new Edge(node2, node3).Length() - new Edge(node4, node1).Length();
+            Length = Length - new Edge(node1, node2).Length() - new Edge(node3, node4).Length() + new Edge(node2, node3).Length() + new Edge(node4, node1).Length();
             this.edges = null;
-
-            if (newPath.Count != 10)
-            {
-                Console.WriteLine("XXXXXXXXXXXXXXXXXXXXXXXXX");
-            }
 
             path = newPath;
         }
