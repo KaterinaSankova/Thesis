@@ -218,7 +218,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
                         var addedEdge1 = new Edge(node2, node3);
                         var node4 = currentPath.PeekPrev(node3);
-                        var brokenEdge2 = new Edge(node3, node4);
 
                         PrintImprovementState(node3, node4, 3);
                         Console.WriteLine($"\tLATEST PATH: {currentPath}");
@@ -239,9 +238,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         enclosingNode = node4;
                         improvedPath = currentPath;
 
-                        bool end = ImprovePathFromBrokenEdge2(brokenEdge2, node4, currentPath);
+                        bool end = ImprovePathFromBrokenEdge2(node3, node4, currentPath);
                         if (currentPath.PeekNext(node3) != node1)
-                            ImprovePathFromAlternativeBrokenEdge2(new Edge(node3, currentPath.PeekNext(node3)));
+                            ImprovePathFromAlternativeBrokenEdge2(node3, currentPath.PeekNext(node3), currentPath);
 
                         if (end)
                             return;
@@ -252,8 +251,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         }
 
-        private static bool ImprovePathFromBrokenEdge2(Edge brokenEdge2, Node node4, Path latestPath)
+        private static bool ImprovePathFromBrokenEdge2(Node node3, Node node4, Path latestPath)
         {
+            var brokenEdge2 = new Edge(node3, node4);
             int i = 2;
 
             RestoreState(latestPath, i);
@@ -329,11 +329,27 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static void ImprovePathFromAlternativeBrokenEdge2(Edge brokenEdge2, Node node4, Path latestPath)
+        private static void ImprovePathFromAlternativeBrokenEdge2(Node node3, Node node4, Path latestPath)
         {
             int i = 2;
 
-            improvement = 0;
+            RestoreState(latestPath, i);
+
+            latestPath.SetDirection(enclosingNode, startingNode);
+            latestPath.CurrentIndex = latestPath.IndexOf(startingNode);
+            latestPath.Next();
+
+            List<(Node Node, double Value)> nodes5Values = new List<(Node Node, double Value)>();
+            Node investigatedNode5 = null;
+            while (investigatedNode5 != node3)
+            {
+                investigatedNode5 = latestPath.Next();
+                if (brokenEdges.Contains(new Edge(node4, investigatedNode5)))
+                    continue;
+                nodes5Values.Add((investigatedNode5, new Edge(node4, investigatedNode5).Length()));
+            }
+            var orderedNodes5 = nodes5Values.OrderByDescending(v => v.Value).Take(5).Select(v => v.Node).ToList();
+
         }
 
         private static void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, Path latestPath, int i)

@@ -50,7 +50,7 @@ namespace TravellingSalesmanProblem
             //Console.WriteLine();
 
             var saved = Console.Out;
-            FileStream filestream = new FileStream("D:\\Documents\\Výška\\Thesis\\log.txt", FileMode.Create);
+            FileStream filestream = new FileStream(".\\..\\..\\..\\..\\..\\log.txt", FileMode.Create);
             var streamwriter = new StreamWriter(filestream);
             streamwriter.AutoFlush = true;
             Console.SetOut(streamwriter);
