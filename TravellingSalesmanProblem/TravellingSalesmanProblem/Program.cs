@@ -14,7 +14,7 @@ namespace TravellingSalesmanProblem
 
             Random rand = new Random();
             List<Node> nodes = new List<Node>();
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
                 //Console.WriteLine(nodes[i]);
@@ -55,7 +55,8 @@ namespace TravellingSalesmanProblem
             streamwriter.AutoFlush = true;
             Console.SetOut(streamwriter);
 
-            var path = KernighanLin.FindShortestPath(new Graph(nodes));
+            var path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
+           // var path = KernighanLin.FindShortestPath(new Graph(nodes));
 
             Console.SetOut(saved);
             Console.WriteLine(path);
@@ -63,12 +64,33 @@ namespace TravellingSalesmanProblem
             Console.WriteLine("End");
 
             stopWatch.Stop();
-            // Get the elapsed time as a TimeSpan value.
             TimeSpan ts = stopWatch.Elapsed;
 
             // Format and display the TimeSpan value.
             string elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
             Console.WriteLine("RunTime " + elapsedTime);
+
+
+            stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            Console.SetOut(streamwriter);
+
+            //path = new Christofides().FindShortestPath(new Graph(nodes));
+            path = KernighanLin.FindShortestPath(new Graph(nodes));
+
+            Console.SetOut(saved);
+            Console.WriteLine(path);
+            Console.WriteLine(path.Length);
+            Console.WriteLine("End");
+
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            Console.WriteLine("RunTime " + elapsedTime);
+
 
             //  List<Node> square = new List<Node>() {new Node(0, -1, -1) , new Node(1, -1, 1) , new Node(2, 1, -1) , new Node(3, 1, 1) };
 

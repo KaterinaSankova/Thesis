@@ -37,15 +37,13 @@ namespace GraphicTravellingSalesmanProblem
 
             var rnd = new Random();
 
-            Graph graph = new Graph( new List<Node>()
+            List<Node> nodes = new List<Node>();
+            for (int i = 0; i < 1000; i++)
             {
-                new Node(0, rnd.NextDouble() * rnd.Next(-20, 500), rnd.NextDouble() * rnd.Next(-20, 500)),
-                new Node(1, rnd.NextDouble() * rnd.Next(-20, 500), rnd.NextDouble() * rnd.Next(-20, 500)),
-                new Node(2, rnd.NextDouble() * rnd.Next(-20, 500), rnd.NextDouble() * rnd.Next(-20, 500)),
-                new Node(3, rnd.NextDouble() * rnd.Next(-20, 500), rnd.NextDouble() * rnd.Next(-20, 500)),
-                new Node(4, rnd.NextDouble() * rnd.Next(-20, 500), rnd.NextDouble() * rnd.Next(-20, 500))
+                nodes.Add(new Node(i, rnd.Next(20), rnd.Next(20)));
+            }
 
-            });
+            Graph graph = new Graph(nodes);
 
             values = graph.nodes;
             var bounds = graph.GetExtremeCoordinatesValues();
@@ -54,7 +52,7 @@ namespace GraphicTravellingSalesmanProblem
             highestX = bounds.MaxX;
             highestY = bounds.MaxY;
 
-            Paint();
+            //Paint();
             
             bounds = graph.GetExtremeCoordinatesValues();
             lowestX = bounds.MinX;
@@ -62,10 +60,16 @@ namespace GraphicTravellingSalesmanProblem
             highestX = bounds.MaxX;
             highestY = bounds.MaxY;
 
-            path = KernighanLin.FindShortestPath(graph);
+            //path = KernighanLin.FindShortestPath(graph, 100000).ToList();
+
+            //path = (new Christofides()).FindShortestPath(graph);
 
             interval = 4;
 
+            //Paint();
+
+            path = KernighanLin.FindShortestPath(graph).ToList();
+            //path = graph.nodes.OrderBy(_ => rnd.Next()).ToList();
             Paint();
 
             this.StateChanged += (sender, e) => Paint();

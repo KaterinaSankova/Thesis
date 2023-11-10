@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Xml.Linq;
+using TravellingSalesmanProblem.Diagnostics;
 using TravellingSalesmanProblem.GraphStructures;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
@@ -15,11 +11,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private static Graph graph;
         private static Path path;
 
-        private static List<Edge> originalEdges;
         private static List<Edge> brokenEdges;
         private static List<Edge> addedEdges;
 
-        private static int k;
         private static double improvement;
         private static double partialSum;
 
@@ -32,41 +26,58 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private static Path[] locallyOptimalPaths = new Path[5]; //constants
         private static List<Edge> goodEdges = new();
 
-
-        private static Path improvedPath;
         private static Path shortestPath;
 
         private static Node startingNode;
         private static Node enclosingNode;
 
+        //Diagnostics
+        private static KeringhanLinDiagnoser diagnoser = new();
+        private static Stopwatch findShortestPathStopWatch = new Stopwatch();
+        
         public static Path FindShortestPath(Graph inputGraph)
         {
+            findShortestPathStopWatch.Start();
+
             if (inputGraph.nodes.Count < 4)
                 return new Path (inputGraph.nodes.ToList().Append(inputGraph.nodes.First()).ToList());
 
             graph = inputGraph;
             GeneratePath();
             SetupInitialState();
-            PrintState();
-            ImprovePath();
+
+            bool continueImproving = FindShortestPath(path);
+            while (continueImproving)
+            {
+                continueImproving = FindShortestPath(shortestPath);
+            }
+
+            diagnoser.FindShortestPath.AddRecord(findShortestPathStopWatch.Elapsed);
+            diagnoser.Print();
             return shortestPath;
         }
 
-        private static void FindShortestPath(Path inputPath)
+        private static bool FindShortestPath(Path inputPath)
         {
+            findShortestPathStopWatch.Stop();
+            diagnoser.FindShortestPath.AddRecord(findShortestPathStopWatch.Elapsed);
+            findShortestPathStopWatch.Restart();
+
             path = inputPath;
             SetupEdges();
             improvement = 0;
             partialSum = 0;
             PrintState();
-            ImprovePath();
+            return ImprovePath();
         }
 
         private static void GeneratePath() => path = new Path(graph.nodes.OrderBy(_ => rand.Next()).ToList());
 
         private static void SetupInitialState()
         {
-            k = 0;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             improvement = 0;
             partialSum = 0;
 
@@ -75,38 +86,954 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             locallyOptimalPaths = new Path[5]; //constants
             goodEdges = new List<Edge>();
 
-            improvedPath = path.ToPath();
             shortestPath = path.ToPath();
 
-            SetupEdges();
+            stopwatch.Stop();
+            diagnoser.SetupInitialState.AddRecord(stopwatch.Elapsed);
         }
 
         private static void SetupEdges()
         {
-            originalEdges = new List<Edge>();
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            path.GetEdges();
             brokenEdges = new List<Edge>();
             addedEdges = new List<Edge>();
 
-            for (int j = 0; j < path.Count - 1; j++)
-                originalEdges.Add(new Edge(path[j], path[j + 1]));
-            originalEdges.Add(new Edge(path[path.Count - 1], path[0]));
+            stopwatch.Stop();
+            diagnoser.SetupEdges.AddRecord(stopwatch.Elapsed);
         }
 
+        private static bool ImprovePath()
+        {
+            int i = 0;
+            Path currentPath;
+            var stopwatch = new Stopwatch();
+
+            var fruitlessNodes = GetFruitlessNodesForPath();
+            foreach (var node1 in graph.nodes)
+            {
+                stopwatch.Restart();
+
+                if (fruitlessNodes.Contains(node1))
+                    continue;
+                startingNode = node1;
+                currentPath = path.ToPath();
+                RestoreState(currentPath, i);
+
+                stopwatch.Stop();
+                diagnoser.ImprovePath.Node1.AddRecord(stopwatch.Elapsed);
+
+                foreach (var node2 in FindNode2(node1))
+                {
+                    i = 1;
+                    currentPath = path.ToPath();
+                    RestoreState(currentPath, i);
+
+                    Edge brokenEdge1 = new Edge(node1, node2);
+
+                    enclosingNode = node2;
+                    PrintImprovementState(node1, node2, 1);
+                    Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+                    Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                    currentPath.SetDirection(node1, node2);
+                    currentPath.CurrentIndex = currentPath.IndexOf(node2);
+
+                    List<(Node Node3, Node Node4, Node AlternativeNode4, double Value)> nextPairValues = new();
+                    Node investigatedNode3 = null;
+                    Node investigatedNode4 = null;
+                    var stoppingNode = currentPath.PeekAfter(2);
+                    currentPath.Next();
+                    while (investigatedNode3 != stoppingNode)
+                    {
+                        investigatedNode3 = currentPath.Next();
+                        investigatedNode4 = currentPath.PeekPrev();
+                        nextPairValues.Add(
+                            (investigatedNode3, investigatedNode4, currentPath.PeekNext(), investigatedNode3.Distance(investigatedNode4) - node2.Distance(investigatedNode3))
+                            );
+                    }
+                    var orderedNextPairs = nextPairValues.OrderByDescending(v => v.Value).ToList();
+
+                    stopwatch.Stop();
+                    diagnoser.ImprovePath.BrokenEdge1.AddRecord(stopwatch.Elapsed);
+
+                    foreach (var nextPair in orderedNextPairs)
+                    {
+                        stopwatch.Restart();
+
+                        i = 1;
+                        currentPath = path.ToPath();
+                        RestoreState(currentPath, i);
+                        enclosingNode = node2;
+
+                        currentPath.SetDirection(startingNode, enclosingNode);
+
+                        var addedEdge1 = new Edge(node2, nextPair.Node3);
+
+                        PrintImprovementState(nextPair.Node3, nextPair.Node4, 3);
+                        Console.WriteLine($"\tLATEST PATH: {currentPath}");
+                        Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                        if (!UpdatePartialSum(brokenEdge1.Length(), addedEdge1.Length()))
+                            break;
+                        brokenEdges.Insert(i - 1, brokenEdge1);
+                        addedEdges.Insert(i - 1, addedEdge1);
+
+                        stopwatch.Stop();
+                        diagnoser.ImprovePath.AddedEdge1.AddRecord(stopwatch.Elapsed);
+
+                        bool pathImproved = ImprovePathFromBrokenEdge2(nextPair.Node3, nextPair.Node4, currentPath);
+                        if (pathImproved)
+                            return true;
+                        if (nextPair.AlternativeNode4 != node1)
+                            pathImproved = ImprovePathFromAlternativeBrokenEdge2(node2, nextPair.Node3, nextPair.AlternativeNode4, currentPath);
+                        if (pathImproved)
+                            return true;
+                    }
+
+                }
+            }
+
+            return false;
+        }
+
+        private static bool ImprovePathFromBrokenEdge2(Node node3, Node node4, Path latestPath)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            latestPath = latestPath.ToPath();
+            Console.WriteLine("[+] IMPROVE PATH FROM BROKEN EDGE 2");
+            var brokenEdge2 = new Edge(node3, node4);
+            int i = 2;
+
+            var reconnectEdgesStopwatch = new Stopwatch();
+            reconnectEdgesStopwatch.Start();
+
+            latestPath.ReconnectEdges(startingNode, enclosingNode, node3, node4);
+
+            reconnectEdgesStopwatch.Stop();
+            diagnoser.ReconnectEdges.AddRecord(reconnectEdgesStopwatch.Elapsed);
+            Console.WriteLine($"\tCURRENT PATH: {latestPath}");
+            Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
+
+            UpdateLocalOptimum(latestPath, i);
+            enclosingNode = node4;
+
+            RestoreState(latestPath, i);
+
+            latestPath.SetDirection(startingNode, enclosingNode);
+            latestPath.CurrentIndex = latestPath.IndexOf(enclosingNode);
+
+            var stoppingNode = latestPath.PeekAfter(2);
+
+            List<(Node Node5, Node Node6, double Value)> pairValues = new();
+            double pairImprovement;
+            Node investigatedNode5 = latestPath.Next(2);
+            Node investigatedNode6 = null;
+            while (investigatedNode5 != stoppingNode)
+            {
+                if (brokenEdges.Contains(new Edge(node4, investigatedNode5)))
+                    continue;
+                investigatedNode6 = latestPath.PeekPrev();
+                if (!addedEdges.Contains(new Edge(investigatedNode5, investigatedNode6)))
+                {
+                    pairImprovement = investigatedNode5.Distance(investigatedNode6) - enclosingNode.Distance(investigatedNode5);
+                    if (pairImprovement > 0)
+                    {
+                        pairValues.Add((investigatedNode5, investigatedNode6, pairImprovement));
+                    }
+                }                    
+                investigatedNode5 = latestPath.Next();
+            }
+            var orderedPairValues = pairValues.OrderByDescending(v => v.Value).ToList();
+
+            stopwatch.Stop();
+            diagnoser.ImprovePath.BrokenEdge2.AddRecord(stopwatch.Elapsed);
+
+            foreach (var pair in orderedPairValues)
+            {
+                stopwatch.Restart();
+
+                i = 2;
+                RestoreState(latestPath, i);
+
+                var currentPath = latestPath.ToPath();
+                enclosingNode = node4;
+
+                var addedEdge2 = new Edge(node4, pair.Node5);
+                var brokenEdge3 = new Edge(pair.Node5, pair.Node6);
+
+                PrintImprovementState(pair.Node5, pair.Node6, 5);
+                Console.WriteLine($"\tLATEST PATH: {currentPath}");
+                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                if (!UpdatePartialSum(brokenEdge2.Length(), addedEdge2.Length()))
+                    break;
+
+                brokenEdges.Insert(i - 1, brokenEdge2);
+                addedEdges.Insert(i - 1, addedEdge2);
+
+                reconnectEdgesStopwatch.Restart();
+
+                currentPath.ReconnectEdges(startingNode, enclosingNode, pair.Node5, pair.Node6);
+
+                reconnectEdgesStopwatch.Stop();
+                diagnoser.ReconnectEdges.AddRecord(reconnectEdgesStopwatch.Elapsed);
+
+                Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                UpdateLocalOptimum(currentPath, i);
+                //if (UpdateLocalOptimum(currentPath, i))
+                //    NonsequentialExchange(currentPath, i);
+                enclosingNode = pair.Node6;
+
+                stopwatch.Stop();
+                diagnoser.ImprovePath.AddedEdge2.AddRecord(stopwatch.Elapsed);
+
+                ImprovePathFromNode(pair.Node6, brokenEdge3, currentPath, i + 1);
+
+                if (improvement == 0)
+                {
+                    var paths = fruitlessNodesForPaths.Where(r => r.Path.Equals(path)).ToList();
+                    if (paths.Count != 0)
+                        paths.First().Nodes.Add(startingNode);
+                    else
+                        fruitlessNodesForPaths.Add((path.ToPath(), new List<Node>() { startingNode }));
+                }
+                if (improvement > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool ImprovePathFromAlternativeBrokenEdge2(Node node2, Node node3, Node node4, Path latestPath)
+        {
+            Console.WriteLine("[+] IMPROVE PATH FROM ALTERNATIVE BROKEN EDGE 2");
+            int i = 2;
+            RestoreState(latestPath, i);
+            Console.WriteLine("[+] IMPROVE PATH FROM ALTERNATIVE BROKEN EDGE 2");
+
+            AlterBrokenEdge2(node2, node3, node4, latestPath, i);
+
+            if (improvement == 0)
+            {
+                var paths = fruitlessNodesForPaths.Where(r => r.Path.Equals(path)).ToList();
+                if (paths.Count != 0)
+                    paths.First().Nodes.Add(startingNode);
+                else
+                    fruitlessNodesForPaths.Add((path.ToPath(), new List<Node>() { startingNode }));
+            }
+            if (improvement > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool AlterBrokenEdge2(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            bool pathImproved = AlterBrokenEdge2Option1(enclosingNode, pair1Node1, pair1Node2, latestPath, i);
+
+            stopwatch.Stop();
+            diagnoser.ImprovePath.AlternativeBrokenEdge2Option1.AddRecord(stopwatch.Elapsed);
+            if (!pathImproved)
+            {
+                Console.WriteLine("\tIMPROVEMENT ");
+
+                stopwatch.Start();
+
+                pathImproved = AlterBrokenEdge2Option2(enclosingNode, pair1Node1, pair1Node2, latestPath, i);
+
+                stopwatch.Stop();
+                diagnoser.ImprovePath.AlternativeBrokenEdge2Option2.AddRecord(stopwatch.Elapsed);
+
+                return pathImproved;
+            }
+            return true;
+        }
+
+        private static bool AlterBrokenEdge2Option1(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        {
+            Console.WriteLine("[+] ALTER BROKEN EDGE 2 OPTION 1");
+            var pair1BrokenEdge = new Edge(pair1Node1, pair1Node2);
+
+            Console.WriteLine($"\tCURRENT PATH: {latestPath}");
+            Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
+
+            latestPath.SetDirection(pair1Node2, pair1Node1);
+            latestPath.CurrentIndex = latestPath.IndexOf(pair1Node1);
+            //latestPath.Next();
+
+            List<(Node Node, double Value)> pair2Node1Values = new List<(Node Node, double Value)>();
+            Node investigatedPair2Node1 = latestPath.Next();
+            while (investigatedPair2Node1 != enclosingNode)
+            {
+                if (brokenEdges.Contains(new Edge(pair1Node2, investigatedPair2Node1)))
+                    continue;
+                pair2Node1Values.Add((investigatedPair2Node1, new Edge(pair1Node2, investigatedPair2Node1).Length()));
+                investigatedPair2Node1 = latestPath.Next();
+            }
+            var orderedPair2Node1s = pair2Node1Values.OrderBy(v => v.Value).Select(v => v.Node).ToList();
+
+            int index = -1;
+            Node pair2Node1, pair2Node2;
+            Edge pair1AddedEdge, pair2BrokenEdge;
+            List<(Node Pair2Node1, Node Pair2Node2, double Gain)> nextExchangePairs = new();
+            for (int j = 0; j < 5;)
+            {
+                index++;
+                if (index == orderedPair2Node1s.Count)
+                    break;
+
+                pair2Node1 = orderedPair2Node1s[index];
+                pair1AddedEdge = new Edge(pair1Node2, pair2Node1);
+
+                pair2Node2 = latestPath.PeekPrev(pair2Node1);
+                pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+
+                if (pair2Node2 == pair1Node1 || addedEdges.Contains(pair2BrokenEdge))
+                {
+                    pair2Node2 = latestPath.PeekNext(pair2Node1);
+                    pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+                    if (addedEdges.Contains(pair2BrokenEdge))
+                        continue;
+                }
+
+                nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length() - pair1AddedEdge.Length()));
+                j++;
+            }
+
+            nextExchangePairs = nextExchangePairs.OrderByDescending(p => p.Gain).ToList();
+
+            if (nextExchangePairs.Count > 0)
+            {
+                var currentPath = latestPath.ToPath();
+                pair2Node1 = nextExchangePairs.First().Pair2Node1;
+                pair2Node2 = nextExchangePairs.First().Pair2Node2;
+                pair1AddedEdge = new Edge(pair1Node2, pair2Node1);
+                pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+
+                PrintImprovementState(pair2Node1, pair2Node2, 5);
+                Console.WriteLine($"\tLATEST PATH: {currentPath}");
+                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                if (!UpdatePartialSum(pair1BrokenEdge.Length(), pair1AddedEdge.Length()))
+                    return false;
+
+                brokenEdges.Insert(i - 1, pair1BrokenEdge);
+                addedEdges.Insert(i - 1, pair1AddedEdge);
+
+                var reconnectEdgesStopwatch = new Stopwatch();
+                reconnectEdgesStopwatch.Start();
+                currentPath.ReconnectEdges(startingNode, enclosingNode, pair1Node1, pair1Node2, pair2Node1, pair2Node2);
+                reconnectEdgesStopwatch.Stop();
+                diagnoser.ReconnectEdgesAlternativeBrokenEdge2Option1.AddRecord(reconnectEdgesStopwatch.Elapsed);
+
+                Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                UpdateLocalOptimum(currentPath, i);
+                //if (UpdateLocalOptimum(currentPath, i))
+                //    NonsequentialExchange(currentPath, i);
+                KernighanLin.enclosingNode = pair2Node2;
+
+                ImprovePathFromNode(pair2Node2, pair2BrokenEdge, currentPath, i + 1);
+            }
+
+            return true;
+        }
+
+        private static bool AlterBrokenEdge2Option2(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        {
+            Console.WriteLine("[+] ALTER BTOKEN EDGE 2 OPTION 2");
+            var pair1BrokenEdge = new Edge(pair1Node1, pair1Node2);
+
+            Console.WriteLine($"\tCURRENT PATH: {latestPath}");
+            Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
+
+            latestPath.SetDirection(pair1Node1, pair1Node2);
+            latestPath.CurrentIndex = latestPath.IndexOf(pair1Node2);
+
+            List<(Node Node, double Value)> pair2Node1Values = new List<(Node Node, double Value)>();
+            Node investigatedPair2Node1 = latestPath.Next();
+            while (investigatedPair2Node1 != startingNode)
+            {
+                if (brokenEdges.Contains(new Edge(pair1Node2, investigatedPair2Node1)))
+                    continue;
+                pair2Node1Values.Add((investigatedPair2Node1, new Edge(pair1Node2, investigatedPair2Node1).Length()));
+                investigatedPair2Node1 = latestPath.Next();
+            }
+            var orderedPair2Node1s = pair2Node1Values.OrderBy(v => v.Value).Select(v => v.Node).ToList();
+
+            int index = -1;
+            Node pair2Node1, pair2Node2;
+            Edge pair1AddedEdge, pair2BrokenEdge;
+            List<(Node Pair2Node1, Node Pair2Node2, double Gain)> nextExchangePairs = new();
+            for (int j = 0; j < 5;)
+            {
+                index++;
+                if (index == orderedPair2Node1s.Count)
+                    break;
+
+                pair2Node1 = orderedPair2Node1s[index];
+                pair1AddedEdge = new Edge(pair1Node2, pair2Node1);
+
+                pair2Node2 = latestPath.PeekPrev(pair2Node1);
+                pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+
+                if (pair2Node2 == pair1Node2 || addedEdges.Contains(pair2BrokenEdge))
+                    continue;
+
+                nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length() - pair1AddedEdge.Length()));
+                j++;
+            }
+
+            nextExchangePairs = nextExchangePairs.OrderByDescending(p => p.Gain).ToList();
+            if (nextExchangePairs.Count > 0)
+            {
+                i++;
+                var currentPath = latestPath.ToPath();
+                pair2Node1 = nextExchangePairs.First().Pair2Node1;
+                pair2Node2 = nextExchangePairs.First().Pair2Node2;
+                pair1AddedEdge = new Edge(pair1Node2, pair2Node1);
+                pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+
+                PrintImprovementState(pair2Node1, pair2Node2, 5);
+                Console.WriteLine($"\tLATEST PATH: {currentPath}");
+                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                if (!UpdatePartialSum(pair1BrokenEdge.Length(), pair1AddedEdge.Length()))
+                    return false;
+
+                latestPath.SetDirection(pair1Node2, pair1Node1);
+                latestPath.CurrentIndex = latestPath.IndexOf(pair1Node1);
+
+                List<(Node Node, double Value)> pair3Node1Values = new List<(Node Node, double Value)>();
+                Node investigatedpair3Node1 = latestPath.Next();
+                while (investigatedpair3Node1 != enclosingNode)
+                {
+                    if (brokenEdges.Contains(new Edge(pair1Node2, investigatedpair3Node1)))
+                        continue;
+                    pair3Node1Values.Add((investigatedpair3Node1, new Edge(pair2Node2, investigatedpair3Node1).Length()));
+                    investigatedpair3Node1 = latestPath.Next();
+                }
+                var orderedPair3Node1s = pair3Node1Values.OrderBy(v => v.Value).Select(v => v.Node).ToList();
+
+                index = -1;
+                Node pair3Node1, pair3Node2, alternativepair3Node2;
+                Edge pair2AddedEdge, pair3BrokenEdge, alternativePair3BrokenEdge;
+                var nextNextExchangePairs = new List<(Node Pair3Node1, Node Pair3Node2, double Gain)>();
+                double gain;
+                for (int j = 0; j < 5;)
+                {
+                    index++;
+                    if (index == orderedPair3Node1s.Count)
+                        break;
+
+                    pair3Node1 = orderedPair3Node1s[index];
+                    pair2AddedEdge = new Edge(pair2Node2, pair3Node1);
+
+                    pair3Node2 = latestPath.PeekPrev(pair3Node1);
+                    pair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
+                    alternativepair3Node2 = latestPath.PeekNext(pair3Node1);
+                    alternativePair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
+
+                    if (pair3Node2 == pair1Node1 || addedEdges.Contains(pair3BrokenEdge))
+                    {
+                        if (alternativepair3Node2 == enclosingNode || addedEdges.Contains(alternativePair3BrokenEdge))
+                            continue;
+
+                        nextNextExchangePairs.Add((pair3Node1, alternativepair3Node2, alternativePair3BrokenEdge.Length() - pair2AddedEdge.Length()));
+                    }
+                    else if (alternativepair3Node2 == enclosingNode || addedEdges.Contains(alternativePair3BrokenEdge))
+                    {
+                        nextNextExchangePairs.Add((pair3Node1, pair3Node2, pair3BrokenEdge.Length() - pair2AddedEdge.Length()));
+                    }
+                    else
+                    {
+                        if (pair3BrokenEdge.Length() <= alternativePair3BrokenEdge.Length())
+                            nextNextExchangePairs.Add((pair3Node1, pair3Node2, pair3BrokenEdge.Length() - pair2AddedEdge.Length()));
+                        else
+                            nextNextExchangePairs.Add((pair3Node1, alternativepair3Node2, alternativePair3BrokenEdge.Length() - pair2AddedEdge.Length()));
+                    }
+
+                    j++;
+                }
+
+                nextNextExchangePairs = nextNextExchangePairs.OrderByDescending(p => p.Gain).ToList();
+                if (nextNextExchangePairs.Count > 0)
+                {
+                    currentPath = latestPath.ToPath();
+                    pair3Node1 = nextNextExchangePairs.First().Pair3Node1;
+                    pair3Node2 = nextNextExchangePairs.First().Pair3Node2;
+                    pair2AddedEdge = new Edge(pair2Node2, pair3Node1);
+                    pair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
+
+                    PrintImprovementState(pair3Node1, pair3Node2, 7);
+                    Console.WriteLine($"\tLATEST PATH: {currentPath}");
+                    Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                    if (!UpdatePartialSum(pair2BrokenEdge.Length(), pair2AddedEdge.Length()))
+                        return false;
+
+                    brokenEdges.Insert(i - 2, pair1BrokenEdge);
+                    addedEdges.Insert(i - 2, pair1AddedEdge);
+
+                    brokenEdges.Insert(i - 1, pair2BrokenEdge);
+                    addedEdges.Insert(i - 1, pair2AddedEdge);
+
+                    var reconnectEdgesStopwatch = new Stopwatch();
+                    reconnectEdgesStopwatch.Start();
+                    currentPath.ReconnectEdges(startingNode, enclosingNode, pair1Node1, pair1Node2, pair2Node1, pair2Node2, pair3Node1, pair3Node2);
+                    reconnectEdgesStopwatch.Stop();
+                    diagnoser.ReconnectEdgesAlternativeBrokenEdge2Option2.AddRecord(reconnectEdgesStopwatch.Elapsed);
+                    Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+                    Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+                    UpdateLocalOptimum(currentPath, i);
+                    //if (UpdateLocalOptimum(currentPath, i))
+                    //    NonsequentialExchange(currentPath, i);
+                    KernighanLin.enclosingNode = pair3Node2;
+
+                    ImprovePathFromNode(pair3Node2, pair3BrokenEdge, currentPath, i + 1);
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
+
+            return true;
+        }
+
+        private static void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, Path latestPath, int i)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            latestPath.SetDirection(startingNode, enclosingNode);
+            latestPath.CurrentIndex = latestPath.IndexOf(enclosingNode);
+
+            (Node Node, Node NextNode, double Value) nextPair = (null, null, double.MaxValue);
+            List<(Node Node, Node NextNode, double Value)> nodesValues = new List<(Node Node, Node nextNode, double Value)>();
+            var stoppingNode = latestPath.PeekAfter(2);
+            Node investigatedNodes = latestPath.Next();
+            Node investigatedNextNode = null;
+            double nextPairImprovement;
+            while (investigatedNodes != stoppingNode)
+            {
+                investigatedNodes = latestPath.Next();
+                if (brokenEdges.Contains(new Edge(fromNode, investigatedNodes)))
+                    continue;
+                if (goodEdges.Contains(new Edge(fromNode, investigatedNodes)))
+                    continue;
+                investigatedNextNode = latestPath.PeekPrev();
+                if (!addedEdges.Contains(new Edge(investigatedNodes, investigatedNextNode)))
+                {
+                    nextPairImprovement = investigatedNodes.Distance(investigatedNextNode) - enclosingNode.Distance(investigatedNodes);
+                    if (nextPair.Value > nextPairImprovement)
+                    {
+                        nextPair = (investigatedNodes, investigatedNextNode, nextPairImprovement);
+                    }
+                }
+            }
+
+            if (nextPair.Node == null)
+                return;
+
+            var currentPath = latestPath.ToPath();
+            enclosingNode = fromNode;
+
+            var addedEdge = new Edge(fromNode, nextPair.Node);
+            var nextBrokenEdge = new Edge(nextPair.Node, nextPair.NextNode);
+
+            PrintImprovementState(nextPair.Node, nextPair.NextNode, 2*i+1);
+            Console.WriteLine($"\tLATEST PATH: {currentPath}");
+            Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+            if (!UpdatePartialSum(lastBrokenEdge.Length(), addedEdge.Length()))
+                return;
+
+            brokenEdges.Add(lastBrokenEdge);
+            addedEdges.Add(addedEdge);
+
+            Console.WriteLine("[+] RECONNECTING EDGES");
+            var reconnectEdgesStopwatch = new Stopwatch();
+            reconnectEdgesStopwatch.Start();
+            currentPath.ReconnectEdges(startingNode, enclosingNode, nextPair.Node, nextPair.NextNode);
+            reconnectEdgesStopwatch.Stop();
+            diagnoser.ReconnectEdges.AddRecord(reconnectEdgesStopwatch.Elapsed);
+            Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+            Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+            UpdateLocalOptimum(currentPath, i);
+            //if (UpdateLocalOptimum(currentPath, i))
+            //    NonsequentialExchange(currentPath, i);
+
+            enclosingNode = nextPair.NextNode;
+
+            stopwatch.Stop();
+            diagnoser.ImprovePath.FromNode.AddRecord(stopwatch.Elapsed);
+
+            ImprovePathFromNode(nextPair.NextNode, nextBrokenEdge, currentPath, i+1);
+        }
+
+        private static bool NonsequentialExchange(Path latestPath, int i)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Console.WriteLine("[+] NONSEQUENTIAL EXCHANGE");
+            Console.WriteLine($"\tCURRENT PATH: {latestPath}");
+            Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
+
+            Path currentPath = latestPath.ToPath();
+            if (currentPath.Count < 8)
+                return false;
+
+            currentPath.SetDirection(currentPath[0], currentPath[1]);
+            currentPath.CurrentIndex = 0;
+
+            List<(Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement)> exchangableEdges = new();
+            double brokenEdgesLengthSum, addedEdgesLengthSum, improvement;
+            for (int j = 0; j < 2; j++)
+            {
+                Edge brokenEdge1 = new Edge(currentPath[j], currentPath.PeekNext(j));
+                if (addedEdges.Contains(brokenEdge1))
+                    continue;
+                if (goodEdges.Contains(brokenEdge1))
+                    continue;
+
+                for (int k = j + 2; k < currentPath.Count - 4; k++)
+                {
+                    Edge brokenEdge4 = new Edge(currentPath[k], currentPath.PeekNext(k));
+                    if (addedEdges.Contains(brokenEdge4))
+                        continue;
+                    if (goodEdges.Contains(brokenEdge4))
+                        continue;
+
+                    for (int l = k + 2; l < currentPath.Count - 2; l++)
+                    {
+                        Edge brokenEdge2 = new Edge(currentPath[l], currentPath.PeekNext(l));
+                        if (addedEdges.Contains(brokenEdge2))
+                            continue;
+                        if (goodEdges.Contains(brokenEdge2))
+                            continue;
+
+                        for (int m = l + 2; m < currentPath.Count; m++)
+                        {
+                            if (currentPath.PeekNext(m) == currentPath[j])
+                                continue;
+
+                            Edge brokenEdge3 = new Edge(currentPath[m], currentPath.PeekNext(m));
+                            if (addedEdges.Contains(brokenEdge3))
+                                continue;
+                            if (goodEdges.Contains(brokenEdge3))
+                                continue;
+
+                            Edge addedEdge1 = new Edge(brokenEdge1.node1, brokenEdge2.node2);
+                            if (brokenEdges.Contains(addedEdge1))
+                                continue;
+                            Edge addedEdge2 = new Edge(brokenEdge2.node1, brokenEdge1.node2);
+                            if (brokenEdges.Contains(addedEdge2))
+                                continue;
+                            Edge addedEdge3 = new Edge(brokenEdge3.node1, brokenEdge4.node2);
+                            if (brokenEdges.Contains(addedEdge3))
+                                continue;
+                            Edge addedEdge4 = new Edge(brokenEdge3.node1, brokenEdge3.node2);
+                            if (brokenEdges.Contains(addedEdge4))
+                                continue;
+
+                            brokenEdgesLengthSum = brokenEdge1.Length() + brokenEdge2.Length() + brokenEdge3.Length() + brokenEdge4.Length();
+                            addedEdgesLengthSum = addedEdge1.Length() + addedEdge2.Length() + addedEdge3.Length() + addedEdge4.Length();
+
+                            if (brokenEdgesLengthSum - addedEdgesLengthSum + partialSum <= 0)
+                                continue;
+
+                            exchangableEdges.Add((
+                                new Edge[4] { brokenEdge1, brokenEdge2, brokenEdge3, brokenEdge4 },
+                                new Edge[4] { addedEdge1, addedEdge2, addedEdge3, addedEdge4 },
+                                brokenEdgesLengthSum - addedEdgesLengthSum
+                            ));
+                        }
+                    }
+                }
+            }
+
+            var orderedExchangeableEdges = exchangableEdges.OrderByDescending(e => e.Improvement).ToList();
+            if (orderedExchangeableEdges.Count == 0)
+            {
+                Console.WriteLine("\tNo edges for nonsequentail exchange were found.");
+                stopwatch.Stop();
+                diagnoser.NonsequentialExchange.AddRecord(stopwatch.Elapsed);
+                return false;
+            }
+            var edgesToExchange = orderedExchangeableEdges.First();
+
+            if (!UpdatePartialSum(edgesToExchange.Improvement))
+            {
+                Console.WriteLine("\tNo nonsequentail exchange improving path was found.");
+                stopwatch.Stop();
+                diagnoser.NonsequentialExchange.AddRecord(stopwatch.Elapsed);
+                return false;
+            }
+
+            var reconnectEdgesStopwatch = new Stopwatch();
+            reconnectEdgesStopwatch.Start();
+            currentPath.ReconnectEdges(edgesToExchange);
+            reconnectEdgesStopwatch.Stop();
+            diagnoser.ReconnectEdgesNonsequentialExchange.AddRecord(reconnectEdgesStopwatch.Elapsed);
+
+            Console.WriteLine($"\tCURRENT PATH: {currentPath}");
+            Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
+
+            UpdateLocalOptimum(currentPath, i);
+
+            stopwatch.Stop();
+            diagnoser.NonsequentialExchange.AddRecord(stopwatch.Elapsed);
+            return true;
+        }
+
+        private static List<Node> GetFruitlessNodesForPath()
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            foreach (var record in fruitlessNodesForPaths)
+            {
+                if (path.Equals(record.Path))
+                    return record.Nodes;
+            }
+
+            stopwatch.Stop();
+            diagnoser.GetFruitlessNodesForPath.AddRecord(stopwatch.Elapsed);
+            return new List<Node>();
+        }
+
+        private static Node[] FindNode2(Node node)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            int nodeIndex = path.IndexOf(node);
+            var nodes2 = new Node[2] { path.PeekPrev(nodeIndex), path.PeekNext(nodeIndex)};
+
+            if (new Edge(node, nodes2[1]).Length() > new Edge(node, nodes2[0]).Length())
+                (nodes2[0], nodes2[1]) = (nodes2[1], nodes2[0]);
+
+            stopwatch.Stop();
+            diagnoser.FindNode2.AddRecord(stopwatch.Elapsed);
+
+            return nodes2;
+        }
+
+        private static void RestoreState(Path currentPath, int i)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            partialSum = 0;
+
+            if (i == 2)
+            {
+                if (brokenEdges.Count > 0)
+                {
+                    brokenEdges = brokenEdges.Take(1).ToList();
+                    addedEdges = brokenEdges.Take(1).ToList();
+                }
+            }
+            else
+            {
+                brokenEdges.Clear();
+                addedEdges.Clear();
+            }
+            stopwatch.Stop();
+            diagnoser.RestoreState.AddRecord(stopwatch.Elapsed);
+        }
+
+        private static bool UpdatePartialSum(double brokenEdgeLegth, double addedEdgeLength) => UpdatePartialSum(brokenEdgeLegth - addedEdgeLength);
+
+        private static bool UpdatePartialSum(double improvement)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Console.WriteLine("[+] PARTIAL SUM UPDATE");
+            Console.WriteLine($"\tPARTIAL SUM: {partialSum}");
+            Console.WriteLine($"\tIMPROVEMENT: {improvement}");
+            double currentPartialSum = partialSum + improvement;
+            Console.WriteLine($"\tCURRENT PARTIAL SUM: {currentPartialSum}");
+            if (currentPartialSum > 0)
+            {
+                Console.WriteLine("\tUpdating partial sum\n");
+                partialSum = currentPartialSum;
+                return true;
+            }
+            Console.WriteLine("\tNot updating partial sum\n");
+
+            stopwatch.Stop();
+            diagnoser.UpdatePartialSum.AddRecord(stopwatch.Elapsed);
+            return false;
+        }
+
+        private static bool UpdateLocalOptimum(Path currentPath, int i)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Console.WriteLine("[+] LOCAL OPTIMUM UPDATE");
+
+            double currentImprovement = path.Length - currentPath.Length;
+            Console.WriteLine($"\tIMPROVEMENT: {improvement}");
+            Console.WriteLine($"\tCURRENT IMPROVEMENT: {currentImprovement}");
+            if (currentImprovement > improvement)
+            {
+                Console.WriteLine($"\tCurrent path is local optimum\n");
+                improvement = currentImprovement;
+
+                UpdateLocallyOptimalPaths(currentPath);
+
+                UpdateShortestPath(currentPath);
+
+                Console.WriteLine();
+
+                stopwatch.Stop();
+                diagnoser.UpdateLocalOptimum.AddRecord(stopwatch.Elapsed);
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"\tCurrent path is NOT local optimum\n");
+
+                stopwatch.Stop();
+                diagnoser.UpdateLocalOptimum.AddRecord(stopwatch.Elapsed);
+                return false;
+            }
+        }
+
+        private static void UpdateLocallyOptimalPaths(Path currentPath)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            double highestOptimalPathLength = -1;
+            int index = -1;
+            int count = 5;
+            for (int j = 0; j < 5; j++)
+            {
+                if (locallyOptimalPaths[j] == null)
+                {
+                    index = -1;
+                    count = j;
+                    break;
+                }
+                if (locallyOptimalPaths[j].Length > highestOptimalPathLength)
+                {
+                    highestOptimalPathLength = locallyOptimalPaths[j].Length;
+                    index = j;
+                }
+            }
+            if (count < 5)
+            {
+                Console.WriteLine($"\tAdding current path to list of locally optimal paths\n");
+                locallyOptimalPaths[count] = currentPath;
+                UpdateShortestPath(currentPath);
+                return;
+            }
+            if (index == -1)
+                return;
+
+            Console.WriteLine("\tLOCALLY OPTIMAL PATHS");
+            foreach (var path in locallyOptimalPaths)
+            {
+                if (path != null)
+                {
+                    Console.WriteLine($"\t\tPath: {path}");
+                    Console.WriteLine($"\t\tLength: {path.Length}");
+                }
+            }
+
+            if (currentPath.Length < highestOptimalPathLength)
+            {
+                Console.WriteLine($"\tAdding current path to list of locally optimal paths");
+                locallyOptimalPaths[index] = currentPath;
+                UpdateGoodEdges(currentPath, count, index);
+            }
+
+            stopwatch.Stop();
+            diagnoser.UpdateLocallyOptimalPaths.AddRecord(stopwatch.Elapsed);
+        }
+
+        private static void UpdateGoodEdges(Path currentPath, int count, int index)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var getEdgesStopwatch = new Stopwatch();
+            getEdgesStopwatch.Start();
+            var pathEdges = currentPath.GetEdges();
+            getEdgesStopwatch.Stop();
+            diagnoser.GetEdges.AddRecord(getEdgesStopwatch.Elapsed);
+
+            var newGoodEdges = pathEdges;
+            Console.WriteLine($"\tUpdating good edges");
+            for (int j = 0; j < count; j++)
+            {
+                if (j == index)
+                    continue;
+
+                getEdgesStopwatch.Restart();
+                var optimalPathEdges = locallyOptimalPaths[j].GetEdges();
+                getEdgesStopwatch.Stop();
+                diagnoser.GetEdges.AddRecord(getEdgesStopwatch.Elapsed);
+
+                newGoodEdges = newGoodEdges.Intersect(optimalPathEdges).ToList();
+            }
+            goodEdges = newGoodEdges;
+            PrintEdges("\tGOOD EDGES", goodEdges);
+            
+            stopwatch.Stop();
+            diagnoser.UpdateGoodEdges.AddRecord(stopwatch.Elapsed);
+        }
+
+        private static void UpdateShortestPath(Path currentPath)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            Console.WriteLine("[+] UPDATE SHORTEST PATH");
+            Console.WriteLine($"\tSHORTEST PATH: {shortestPath}");
+            Console.WriteLine($"\tSHORTEST PATH LENGTH: {shortestPath.Length}");
+            if (currentPath.Length < shortestPath.Length)
+            {
+                Console.WriteLine("\t*Updating shortest path*");
+                shortestPath = currentPath;
+                Console.WriteLine($"\tNEW SHORTEST PATH: {shortestPath}");
+                Console.WriteLine($"\tNEW SHORTEST PATH LENGTH: {shortestPath.Length}");
+            }
+            Console.WriteLine();
+
+            stopwatch.Stop();
+            diagnoser.UpdateShortestPath.AddRecord(stopwatch.Elapsed);
+        }
+        
         private static void PrintState()
         {
             Console.WriteLine("######################### CURRENT STATE #########################");
             Console.WriteLine($"PATH: {path}");
             Console.WriteLine($"PATH LENGTH: {path.Length}");
 
-            double len = 0;
-            foreach (var e in originalEdges)
-            {
-                len += e.Length();
-            }
-            Console.WriteLine($"PATH EDGES LENGTH: {len}");
-
             Console.WriteLine($"IMPROVEMENT: {improvement}");
-            PrintEdges("ORIGINAL EDGES", originalEdges);
             PrintEdges("BROKEN EDGES", brokenEdges);
             PrintEdges("ADDED EDGES", addedEdges);
 
@@ -130,13 +1057,12 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 }
             }
             PrintEdges("GOOD EDGES", goodEdges);
-            Console.Write($"SHORTEST PATH: {shortestPath}");
-            Console.Write($"PATH LENGTH: {shortestPath.Length}\n");
+            Console.WriteLine($"SHORTEST PATH: {shortestPath}");
+            Console.WriteLine($"PATH LENGTH: {shortestPath.Length}");
         }
 
         private static void PrintEdgeState()
         {
-            PrintEdges("\tORIGINAL EDGES", originalEdges);
             PrintEdges("\tBROKEN EDGES", brokenEdges);
             PrintEdges("\tADDED EDGES", addedEdges);
         }
@@ -157,490 +1083,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             PrintEdgeState();
             Console.WriteLine($"\tSTARTING NODE: {startingNode}");
             Console.WriteLine($"\tENCLOSING NODE: {enclosingNode}");
-        }
-
-        private static void ImprovePath()
-        {
-            int i = 0;
-            k = 0;
-            Path currentPath;
-
-            var fruitlessNodes = GetFruitlessNodesForPath();
-            foreach (var node1 in graph.nodes)
-            {
-                if (fruitlessNodes.Contains(node1))
-                    continue;
-                startingNode = node1;
-                currentPath = path.ToPath();
-                RestoreState(currentPath, i);
-
-                foreach (var brokenEdge1 in FindAttachedOriginalEdges(node1))
-                {
-                    if (brokenEdge1 == null)
-                    {
-                        Console.WriteLine("*Could not find brokenEdge1*");
-                        break;
-                    }
-                    i = 1;
-                    currentPath = path.ToPath();
-                    RestoreState(currentPath, i);
-
-                    var node2 = brokenEdge1.GetOtherNode(node1);
-                    enclosingNode = node2;
-                    PrintImprovementState(node1, node2, 1);
-                    Console.WriteLine($"\tCURRENT PATH: {currentPath}");
-                    Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-                    currentPath.SetDirection(startingNode, enclosingNode);
-                    currentPath.CurrentIndex = currentPath.IndexOf(node2);
-                    currentPath.Next();
-
-                    List<(Node Node, double Value)> nodes3Values = new List<(Node Node, double Value)>();
-                    Node investigatedNode3 = null;
-                    Node investigatedNode4 = null;
-                    var stoppingNode = currentPath.PeekPrev(node1);
-                    while (investigatedNode3 != stoppingNode)
-                    {
-                        investigatedNode3 = currentPath.Next();
-                        investigatedNode4 = currentPath.PeekPrev();
-                        nodes3Values.Add((investigatedNode3, new Edge(investigatedNode3, investigatedNode4).Length() - new Edge(node2, investigatedNode3).Length()));
-                    }
-                    var orderedNodes3 = nodes3Values.OrderByDescending(v => v.Value).Select(v => v.Node).ToList();
-
-                    foreach (var node3 in orderedNodes3)
-                    {
-                        i = 1;
-                        currentPath = path.ToPath();
-                        RestoreState(currentPath, i);
-                        enclosingNode = node2;
-
-                        currentPath.SetDirection(startingNode, enclosingNode);
-
-                        var addedEdge1 = new Edge(node2, node3);
-                        var node4 = currentPath.PeekPrev(node3);
-
-                        PrintImprovementState(node3, node4, 3);
-                        Console.WriteLine($"\tLATEST PATH: {currentPath}");
-                        Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-                        if (!UpdatePartialSum(brokenEdge1.Length(), addedEdge1.Length()))
-                            break;
-                        brokenEdges.Insert(i - 1, brokenEdge1);
-                        addedEdges.Insert(i - 1, addedEdge1);
-                        originalEdges.Remove(brokenEdge1);
-
-                        Console.WriteLine("[+] RECONNECTING EDGES");
-                        currentPath.ReconnectEdges(startingNode, enclosingNode, node3, node4);
-                        Console.WriteLine($"\tCURRENT PATH: {currentPath}");
-                        Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-                        UpdateLocalOptimum(i, currentPath);
-                        enclosingNode = node4;
-                        improvedPath = currentPath;
-
-                        bool end = ImprovePathFromBrokenEdge2(node3, node4, currentPath);
-                        if (currentPath.PeekNext(node3) != node1)
-                            ImprovePathFromAlternativeBrokenEdge2(node3, currentPath.PeekNext(node3), currentPath);
-
-                        if (end)
-                            return;
-                    }
-
-                }
-            }
-
-        }
-
-        private static bool ImprovePathFromBrokenEdge2(Node node3, Node node4, Path latestPath)
-        {
-            var brokenEdge2 = new Edge(node3, node4);
-            int i = 2;
-
-            RestoreState(latestPath, i);
-
-            latestPath.SetDirection(startingNode, enclosingNode);
-            latestPath.CurrentIndex = latestPath.IndexOf(enclosingNode);
-            latestPath.Next();
-
-            List<(Node Node, double Value)> nodes5Values = new List<(Node Node, double Value)>();
-            Node investigatedNode5 = null;
-            Node investigatedNode6 = null;
-            var stoppingNode = latestPath.PeekPrev(startingNode);
-            while (investigatedNode5 != stoppingNode)
-            {
-                investigatedNode5 = latestPath.Next();
-                if (brokenEdges.Contains(new Edge(node4, investigatedNode5)))
-                    continue;
-                investigatedNode6 = latestPath.PeekPrev();
-                if (!addedEdges.Contains(new Edge(investigatedNode5, investigatedNode6)))
-                    nodes5Values.Add((investigatedNode5, new Edge(investigatedNode5, investigatedNode6).Length() - new Edge(enclosingNode, investigatedNode5).Length()));
-            }
-            var orderedNodes5 = nodes5Values.OrderByDescending(v => v.Value).Select(v => v.Node).ToList();
-
-            foreach (var node5 in orderedNodes5)
-            {
-                i = 2;
-                RestoreState(latestPath, i);
-
-                var currentPath = latestPath.ToPath();
-                enclosingNode = node4;
-
-                var addedEdge2 = new Edge(node4, node5);
-                var node6 = currentPath.PeekPrev(node5);
-                //Console.WriteLine($"Node4: {nextNode}");
-                var brokenEdge3 = new Edge(node5, node6);
-
-                PrintImprovementState(node5, node6, 5);
-                Console.WriteLine($"\tLATEST PATH: {currentPath}");
-                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-                if (!UpdatePartialSum(brokenEdge2.Length(), addedEdge2.Length()))
-                    break;
-
-                brokenEdges.Insert(i - 1, brokenEdge2);
-                addedEdges.Insert(i - 1, addedEdge2);
-                originalEdges.Remove(brokenEdge2);
-
-                currentPath.ReconnectEdges(startingNode, enclosingNode, node5, node6);
-                Console.WriteLine($"\tCURRENT PATH: {currentPath}");
-                Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-                UpdateLocalOptimum(i, currentPath);
-                enclosingNode = node6;
-                improvedPath = currentPath;
-
-                ImprovePathFromNode(node6, brokenEdge3, currentPath, i + 1);
-
-                if (improvement == 0)
-                {
-                    var paths = fruitlessNodesForPaths.Where(r => r.Path.Equals(path)).ToList();
-                    if (paths.Count != 0)
-                        paths.First().Nodes.Add(startingNode);
-                    else
-                        fruitlessNodesForPaths.Add((path.ToPath(), new List<Node>() { startingNode }));
-                }
-                if (improvement > 0)
-                {
-                    FindShortestPath(shortestPath);
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private static void ImprovePathFromAlternativeBrokenEdge2(Node node3, Node node4, Path latestPath)
-        {
-            int i = 2;
-
-            RestoreState(latestPath, i);
-
-            latestPath.SetDirection(enclosingNode, startingNode);
-            latestPath.CurrentIndex = latestPath.IndexOf(startingNode);
-            latestPath.Next();
-
-            List<(Node Node, double Value)> nodes5Values = new List<(Node Node, double Value)>();
-            Node investigatedNode5 = null;
-            while (investigatedNode5 != node3)
-            {
-                investigatedNode5 = latestPath.Next();
-                if (brokenEdges.Contains(new Edge(node4, investigatedNode5)))
-                    continue;
-                nodes5Values.Add((investigatedNode5, new Edge(node4, investigatedNode5).Length()));
-            }
-            var orderedNodes5 = nodes5Values.OrderByDescending(v => v.Value).Take(5).Select(v => v.Node).ToList();
-
-        }
-
-        private static void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, Path latestPath, int i)
-        {
-            latestPath.SetDirection(startingNode, enclosingNode);
-            latestPath.CurrentIndex = latestPath.IndexOf(enclosingNode);
-            latestPath.Next();
-
-            List<(Node Node, double Value)> nodesValues = new List<(Node Node, double Value)>();
-            Node investigatedNode5 = null;
-            Node investigatedNode6 = null;
-            var stoppingNode = latestPath.PeekPrev(startingNode);
-            while (investigatedNode5 != stoppingNode)
-            {
-                investigatedNode5 = latestPath.Next();
-                if (brokenEdges.Contains(new Edge(fromNode, investigatedNode5)))
-                    continue;
-                if (goodEdges.Contains(new Edge(fromNode, investigatedNode5)))
-                    continue;
-                investigatedNode6 = latestPath.PeekPrev();
-                if (!addedEdges.Contains(new Edge(investigatedNode5, investigatedNode6)))
-                    nodesValues.Add((investigatedNode5, new Edge(investigatedNode5, investigatedNode6).Length() - new Edge(enclosingNode, investigatedNode5).Length()));
-            }
-
-            if (nodesValues.Count == 0)
-                return;
-
-            var node = nodesValues.OrderByDescending(v => v.Value).First().Node;
-
-            var currentPath = latestPath.ToPath();
-            enclosingNode = fromNode;
-
-            var addedEdge = new Edge(fromNode, node);
-            var nextNode = currentPath.PeekPrev(node);
-            var nextBrokenEdge = new Edge(node, nextNode);
-
-            PrintImprovementState(node, nextNode, 2*i+1);
-            Console.WriteLine($"\tLATEST PATH: {currentPath}");
-            Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-            if (!UpdatePartialSum(lastBrokenEdge.Length(), addedEdge.Length()))
-                return;
-
-            if ((i - 1) < brokenEdges.Count)
-                brokenEdges.Insert(i - 1, lastBrokenEdge);
-            else
-                brokenEdges.Add(lastBrokenEdge);
-            if ((i - 1) < addedEdges.Count)
-                addedEdges.Insert(i - 1, lastBrokenEdge);
-            else
-                addedEdges.Add(lastBrokenEdge);
-
-            originalEdges.Remove(lastBrokenEdge);
-
-            Console.WriteLine("[+] RECONNECTING EDGES");
-            currentPath.ReconnectEdges(startingNode, enclosingNode, node, nextNode);
-            Console.WriteLine($"\tCURRENT PATH: {currentPath}");
-            Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
-
-            UpdateLocalOptimum(i, currentPath);
-            enclosingNode = nextNode;
-            improvedPath = currentPath;
-
-            ImprovePathFromNode(nextNode, nextBrokenEdge, currentPath, i+1);
-        }
-
-        private static List<Node> GetFruitlessNodesForPath()
-        {
-            foreach (var record in fruitlessNodesForPaths)
-            {
-                if (path.Equals(record.Path))
-                    return record.Nodes;
-            }
-
-            return new List<Node>();
-        }
-
-        private static Edge[] FindAttachedOriginalEdges(Node node)
-        {
-            var attachedEdges = new Edge[2];
-            int count = 0;
-            foreach (var edge in originalEdges)
-            {
-                if (edge.Contains(node))
-                {
-                    attachedEdges[count] = edge;
-                    count++;
-                }
-                if (count == 2)
-                    break;
-            }
-
-            if (attachedEdges[1] != null && attachedEdges[0].Length() > attachedEdges[1].Length())
-                (attachedEdges[0], attachedEdges[1]) = (attachedEdges[1], attachedEdges[0]);
-
-            return attachedEdges;
-        }
-
-        private static Node[] FindAttachedOriginalNodes(Node node)
-        {
-            var attachedNodes = new Node[2];
-            var attachedEdges = FindAttachedOriginalEdges(node);
-
-            if (attachedEdges[1] != null)
-            {
-                attachedNodes[1] = attachedEdges[1].GetOtherNode(node);
-
-                if (attachedEdges[0] != null)
-                    attachedNodes[0] = attachedEdges[0].GetOtherNode(node);
-            }
-
-            return attachedNodes;
-        }
-
-        private static void RestoreState(Path currentPath, int i)
-        {
-            RestoreState(currentPath);
-            if (i == 2)
-            {
-                originalEdges.Remove(brokenEdges[0]);
-                brokenEdges = brokenEdges.Take(1).ToList();
-                addedEdges = brokenEdges.Take(1).ToList();
-            }
-            else
-            {
-                brokenEdges.Clear();
-                addedEdges.Clear();
-            }
-        }
-
-        private static void RestoreState(Path currentPath)
-        {
-            originalEdges = currentPath.GetEdges();
-            k = 0;
-            partialSum = 0;
-        }
-
-        private static bool UpdatePartialSum(double brokenEdgeLegth, double addedEdgeLength)
-        {
-            Console.WriteLine("[+] PARTIAL SUM UPDATE");
-            Console.WriteLine($"\tPARTIAL SUM: {partialSum}");
-            Console.WriteLine($"\tBROKEN EDGE LEN: {brokenEdgeLegth}");
-            Console.WriteLine($"\tADDED EDGE LEN: {addedEdgeLength}");
-            double currentPartialSum = partialSum + brokenEdgeLegth - addedEdgeLength;
-            Console.WriteLine($"\tCURRENT PARTIAL SUM: {currentPartialSum}");
-            if (currentPartialSum > 0)
-            {
-                Console.WriteLine("\tUpdating partial sum\n");
-                partialSum = currentPartialSum;
-                return true;
-            }
-            Console.WriteLine("\tNot updating partial sum\n");
-            return false;
-        }
-
-        private static double GetPartialSum() => brokenEdges.Select(e => e.Length()).Sum() - addedEdges.Select(e => e.Length()).Sum();
-        private static double GetPartialSum(int i)
-        {
-            var brokenSum = brokenEdges.Take(i).Select(e => e.Length()).ToList().Sum();
-            var addedSum = addedEdges.Take(i).Select(e => e.Length()).ToList().Sum();
-            return brokenSum - addedSum;
-        }
-
-        private static double GetPartialSum(int i, double xDistance, double yDistance) => GetPartialSum(i) + xDistance - yDistance;
-
-
-        public static bool CheckGainCriterion() => GetPartialSum() > 0;
-
-        public static bool CheckGainCriterion(int i) => GetPartialSum(i) > 0;
-
-        public static bool CheckGainCriterion(int i, double xDistance, double yDistance) => GetPartialSum(i - 1, xDistance, yDistance) > 0;
-
-        private static void UpdateLocalOptimum(int i, Path currentPath)
-        {
-            Console.WriteLine("[+] LOCAL OPTIMUM UPDATE");
-
-            double currentImprovement = path.Length - currentPath.Length;
-            Console.WriteLine($"\tIMPROVEMENT: {improvement}");
-            Console.WriteLine($"\tCURRENT IMPROVEMENT: {currentImprovement}");
-            if (currentImprovement > improvement)
-            {
-                Console.WriteLine($"\tCurrent path is local optimum\n");
-                improvement = currentImprovement;
-                k = i;
-                double highestOptimalPathLength = -1;
-                int index = -1;
-                int count = 5;
-                for (int j = 0; j < 5; j++)
-                {
-                    if (locallyOptimalPaths[j] == null)
-                    {
-                        index = -1;
-                        count = j;
-                        break;
-                    }
-                    if (locallyOptimalPaths[j].Length > highestOptimalPathLength)
-                    {
-                        highestOptimalPathLength = locallyOptimalPaths[j].Length;
-                        index = j;
-                    }
-                }
-                if (count < 5)
-                {
-                    Console.WriteLine($"\tAdding current path to list of locally optimal paths\n");
-                    locallyOptimalPaths[count] = currentPath;
-                    UpdateShortestPath(currentPath);
-                    return;
-                }
-                if (index == -1)
-                    return;
-
-                Console.WriteLine("\tLOCALLY OPTIMAL PATHS");
-                foreach (var path in locallyOptimalPaths)
-                {
-                    if (path != null)
-                    {
-                        Console.WriteLine($"\t\tPath: {path}");
-                        Console.WriteLine($"\t\tLength: {path.Length}");
-                    }
-                }
-
-                if (currentPath.Length < highestOptimalPathLength)
-                {
-                    Console.WriteLine($"\tAdding current path to list of locally optimal paths");
-                    locallyOptimalPaths[index] = currentPath;
-                    var pathEdges = currentPath.GetEdges();
-                    var newGoodEdges = pathEdges;
-                    Console.WriteLine($"\tUpdating good edges");
-                    for (int j = 0; j < count; j++)
-                    {
-                        if (j == index)
-                            continue;
-                        newGoodEdges = newGoodEdges.Intersect(locallyOptimalPaths[j].GetEdges()).ToList();
-                    }
-                    goodEdges = newGoodEdges;
-                    PrintEdges("\tGOOD EDGES", goodEdges);
-                }
-
-                UpdateShortestPath(currentPath);
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine($"\tCurrent path is NOT local optimum\n");
-            }
-        }
-
-        private static void UpdateShortestPath(Path currentPath)
-        {
-            Console.WriteLine("[+] UPDATE SHORTEST PATH");
-            Console.WriteLine($"\tSHORTEST PATH: {shortestPath}");
-            Console.WriteLine($"\tSHORTEST PATH LENGTH: {shortestPath.Length}");
-            if (currentPath.Length < shortestPath.Length)
-            {
-                Console.WriteLine("\t*Updating shortest path*");
-                shortestPath = currentPath;
-                Console.WriteLine($"\tNEW SHORTEST PATH: {shortestPath}");
-                Console.WriteLine($"\tNEW SHORTEST PATH LENGTH: {shortestPath.Length}");
-            }
-            Console.WriteLine();
-        }
-
-        private static void UpdateCurrentBestPathImprovement(Node lastNode, Edge lastBrokenEdge, int i)
-        {
-            Edge enclosingEdge = new Edge(lastNode, startingNode);
-
-            double currentImprovement = GetPartialSum(i - 1) + (lastBrokenEdge.Length() - enclosingEdge.Length());
-            if (currentImprovement > improvement)
-            {
-                improvement = currentImprovement;
-                k = i;
-            }
-        }
-
-        private static List<Node> GetPath(int i)
-        {
-            var edges = new List<Edge>();
-            foreach (var edge in originalEdges)
-            {
-                if (brokenEdges.Take(i).Contains(edge))
-                    continue;
-                edges.Add(edge);
-            }
-            foreach (var edge in addedEdges.Take(i - 1))
-            {
-                edges.Add(edge);
-            }
-            edges = edges.Concat(brokenEdges.Skip(i).ToList()).ToList();
-            edges.Add(new Edge(startingNode, enclosingNode));
-
-            return graph.DepthFirstSearch(edges, startingNode);
         }
     }
 }

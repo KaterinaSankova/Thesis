@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Documents\\Výška\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj": {}
+    "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj": {}
   },
   "projects": {
-    "D:\\Documents\\Výška\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj": {
+    "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Documents\\Výška\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj",
+        "projectUniqueName": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj",
         "projectName": "GraphicTravellingSalesmanProblem",
-        "projectPath": "D:\\Documents\\Výška\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj",
+        "projectPath": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj",
         "packagesPath": "C:\\Users\\kitty\\.nuget\\packages\\",
-        "outputPath": "D:\\Documents\\Výška\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\obj\\",
+        "outputPath": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
