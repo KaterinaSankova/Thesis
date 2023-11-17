@@ -14,7 +14,7 @@ namespace TravellingSalesmanProblem
 
             Random rand = new Random();
             List<Node> nodes = new List<Node>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 500; i++)
             {
                 nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
                 //Console.WriteLine(nodes[i]);
@@ -55,12 +55,12 @@ namespace TravellingSalesmanProblem
             streamwriter.AutoFlush = true;
             Console.SetOut(streamwriter);
 
-            var path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
+            //var path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
            // var path = KernighanLin.FindShortestPath(new Graph(nodes));
 
             Console.SetOut(saved);
-            Console.WriteLine(path);
-            Console.WriteLine(path.Length);
+            //Console.WriteLine(path);
+            //Console.WriteLine(path.Length);
             Console.WriteLine("End");
 
             stopWatch.Stop();
@@ -77,7 +77,7 @@ namespace TravellingSalesmanProblem
             Console.SetOut(streamwriter);
 
             //path = new Christofides().FindShortestPath(new Graph(nodes));
-            path = KernighanLin.FindShortestPath(new Graph(nodes));
+            var path = KernighanLin.FindShortestPath(new Graph(nodes));
 
             Console.SetOut(saved);
             Console.WriteLine(path);

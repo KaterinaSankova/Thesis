@@ -31,8 +31,14 @@ namespace TravellingSalesmanProblem.GraphStructures
         public void SetCurrentIndex(Node node)
         {
             int index = path.IndexOf(node);
-            if (index != -1) { CurrentIndex = index; }
+            if ((index != -1) && (index < Count)) { CurrentIndex = index; }
             else throw new ArgumentException($"Node {node} is not in path.");
+        }
+
+        public void SetCurrentIndex(int index)
+        {
+            if ((index != -1) && (index < Count)) { CurrentIndex = index; }
+            else throw new ArgumentException($"Index is out of range.");
         }
 
         public Direction Direction { get; set; }
@@ -48,6 +54,21 @@ namespace TravellingSalesmanProblem.GraphStructures
                 Direction = Direction.Backwards;
             else
                 throw new ArgumentException($"Node {toNode} must be in path right before or after node {fromNode}");
+        }
+
+        public void SetStartingPoint(Node fromNode, Node toNode, Direction direction = Direction.Forward)
+        {
+            int fromNodeIndex = path.IndexOf(fromNode);
+            if (fromNodeIndex == -1)
+                throw new ArgumentException($"Node {fromNode} is not in path.");
+            if (path[(fromNodeIndex + 1 + Count) % Count] == toNode)
+                Direction = (Direction)((int)Direction.Forward * (int)direction);
+            else if (path[(fromNodeIndex - 1 + Count) % Count] == toNode)
+                Direction = (Direction)((int)Direction.Backwards * (int)direction);
+            else
+                throw new ArgumentException($"Node {toNode} must be in path right before or after node {fromNode}");
+
+            _currentIndex = fromNodeIndex;
         }
 
         private Path(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge> edges)
@@ -114,6 +135,9 @@ namespace TravellingSalesmanProblem.GraphStructures
             CurrentIndex = (CurrentIndex - ((int)Direction * step) + Count) % Count;
             return path[CurrentIndex];
         }
+        public int NextIndex(int step = 1) => (CurrentIndex + ((int) Direction * step) + Count) % Count;
+
+        public int PrevIndex(int step = 1) => (CurrentIndex - ((int)Direction * step) + Count) % Count;
 
         public Node CurrentNode() => path[CurrentIndex];
 
@@ -129,9 +153,9 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public Node PeekPrev(int index) => path[(index - (int)Direction + Count) % Count]; //not in path
 
-        public Node PeekBefore(int step) => path[(CurrentIndex + ((int)Direction * step) + Count) % Count];
+        public Node PeekBefore(int step) => path[(CurrentIndex - ((int)Direction * step) + Count) % Count];
 
-        public Node PeekAfter(int step) => path[(CurrentIndex - ((int)Direction * step) + Count) % Count];
+        public Node PeekAfter(int step) => path[(CurrentIndex + ((int)Direction * step) + Count) % Count];
 
         public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4) //connected properly
         {
