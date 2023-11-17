@@ -326,7 +326,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             path = newPath;
         }
 
-        public void ReconnectEdges((Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement) edgesToReconnect)
+        public void ReconnectEdges((Edge[] BrokenEdges, Edge[] AddedEdges) edgesToReconnect, double improvement)
         {
             Console.WriteLine("[+] RECONNECTING EDGES");
             Console.WriteLine($"\tBROKEN EDGE 1: {edgesToReconnect.BrokenEdges[0]}");
@@ -337,7 +337,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             Console.WriteLine($"\tADDED EDGE 2: {edgesToReconnect.AddedEdges[1]}");
             Console.WriteLine($"\tADDED EDGE 3: {edgesToReconnect.AddedEdges[2]}");
             Console.WriteLine($"\tADDED EDGE 4: {edgesToReconnect.AddedEdges[3]}");
-            Console.WriteLine($"\tIMPROVEMENT: {edgesToReconnect.Improvement}");
+            Console.WriteLine($"\tIMPROVEMENT: {improvement}");
             List<Node> newPath = new List<Node>();
 
             SetDirection(edgesToReconnect.BrokenEdges[0].node1, edgesToReconnect.BrokenEdges[0].node2);
@@ -378,7 +378,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             }
             newPath.Add(edgesToReconnect.BrokenEdges[1].node1);
 
-            Length = Length - edgesToReconnect.Improvement;
+            Length = Length - improvement;
             this.edges = null;
             path = newPath;
         }

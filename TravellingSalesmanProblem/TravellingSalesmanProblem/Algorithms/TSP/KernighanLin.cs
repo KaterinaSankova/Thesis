@@ -20,7 +20,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private static Random rand = new Random();
 
         //Avoiding checkout time
-        private static List<(Path Path, List<Node> Nodes)> fruitlessNodesForPaths = new();
+        private static List<(Node Node, List<Path> Paths)> checkedOutPathsForNodes = new();
 
         //Reduction
         private static Path[] locallyOptimalPaths = new Path[5]; //constants
@@ -81,7 +81,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             improvement = 0;
             partialSum = 0;
 
-            fruitlessNodesForPaths = new List<(Path Path, List<Node> Nodes)>();
+            checkedOutPathsForNodes = new();
 
             locallyOptimalPaths = new Path[5]; //constants
             goodEdges = new List<Edge>();
@@ -111,13 +111,13 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Path currentPath;
             var stopwatch = new Stopwatch();
 
-            var fruitlessNodes = GetFruitlessNodesForPath();
-            foreach (var node1 in graph.nodes)
+            foreach (var node1 in graph.nodes.OrderBy(x => rand.Next()).ToList())
             {
                 stopwatch.Restart();
 
-                if (fruitlessNodes.Contains(node1))
+                if (IsNodeCheckedOut(node1))
                     continue;
+
                 startingNode = node1;
                 currentPath = path.ToPath();
                 RestoreState(currentPath, i);
@@ -187,34 +187,38 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
                         bool pathImproved = ImprovePathFromBrokenEdge2(nextPair.Node3, nextPair.Node4, currentPath);
                         if (pathImproved)
+                        {
+                            UpdateLocalOptimum(shortestPath);
+                            AddCheckOutNodes(node1, path);
+                            NonsequentialExchange(path);
                             return true;
+                        }
                         if (nextPair.AlternativeNode4 != node1)
                             pathImproved = ImprovePathFromAlternativeBrokenEdge2(node2, nextPair.Node3, nextPair.AlternativeNode4, currentPath);
                         if (pathImproved)
+                        {
+                            UpdateLocalOptimum(shortestPath);
+                            AddCheckOutNodes(node1, path);
+                            NonsequentialExchange(path);
                             return true;
+                        }
                     }
 
                 }
 
-                AddToFruitlessNodes(path, node1);
+                AddCheckOutNodes(node1, path);
             }
-
-            var paths = fruitlessNodesForPaths.Where(r => r.Path.Equals(path)).ToList();
-            if (paths.Count != 0)
-                paths.First().Nodes.Add(startingNode);
-            else
-                fruitlessNodesForPaths.Add((path.ToPath(), new List<Node>() { startingNode }));
 
             return false;
         }
 
-        private static void AddToFruitlessNodes(Path path, Node node)
+        private static void AddCheckOutNodes(Node node, Path path)
         {
-            var paths = fruitlessNodesForPaths.Where(r => r.Path.Equals(path)).ToList();
-            if (paths.Count != 0)
-                paths.First().Nodes.Add(node);
+            var nodes = checkedOutPathsForNodes.Where(r => r.Node.Equals(node)).ToList();
+            if (nodes.Count != 0)
+                nodes.First().Paths.Add(path);
             else
-                fruitlessNodesForPaths.Add((path.ToPath(), new List<Node>() { node }));
+                checkedOutPathsForNodes.Add((node, new List<Path>() { path }));
         }
 
         private static bool ImprovePathFromBrokenEdge2(Node node3, Node node4, Path latestPath)
@@ -237,7 +241,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             //Console.WriteLine($"\tCURRENT PATH: {latestPath}");
             //Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
 
-            UpdateLocalOptimum(latestPath, i);
+            UpdateShortestPath(latestPath);
             enclosingNode = node4;
 
             RestoreState(latestPath, i);
@@ -305,7 +309,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 //Console.WriteLine($"\tCURRENT PATH: {currentPath}");
                 //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                UpdateLocalOptimum(currentPath, i);
+                UpdateShortestPath(currentPath);
                 //if (UpdateLocalOptimum(currentPath, i))
                 //    NonsequentialExchange(currentPath, i);
                 enclosingNode = pair.Node6;
@@ -489,7 +493,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 //Console.WriteLine($"\tCURRENT PATH: {currentPath}");
                 //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                UpdateLocalOptimum(currentPath, i);
+                UpdateShortestPath(currentPath);
                 //if (UpdateLocalOptimum(currentPath, i))
                 //    NonsequentialExchange(currentPath, i);
                 KernighanLin.enclosingNode = pair2Node2;
@@ -662,7 +666,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     //Console.WriteLine($"\tCURRENT PATH: {currentPath}");
                     //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                    UpdateLocalOptimum(currentPath, i);
+                    UpdateShortestPath(currentPath);
                     //if (UpdateLocalOptimum(currentPath, i))
                     //    NonsequentialExchange(currentPath, i);
                     KernighanLin.enclosingNode = pair3Node2;
@@ -739,7 +743,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             //Console.WriteLine($"\tCURRENT PATH: {currentPath}");
             //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-            UpdateLocalOptimum(currentPath, i);
+            UpdateShortestPath(currentPath);
             //if (UpdateLocalOptimum(currentPath, i))
             //    NonsequentialExchange(currentPath, i);
 
@@ -751,7 +755,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             ImprovePathFromNode(nextPair.NextNode, nextBrokenEdge, currentPath, i+1);
         }
 
-        private static bool NonsequentialExchange(Path latestPath, int i)
+        private static bool NonsequentialExchange(Path latestPath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -766,7 +770,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             currentPath.SetDirection(currentPath[0], currentPath[1]);
             currentPath.CurrentIndex = 0;
-
+            /*
             List<(Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement)> exchangableEdges = new();
             double brokenEdgesLengthSum, addedEdgesLengthSum, improvement;
             for (int j = 0; j < 2; j++)
@@ -841,9 +845,17 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 diagnoser.NonsequentialExchange.AddRecord(stopwatch.Elapsed);
                 return false;
             }
+            
             var edgesToExchange = orderedExchangeableEdges.First();
+            */
 
-            if (!UpdatePartialSum(edgesToExchange.Improvement))
+            if (brokenEdges.Count < 4)
+                return false;
+
+            (Edge[] BrokenEdges, Edge[] AddedEdges) edgesToExchange = (brokenEdges.Take(4).ToArray(), addedEdges.Take(4).ToArray());
+            double improvement = edgesToExchange.BrokenEdges.Sum(x => x.Length()) - edgesToExchange.AddedEdges.Sum(x => x.Length());
+
+            if (!UpdatePartialSum(improvement))
             {
                 //Console.WriteLine("\tNo nonsequentail exchange improving path was found.");
                 stopwatch.Stop();
@@ -853,34 +865,39 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             var reconnectEdgesStopwatch = new Stopwatch();
             reconnectEdgesStopwatch.Start();
-            currentPath.ReconnectEdges(edgesToExchange);
+            currentPath.ReconnectEdges(edgesToExchange, improvement);
             reconnectEdgesStopwatch.Stop();
             diagnoser.ReconnectEdgesNonsequentialExchange.AddRecord(reconnectEdgesStopwatch.Elapsed);
 
             //Console.WriteLine($"\tCURRENT PATH: {currentPath}");
             //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-            UpdateLocalOptimum(currentPath, i);
+            UpdateShortestPath(currentPath);
 
             stopwatch.Stop();
             diagnoser.NonsequentialExchange.AddRecord(stopwatch.Elapsed);
             return true;
         }
 
-        private static List<Node> GetFruitlessNodesForPath()
+        private static bool IsNodeCheckedOut(Node node)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
+            
+            var paths = checkedOutPathsForNodes.Where(r => r.Node == node).ToList();
 
-            foreach (var record in fruitlessNodesForPaths)
+            if (paths.Count == 0)
+                return false;
+
+            foreach (var checkoutPath in paths)
             {
-                if (path.Equals(record.Path))
-                    return record.Nodes;
+                if (path.Equals(checkoutPath))
+                    return true;
             }
 
             stopwatch.Stop();
             diagnoser.GetFruitlessNodesForPath.AddRecord(stopwatch.Elapsed);
-            return new List<Node>();
+            return false;
         }
 
         private static Node[] FindNode2(Node node)
@@ -948,42 +965,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static bool UpdateLocalOptimum(Path currentPath, int i)
-        {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-
-            //Console.WriteLine("[+] LOCAL OPTIMUM UPDATE");
-
-            double currentImprovement = path.Length - currentPath.Length;
-            //Console.WriteLine($"\tIMPROVEMENT: {improvement}");
-            //Console.WriteLine($"\tCURRENT IMPROVEMENT: {currentImprovement}");
-            if (currentImprovement > improvement)
-            {
-                //Console.WriteLine($"\tCurrent path is local optimum\n");
-                improvement = currentImprovement;
-
-                UpdateLocallyOptimalPaths(currentPath);
-
-                UpdateShortestPath(currentPath);
-
-                //Console.WriteLine();
-
-                stopwatch.Stop();
-                diagnoser.UpdateLocalOptimum.AddRecord(stopwatch.Elapsed);
-                return true;
-            }
-            else
-            {
-                //Console.WriteLine($"\tCurrent path is NOT local optimum\n");
-
-                stopwatch.Stop();
-                diagnoser.UpdateLocalOptimum.AddRecord(stopwatch.Elapsed);
-                return false;
-            }
-        }
-
-        private static void UpdateLocallyOptimalPaths(Path currentPath)
+        private static void UpdateLocalOptimum(Path currentPath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -1009,7 +991,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             {
                 //Console.WriteLine($"\tAdding current path to list of locally optimal paths\n");
                 locallyOptimalPaths[count] = currentPath;
-                UpdateShortestPath(currentPath);
+                //UpdateShortestPath(currentPath);
                 return;
             }
             if (index == -1)
@@ -1070,6 +1052,12 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         private static void UpdateShortestPath(Path currentPath)
         {
+            double currentImprovement = path.Length - currentPath.Length;
+            if (currentImprovement > improvement)
+            {
+                //Console.WriteLine($"\tCurrent path is local optimum\n");
+                improvement = currentImprovement;
+            }
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -1100,14 +1088,14 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             PrintEdges("ADDED EDGES", addedEdges);
 
             Console.WriteLine("FRUITLESS NODES");
-            foreach (var pair in fruitlessNodesForPaths)
-            {
-                Console.WriteLine($"Path: {pair.Path}");
+            //foreach (var pair in fruitlessNodesForPaths)
+            //{
+            //    Console.WriteLine($"Path: {pair.Path}");
 
-                Console.WriteLine("\nFruitless nodes: ");
-                foreach (var node in pair.Nodes)
-                    Console.Write($"{node} ");
-            }
+            //    Console.WriteLine("\nFruitless nodes: ");
+            //    foreach (var node in pair.Nodes)
+            //        Console.Write($"{node} ");
+            //}
 
             Console.WriteLine("LOCALLY OPTIMAL PATHS");
             foreach (var path in locallyOptimalPaths)
