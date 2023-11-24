@@ -6,7 +6,7 @@ namespace TravellingSalesmanProblem.Algorithms
     {
         public static List<Node> FindEulerCircuit(Graph graph, List<Edge> edges)
         {
-            List<Node> result = new List<Node>();
+            List<Node> result = new();
 
             if (graph.OddDegreeNodes(edges).Count != 0)
                 throw new Exception("Euler circuit does not exist");

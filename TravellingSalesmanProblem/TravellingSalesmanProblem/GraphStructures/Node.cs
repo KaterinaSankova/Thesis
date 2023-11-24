@@ -13,6 +13,33 @@
             this.y = y;
         }
 
+        public List<Edge> OutgoingEdges(List<Edge> edges) //refactor 
+        {
+            List<Edge> outgoingEdges = new();
+            foreach (var edge in edges)
+            {
+                if (edge.node1 == this)
+                    outgoingEdges.Add(edge);
+                else if (edge.node2 == this)
+                    outgoingEdges.Add(edge);
+            }
+            return outgoingEdges;
+        }
+
+        public List<Node> ConnectedNodes(List<Edge> edges)
+        {
+            List<Node> connectedNodes = new();
+            foreach (var edge in edges)
+            {
+                if (edge.node1 == this)
+                    connectedNodes.Add(edge.node2);
+                if (edge.node2 == this)
+                    connectedNodes.Add(edge.node1);
+            }
+            return connectedNodes;
+        }
+
+        public double Distance(Node node) => Math.Sqrt(Math.Pow(this.x - node.x, 2) + Math.Pow(this.y - node.y, 2));
 
         public override string ToString()
         {
@@ -39,20 +66,5 @@
             //Calculate the hash code for the product.
             return hashId;
         }
-
-        public List<Edge> OutgoingEdges(List<Edge> edges) //refactor 
-        {
-            return edges.Where((edge) => edge.Contains(this)).ToList();
-        }
-
-        public List<Node> ConnectedNodes(List<Edge> edges)
-        {
-            return OutgoingEdges(edges).Select((edge) => this == edge.node1 ? edge.node2 : edge.node1).ToList();
-        }
-
-        public bool IsOdd(List<Edge> edges) => OutgoingEdges(edges).Count % 2 == 1;
-
-
-        public double Distance(Node node) => Math.Sqrt(Math.Pow(this.x - node.x, 2) + Math.Pow(this.y - node.y, 2));
     }
 }

@@ -10,17 +10,11 @@ namespace TravellingSalesmanProblem.GraphStructures
         public readonly List<Node> nodes;
         public List<Edge>? edges;
 
-        public int Size
-        {
-            get { return nodes.Count; }
-        }
+        public int Size => nodes.Count;
 
-        public bool IsEmpty
-        {
-            get { return nodes.Count == 0; }
-        }
+        public bool IsEmpty => nodes.Count == 0;
 
-        public Graph(List<Node> input) //bude potřeba?
+        public Graph(List<Node> input)
         {
             nodes = input;
         }
@@ -30,39 +24,56 @@ namespace TravellingSalesmanProblem.GraphStructures
             nodes = new TSPDeserializer(path).DeserializeNodes();
         }
 
-        public Edge ShortestEdge(List<Node> fromNodes = null, List<Node> toNodes = null) //hledam jako debil //node s- null + overeni
+        public Edge ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
         {
-            if (fromNodes == null)
-                fromNodes = nodes;
-            if (toNodes == null)
-                toNodes = nodes;
+            fromNodes ??= nodes;
+            toNodes ??= nodes;
 
             double minDistance = double.MaxValue;
             double currDistance;
-            Edge minEdge = new Edge(fromNodes.First(), toNodes.First());
-            Edge currentEdge;
+            Edge minEdge = new (fromNodes.First(), toNodes.First());
 
             foreach (Node fromNode in fromNodes)
+            {
                 foreach (Node toNode in toNodes)
                 {
-                    currentEdge = new Edge(fromNode, toNode);
-                    currDistance = currentEdge.Length();
+                    currDistance = fromNode.Distance(toNode);
                     if (currDistance < minDistance && fromNode != toNode)
                     {
                         minDistance = currDistance;
-                        minEdge = currentEdge;
-                        // Console.WriteLine($"{edge}: {minDistance}");
+                        minEdge = new(fromNode, toNode);
                     }
                 }
+            }
+
             return minEdge;
         }
 
-        public List<Node> OddDegreeNodes(List<Edge> edges) => nodes.Where(x => x.IsOdd(edges)).ToList();
-
-        public List<Node> DepthFirstSearch(List<Edge> edges, Node node)
+        public List<Node> OddDegreeNodes(List<Edge> edges)
         {
-            List<Node> visited = new List<Node>();
-            Stack<Node> stack = new Stack<Node>();
+            Dictionary<int, int> nodeDegres = new();
+            int degree;
+
+            foreach (Edge edge in edges)
+            {
+                if (!nodeDegres.TryGetValue(edge.node1.id, out degree))
+                    nodeDegres.Add(edge.node1.id, 1);
+                else
+                    nodeDegres[edge.node1.id]++;
+
+                if (!nodeDegres.TryGetValue(edge.node2.id, out degree))
+                    nodeDegres.Add(edge.node2.id, 1);
+                else
+                    nodeDegres[edge.node2.id]++;
+            }
+
+            return nodes.Where(n => nodeDegres[n.id] % 2 == 1) .ToList();
+        }
+
+        public static List<Node> DepthFirstSearch(List<Edge> edges, Node node)
+        {
+            List<Node> visited = new();
+            Stack<Node> stack = new();
 
             stack.Push(node);
 
@@ -85,7 +96,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             return visited;
         }
 
-        public List<Node> BreadthFirstSearch(List<Edge> edges, Node node)
+        public static List<Node> BreadthFirstSearch(List<Edge> edges, Node node)
         {
             List<Node> visited = new List<Node>();
             Queue<Node> queue = new Queue<Node>();
@@ -110,47 +121,15 @@ namespace TravellingSalesmanProblem.GraphStructures
             return visited;
         }
 
-        public double GetLength(List<Edge> edges) //property?
-        {
-            double length = 0;
-
-            foreach (var edge in edges)
-                length += edge.Length();
-
-            return length;
-        }
-
         public double GetLength()
         {
             double length = 0;
 
             for (int i = 0; i < nodes.Count - 1; i++)
-            {
                 for (int j = 1; j < nodes.Count; j++)
-                {
                     length += nodes[i].Distance(nodes[j]);
-                }
-            }
 
             return length;
         }
-
-        public (double MaxX, double MaxY, double MinX, double MinY) GetExtremeCoordinatesValues()
-        {
-            double maxX = double.MinValue, maxY = double.MinValue, minX = double.MaxValue, minY = double.MaxValue;
-
-            foreach (Node node in nodes)
-            {
-                if (node.x > maxX) maxX = node.x;
-                if (node.x < minX) minX = node.x;
-
-                if (node.y > maxY) maxY = node.y;
-                if (node.y < minY) minY = node.y;
-            }
-           
-            return (maxX, maxY, minX, minY);
-        }
-
-
     }
 }

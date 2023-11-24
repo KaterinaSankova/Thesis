@@ -4,6 +4,7 @@
     {
         Christofides,
         DoubleTree,
-        NearestAddition
+        NearestAddition,
+        KernighanLin
     }
 }

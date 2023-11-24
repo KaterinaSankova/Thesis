@@ -6,21 +6,20 @@ using TravellingSalesmanProblem.Testing;
 namespace TravellingSalesmanProblem
 {
     internal class Program
-    {
+    { 
         static void Main()
         {
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
+            //Stopwatch stopWatch = new Stopwatch();
 
-            Random rand = new Random();
-            List<Node> nodes = new List<Node>();
-            for (int i = 0; i < 500; i++)
-            {
-                nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
-                //Console.WriteLine(nodes[i]);
-                //Console.WriteLine($"Node node{i} = new Node({nodes[i].id}, {nodes[i].x}, {nodes[i].y});");
-                //Console.WriteLine($"nodes.Add(node{i});");
-            }
+            //Random rand = new Random();
+            //List<Node> nodes = new List<Node>();
+            //for (int i = 0; i < 250; i++)
+            //{
+            //    nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
+            //    //Console.WriteLine(nodes[i]);
+            //    //Console.WriteLine($"Node node{i} = new Node({nodes[i].id}, {nodes[i].x}, {nodes[i].y});");
+            //    //Console.WriteLine($"nodes.Add(node{i});");
+            //}
             //var n1 = new Node(0, 1, 1);
             //var n2 = new Node(1, 2, 2);
             //var a = new Edge(n1, n2);
@@ -49,47 +48,60 @@ namespace TravellingSalesmanProblem
             //nodes.Add(node9);
             //Console.WriteLine();
 
-            var saved = Console.Out;
-            FileStream filestream = new FileStream(".\\..\\..\\..\\..\\..\\log.txt", FileMode.Create);
-            var streamwriter = new StreamWriter(filestream);
-            streamwriter.AutoFlush = true;
-            Console.SetOut(streamwriter);
+            //var saved = Console.Out;
+            //FileStream filestream = new FileStream(".\\..\\..\\..\\..\\..\\log.txt", FileMode.Create);
+            //var streamwriter = new StreamWriter(filestream);
+            //streamwriter.AutoFlush = true;
+            //Console.SetOut(streamwriter);
 
-            var path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
-            
+            //GraphStructures.Path path;
+            //TimeSpan ts;
+            //string elapsedTime;
+            //stopWatch.Start();
+            //path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
 
-            Console.SetOut(saved);
-            Console.WriteLine(path);
-            Console.WriteLine(path.Length);
-            Console.WriteLine("End");
+            //Console.SetOut(saved);
+            ////Console.WriteLine(path);
+            //Console.WriteLine(path.Length);
+            //stopWatch.Stop();
+            //ts = stopWatch.Elapsed;
+            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            //Console.WriteLine("RunTime " + elapsedTime);
+            //Console.WriteLine("End Christofides\n");
 
-            stopWatch.Stop();
-            TimeSpan ts = stopWatch.Elapsed;
+            //stopWatch.Restart();
+            //path = new GraphStructures.Path(new NearestAddition().FindShortestPath(new Graph(nodes)));
+            ////Console.WriteLine(path);
+            //Console.WriteLine(path.Length);
+            //stopWatch.Stop();
+            //ts = stopWatch.Elapsed;
+            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            //Console.WriteLine("RunTime " + elapsedTime);
+            //Console.WriteLine("End NearestAddition\n");
 
-            // Format and display the TimeSpan value.
-            string elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            Console.WriteLine("RunTime " + elapsedTime);
+            //stopWatch.Restart();
+            //path = new GraphStructures.Path(new DoubleTree().FindShortestPath(new Graph(nodes)));
+            ////Console.WriteLine(path);
+            //Console.WriteLine(path.Length);
+            //stopWatch.Stop();
+            //ts = stopWatch.Elapsed;
+            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            //Console.WriteLine("RunTime " + elapsedTime);
+            //Console.WriteLine("End DoubleTree\n");
+
+            //Console.SetOut(streamwriter);
+            //stopWatch.Restart();
+            //path = new KernighanLin().FindShortestPath(new Graph(nodes));
+            //Console.SetOut(saved);
+            ////Console.WriteLine(path);
+            //Console.WriteLine(path.Length);
+            //stopWatch.Stop();
+            //ts = stopWatch.Elapsed;
+            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            //Console.WriteLine("RunTime " + elapsedTime);
+            //Console.WriteLine("End KernighanLin\n");
 
 
-            stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            Console.SetOut(streamwriter);
-
-            //path = new Christofides().FindShortestPath(new Graph(nodes));
-            path = KernighanLin.FindShortestPath(new Graph(nodes));
-
-            Console.SetOut(saved);
-            Console.WriteLine(path);
-            Console.WriteLine(path.Length);
-            Console.WriteLine("End");
-
-            stopWatch.Stop();
-            ts = stopWatch.Elapsed;
-
-            // Format and display the TimeSpan value.
-            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            Console.WriteLine("RunTime " + elapsedTime);
 
 
             //  List<Node> square = new List<Node>() {new Node(0, -1, -1) , new Node(1, -1, 1) , new Node(2, 1, -1) , new Node(3, 1, 1) };
@@ -101,9 +113,9 @@ namespace TravellingSalesmanProblem
             /*  var test = new TSPLibTest();
               test.TestTPSLib();*/
 
-            // var test = new AlgorithmsTest();
+            var test = new AlgorithmsTest();
 
-            // test.TestAlgorithm();
+            test.TestAlgorithm();
 
             //string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 

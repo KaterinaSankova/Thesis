@@ -8,7 +8,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         {
             Edge firstEdge = graph.ShortestEdge();
             Edge shortestEdge;
-            List<Node> path = new List<Node>();
+            List<Node> path = new();
             List<Node> remainingCities = graph.nodes.ToList();
 
             path.Add(firstEdge.node1);

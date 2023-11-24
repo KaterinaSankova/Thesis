@@ -2,15 +2,15 @@
 
 namespace TravellingSalesmanProblem.Algorithms
 {
-    public class Prims : IPrims
+    public static class Prims
     {
-        public List<Edge> FindSpanningTree(Graph graph)
+        public static List<Edge> FindSpanningTree(Graph graph) 
         {
             Edge firstEdge = graph.ShortestEdge();
             Edge shortestEdge;
-            List<Node> includedCities = new List<Node>();
+            List<Node> includedCities = new();
             List<Node> remainingCities = graph.nodes.ToList();
-            List<Edge> path = new List<Edge> { };
+            List<Edge> path = new();
 
             includedCities.Add(firstEdge.node1);
             includedCities.Add(firstEdge.node2);

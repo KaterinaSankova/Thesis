@@ -98,12 +98,18 @@ namespace TravellingSalesmanProblem.Testing
             var nearestAddition = new NearestAddition();
             var doubleTree = new DoubleTree();
             var christofides = new Christofides();
+            var kernighanLin = new KernighanLin();
 
-            var result = new Graph(nearestAddition.FindShortestPath(new Graph(input)));
+            var rnd = new Random();
+            var inputGraph = new Graph(input.ToList().OrderBy( x => rnd.Next()).ToList());
+
+            var result = new Graph(nearestAddition.FindShortestPath(inputGraph));
 
             double algoLen = result.GetLength();
 
             Console.Write($"NearestAddition algorithm: {algoLen}, ");
+
+            Console.Write($"factor: {algoLen / length}, ");
 
             Console.WriteLine($"{length <= 2 * algoLen}");
 
@@ -111,26 +117,41 @@ namespace TravellingSalesmanProblem.Testing
             pass = length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
-            result = new Graph(doubleTree.FindShortestPath(new Graph(input)));
+            result = new Graph(doubleTree.FindShortestPath(inputGraph));
 
             algoLen = result.GetLength();
 
             Console.Write($"DoubleTree algorithm: {algoLen}, ");
+
+            Console.Write($"factor: {algoLen / length}, ");
 
             Console.WriteLine($"{length <= 2 * algoLen}");
 
             pass = pass && length <= 2 * algoLen && CheckResult(input, result.nodes);
 
 
-            result = new Graph(christofides.FindShortestPath(new Graph(input)));
+            result = new Graph(christofides.FindShortestPath(inputGraph));
 
             algoLen = result.GetLength();
 
             Console.Write($"Christofides algorith: {algoLen}, ");
 
+            Console.Write($"factor: {algoLen / length}, ");
+
             Console.WriteLine($"{length <= 1.5f * algoLen}\n\n\n");
 
             pass = pass && length <= 1.5f * algoLen && CheckResult(input, result.nodes);
+
+
+            result = new Graph(kernighanLin.FindShortestPath(inputGraph).ToList());
+
+            algoLen = result.GetLength();
+
+            Console.Write($"Kernighan-Lin algorith: {algoLen}, ");
+
+            Console.WriteLine($"factor: {algoLen / length}");
+
+            Console.WriteLine($"result: {CheckResult(input, result.nodes)}\n\n\n");
 
             return pass;
         }

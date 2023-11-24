@@ -6,41 +6,41 @@ using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public static class KernighanLin
+    public class KernighanLin
     {
-        private static Graph graph;
-        private static Path path;
+        private Graph? graph;
+        private KernighanLinPath? path;
 
-        private static List<Edge> brokenEdges;
-        private static List<Edge> addedEdges;
+        private List<Edge>? brokenEdges;
+        private List<Edge>? addedEdges;
 
-        private static double improvement;
-        private static double partialSum;
+        private double improvement;
+        private double partialSum;
 
-        private static Random rand = new Random();
+        private Random rand = new Random();
 
         //Avoiding checkout time
-        private static List<(Node Node, List<Path> Paths)> checkedOutPathsForNodes = new();
+        private List<(Node Node, List<KernighanLinPath> Paths)> checkedOutPathsForNodes = new();
 
         //Reduction
-        private static Path[] locallyOptimalPaths = new Path[5]; //constants
-        private static List<Edge> goodEdges = new();
+        private KernighanLinPath[] locallyOptimalPaths = new KernighanLinPath[5]; //constants
+        private List<Edge> goodEdges = new();
 
-        private static Path shortestPath;
+        private KernighanLinPath? shortestPath;
 
-        private static Node startingNode;
-        private static Node enclosingNode;
+        private Node? startingNode;
+        private Node? enclosingNode;
 
         //Diagnostics
-        private static KeringhanLinDiagnoser diagnoser = new();
-        private static Stopwatch findShortestPathStopWatch = new Stopwatch();
+        private readonly KeringhanLinDiagnoser diagnoser = new();
+        private readonly Stopwatch findShortestPathStopWatch = new Stopwatch();
         
-        public static Path FindShortestPath(Graph inputGraph)
+        public KernighanLinPath FindShortestPath(Graph inputGraph)
         {
             findShortestPathStopWatch.Start();
 
             if (inputGraph.nodes.Count < 4)
-                return new Path (inputGraph.nodes.ToList().Append(inputGraph.nodes.First()).ToList());
+                return new KernighanLinPath(inputGraph.nodes.ToList().Append(inputGraph.nodes.First()).ToList());
 
             graph = inputGraph;
             GeneratePath();
@@ -53,11 +53,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             }
 
             diagnoser.FindShortestPath.AddRecord(findShortestPathStopWatch.Elapsed);
-            diagnoser.Print();
+            //diagnoser.Print();
             return shortestPath;
         }
 
-        private static bool FindShortestPath(Path inputPath)
+        private bool FindShortestPath(KernighanLinPath inputPath)
         {
             findShortestPathStopWatch.Stop();
             diagnoser.FindShortestPath.AddRecord(findShortestPathStopWatch.Elapsed);
@@ -71,9 +71,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return ImprovePath();
         }
 
-        private static void GeneratePath() => path = new Path(graph.nodes.OrderBy(_ => rand.Next()).ToList());
+        private void GeneratePath() => path = new KernighanLinPath(graph.nodes.OrderBy(_ => rand.Next()).ToList());
 
-        private static void SetupInitialState()
+        private void SetupInitialState()
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -83,7 +83,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             checkedOutPathsForNodes = new();
 
-            locallyOptimalPaths = new Path[5]; //constants
+            locallyOptimalPaths = new KernighanLinPath[5]; //constants
             goodEdges = new List<Edge>();
 
             shortestPath = path.ToPath();
@@ -92,12 +92,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.SetupInitialState.AddRecord(stopwatch.Elapsed);
         }
 
-        private static void SetupEdges()
+        private void SetupEdges()
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            path.GetEdges();
             brokenEdges = new List<Edge>();
             addedEdges = new List<Edge>();
 
@@ -105,10 +104,10 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.SetupEdges.AddRecord(stopwatch.Elapsed);
         }
 
-        private static bool ImprovePath()
+        private bool ImprovePath()
         {
             int i = 0;
-            Path currentPath;
+            KernighanLinPath currentPath;
             var stopwatch = new Stopwatch();
 
             foreach (var node1 in graph.nodes.OrderBy(x => rand.Next()).ToList())
@@ -177,7 +176,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         //Console.WriteLine($"\tLATEST PATH: {currentPath}");
                         //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                        if (!UpdatePartialSum(brokenEdge1.Length(), addedEdge1.Length()))
+                        if (!UpdatePartialSum(brokenEdge1.Length, addedEdge1.Length))
                             break;
                         brokenEdges.Insert(i - 1, brokenEdge1);
                         addedEdges.Insert(i - 1, addedEdge1);
@@ -212,16 +211,16 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static void AddCheckOutNodes(Node node, Path path)
+        private void AddCheckOutNodes(Node node, KernighanLinPath path)
         {
             var nodes = checkedOutPathsForNodes.Where(r => r.Node.Equals(node)).ToList();
             if (nodes.Count != 0)
                 nodes.First().Paths.Add(path);
             else
-                checkedOutPathsForNodes.Add((node, new List<Path>() { path }));
+                checkedOutPathsForNodes.Add((node, new List<KernighanLinPath>() { path }));
         }
 
-        private static bool ImprovePathFromBrokenEdge2(Node node3, Node node4, Path latestPath)
+        private bool ImprovePathFromBrokenEdge2(Node node3, Node node4, KernighanLinPath latestPath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -258,10 +257,10 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Node investigatedNode6 = null;
             while (investigatedNode5 != stoppingNode)
             {
-                if (brokenEdges.Contains(new Edge(node4, investigatedNode5)))
+                if (brokenEdges.Contains(new(node4, investigatedNode5)))
                     continue;
                 investigatedNode6 = latestPath.PeekPrev();
-                if (!addedEdges.Contains(new Edge(investigatedNode5, investigatedNode6)))
+                if (!addedEdges.Contains(new(investigatedNode5, investigatedNode6)))
                 {
                     pairImprovement = investigatedNode5.Distance(investigatedNode6) - enclosingNode.Distance(investigatedNode5);
                     if (pairImprovement > 0)
@@ -293,7 +292,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 //Console.WriteLine($"\tLATEST PATH: {currentPath}");
                 //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                if (!UpdatePartialSum(brokenEdge2.Length(), addedEdge2.Length()))
+                if (!UpdatePartialSum(brokenEdge2.Length, addedEdge2.Length))
                     break;
 
                 brokenEdges.Insert(i - 1, brokenEdge2);
@@ -328,7 +327,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static bool ImprovePathFromAlternativeBrokenEdge2(Node node2, Node node3, Node node4, Path latestPath)
+        private bool ImprovePathFromAlternativeBrokenEdge2(Node node2, Node node3, Node node4, KernighanLinPath latestPath)
         {
             //Console.WriteLine("[+] IMPROVE PATH FROM ALTERNATIVE BROKEN EDGE 2");
             int i = 2;
@@ -345,7 +344,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static bool AlterBrokenEdge2(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        private bool AlterBrokenEdge2(Node enclosingNode, Node pair1Node1, Node pair1Node2, KernighanLinPath latestPath, int i)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -370,7 +369,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return true;
         }
 
-        private static bool AlterBrokenEdge2Option1(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        private bool AlterBrokenEdge2Option1(Node enclosingNode, Node pair1Node1, Node pair1Node2, KernighanLinPath latestPath, int i)
         {
             //Console.WriteLine("[+] ALTER BROKEN EDGE 2 OPTION 1");
             var pair1BrokenEdge = new Edge(pair1Node1, pair1Node2);
@@ -388,7 +387,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             while (investigatedPair2Node1 != enclosingNode)
             {
                 investigatedPair2Node2 = latestPath.PeekPrev();
-                if (brokenEdges.Contains(new Edge(pair1Node2, investigatedPair2Node1)))
+                if (brokenEdges.Contains(new(pair1Node2, investigatedPair2Node1)))
                     continue;
                 pair2Node1Values.Add((investigatedPair2Node1, investigatedPair2Node2, pair1Node2.Distance(investigatedPair2Node1)));
 
@@ -415,7 +414,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 if (addedEdges.Contains(pair2BrokenEdge))
                     continue;
 
-                nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length() - pair1AddedEdge.Length()));
+                nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length - pair1AddedEdge.Length));
                 j++;
             }
 
@@ -433,7 +432,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 investigatedPair2Node2 = null;
                 while (latestPath.PeekNext() != enclosingNode)
                 {
-                    if (brokenEdges.Contains(new Edge(pair1Node2, investigatedPair2Node1)))
+                    if (brokenEdges.Contains(new(pair1Node2, investigatedPair2Node1)))
                         continue;
                     investigatedPair2Node2 = latestPath.PeekNext();
                     pair2Node1Values.Add((investigatedPair2Node1, investigatedPair2Node2, pair1Node2.Distance(investigatedPair2Node1)));
@@ -459,7 +458,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     if (addedEdges.Contains(pair2BrokenEdge))
                         continue;
 
-                    nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length() - pair1AddedEdge.Length()));
+                    nextExchangePairs.Add((pair2Node1, pair2Node2, pair2BrokenEdge.Length - pair1AddedEdge.Length));
                     j++;
                 }
 
@@ -478,7 +477,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 //Console.WriteLine($"\tLATEST PATH: {currentPath}");
                 //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                if (!UpdatePartialSum(pair1BrokenEdge.Length(), pair1AddedEdge.Length()))
+                if (!UpdatePartialSum(pair1BrokenEdge.Length, pair1AddedEdge.Length))
                     return false;
 
                 brokenEdges.Insert(i - 1, pair1BrokenEdge);
@@ -496,7 +495,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 UpdateShortestPath(currentPath);
                 //if (UpdateLocalOptimum(currentPath, i))
                 //    NonsequentialExchange(currentPath, i);
-                KernighanLin.enclosingNode = pair2Node2;
+                this.enclosingNode = pair2Node2;
 
                 ImprovePathFromNode(pair2Node2, pair2BrokenEdge, currentPath, i + 1);
             }
@@ -504,7 +503,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return true;
         }
 
-        private static bool AlterBrokenEdge2Option2(Node enclosingNode, Node pair1Node1, Node pair1Node2, Path latestPath, int i)
+        private bool AlterBrokenEdge2Option2(Node enclosingNode, Node pair1Node1, Node pair1Node2, KernighanLinPath latestPath, int i)
         {
             //Console.WriteLine("[+] ALTER BTOKEN EDGE 2 OPTION 2");
             var pair1BrokenEdge = new Edge(pair1Node1, pair1Node2);
@@ -521,10 +520,10 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Node investigatedPair2Node2 = null;
             while (investigatedPair2Node1 != startingNode)
             {
-                if (brokenEdges.Contains(new Edge(pair1Node2, investigatedPair2Node1)))
+                if (brokenEdges.Contains(new(pair1Node2, investigatedPair2Node1)))
                     continue;
                 investigatedPair2Node2 = latestPath.PeekPrev();
-                pair2Values.Add((investigatedPair2Node1, investigatedPair2Node2, new Edge(pair1Node2, investigatedPair2Node1).Length()));
+                pair2Values.Add((investigatedPair2Node1, investigatedPair2Node2, pair1Node2.Distance(investigatedPair2Node1)));
                 investigatedPair2Node1 = latestPath.Next();
             }
             var orderedPair2Node1s = pair2Values.OrderBy(v => v.Value).ToList();
@@ -544,7 +543,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 pair2Node1 = orderedPair2Node1s[index].Pair2Node1;
                 pair2Node2 = orderedPair2Node1s[index].Pair2Node2;
 
-                if (pair2Node2 == pair1Node2 || addedEdges.Contains(new Edge(pair2Node1, pair2Node2)))
+                if (pair2Node2 == pair1Node2 || addedEdges.Contains(new(pair2Node1, pair2Node2)))
                     continue;
 
                 gain = pair2Node1.Distance(pair2Node2) - pair1Node2.Distance(pair2Node2);
@@ -568,7 +567,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 //Console.WriteLine($"\tLATEST PATH: {currentPath}");
                 //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                if (!UpdatePartialSum(pair1BrokenEdge.Length(), pair1AddedEdge.Length()))
+                if (!UpdatePartialSum(pair1BrokenEdge.Length, pair1AddedEdge.Length))
                     return false;
 
                 //latestPath.SetDirection(pair1Node2, pair1Node1);
@@ -579,9 +578,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 Node investigatedpair3Node1 = latestPath.Next();
                 while (investigatedpair3Node1 != enclosingNode)
                 {
-                    if (brokenEdges.Contains(new Edge(pair1Node2, investigatedpair3Node1)))
+                    if (brokenEdges.Contains(new(pair1Node2, investigatedpair3Node1)))
                         continue;
-                    pair3Node1Values.Add((investigatedpair3Node1, new Edge(pair2Node2, investigatedpair3Node1).Length()));
+                    pair3Node1Values.Add((investigatedpair3Node1, pair2Node2.Distance(investigatedpair3Node1)));
                     investigatedpair3Node1 = latestPath.Next();
                 }
                 var orderedPair3Node1s = pair3Node1Values.OrderBy(v => v.Value).Select(v => v.Node).ToList();
@@ -608,27 +607,27 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         if (alternativepair3Node2 == enclosingNode || addedEdges.Contains(alternativePair3BrokenEdge))
                             continue;
 
-                        gain = alternativePair3BrokenEdge.Length() - pair2Node2.Distance(pair3Node1);
+                        gain = alternativePair3BrokenEdge.Length - pair2Node2.Distance(pair3Node1);
                         if (nextNextExchangePair.Gain < gain)
                             nextNextExchangePair = (pair3Node1, alternativepair3Node2, gain);
                     }
                     else if (alternativepair3Node2 == enclosingNode || addedEdges.Contains(alternativePair3BrokenEdge))
                     {
-                        gain = pair3BrokenEdge.Length() - pair2Node2.Distance(pair3Node1);
+                        gain = pair3BrokenEdge.Length - pair2Node2.Distance(pair3Node1);
                         if (nextNextExchangePair.Gain < gain)
                             nextNextExchangePair = (pair3Node1, pair3Node2, gain);
                     }
                     else
                     {
-                        if (pair3BrokenEdge.Length() <= alternativePair3BrokenEdge.Length())
+                        if (pair3BrokenEdge.Length <= alternativePair3BrokenEdge.Length)
                         {
-                            gain = pair3BrokenEdge.Length() - pair2Node2.Distance(pair3Node1);
+                            gain = pair3BrokenEdge.Length - pair2Node2.Distance(pair3Node1);
                             if (nextNextExchangePair.Gain < gain)
                                 nextNextExchangePair = (pair3Node1, pair3Node2, gain);
                         }
                         else
                         {
-                            gain = alternativePair3BrokenEdge.Length() - pair2Node2.Distance(pair3Node1);
+                            gain = alternativePair3BrokenEdge.Length - pair2Node2.Distance(pair3Node1);
                             if (nextNextExchangePair.Gain < gain)
                                 nextNextExchangePair = (pair3Node1, alternativepair3Node2, gain);
                         }
@@ -649,7 +648,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     //Console.WriteLine($"\tLATEST PATH: {currentPath}");
                     //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-                    if (!UpdatePartialSum(pair2BrokenEdge.Length(), pair2AddedEdge.Length()))
+                    if (!UpdatePartialSum(pair2BrokenEdge.Length, pair2AddedEdge.Length))
                         return false;
 
                     brokenEdges.Insert(i - 2, pair1BrokenEdge);
@@ -669,7 +668,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     UpdateShortestPath(currentPath);
                     //if (UpdateLocalOptimum(currentPath, i))
                     //    NonsequentialExchange(currentPath, i);
-                    KernighanLin.enclosingNode = pair3Node2;
+                    this.enclosingNode = pair3Node2;
 
                     ImprovePathFromNode(pair3Node2, pair3BrokenEdge, currentPath, i + 1);
                 }
@@ -682,7 +681,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return true;
         }
 
-        private static void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, Path latestPath, int i)
+        private void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, KernighanLinPath latestPath, int i)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -700,12 +699,12 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             while (investigatedNodes != stoppingNode)
             {
                 investigatedNodes = latestPath.Next();
-                if (brokenEdges.Contains(new Edge(fromNode, investigatedNodes)))
+                if (brokenEdges.Contains(new(fromNode, investigatedNodes)))
                     continue;
-                if (goodEdges.Contains(new Edge(fromNode, investigatedNodes)))
+                if (goodEdges.Contains(new(fromNode, investigatedNodes)))
                     continue;
                 investigatedNextNode = latestPath.PeekPrev();
-                if (!addedEdges.Contains(new Edge(investigatedNodes, investigatedNextNode)))
+                if (!addedEdges.Contains(new(investigatedNodes, investigatedNextNode)))
                 {
                     nextPairImprovement = investigatedNodes.Distance(investigatedNextNode) - enclosingNode.Distance(investigatedNodes);
                     if (nextPair.Value > nextPairImprovement)
@@ -728,7 +727,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             //Console.WriteLine($"\tLATEST PATH: {currentPath}");
             //Console.WriteLine($"\tLENGTH: {currentPath.Length}\n");
 
-            if (!UpdatePartialSum(lastBrokenEdge.Length(), addedEdge.Length()))
+            if (!UpdatePartialSum(lastBrokenEdge.Length, addedEdge.Length))
                 return;
 
             brokenEdges.Add(lastBrokenEdge);
@@ -755,7 +754,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             ImprovePathFromNode(nextPair.NextNode, nextBrokenEdge, currentPath, i+1);
         }
 
-        private static bool NonsequentialExchange(Path latestPath)
+        private bool NonsequentialExchange(KernighanLinPath latestPath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -764,7 +763,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             //Console.WriteLine($"\tCURRENT PATH: {latestPath}");
             //Console.WriteLine($"\tLENGTH: {latestPath.Length}\n");
 
-            Path currentPath = latestPath.ToPath();
+            KernighanLinPath currentPath = latestPath.ToPath();
             if (currentPath.Count < 8)
                 return false;
 
@@ -853,7 +852,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 return false;
 
             (Edge[] BrokenEdges, Edge[] AddedEdges) edgesToExchange = (brokenEdges.Take(4).ToArray(), addedEdges.Take(4).ToArray());
-            double improvement = edgesToExchange.BrokenEdges.Sum(x => x.Length()) - edgesToExchange.AddedEdges.Sum(x => x.Length());
+            double improvement = edgesToExchange.BrokenEdges.Sum(x => x.Length) - edgesToExchange.AddedEdges.Sum(x => x.Length);
 
             if (!UpdatePartialSum(improvement))
             {
@@ -879,7 +878,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return true;
         }
 
-        private static bool IsNodeCheckedOut(Node node)
+        private bool IsNodeCheckedOut(Node node)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -900,7 +899,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static Node[] FindNode2(Node node)
+        private Node[] FindNode2(Node node)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -908,7 +907,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             int nodeIndex = path.IndexOf(node);
             var nodes2 = new Node[2] { path.PeekPrev(nodeIndex), path.PeekNext(nodeIndex)};
 
-            if (new Edge(node, nodes2[1]).Length() > new Edge(node, nodes2[0]).Length())
+            if (node.Distance(nodes2[1]) > node.Distance(nodes2[0]))
                 (nodes2[0], nodes2[1]) = (nodes2[1], nodes2[0]);
 
             stopwatch.Stop();
@@ -917,7 +916,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return nodes2;
         }
 
-        private static void RestoreState(Path currentPath, int i)
+        private void RestoreState(KernighanLinPath currentPath, int i)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -940,9 +939,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.RestoreState.AddRecord(stopwatch.Elapsed);
         }
 
-        private static bool UpdatePartialSum(double brokenEdgeLegth, double addedEdgeLength) => UpdatePartialSum(brokenEdgeLegth - addedEdgeLength);
+        private bool UpdatePartialSum(double brokenEdgeLegth, double addedEdgeLength) => UpdatePartialSum(brokenEdgeLegth - addedEdgeLength);
 
-        private static bool UpdatePartialSum(double improvement)
+        private bool UpdatePartialSum(double improvement)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -965,7 +964,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             return false;
         }
 
-        private static void UpdateLocalOptimum(Path currentPath)
+        private void UpdateLocalOptimum(KernighanLinPath currentPath)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -1018,14 +1017,14 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.UpdateLocallyOptimalPaths.AddRecord(stopwatch.Elapsed);
         }
 
-        private static void UpdateGoodEdges(Path currentPath, int count, int index)
+        private void UpdateGoodEdges(KernighanLinPath currentPath, int count, int index)
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
             var getEdgesStopwatch = new Stopwatch();
             getEdgesStopwatch.Start();
-            var pathEdges = currentPath.GetEdges();
+            var pathEdges = currentPath.Edges;
             getEdgesStopwatch.Stop();
             diagnoser.GetEdges.AddRecord(getEdgesStopwatch.Elapsed);
 
@@ -1037,7 +1036,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     continue;
 
                 getEdgesStopwatch.Restart();
-                var optimalPathEdges = locallyOptimalPaths[j].GetEdges();
+                var optimalPathEdges = locallyOptimalPaths[j].Edges;
                 getEdgesStopwatch.Stop();
                 diagnoser.GetEdges.AddRecord(getEdgesStopwatch.Elapsed);
 
@@ -1050,7 +1049,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.UpdateGoodEdges.AddRecord(stopwatch.Elapsed);
         }
 
-        private static void UpdateShortestPath(Path currentPath)
+        private void UpdateShortestPath(KernighanLinPath currentPath)
         {
             double currentImprovement = path.Length - currentPath.Length;
             if (currentImprovement > improvement)
@@ -1077,7 +1076,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             diagnoser.UpdateShortestPath.AddRecord(stopwatch.Elapsed);
         }
         
-        private static void PrintState()
+        private void PrintState()
         {
             Console.WriteLine("######################### CURRENT STATE #########################");
             Console.WriteLine($"PATH: {path}");
@@ -1111,13 +1110,13 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Console.WriteLine($"PATH LENGTH: {shortestPath.Length}");
         }
 
-        private static void PrintEdgeState()
+        private void PrintEdgeState()
         {
             PrintEdges("\tBROKEN EDGES", brokenEdges);
             PrintEdges("\tADDED EDGES", addedEdges);
         }
 
-        private static void PrintEdges(string name, List<Edge> edges)
+        private void PrintEdges(string name, List<Edge> edges)
         {
             Console.Write($"{name}: ");
             foreach (var edge in edges)
@@ -1125,7 +1124,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Console.WriteLine();
         }
 
-        private static void PrintImprovementState(Node node1, Node node2, int i)
+        private void PrintImprovementState(Node node1, Node node2, int i)
         {
             Console.WriteLine("[*] CURRENT STATE");
             Console.WriteLine($"\tNODE{i}: {node1}");

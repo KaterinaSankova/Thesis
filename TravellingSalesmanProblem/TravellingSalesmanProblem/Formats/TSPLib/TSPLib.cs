@@ -32,9 +32,6 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
         public string? DisplayDataSection;   //asi ne?
         public string? EdgeWeightSection; //asi ne?
 
-        //helpers
-        private readonly EnumRecognizer EnumRecognizer = new EnumRecognizer();
-
         public TSPLib(string path)
         {
             using var reader = new StreamReader(new FileStream(path, FileMode.Open));
@@ -48,7 +45,7 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
             return;
         }
 
-        public void RedirectToSection(string line, StreamReader reader) //refactor
+        private void RedirectToSection(string line, StreamReader reader) //refactor
         {
             string section;
             string? content = null;
@@ -64,7 +61,7 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
             DeserializeSection(section, content, reader);
         }
 
-        public void DeserializeSection(string section, string? content, StreamReader reader) //refactor
+        private void DeserializeSection(string section, string? content, StreamReader reader) //refactor
         {
             switch (section)
             {
@@ -128,13 +125,13 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
             return stringBuilder.ToString();
         }
 
-        public void CheckType()
+        private void CheckType()
         {
             if (Type != Type.TSP && Type != Type.TOUR)
                 throw new Exception(); //neco jako, ze invalid problem type nebo tak
         }
-        
-        public void CheckEdgeWeightType()
+
+        private void CheckEdgeWeightType()
         {
             if (WeightType != EdgeWeightType.EUC2D)
                 throw new Exception(); //neco jako, ze invalid problem type nebo tak

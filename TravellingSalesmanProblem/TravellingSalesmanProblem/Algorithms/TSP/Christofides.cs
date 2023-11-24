@@ -4,20 +4,16 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 {
     public class Christofides
     {
-        private readonly IPrims prims = new Prims();
         private readonly PerfectMatchingGreedyAlgorithm perfectMatchingAlgorithm = new PerfectMatchingGreedyAlgorithm();
 
         public List<Node> FindShortestPath(Graph graph)
         {
-            List<Node> path = new List<Node>();
+            List<Edge> minimalSpanningTree = Prims.FindSpanningTree(graph);
+            var oddDegreeNodes = graph.OddDegreeNodes(minimalSpanningTree);
 
-            List<Edge> minimalSpanningTree = prims.FindSpanningTree(graph);
+            List<Edge> perfectMatching = PerfectMatching.FindMinimalPerfectMatching(new Graph(oddDegreeNodes));
 
-            List<Edge> perfectMatching = PerfectMatching.FindMinimalPerfectMatching(new Graph(graph.OddDegreeNodes(minimalSpanningTree)));
-
-            path = Fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList());
-
-            path = path.Distinct().ToList(); //shortcutting
+            List<Node> path = Fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList()).Distinct().ToList();
 
             path.Add(path[0]);
 
