@@ -139,15 +139,14 @@ namespace TravellingSalesmanProblem.Formats.TSPLib
 
         private Node LineToNode(string line) //tryparse
         {
-            int.TryParse(line[0..line.IndexOf(' ')], out int id);
-
+            string idString = line[0..line.IndexOf(' ')];
             line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
+            string xString = line[0..line.IndexOf(' ')].Replace('.', ',');
+            string yString = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ').TrimEnd('\r').Replace('.', ',');
 
-            double.TryParse(line[0..line.IndexOf(' ')], out double x);
-
-            line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
-
-            double.TryParse(line, out double y);
+            int.TryParse(idString, out int id);
+            double.TryParse(xString, out double x);
+            double.TryParse(yString, out double y);
 
             return new Node(id, x, y);
         }

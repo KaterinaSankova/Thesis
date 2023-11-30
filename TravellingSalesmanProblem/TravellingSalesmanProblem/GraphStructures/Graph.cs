@@ -126,8 +126,8 @@ namespace TravellingSalesmanProblem.GraphStructures
             double length = 0;
 
             for (int i = 0; i < nodes.Count - 1; i++)
-                for (int j = 1; j < nodes.Count; j++)
-                    length += nodes[i].Distance(nodes[j]);
+                length += nodes[i].Distance(nodes[i+1]);
+            length += nodes[0].Distance(nodes[nodes.Count - 1]);
 
             return length;
         }

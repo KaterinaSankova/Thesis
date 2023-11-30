@@ -2,6 +2,7 @@
 using TravellingSalesmanProblem.Formats;
 using TravellingSalesmanProblem.Formats.TSPLib;
 using TravellingSalesmanProblem.GraphStructures;
+using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Testing
 {
@@ -81,7 +82,7 @@ namespace TravellingSalesmanProblem.Testing
             }
             catch (Exception)
             {
-                Console.WriteLine();
+                Console.WriteLine("Error while parsing input data");
                 return false;
             }
             var output = new OptTourDeserializer(tourFile, input).DeserializeNodes();
@@ -103,55 +104,73 @@ namespace TravellingSalesmanProblem.Testing
             var rnd = new Random();
             var inputGraph = new Graph(input.ToList().OrderBy( x => rnd.Next()).ToList());
 
-            var result = new Graph(nearestAddition.FindShortestPath(inputGraph));
+            var naResult = new Graph(nearestAddition.FindShortestPath(inputGraph));
 
-            double algoLen = result.GetLength();
+            double algoLen = naResult.GetLength();
 
             Console.Write($"NearestAddition algorithm: {algoLen}, ");
 
             Console.Write($"factor: {algoLen / length}, ");
 
-            Console.WriteLine($"{length <= 2 * algoLen}");
+            Console.WriteLine($"{length <= 2 * algoLen}\n");
 
 
-            pass = length <= 2 * algoLen && CheckResult(input, result.nodes);
+            pass = length <= 2 * algoLen && CheckResult(input, naResult.nodes);
 
 
-            result = new Graph(doubleTree.FindShortestPath(inputGraph));
+            var dtResult = new Graph(doubleTree.FindShortestPath(inputGraph));
 
-            algoLen = result.GetLength();
+            algoLen = dtResult.GetLength();
 
             Console.Write($"DoubleTree algorithm: {algoLen}, ");
 
             Console.Write($"factor: {algoLen / length}, ");
 
-            Console.WriteLine($"{length <= 2 * algoLen}");
+            Console.WriteLine($"{length <= 2 * algoLen}\n");
 
-            pass = pass && length <= 2 * algoLen && CheckResult(input, result.nodes);
+            pass = pass && length <= 2 * algoLen && CheckResult(input, dtResult.nodes);
 
 
-            result = new Graph(christofides.FindShortestPath(inputGraph));
+            var chResult = new Graph(christofides.FindShortestPath(inputGraph));
 
-            algoLen = result.GetLength();
+            algoLen = chResult.GetLength();
 
             Console.Write($"Christofides algorith: {algoLen}, ");
 
             Console.Write($"factor: {algoLen / length}, ");
 
-            Console.WriteLine($"{length <= 1.5f * algoLen}\n\n\n");
+            Console.WriteLine($"{length <= 1.5f * algoLen}\n");
 
-            pass = pass && length <= 1.5f * algoLen && CheckResult(input, result.nodes);
+            pass = pass && length <= 1.5f * algoLen && CheckResult(input, chResult.nodes);
 
 
-            result = new Graph(kernighanLin.FindShortestPath(inputGraph).ToList());
+            var klResult = new Graph(kernighanLin.FindShortestPath(inputGraph).ToList());
 
-            algoLen = result.GetLength();
+            algoLen = klResult.GetLength();
 
             Console.Write($"Kernighan-Lin algorith: {algoLen}, ");
 
-            Console.WriteLine($"factor: {algoLen / length}");
+            Console.WriteLine($"factor: {algoLen / length}\n");
 
-            Console.WriteLine($"result: {CheckResult(input, result.nodes)}\n\n\n");
+            Console.WriteLine($"result: {CheckResult(input, klResult.nodes)}\n");
+
+            naResult.nodes.Remove(naResult.nodes.Last());
+            dtResult.nodes.Remove(dtResult.nodes.Last());
+            chResult.nodes.Remove(chResult.nodes.Last());
+            klResult.nodes.Remove(klResult.nodes.Last());
+
+            if (new Path(naResult.nodes).Equals(new Path(dtResult.nodes)))
+                Console.WriteLine($"Nearest addition and Double tree");
+            if (new Path(naResult.nodes).Equals(new Path(chResult.nodes)))
+                Console.WriteLine($"Nearest addition and Christofides");
+            if (new Path(naResult.nodes).Equals(new Path(klResult.nodes)))
+                Console.WriteLine($"Nearest addition and Kernighan Lin");
+            if (new Path(dtResult.nodes).Equals(new Path(chResult.nodes)))
+                Console.WriteLine($"Double tree and Christofides");
+            if (new Path(dtResult.nodes).Equals(new Path(klResult.nodes)))
+                Console.WriteLine($"Double tree and Kernighan Lin");
+            if (new Path(chResult.nodes).Equals(new Path(klResult.nodes)))
+                Console.WriteLine($"Christofides and Kernighan Lin");
 
             return pass;
         }

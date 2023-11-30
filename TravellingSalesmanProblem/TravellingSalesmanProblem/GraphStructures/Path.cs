@@ -219,7 +219,25 @@ namespace TravellingSalesmanProblem.GraphStructures
             if (this.Count != otherPath.Count)
                 return false;
 
-            return GetHashCode() == otherPath.GetHashCode();
+            int currentIndex = CurrentIndex, otherCurrentIndex = otherPath.CurrentIndex;
+            Direction direction = this.Direction;
+
+            this.CurrentIndex = 0;
+            otherPath.CurrentIndex = otherPath.IndexOf(path[0]);
+            if (this.PeekNext() != otherPath.PeekNext() && this.PeekNext() != otherPath.PeekPrev())
+                this.Direction = (Direction)(-1 * (int)this.Direction);
+
+            for (int i = 0; i < path.Count; i++)
+            {
+                if (this.Next() != otherPath.Next())
+                    return false;
+            }
+
+            CurrentIndex = currentIndex;
+            otherPath.CurrentIndex = otherCurrentIndex;
+            this.Direction = direction;
+
+            return true;
         }
 
         public override string ToString()

@@ -9,7 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Algorithms\Constants\" />
+    <Compile Remove="Algorithms\Constants\**" />
+    <EmbeddedResource Remove="Algorithms\Constants\**" />
+    <None Remove="Algorithms\Constants\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="libs\" />
   </ItemGroup>
 
