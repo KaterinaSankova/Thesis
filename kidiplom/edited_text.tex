@@ -444,7 +444,7 @@ Sestrojíme-li pro vstup eulerovský podgraf délky $\alpha*OPT$, pak můžeme o
 
 \subsection{Keringhan - Lin}
 
-Tento algoritmus není specifický pro TSP, ale je možné jím řešit obecně problémy, kde máme nějakou podmínku $C$, kterou musejí splňovat  řešení, a funkci $f$, která řešením přiřazuje určitou hodnotu. Zadanou pak máme množinu $S$, ve které hledáme podmnožinu $T$, která bude nejen splňovat podmínku $C$, ale její hodnota $f$ bude mezi všemi vyhovujícími podmnožinami minimální. Takové problémy mívají často exponenciální složitost. Jedním z takových problémů, kde se Kernighan - Lin využívá je například\textit{dělení grafů}. 
+Tento algoritmus není specifický pro TSP, ale je možné jím řešit obecně problémy, kde máme nějakou podmínku $C$, kterou musejí splňovat jejich řešení, a funkci $f$, která jim přiřazuje určitou hodnotu. Zadanou pak máme množinu $S$, ve které hledáme podmnožinu $T$, která bude nejen splňovat podmínku $C$, ale její hodnota $f$ bude mezi všemi vyhovujícími podmnožinami minimální. Takové problémy mívají často exponenciální složitost. Jedním z takových problémů, kde se Kernighan - Lin využívá je například \textit{dělení grafů}. 
 
 Základem je postupné zlepšování řešení. Hledá se vždy nějaké lokální optimum, které se, pokud přinese nějaký zisk (zmenšení hodnoty $f$), použije pro další iteraci.
 
@@ -452,7 +452,7 @@ Na začátku se zvolí pseudonáhodné přípustné řešení $T \subseteq S$. N
 
 \sloppy Samotná transformace probíhá tak, že se hledají takové dvě množiny ${\{x_1, x_2, ..., x_k\} \in T}$ a $\{y_1, y_2, ..., y_k\} \in S - T$, pro které platí, že když nahradíme prvky první množiny v $T$ prvky druhé množiny, pak dostaneme platné řešení $T'$. O tom, jak přijdeme k číslu $k$ (už konkrétně u TSP) bude ještě řeč později.
 
-Myšlenka algoritmu tedy spočívá v tom, že pro nějaké počáteční řešení najdeme vždy lokální optimum a mezi nimi by se snad mělo objevit i optimum globální (nebo alespoň řešení se schůdnou hodnotou pro $f$). Přirozeně budeme považovat algoritmus za tím kvalitnější, čím menší počet různých lokálních optim dostaneme a čím větší počet náhodných počátečních řešení nám dá dobrý výsledek.\newline
+Myšlenka algoritmu tedy spočívá v tom, že pro nějaké počáteční řešení najdeme vždy lokální optimum a mezi nimi by se snad mělo objevit i optimum globální (nebo alespoň řešení se schůdnou hodnotou pro $f$). Přirozeně budeme považovat algoritmus za tím kvalitnější, čím menší počet různých lokálních optim dostaneme a čím větší počet náhodných počátečních řešení nám dá dostatečně dobrý výsledek.\newline
 
 
 {\LinesNumbered\SetAlgoNoLine\
