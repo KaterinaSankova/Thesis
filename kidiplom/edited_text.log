@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7.25 NEXT) (preloaded format=pdflatex 2022.10.8)  1 DEC 2023 13:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7.25 NEXT) (preloaded format=pdflatex 2022.10.8)  11 JAN 2024 19:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1545,31 +1545,50 @@ Underfull \hbox (badness 10000) in paragraph at lines 423--424
  []
 
 [19]
-Underfull \hbox (badness 10000) in paragraph at lines 455--456
+Underfull \hbox (badness 10000) in paragraph at lines 457--458
 
  []
 
 
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 458--470
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 460--472
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 470--471
+Underfull \hbox (badness 10000) in paragraph at lines 472--473
 
  []
 
-[20] [21
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 476--478
 
-] [22
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 49
+4.
+(C:\Users\kitty\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 479--497
+[] []$[]$ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 497--498
+
+ []
+
+[21] [22] [23
+
+] [24
 
 ]
 No file edited_text.acr.
-[23
+[25
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 498.
+LaTeX Warning: Empty bibliography on input line 543.
 
 No file edited_text.ind.
 
@@ -1588,45 +1607,47 @@ Package logreq Info: Writing requests to 'edited_text.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31249 strings out of 478338
- 566742 string characters out of 2836700
- 1450686 words of memory out of 3000000
- 49019 multiletter control sequences out of 15000+600000
- 556578 words of font info for 72 fonts, out of 8000000 for 9000
+ 31311 strings out of 478338
+ 567641 string characters out of 2836700
+ 1452686 words of memory out of 3000000
+ 49060 multiletter control sequences out of 15000+600000
+ 557199 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,17n,121p,2611b,2057s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
 pdfTeX warning (dest): name{section*.8} has been referenced but does not exist,
  replaced by a fixed one
 
-{C:/Users/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/
-Users/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/User
-s/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/User
-s/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/User
-s/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}<C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/ki
-tty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/
-kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/
-kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/
-kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/k
-itty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/ki
-tty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/kit
-ty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/kitt
-y/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/kitty
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/kitty/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/kitty/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/kitty/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/kitty/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/kitty/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/kitty/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on edited_text.pdf (23 pages, 428305 bytes).
+{C:/Users/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}{C:/U
+sers/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users
+/kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/kit
+ty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/kit
+ty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/kit
+ty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}<C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/kitty/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi10.pfb><C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/kitty
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/kitty
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/kitty
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/kitty/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/kitty/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/kitty/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/kitty/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/kitty/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/kitty/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/kitty/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/kitty/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/kitty/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/kitty/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/kitty/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/ki
+tty/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb>
+Output written on edited_text.pdf (25 pages, 448765 bytes).
 PDF statistics:
- 426 PDF objects out of 1000 (max. 8388607)
- 110 named destinations out of 1000 (max. 500000)
- 211 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 460 PDF objects out of 1000 (max. 8388607)
+ 125 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,5 @@
-﻿using TravellingSalesmanProblem.Algorithms.TSP;
+﻿using System.Diagnostics;
+using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.Formats;
 using TravellingSalesmanProblem.Formats.TSPLib;
 using TravellingSalesmanProblem.GraphStructures;
@@ -104,13 +105,19 @@ namespace TravellingSalesmanProblem.Testing
             var rnd = new Random();
             var inputGraph = new Graph(input.ToList().OrderBy( x => rnd.Next()).ToList());
 
+            var sw = new Stopwatch();
+            sw.Restart();
             var naResult = new Graph(nearestAddition.FindShortestPath(inputGraph));
+            sw.Stop();
+            var ts = sw.Elapsed;
 
             double algoLen = naResult.GetLength();
 
-            Console.Write($"NearestAddition algorithm: {algoLen}, ");
+            Console.WriteLine($"NearestAddition algorithm: {algoLen}, ");
 
-            Console.Write($"factor: {algoLen / length}, ");
+            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
+
+            Console.WriteLine($"factor: {algoLen / length}, ");
 
             Console.WriteLine($"{length <= 2 * algoLen}\n");
 
@@ -118,37 +125,52 @@ namespace TravellingSalesmanProblem.Testing
             pass = length <= 2 * algoLen && CheckResult(input, naResult.nodes);
 
 
+            sw.Restart();
             var dtResult = new Graph(doubleTree.FindShortestPath(inputGraph));
+            sw.Stop();
+            ts = sw.Elapsed;
 
             algoLen = dtResult.GetLength();
 
-            Console.Write($"DoubleTree algorithm: {algoLen}, ");
+            Console.WriteLine($"DoubleTree algorithm: {algoLen}, ");
 
-            Console.Write($"factor: {algoLen / length}, ");
+            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
+
+            Console.WriteLine($"factor: {algoLen / length}, ");
 
             Console.WriteLine($"{length <= 2 * algoLen}\n");
 
             pass = pass && length <= 2 * algoLen && CheckResult(input, dtResult.nodes);
 
 
+            sw.Restart();
             var chResult = new Graph(christofides.FindShortestPath(inputGraph));
+            sw.Stop();
+            ts = sw.Elapsed;
 
             algoLen = chResult.GetLength();
 
-            Console.Write($"Christofides algorith: {algoLen}, ");
+            Console.WriteLine($"Christofides algorith: {algoLen}, ");
 
-            Console.Write($"factor: {algoLen / length}, ");
+            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
+
+            Console.WriteLine($"factor: {algoLen / length}, ");
 
             Console.WriteLine($"{length <= 1.5f * algoLen}\n");
 
             pass = pass && length <= 1.5f * algoLen && CheckResult(input, chResult.nodes);
 
 
+            sw.Restart();
             var klResult = new Graph(kernighanLin.FindShortestPath(inputGraph).ToList());
+            sw.Stop();
+            ts = sw.Elapsed;
 
             algoLen = klResult.GetLength();
 
-            Console.Write($"Kernighan-Lin algorith: {algoLen}, ");
+            Console.WriteLine($"Kernighan-Lin algorith: {algoLen}, ");
+
+            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
 
             Console.WriteLine($"factor: {algoLen / length}\n");
 

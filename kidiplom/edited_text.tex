@@ -444,21 +444,23 @@ Sestrojíme-li pro vstup eulerovský podgraf délky $\alpha*OPT$, pak můžeme o
 
 \subsection{Keringhan - Lin}
 
-Tento algoritmus není specifický pro TSP, ale je možné jím řešit obecně problémy, kde máme nějakou podmínku $C$, kterou musejí splňovat jejich řešení, a funkci $f$, která jim přiřazuje určitou hodnotu. Zadanou pak máme množinu $S$, ve které hledáme podmnožinu $T$, která bude nejen splňovat podmínku $C$, ale její hodnota $f$ bude mezi všemi vyhovujícími podmnožinami minimální. Takové problémy mívají často exponenciální složitost. Jedním z takových problémů, kde se Kernighan - Lin využívá je například \textit{dělení grafů}. 
+Tento heuristický algoritmus není specifický pro TSP, ale je možné jím řešit obecně problémy, kde máme nějakou podmínku $C$, kterou musejí splňovat jejich řešení, a funkci $f$, která takovým řešením přiřazuje určitou hodnotu. Zadanou pak máme množinu $S$, ve které hledáme podmnožinu $T$, která bude nejen splňovat podmínku $C$, ale její hodnota $f$ bude mezi všemi vyhovujícími podmnožinami minimální. Takové problémy mívají často exponenciální složitost, proto se zpravidla spokojíme s hledáním takových podmnožin, které splňují $C$ a jejich hodnota $f$ je dostatečně malá. Jedním z takových problémů, kde se Kernighan - Lin využívá je například \textit{dělení grafů}. 
 
-Základem je postupné zlepšování řešení. Hledá se vždy nějaké lokální optimum, které se, pokud přinese nějaký zisk (zmenšení hodnoty $f$), použije pro další iteraci.
+Základní myšlenkou je postupné zlepšování úvodního řešení. Hledá se vždy lokální optimum, které se, pokud přinese nějaký zisk (zmenšení hodnoty $f$), použije pro další iteraci.
 
-Na začátku se zvolí pseudonáhodné přípustné řešení $T \subseteq S$. Následně začne cyklus, kde se snažíme $T$ transformovat na jiné platné řešení $T'$. Pokud by platilo $f(T') < f(T)$, pak se $T'$ použije pro další iteraci. V momentě, kdy už nenacházíme řešení, které by přinášely nějaký zisk, tak bylo nalezeno lokálně optimální řešení. V tuto chvíli se buď může skončit nebo se vygeneruje nové počáteční řešení a proces se opakuje.
+Na začátku se zvolí pseudonáhodné přípustné řešení $T \subseteq S$ a následně začne cyklus, kde se snažíme $T$ transformovat na jiné platné řešení $T'$. Pokud by platilo $f(T') < f(T)$, pak se $T'$ použije pro další iteraci. V momentě, kdy už nenacházíme řešení, které by přinášely nějaký zisk, tak bylo nalezeno lokálně optimální řešení. V tuto chvíli se buď může skončit nebo se vygeneruje nové počáteční řešení a~proces provést znovu.
 
-\sloppy Samotná transformace probíhá tak, že se hledají takové dvě množiny ${\{x_1, x_2, ..., x_k\} \in T}$ a $\{y_1, y_2, ..., y_k\} \in S - T$, pro které platí, že když nahradíme prvky první množiny v $T$ prvky druhé množiny, pak dostaneme platné řešení $T'$. O tom, jak přijdeme k číslu $k$ (už konkrétně u TSP) bude ještě řeč později.
+\sloppy Samotná transformace probíhá tak, že se hledají takové dvě množiny $\{{x_1, x_2, ..., x_k\} \in T}$ a $\{y_1, y_2, ..., y_k\} \in S - T$, pro které platí, že když nahradíme prvky první množiny v $T$ prvky druhé množiny, pak dostaneme platné řešení $T'$. O tom, jak přijdeme k číslu $k$ bude ještě řeč později.
 
-Myšlenka algoritmu tedy spočívá v tom, že pro nějaké počáteční řešení najdeme vždy lokální optimum a mezi nimi by se snad mělo objevit i optimum globální (nebo alespoň řešení se schůdnou hodnotou pro $f$). Přirozeně budeme považovat algoritmus za tím kvalitnější, čím menší počet různých lokálních optim dostaneme a čím větší počet náhodných počátečních řešení nám dá dostatečně dobrý výsledek.\newline
+Idea algoritmu tedy spočívá v tom, že pro pseudonáhodné počáteční řešení najdeme budeme nacházet lokální optima a mezi nimi by se snad mělo objevit i~optimum globální (nebo alespoň řešení se schůdnou hodnotou pro $f$). Přirozeně budeme považovat algoritmus za tím kvalitnější, čím menší počet různých lokálních optim dostaneme a čím větší počet náhodných počátečních řešení nás dovede k dostatečně dobrému výsledku.
+
+Obecná podoba heuristiky by se dala zapsat následovně:\newline
 
 
 {\LinesNumbered\SetAlgoNoLine\
 \begin{algorithm}[H]
 $T \leftarrow$ pseudonáhodné řešení\;
-$T' \leftarrow$ tranformace $T$ taková, že f(T') < f(T)\;
+$T' \leftarrow$ tranformace $T$ taková, že $f(T') < f(T)$\;
 \If {$T'$}
 {$T \leftarrow T'$\;
 \textbf{go to} 2\;}
@@ -469,9 +471,52 @@ $T' \leftarrow$ tranformace $T$ taková, že f(T') < f(T)\;
 }
 \end{algorithm}}\leavevmode\newline
 
+Vraťme se ještě ke zmíněnému koeficientu $k$. Jednou z možností, jak nad $k$ uvažovat je jako na předem zvolené číslo. Toho pro řešení TSP využil A. Croes s $k = 2$ a později S. Lin s $k = 3$. Tento přístup s sebou nese jistá úskalí a to hlavně správnou volbu $k$. S narůstající hodnotou se výrazně zvyšuje i výpočetní čas, ale přirozeně dostáváme lepší řešení. Zjistit pak, jaké číslo nám zajistí dostatečně dobré výsledky ve schůdném čase, je náročné.
+
+Tomu to problému se můžeme vyhnout tím, že $k$ nebude mít žádnou fixní hodnotu. Takového způsobu využijeme my. Jelikož $k$ nebude známé, nemůžeme již jednoduše uvažovat všechny podmnožiny $T$ o velikosti $k$, jako u předchozí varianty, ale budeme iterativně hledat vždy nejvýhodnější $x_i$ a $y_i$ pro výměnu.
+\newline
+
+{\LinesNumbered\SetAlgoNoLine\
+\begin{algorithm}[H]
+\SetKwRepeat{Do}{do}{while}%
+$T \leftarrow$ pseudonáhodné řešení\;
+\Do {$f(T') > f(T)$}
+{
+$i \leftarrow 0$\;
+\While {může být nalezeno zlepšení}
+{
+$i \leftarrow i + 1$\;
+$(x_i, y_i) \leftarrow$ nejvýhodnější pár pro výměnu\;
+$G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
+}
+$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}
+$T \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
+}
+\Return \;
+\caption{Keringhan - Lin algoritmus - variabilní $k$}
+\end{algorithm}}\leavevmode\newline
+
+
+Pro takový přístup vyvstává pár pravidel a otázek, které si budeme muset zodpovědět.
+
+Prvním pravidlem je \textit{pravidlo disjunkce}. Budeme požadovat, aby množiny $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$ nesdílely žádné prvky a zbytečně jsme opakovaně neprozkoumávali záměny, které nevedou ke zlepšení.
+
+Druhé pravidlo vyplývá z variability $k$. Jelikož nevíme, pro jaké $i$ budeme chtít výměnu provést, musíme vědět, že po každé výměně $\{x_1, x_2, ..., x_i\}$ za $\{y_1, y_2, ..., y_i\}$ dostaneme platné řešení. Podmínce, která musí být splněna, aby pravidlo platilo budeme říkat \textit{podmínka proveditelnosti}.
+
+Z pseudokódu uvedeného výše není zřejmé ještě pár věcí. Nejzřejmější je, jak identifikovat pár s největším ziskem. Potřebujeme najít takové \textit{pravidlo výběru}, které bude rychlé a zároveň co nejefektivnější.
+
+Další neznámou je funkce $G_i$. Tato funkce udává celkový zisk pro aktuálně nalezené prvky. Určíme-li $g_i$ jako zisk pro $(x_i, y_i)$, pak nejsnazším řešením je za $G_i$ uvažovat $g_1 + g_2 + ... + g_i$. Tímto se také vyhneme tomu, že bychom přestali hledat v momentu, kdy bychom nalezly pár se zápornou hodnotou $g_i$.
+
+Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrý balanc mezi schůdným výpočetním časem a prozkoumáváním dostatku příležitostí.
+
+\subsubsection{Keringhan - Lin pro TSP}
+Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za množinu $S$ můžeme brát množinu hran úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subset S$, aby $T$ bylo řešením problému, jistě bude, že hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
+
+Nyní se podíváme na to, jakým způsobem budeme transformovat $T$ na $T'$, čili-že jak budeme identifikovávat hrany, které v původním řešení zrušíme a do nového přidáme.
 
 
 
+Rychlost cca $n ^ 2$
 
 \begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.

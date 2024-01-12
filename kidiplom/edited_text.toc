@@ -16,10 +16,11 @@
 \contentsline {subsection}{\numberline {3.3}Christofides'}{18}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{19}{subsubsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.4}Keringhan - Lin}{20}{subsection.3.4}%
-\contentsline {section}{Z\'av\v er}{21}{section*.3}%
+\contentsline {subsubsection}{\numberline {3.4.1}Keringhan - Lin pro TSP}{22}{subsubsection.3.4.1}%
+\contentsline {section}{Z\'av\v er}{23}{section*.3}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Conclusions}{22}{section*.5}%
+\contentsline {section}{Conclusions}{24}{section*.5}%
 \babel@toc {english}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Seznam zkratek}{23}{section*.7}%
+\contentsline {section}{Seznam zkratek}{25}{section*.7}%
