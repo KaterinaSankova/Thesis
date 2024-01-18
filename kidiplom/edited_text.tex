@@ -40,6 +40,8 @@
 \usepackage{longtable}
 \usepackage[ruled, noend]{algorithm2e} 
 \usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{caption}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -212,8 +214,6 @@ Nyní si dokážeme ještě zajímavější tvrzení.
 Pokud by existoval $2^n$\textendash aproximační polynomiální algoritmus pro TSP, pak~$\textbf{P} = \textbf{NP}$.
 \end{theorem}
 
-
-
 Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamiltonovské kružnice (\textit{HC - Hamiltonian Cycle}) v grafu.
 \begin{definition}[Rozhodovací verze HC]
 \begin{itemize}[label={}]
@@ -224,43 +224,27 @@ Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamilto
 \end{itemize}
 \end{definition}
 
-O tomto problému je známo, že je \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP. Jak jsme již zmínili, TSP má ve své klasické podobě na vstupu graf a jeho příslušné hranové ohodnocení. Vstup $x$ pro HC bychom mohli redukovat na vstup $r(x)$ pro TSP tak, že bychom vytvořili úplný graf mezi uzly z původní instance a ohodnotili bychom jeho hrany následovně:
+O tomto problému je známo, že je také \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP.
+
+Jak jsme již zmínili, TSP má ve své klasické podobě na vstupu graf a jeho příslušné hranové ohodnocení. Vstup $x$ pro HC bychom mohli redukovat na vstup $r(x)$ pro TSP tak, že bychom vytvořili úplný graf mezi uzly z původní instance a ohodnotili bychom jeho hrany následovně:
+
 $$c_e = \begin{cases}
 1  & \text{pro } e \in E\\
 |V|\cdot2^{|V|} + 1 & \text{pro } e \not\in E\\
 \end{cases}$$
+
 Snadno můžeme dojít k tomu, že
+
 $$OPT_{TSP}(r(x)) = \begin{cases}
 = |V|  & \text{pro } x \in HC\\
 > |V|\cdot2^{|V|} & \text{pro } x \not\in HC\\
 \end{cases}$$
-Uvědomme si, že hrany s cenou $|V|\cdot2^{|V|}$ budou obsaženy v optimálním řešení pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu. Pokud by byla musela být vybrána pouze jedna taková hrana, pak bude cena nalezené cesty $$(|V| - 1) + (|V|\cdot2^{|V|} + 1) > |V|\cdot2^{|V|}$$
+
+Uvědomme si, že hrany s cenou $|V|\cdot2^{|V|}$ budou obsaženy v optimálním řešení pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu. Pokud musela být vybrána pouze jedna taková hrana, pak bude cena nalezené cesty $$(|V| - 1) + (|V|\cdot2^{|V|} + 1) > |V|\cdot2^{|V|}$$
 
 Díky takovému ohodnocení existuje tedy exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pokud bychom měli $2^n$\textendash aproximační polynomiální algoritmus $A$ pro TSP, pak pro pozitivní instance HC by našel cestu délky nejhůře $|V|\cdot2^{|V|}$, pro negativní instance zase nejlépe délky $|V|\cdot2^{|V|} + 1$.
 
 HC bychom mohli vyřešit tak, že bychom spustili $A$ na $r(x)$ a pokud by délka vrácené cesty byla menší nebo rovna $|V|\cdot2^{|V|}$, pak bychom vrátili \textsc{Ano}, v opačném případě \textsc{Ne}. Vzhledem k tomu, že převod na $r(x)$, $A$ i porovnání na konci běží v polynomiálním čase, pak bychom celý HC mohli rozhodnout v polynomiálním čase. Uvedli jsme navíc, že HC je \textbf{NP}\textendash úplný. V kapitole o složitosti jsme řešili, že nalezení polynomiálního algoritmu pro kterýkoli z problémů této množiny by znamenalo, že $\textbf{N} = \textbf{NP}$.
-
-
-\pagebreak
-Jedním z důvodů, proč je TSP tak zkoumaným problémem, je jeho složitost. Abychom našli správné (optimální) řešení, museli bychom projít všechna přípustná řešení a porovnat je mezi sebou. Takových řešení je ale vůči počtu měst exponenciálně. Pokud bychom ale měli k dispozici nedeterministický stroj, pak bychom se mohli spolehnout na to, že vždy najde nejkratší cestu hned. Samotné nalezení cesty je pak zvládnutelné v polynomiálním čase a můžeme o TSP říct, že je to nedeterministický polynomiálním problém (\textit{NP - problém}). Tohle platí i pro jeho \textit{rozhodovací verzi}.
-
-\textit{Rozhodovací problémy} se vyznačují tím, že jako výstupem je pouze \textit{Ano} nebo \textit{Ne}. TSP můžeme upravit následovně.
-\begin{definition}[Rozhodovací verze TSP]
-\begin{itemize}[label={}]
-  \item
-  \item NÁZEV: TSP
-  \item VSTUP: Úplný neorientovaný graf $G=\langle V, E \rangle$,
-  \begin{itemize}[label={}]
-  \item \begin{itemize}[label={}]
-  \item hranové ohodnocení $c : E \leftarrow R^+$,
-  \item číslo $k$
-  \end{itemize}
-  \end{itemize}
-  \item OTÁZKA: Existuje v $G$ hamiltonovská kružnice délky nejvýš $k$?
-\end{itemize}
-\end{definition}
-
-Tato verze navíc tu vlastnost, že libovolný rozhodovací NP problém je na něj polynomiálně redukovatelný. Čili pro každý vstup problému můžeme v polynomiálním čase najít vstup pro TSP, který bude vracet stejnou odpověď, jakou by vrátil původní problém na původní vstup. Problémům s touto vlastností se říká \textit{NP-těžké}. Pokud jsou navíc NP, říká se jim \textit{NP-úplné}. Tyto problémy jsou důležité, protože kdyby se podařilo najít algoritmus řešící kterýkoli z nich v polynomiálním čase (takové problémy považujeme za prakticky zvládnutelné), pak bychom jistě zvládli vyřešit i všechny NP problémy v polynomiálním čase.
 
 \subsection{Metrický problém obchodního cestujícího}
 TSP může být žádané také omezit jiným způsobem. Pokud přidáme sna hranové ohodnocení podmínku, že musí platit trojúhelníková nerovnost, tedy $\forall u, v, w \in V$ platí $$c_{u, v} + c_{v, w} \ge c_{w, u}$$
@@ -512,10 +496,123 @@ Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku},
 \subsubsection{Keringhan - Lin pro TSP}
 Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za množinu $S$ můžeme brát množinu hran úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subset S$, aby $T$ bylo řešením problému, jistě bude, že hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
 
-Nyní se podíváme na to, jakým způsobem budeme transformovat $T$ na $T'$, čili-že jak budeme identifikovávat hrany, které v původním řešení zrušíme a do nového přidáme.
+Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat pro TSP. Jeho jádrem je sekvenční hledání párů hran, kde jednu v původním řešení zrušíme a druhou do nového přidáme. Co je myšleno sekvenčním hledání si nejprve ilustrujeme následujícím obrázkem.
+
+\begin{center}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+ 	 % Define the array of labels
+ 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	   \pgfmathsetmacro\label{\labels[\i - 1]}
+ 	   \ifthenelse{\label < 3}
+ 		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
+			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
+ 	 }
+  
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=95,in=-35] (t1);
+ 	 \draw (t2) to[out=215,in=85] (t6);
+ 	 \draw (t5) to[out=-25,in=205] (t3);
+  
+	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
+	 \draw (t6) to[out=-85,in=145] (t5);
+ 	 \draw (t3) to[out=35,in=-95] (t4);
+	\end{tikzpicture}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+ 	 % Define the array of labels
+ 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	   \pgfmathsetmacro\label{\labels[\i - 1]}
+ 	   \ifthenelse{\label < 5}
+ 		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
+			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
+ 	 }
+  
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=95,in=-35] (t1);
+ 	 \draw (t2) to[out=215,in=85] (t6);
+ 	 \draw (t5) to[out=-25,in=205] (t3);
+  
+	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
+	 \draw (t6) to[out=-85,in=145] (t5);
+ 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
+ 	 
+	 \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
+	\end{tikzpicture}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+ 	 % Define the array of labels
+ 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	   \pgfmathsetmacro\label{\labels[\i - 1]}
+ 	   \ifthenelse{\label < 5}
+ 		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
+			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
+ 	 }
+  
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=95,in=-35] (t1);
+ 	 \draw (t2) to[out=215,in=85] (t6);
+ 	 \draw (t5) to[out=-25,in=205] (t3);
+  
+	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
+	 \draw[dotted, red] (t6) to[out=-85,in=145] node[midway, left] {$x_3$} (t5);
+ 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
+ 	 
+	 \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
+ 	 \draw[green!70!black] (t4) to[] node[near start, above] {$y_2$} (t5);
+	\end{tikzpicture}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+ 	 % Define the array of labels
+ 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	   \pgfmathsetmacro\label{\labels[\i - 1]}
+ 	   \draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};
+ 	 }
+  
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=95,in=-35] (t1);
+ 	 \draw (t2) to[out=215,in=85] (t6);
+ 	 \draw (t5) to[out=-25,in=205] (t3);
+  
+	  \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
+	  \draw[dotted, red] (t6) to[out=-85,in=145] node[midway, left] {$x_3$} (t5);
+ 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
+  
+ 	 \draw[green!70!black] (t1) to[] node[near end, above] {$y_3$} (t6);
+	  \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
+ 	 \draw[green!70!black] (t4) to[] node[near start, above] {$y_2$} (t5);
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Sekvenční hledání hran}\leavevmode\newline
+
+Pro každou zrušenou hranu $x_i = (t_i, t_{i+1})$ hledáme hranu $y_i = (t_{i+1}, t_{i+2})$. Poslední přidaná hrana potom bude mít tvar $y_k = (t_{2i}, t_1)$.
 
 
 
+
+Selection rule - rozdily delek, sequention
+Stopping rule - Gi
+Disjunction rule
+Feasibility criterium
+
+
+\subsubsection{Random info}
 Rychlost cca $n ^ 2$
 
 \begin{kiconclusions}

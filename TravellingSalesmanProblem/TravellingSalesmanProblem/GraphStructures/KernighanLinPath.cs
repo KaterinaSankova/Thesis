@@ -9,6 +9,8 @@ namespace TravellingSalesmanProblem.GraphStructures
 {
     public class KernighanLinPath : Path
     {
+        public KernighanLinPath() : base() { }
+
         public KernighanLinPath(List<Node> path) : base(path) { }
 
         public KernighanLinPath(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge> edges) : base(path, count, length, currentIndex, direction, edges) { }

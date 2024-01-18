@@ -2,22 +2,21 @@
 using System.Xml.Linq;
 using TravellingSalesmanProblem.Diagnostics;
 using TravellingSalesmanProblem.GraphStructures;
-using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
     public class KernighanLin
     {
-        private Graph? graph;
-        private KernighanLinPath? path;
+        private Graph graph = new();
+        private KernighanLinPath path = new();
 
-        private List<Edge>? brokenEdges;
-        private List<Edge>? addedEdges;
+        private List<Edge> brokenEdges = new();
+        private List<Edge> addedEdges = new();
 
-        private double improvement;
-        private double partialSum;
+        private double improvement = 0;
+        private double partialSum = 0;
 
-        private Random rand = new Random();
+        private readonly Random rand = new();
 
         //Avoiding checkout time
         private List<(Node Node, List<KernighanLinPath> Paths)> checkedOutPathsForNodes = new();
@@ -26,14 +25,14 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private KernighanLinPath[] locallyOptimalPaths = new KernighanLinPath[5]; //constants
         private List<Edge> goodEdges = new();
 
-        private KernighanLinPath? shortestPath;
+        private KernighanLinPath shortestPath = new();
 
         private Node? startingNode;
         private Node? enclosingNode;
 
         //Diagnostics
         private readonly KeringhanLinDiagnoser diagnoser = new();
-        private readonly Stopwatch findShortestPathStopWatch = new Stopwatch();
+        private readonly Stopwatch findShortestPathStopWatch = new();
         
         public KernighanLinPath FindShortestPath(Graph inputGraph)
         {
@@ -130,7 +129,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     currentPath = path.ToPath();
                     RestoreState(currentPath, i);
 
-                    Edge brokenEdge1 = new Edge(node1, node2);
+                    Edge brokenEdge1 = new(node1, node2);
 
                     enclosingNode = node2;
                     //PrintImprovementState(node1, node2, 1);
@@ -142,8 +141,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     currentPath.SetStartingPoint(node2, node1, Direction.Backwards);
 
                     List<(Node Node3, Node Node4, Node AlternativeNode4, double Value)> nextPairValues = new();
-                    Node investigatedNode3 = null;
-                    Node investigatedNode4 = null;
+                    Node? investigatedNode3 = null, investigatedNode4;
                     var stoppingNode = currentPath.PeekBefore(2);
                     currentPath.Next();
                     while (investigatedNode3 != stoppingNode)
@@ -159,7 +157,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     stopwatch.Stop();
                     diagnoser.ImprovePath.BrokenEdge1.AddRecord(stopwatch.Elapsed);
 
-                    foreach (var nextPair in orderedNextPairs)
+                    foreach (var (Node3, Node4, AlternativeNode4, Value) in orderedNextPairs)
                     {
                         stopwatch.Restart();
 
@@ -170,7 +168,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
                         //currentPath.SetDirection(startingNode, enclosingNode);
 
-                        var addedEdge1 = new Edge(node2, nextPair.Node3);
+                        var addedEdge1 = new Edge(node2, Node3);
 
                         //PrintImprovementState(nextPair.Node3, nextPair.Node4, 3);
                         //Console.WriteLine($"\tLATEST PATH: {currentPath}");
@@ -184,7 +182,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         stopwatch.Stop();
                         diagnoser.ImprovePath.AddedEdge1.AddRecord(stopwatch.Elapsed);
 
-                        bool pathImproved = ImprovePathFromBrokenEdge2(nextPair.Node3, nextPair.Node4, currentPath);
+                        bool pathImproved = ImprovePathFromBrokenEdge2(Node3, Node4, currentPath);
                         if (pathImproved)
                         {
                             UpdateLocalOptimum(shortestPath);
@@ -192,8 +190,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                             NonsequentialExchange(path);
                             return true;
                         }
-                        if (nextPair.AlternativeNode4 != node1)
-                            pathImproved = ImprovePathFromAlternativeBrokenEdge2(node2, nextPair.Node3, nextPair.AlternativeNode4, currentPath);
+                        if (AlternativeNode4 != node1)
+                            pathImproved = ImprovePathFromAlternativeBrokenEdge2(node2, Node3, AlternativeNode4, currentPath);
                         if (pathImproved)
                         {
                             UpdateLocalOptimum(shortestPath);
@@ -254,7 +252,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             List<(Node Node5, Node Node6, double Value)> pairValues = new();
             double pairImprovement;
             Node investigatedNode5 = latestPath.Next(2);
-            Node investigatedNode6 = null;
+            Node? investigatedNode6 = null;
             while (investigatedNode5 != stoppingNode)
             {
                 if (brokenEdges.Contains(new(node4, investigatedNode5)))
@@ -383,7 +381,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<(Node Node1, Node Node2, double Value)> pair2Node1Values = new();
             Node investigatedPair2Node1 = latestPath.Next(2);
-            Node investigatedPair2Node2 = null;
+            Node? investigatedPair2Node2 = null;
             while (investigatedPair2Node1 != enclosingNode)
             {
                 investigatedPair2Node2 = latestPath.PeekPrev();
@@ -517,7 +515,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<(Node Pair2Node1, Node Pair2Node2, double Value)> pair2Values = new();
             Node investigatedPair2Node1 = latestPath.Next();
-            Node investigatedPair2Node2 = null;
+            Node? investigatedPair2Node2 = null;
             while (investigatedPair2Node1 != startingNode)
             {
                 if (brokenEdges.Contains(new(pair1Node2, investigatedPair2Node1)))
@@ -532,7 +530,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Node pair2Node1, pair2Node2;
             Edge pair1AddedEdge, pair2BrokenEdge;
 
-            (Node Pair2Node1, Node Pair2Node2, double Gain) nextExchangePair = (null, null, double.MinValue);
+            (Node? Pair2Node1, Node? Pair2Node2, double Gain) nextExchangePair = (null, null, double.MinValue);
             double gain;
             for (int j = 0; j < 5;)
             {
@@ -560,8 +558,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 var currentPath = latestPath.ToPath();
                 pair2Node1 = nextExchangePair.Pair2Node1;
                 pair2Node2 = nextExchangePair.Pair2Node2;
-                pair1AddedEdge = new Edge(pair1Node2, pair2Node1);
-                pair2BrokenEdge = new Edge(pair2Node1, pair2Node2);
+                pair1AddedEdge = new(pair1Node2, pair2Node1);
+                pair2BrokenEdge = new(pair2Node1, pair2Node2);
 
                 //PrintImprovementState(pair2Node1, pair2Node2, 5);
                 //Console.WriteLine($"\tLATEST PATH: {currentPath}");
@@ -588,7 +586,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 index = -1;
                 Node pair3Node1, pair3Node2, alternativepair3Node2;
                 Edge pair2AddedEdge, pair3BrokenEdge, alternativePair3BrokenEdge;
-                (Node Pair3Node1, Node Pair3Node2, double Gain) nextNextExchangePair = (null, null, double.MinValue);
+                (Node? Pair3Node1, Node? Pair3Node2, double Gain) nextNextExchangePair = (null, null, double.MinValue);
                 var nextNextExchangePairs = new List<(Node Pair3Node1, Node Pair3Node2, double Gain)>();
                 for (int j = 0; j < 5;)
                 {
@@ -598,7 +596,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
                     pair3Node1 = orderedPair3Node1s[index];
                     pair3Node2 = latestPath.PeekPrev(pair3Node1);
-                    pair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
+                    pair3BrokenEdge = new(pair3Node1, pair3Node2);
                     alternativepair3Node2 = latestPath.PeekNext(pair3Node1);
                     alternativePair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
 
@@ -641,8 +639,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     currentPath = latestPath.ToPath();
                     pair3Node1 = nextNextExchangePair.Pair3Node1;
                     pair3Node2 = nextNextExchangePair.Pair3Node2;
-                    pair2AddedEdge = new Edge(pair2Node2, pair3Node1);
-                    pair3BrokenEdge = new Edge(pair3Node1, pair3Node2);
+                    pair2AddedEdge = new(pair2Node2, pair3Node1);
+                    pair3BrokenEdge = new(pair3Node1, pair3Node2);
 
                     //PrintImprovementState(pair3Node1, pair3Node2, 7);
                     //Console.WriteLine($"\tLATEST PATH: {currentPath}");
@@ -690,11 +688,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             //latestPath.CurrentIndex = latestPath.IndexOf(enclosingNode);
             latestPath.SetStartingPoint(enclosingNode, startingNode, Direction.Backwards);
 
-            (Node Node, Node NextNode, double Value) nextPair = (null, null, double.MaxValue);
-            List<(Node Node, Node NextNode, double Value)> nodesValues = new List<(Node Node, Node nextNode, double Value)>();
+            (Node? Node, Node? NextNode, double Value) nextPair = (null, null, double.MaxValue);
+            List<(Node Node, Node NextNode, double Value)> nodesValues = new();
             var stoppingNode = latestPath.PeekBefore(2);
             Node investigatedNodes = latestPath.Next();
-            Node investigatedNextNode = null;
+            Node? investigatedNextNode = null;
             double nextPairImprovement;
             while (investigatedNodes != stoppingNode)
             {
@@ -720,8 +718,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             var currentPath = latestPath.ToPath();
             enclosingNode = fromNode;
 
-            var addedEdge = new Edge(fromNode, nextPair.Node);
-            var nextBrokenEdge = new Edge(nextPair.Node, nextPair.NextNode);
+            Edge addedEdge = new(fromNode, nextPair.Node);
+            Edge nextBrokenEdge = new(nextPair.Node, nextPair.NextNode);
 
             //PrintImprovementState(nextPair.Node, nextPair.NextNode, 2*i+1);
             //Console.WriteLine($"\tLATEST PATH: {currentPath}");

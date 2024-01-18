@@ -13,12 +13,17 @@ namespace TravellingSalesmanProblem.GraphStructures
         public int Size => nodes.Count;
 
         public bool IsEmpty => nodes.Count == 0;
+        
+        public Graph()
+        {
+            nodes = new();
+        }
 
         public Graph(List<Node> input)
         {
             nodes = input;
         }
-
+        
         public Graph(string path)
         {
             nodes = new TSPDeserializer(path).DeserializeNodes();

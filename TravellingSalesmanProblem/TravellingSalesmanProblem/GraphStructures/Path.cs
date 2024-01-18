@@ -98,7 +98,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             _currentIndex = fromNodeIndex;
         }
 
-        internal Path(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge> edges)
+        internal Path(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge>? edges)
         {
             this.path = path;
             this.Count = count;
@@ -108,18 +108,31 @@ namespace TravellingSalesmanProblem.GraphStructures
             this._edges = edges;
         }
 
+        public Path()
+        {
+            this.path = new();
+            this.Count = 0;
+            this._currentIndex = 0;
+            this.Direction = Direction.Forward;
+            _length = 0;
+        }
+
         public Path(List<Node> path)
         {
             this.path = path;
             this.Count = path.Count;
-            this.CurrentIndex = 0;
             this.Direction = Direction.Forward;
             _length = 0;
             if (Count > 0)
             {
+                this._currentIndex = 0;
                 for (int i = 0; i < Count - 1; i++)
                     _length += path[i].Distance(path[i + 1]);
                 _length += path[0].Distance(path[Count - 1]);
+            }
+            else
+            {
+                this._currentIndex = -1;
             }
         }
 
@@ -210,7 +223,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             return hash;
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object? obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))
                 return false;
