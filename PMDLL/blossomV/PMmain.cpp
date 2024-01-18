@@ -433,6 +433,7 @@ void PerfectMatching::Solve(bool finish)
 	TreeEdgeIterator T;
 	int dir;
 	REAL eps;
+	options.verbose = false;
 
 	double start_time = get_time();
 

@@ -1,22 +1,7 @@
-﻿  GPMinit.cpp
-  GPMinterface.cpp
-  GPMkdtree.cpp
-  GPMmain.cpp
-  PMSolver.cpp
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\PMDLL\blossomV\PMSolver.cpp(10,86): warning C4244: 'argument': conversion from 'double' to 'PerfectMatching::REAL', possible loss of data
-  PMduals.cpp
-  PMexpand.cpp
-  PMinit.cpp
-  PMinterface.cpp
-  PMmain.cpp
-  PMrepair.cpp
-  PMshrink.cpp
-  misc.cpp
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\PMDLL\blossomV\misc.cpp(110,37): warning C4244: 'initializing': conversion from 'double' to 'PerfectMatching::REAL', possible loss of data
-     Creating library E:\Documents\Škola\Výška\Bakalářská práce\Thesis\PMDLL\x64\Release\PMDLL.lib and object E:\Documents\Škola\Výška\Bakalářská práce\Thesis\PMDLL\x64\Release\PMDLL.exp
+﻿     Creating library D:\Documents\Vyska\Thesis\PMDLL\x64\Release\PMDLL.lib and object D:\Documents\Vyska\Thesis\PMDLL\x64\Release\PMDLL.exp
   Generating code
-  3 of 95 functions ( 3.2%) were compiled, the rest were copied from previous compilation.
+  0 of 95 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  PMDLL.vcxproj -> E:\Documents\Škola\Výška\Bakalářská práce\Thesis\PMDLL\x64\Release\PMDLL.dll
+  PMDLL.vcxproj -> D:\Documents\Vyska\Thesis\PMDLL\x64\Release\PMDLL.dll
