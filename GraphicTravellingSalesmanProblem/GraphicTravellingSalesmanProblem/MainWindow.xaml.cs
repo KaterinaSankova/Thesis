@@ -38,7 +38,7 @@ namespace GraphicTravellingSalesmanProblem
             var rnd = new Random();
 
             List<Node> nodes = new List<Node>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 20; i++)
             {
                 nodes.Add(new Node(i, rnd.Next(20), rnd.Next(20)));
             }

@@ -42,6 +42,9 @@
 \usepackage{enumitem}
 \usepackage{tikz}
 \usepackage{caption}
+\usetikzlibrary {positioning}
+\usetikzlibrary{babel}
+\usetikzlibrary{arrows}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -494,16 +497,16 @@ Další neznámou je funkce $G_i$. Tato funkce udává celkový zisk pro aktuál
 Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrý balanc mezi schůdným výpočetním časem a prozkoumáváním dostatku příležitostí.
 
 \subsubsection{Keringhan - Lin pro TSP}
-Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za množinu $S$ můžeme brát množinu hran úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subset S$, aby $T$ bylo řešením problému, jistě bude, že hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
+Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za množinu $S$ můžeme brát všechny hrany úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subseteq S$, aby $T$ byla řešením problému, jistě bude, že hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
 
-Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat pro TSP. Jeho jádrem je sekvenční hledání párů hran, kde jednu v původním řešení zrušíme a druhou do nového přidáme. Co je myšleno sekvenčním hledání si nejprve ilustrujeme následujícím obrázkem.
+Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat pro TSP. Jeho jádrem je sekvenční hledání párů hran, kde první v původním řešení zrušíme a druhou do nového přidáme. Co je myšleno sekvenčním hledání si nejprve ilustrujeme následujícím obrázkem.
 
 \begin{center}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
- 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+ 	 \def\labels{{2, 1, 5, 6, 3, 4}}
   
 	  % Calculate the position of each point on the circle
  	 \foreach \i in {1,...,6} {
@@ -512,21 +515,22 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
  		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
 			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
  	 }
-  
+ 	 
  	 % Draw curved edges between specific points
- 	 \draw (t4) to[out=95,in=-35] (t1);
- 	 \draw (t2) to[out=215,in=85] (t6);
- 	 \draw (t5) to[out=-25,in=205] (t3);
+ 	 \draw (t4) to[out=35,in=-95] (t2);
+ 	 \draw (t1) to[out=155,in=25] (t5);
+ 	 \draw (t6) to[out=-85,in=145] (t3);
+	 \draw (t5) to[out=215,in=85] (t6);
+ 	 \draw (t3) to[out=-25,in=205] (t4);
+
   
-	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
-	 \draw (t6) to[out=-85,in=145] (t5);
- 	 \draw (t3) to[out=35,in=-95] (t4);
+	 \draw[dotted, red] (t2) to[out=95,in=-35] node[midway, right] {$x_1$} (t1);
 	\end{tikzpicture}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
- 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+ 	 \def\labels{{2, 1, 5, 6, 3, 4}}
   
 	  % Calculate the position of each point on the circle
  	 \foreach \i in {1,...,6} {
@@ -535,49 +539,49 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
  		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
 			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
  	 }
-  
- 	 % Draw curved edges between specific points
- 	 \draw (t4) to[out=95,in=-35] (t1);
- 	 \draw (t2) to[out=215,in=85] (t6);
- 	 \draw (t5) to[out=-25,in=205] (t3);
-  
-	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
-	 \draw (t6) to[out=-85,in=145] (t5);
- 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
  	 
-	 \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=35,in=-95] (t2);
+ 	 \draw (t1) to[out=155,in=25] (t5);
+ 	 \draw (t6) to[out=-85,in=145] (t3);
+	 \draw (t5) to[out=215,in=85] (t6);
+
+  
+	 \draw[dotted, red] (t2) to[out=95,in=-35] node[midway, right] {$x_1$} (t1);
+ 	 \draw[dotted, red] (t3)to[out=-25,in=205] node[midway, below] {$x_2$} (t4);
+  
+	 \draw[green!70!black] (t2) to[] node[near start, above] {$y_1$} (t3);
 	\end{tikzpicture}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
- 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+ 	 \def\labels{{2, 1, 5, 6, 3, 4}}
   
 	  % Calculate the position of each point on the circle
  	 \foreach \i in {1,...,6} {
  	   \pgfmathsetmacro\label{\labels[\i - 1]}
- 	   \ifthenelse{\label < 5}
- 		    {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
-			{\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\label) {};}
+ 	   {\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1):$t_{\label}$}] (t\label) {};}
  	 }
-  
- 	 % Draw curved edges between specific points
- 	 \draw (t4) to[out=95,in=-35] (t1);
- 	 \draw (t2) to[out=215,in=85] (t6);
- 	 \draw (t5) to[out=-25,in=205] (t3);
-  
-	 \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
-	 \draw[dotted, red] (t6) to[out=-85,in=145] node[midway, left] {$x_3$} (t5);
- 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
  	 
-	 \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
- 	 \draw[green!70!black] (t4) to[] node[near start, above] {$y_2$} (t5);
+ 	 % Draw curved edges between specific points
+ 	 \draw (t4) to[out=35,in=-95] (t2);
+ 	 \draw (t1) to[out=155,in=25] (t5);
+ 	 \draw (t6) to[out=-85,in=145] (t3);
+
+  
+	 \draw[dotted, red] (t2) to[out=95,in=-35] node[midway, right] {$x_1$} (t1);
+	 \draw[dotted, red] (t5) to[out=215,in=85] node[midway, left] {$x_3$} (t6);
+ 	 \draw[dotted, red] (t3)to[out=-25,in=205] node[midway, below] {$x_2$} (t4);
+  
+	 \draw[green!70!black] (t2) to[] node[near start, above] {$y_1$} (t3);
+ 	 \draw[green!70!black] (t4) to[] node[midway, right] {$y_2$} (t5);
 	\end{tikzpicture}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
- 	 \def\labels{{4, 1, 2, 6, 5, 3}}
+ 	 \def\labels{{2, 1, 5, 6, 3, 4}}
   
 	  % Calculate the position of each point on the circle
  	 \foreach \i in {1,...,6} {
@@ -586,29 +590,232 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
  	 }
   
  	 % Draw curved edges between specific points
- 	 \draw (t4) to[out=95,in=-35] (t1);
- 	 \draw (t2) to[out=215,in=85] (t6);
- 	 \draw (t5) to[out=-25,in=205] (t3);
+ 	 \draw (t4) to[out=35,in=-95] (t2);
+ 	 \draw (t1) to[out=155,in=25] (t5);
+ 	 \draw (t6) to[out=-85,in=145] (t3);
+
   
-	  \draw[dotted, red] (t1) to[out=155,in=25] node[midway, above] {$x_1$} (t2);
-	  \draw[dotted, red] (t6) to[out=-85,in=145] node[midway, left] {$x_3$} (t5);
- 	 \draw[dotted, red] (t3) to[out=35,in=-95] node[midway, right] {$x_2$} (t4);
+	 \draw[dotted, red] (t2) to[out=95,in=-35] node[midway, right] {$x_1$} (t1);
+	 \draw[dotted, red] (t5) to[out=215,in=85] node[midway, left] {$x_3$} (t6);
+ 	 \draw[dotted, red] (t3)to[out=-25,in=205] node[midway, below] {$x_2$} (t4);
   
- 	 \draw[green!70!black] (t1) to[] node[near end, above] {$y_3$} (t6);
-	  \draw[green!70!black] (t2) to[] node[midway, right] {$y_1$} (t3);
- 	 \draw[green!70!black] (t4) to[] node[near start, above] {$y_2$} (t5);
+ 	 \draw[green!70!black] (t1) to[] node[near end, below] {$y_3$} (t6);
+	 \draw[green!70!black] (t2) to[] node[near start, above] {$y_1$} (t3);
+ 	 \draw[green!70!black] (t4) to[] node[midway, right] {$y_2$} (t5);
 	\end{tikzpicture}
 \end{center}
 \captionof{figure}{Sekvenční hledání hran}\leavevmode\newline
 
-Pro každou zrušenou hranu $x_i = (t_i, t_{i+1})$ hledáme hranu $y_i = (t_{i+1}, t_{i+2})$. Poslední přidaná hrana potom bude mít tvar $y_k = (t_{2i}, t_1)$.
+Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak přidaná hrana s ní bude druhý bod sdílet, tedy $y_i = (t_{i+1}, t_{i+2})$, a následně zrušená hrana bude mít zase tvar $x_{i+1} = (t_{i+2}, t_{i+3})$. Poslední přidaná hrana potom bude $y_k = (t_{2i}, t_1)$.
+
+Další podmínky kladené na vybírané hrany jsou již zmíněné \textit{pravidlo disjunkce}, kde $\{x_1, x_2, ... x_k\} \cap \{y_1, y_2, ... y_k\} = \emptyset$, \textit{podmínka proveditelnosti} a námi určené \textit{pravidlo výběru}.
+
+Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, že po přidání hrany $y_k = (t_{2i}, t_1)$ nám vznikne znovu cesta. V implementaci knihovny je toto řešeno následovně. Při každé iteraci je k dispozici cesta, která vznikla záměnou $\{x_1, x_2, ... x_{i-1}\}$ za $\{y_1, y_2, ... y_{i-1}\}$. Navíc se ještě udržuje hodnota $t_1$ (ta se v průběhu nemění) a $t_{2(i-1)}$. Cestu znovu otevřeme odstraněním hrany $y_{i-1}~=~(t_1, t_{2(i-1)})$. Nová hrana $x_i = (t_{2i-1}, t_{2i})$ pak musí mít stejný směr jako hrana $(t_{2(i-1)}, t_1)$. Při obrácené orientaci by došlo k rozdělení grafu na dvě komponenty. Jelikož klademe podmínku, že hrany jsou hledané sekvenčně, tak přidaná hrana, pak bude mít tvar $y_{i-1} = (t_{2(i-1)}, t_{2i-1})$. Nakonec cestu opět uzavřeme přidáním hrany $y_i = (t_1, t_{2i})$.
 
 
+\begin{center}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[dotted] (t1) to[out=95,in=-35] node[midway, right] {$x_{i-1}$} (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 \draw[->, >=open triangle 45] (t5) to[out=-25,in=205] (t6);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 \draw ({360/6 * (1.5 - 1)}:\radius) ;
+  
+ 	 \draw[->, >=open triangle 45] (t2) to[] node[near end, below right] {$y_{i-1}$} (t4);
+ 	 \draw[->, >=open triangle 45] (t1) to[] (t3);
+ 	 
+	\end{tikzpicture}
+	%
+	%###################################################################################
+	%
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+ 	 \draw ({360/6 * (5 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (5 - 1)}:$t_{2i-1}$] (label) {};
+ 	 \draw ({360/6 * (6 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (6 - 1)}:$t_{2i}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 %\draw[dotted] (t1) to[out=95,in=-35] (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 \draw[->, >=open triangle 45, dotted, red] (t5) to[out=-25,in=205] node[below] {$x_{i}$}  (t6);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
+  
+ 	 \draw[->, >=open triangle 45, dotted] (t2) to[] (t4);
+ 	 \draw[green!70!black] (t2) to[] node[midway, below right] {$y_{i-1}$} (t5);
+ 	 \draw (t3) to[] (t1);
+ 	 
+	\end{tikzpicture}
+	%
+	%###################################################################################
+	%
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+ 	 \draw ({360/6 * (5 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (5 - 1)}:$t_{2i-1}$] (label) {};
+ 	 \draw ({360/6 * (6 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (6 - 1)}:$t_{2i}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 %\draw (t1) to[out=95,in=-35] (t2); 	 
+ 	 %\draw[dotted] (t1) to[out=95,in=-35] (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 %\draw[dotted, red] (t5) to[out=-25,in=205] node[below] {$x_{i}$}  (t6);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
+  
+ 	 \draw (t2) to[] (t5);
+ 	 \draw (t4) to[] node[near start, above] {$y_{i}$} (t6);
+ 	 \draw (t3) to[] (t1);
+ 	 
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Pár vyhovující podmínce proveditelnosti}\leavevmode\newline
+
+
+\begin{center}
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[dotted] (t1) to[out=95,in=-35] (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 \draw[->, >=open triangle 45] (t6) to[out=205,in=-25] (t5);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 \draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
+  
+ 	 \draw[->, >=open triangle 45] (t4) to[] node[near start, below right] {$y_{i-1}$} (t2);
+ 	 \draw[->, >=open triangle 45] (t3) to[] (t1);
+ 	 
+	\end{tikzpicture}
+	%
+	%###################################################################################
+	%
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+ 	 \draw ({360/6 * (5 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (5 - 1)}:$t_{2i}$] (label) {};
+ 	 \draw ({360/6 * (6 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (6 - 1)}:$t_{2i-1}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 %\draw[dotted] (t1) to[out=95,in=-35] (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 \draw[->, >=open triangle 45, dotted, red] (t6) to[out=205,in=-25] node[below] {$x_{i}$}  (t5);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
+  
+ 	 \draw[->, >=open triangle 45, dotted] (t4) to[] (t2);
+ 	 \draw[green!70!black] (t2) to[] node[midway, left] {$y_{i-1}$} (t6);
+ 	 \draw (t3) to[] (t1);
+ 	 
+	\end{tikzpicture}
+	%
+	%###################################################################################
+	%
+	\begin{tikzpicture}[baseline]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{1.5cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,6} {
+ 	 	\draw ({360/6 * (\i - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (\i - 1)}:] (t\i) {};
+ 	 }
+ 	 
+ 	 \draw ({360/6 * (2 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (2 - 1)}:$t_{2(i-1)}$] (label) {};
+ 	 \draw ({360/6 * (4 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (4 - 1)}:$t_{1}$] (label) {};
+ 	 \draw ({360/6 * (5 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (5 - 1)}:$t_{2i}$] (label) {};
+ 	 \draw ({360/6 * (6 - 1)}:\radius) node[circle, fill, inner sep=2pt, label={360/6 * (6 - 1)}:$t_{2i-1}$] (label) {};
+  
+ 	 % Draw curved edges between specific points
+	 %\draw (t1) to[out=95,in=-35] (t2); 	 
+ 	 %\draw[dotted] (t1) to[out=95,in=-35] (t2);
+ 	 \draw (t2) to[out=155,in=25] (t3);
+	 %\draw (t3) to[out=215,in=85] (t4);
+ 	 \draw (t4) to[out=-85,in=145] (t5);
+ 	 %\draw[dotted, red] (t5) to[out=-25,in=205] node[below] {$x_{i}$}  (t6);
+ 	 \draw (t6) to[out=35,in=-95] (t1);
+ 	 
+ 	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
+  
+ 	 \draw (t2) to[] (t6);
+ 	 \draw (t4) to[] node[midway, right] {$y_{i}$} (t5);
+ 	 \draw (t3) to[] (t1);
+ 	 
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Pár nevyhovující podmínce proveditelnosti}\leavevmode\newline
+
+Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany $y_i$, $x_{i+1}$, pro které je $|y_i| - |x_{i+1}|$ mezi ostatními páry vyhovujícím k výměně maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
+
+Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkce udávající zisk z dosavadně vybraných párů.
+$$G_i = \sum_{j=1}^{i}g_j$$
 
 
 Selection rule - rozdily delek, sequention
+
 Stopping rule - Gi
+
 Disjunction rule
+
 Feasibility criterium
 
 

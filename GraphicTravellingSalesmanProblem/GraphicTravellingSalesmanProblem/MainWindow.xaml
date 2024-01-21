@@ -11,7 +11,17 @@
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
         <Canvas x:Name="chartCanvas"
-                Background="White"/>
+                Background="White" Grid.Row="1" Grid.Column="1"/>
     </Grid>
 </Window>

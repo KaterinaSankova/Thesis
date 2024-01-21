@@ -17,11 +17,11 @@
 \contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{18}{subsubsection.3.3.1}%
 \contentsline {subsection}{\numberline {3.4}Keringhan - Lin}{19}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Keringhan - Lin pro TSP}{21}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Random info}{21}{subsubsection.3.4.2}%
-\contentsline {section}{Z\'av\v er}{22}{section*.3}%
+\contentsline {subsubsection}{\numberline {3.4.2}Random info}{23}{subsubsection.3.4.2}%
+\contentsline {section}{Z\'av\v er}{24}{section*.3}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Conclusions}{23}{section*.5}%
+\contentsline {section}{Conclusions}{25}{section*.5}%
 \babel@toc {english}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Seznam zkratek}{24}{section*.7}%
+\contentsline {section}{Seznam zkratek}{26}{section*.7}%
