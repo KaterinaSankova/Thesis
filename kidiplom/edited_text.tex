@@ -467,17 +467,19 @@ Tomu to problému se můžeme vyhnout tím, že $k$ nebude mít žádnou fixní 
 \begin{algorithm}[H]
 \SetKwRepeat{Do}{do}{while}%
 $T \leftarrow$ pseudonáhodné řešení\;
+$T' \leftarrow T$\;
 \Do {$f(T') > f(T)$}
 {
 $i \leftarrow 0$\;
+$T \leftarrow T'$\;
 \While {může být nalezeno zlepšení}
 {
 $i \leftarrow i + 1$\;
 $(x_i, y_i) \leftarrow$ nejvýhodnější pár pro výměnu\;
 $G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
 }
-$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}
-$T \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
+$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}\;
+$T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 }
 \Return \;
 \caption{Keringhan - Lin algoritmus - variabilní $k$}
@@ -809,14 +811,44 @@ Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k
 Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkce udávající zisk z dosavadně vybraných párů.
 $$G_i = \sum_{j=1}^{i}g_j$$
 
+Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
+\newline
 
-Selection rule - rozdily delek, sequention
+{\LinesNumbered\SetAlgoNoLine\
+\begin{algorithm}[H]
+\SetKwRepeat{Do}{do}{while}%
+$T \leftarrow$ pseudonáhodné řešení\;
+$T' \leftarrow T$\;
+$G* = 0$\;
+$k = 0$
+$i = 1$\;
+$t_1 =$ any node\;
+$t_2 =$ any node connected to $t_1$\;
+$x_1 = (t_1, t_2)$\;
+$t_{enclosing} = t_2$\;
+\Do {$f(T') > f(T)$}
+{
+find pair $y_i = (t_{2i}, t_{2i+1}), x_{i+1} = (t_{2i+1}, t_{2i+2})$ for which:
+{\begin{itemize}
+\item[a)] $y_i \notin \{x_1, x_2,... x_i\}$ and $x_{i+1} \notin \{y_1, y_2,... y_i\}$
+\item[b)] $T - \{x_1, x_2,... x_i\} \cup \{y_1, y_2,... y_i\}$ is a tour
+\item[c)] $|x_{i+1}| - |y_i|$ is maximal between such pairs
+\end{itemize}}
+$i \leftarrow 0$\;
+$T \leftarrow T'$\;
+\While {může být nalezeno zlepšení}
+{
+$i \leftarrow i + 1$\;
+$(x_i, y_i) \leftarrow$ nejvýhodnější pár pro výměnu\;
+$G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
+}
+$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}\;
+$T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
+}
+\Return \;
+\caption{Keringhan - Lin algoritmus pro TSP}
+\end{algorithm}}\leavevmode\newline
 
-Stopping rule - Gi
-
-Disjunction rule
-
-Feasibility criterium
 
 
 \subsubsection{Random info}

@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TravellingSalesmanProblem
-build_property.ProjectDir = D:\Documents\Vyska\Thesis\TravellingSalesmanProblem\TravellingSalesmanProblem\
+build_property.ProjectDir = E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem\TravellingSalesmanProblem\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
