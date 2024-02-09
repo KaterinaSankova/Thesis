@@ -10,15 +10,15 @@
         Width="800"
         WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Name="Grid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="5*" MinWidth="500"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="4*" MinHeight="400"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Canvas x:Name="chartCanvas"

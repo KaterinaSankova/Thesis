@@ -13,9 +13,9 @@ namespace TravellingSalesmanProblem
 
             Random rand = new();
             Graph graph = new();
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                graph.nodes.Add(new Node(i, rand.Next(100), rand.Next(100)));
+                graph.nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
             }
 
             TimeSpan ts;

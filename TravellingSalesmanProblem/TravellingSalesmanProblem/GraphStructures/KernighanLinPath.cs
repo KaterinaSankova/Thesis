@@ -17,14 +17,9 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public new KernighanLinPath ToPath() => new KernighanLinPath(path, Count, Length, CurrentIndex, Direction, _edges);
 
-        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4) //connected properly
+        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4)
         {
-            //Console.WriteLine("[+] RECONNECTING EDGES");
-            //Console.WriteLine($"\tSTARTING NODE: {node1}");
-            //Console.WriteLine($"\tENCLOSING NODE: {node2}");
-            //Console.WriteLine($"\tNODE: {node3}");
-            //Console.WriteLine($"\tNODE: {node4}");
-            List<Node> newPath = new List<Node>();
+            List<Node> newPath = new();
 
             SetDirection(node2, node1);
             SetCurrentIndex(node1);
@@ -55,14 +50,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6) //connected properly
         {
-            //Console.WriteLine("[+] RECONNECTING EDGES");
-            //Console.WriteLine($"\tSTARTING NODE: {node1}");
-            //Console.WriteLine($"\tENCLOSING NODE: {node2}");
-            //Console.WriteLine($"\tNODE: {node3}");
-            //Console.WriteLine($"\tNODE: {node4}");
-            //Console.WriteLine($"\tNODE: {node5}");
-            //Console.WriteLine($"\tNODE: {node6}");
-            List<Node> newPath = new List<Node>();
+            List<Node> newPath = new();
 
             SetDirection(node2, node1);
             SetCurrentIndex(node1);
@@ -117,16 +105,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6, Node node7, Node node8) //connected properly
         {
-            //Console.WriteLine("[+] RECONNECTING EDGES");
-            //Console.WriteLine($"\tSTARTING NODE: {node1}");
-            //Console.WriteLine($"\tENCLOSING NODE: {node2}");
-            //Console.WriteLine($"\tNODE: {node3}");
-            //Console.WriteLine($"\tNODE: {node4}");
-            //Console.WriteLine($"\tNODE: {node5}");
-            //Console.WriteLine($"\tNODE: {node6}");
-            //Console.WriteLine($"\tNODE: {node7}");
-            //Console.WriteLine($"\tNODE: {node8}");
-            List<Node> newPath = new List<Node>();
+            List<Node> newPath = new();
             SetDirection(node2, node1);
             SetCurrentIndex(node1);
             var node = node1;
@@ -186,19 +165,9 @@ namespace TravellingSalesmanProblem.GraphStructures
             path = newPath;
         }
 
-        public void ReconnectEdges((Edge[] BrokenEdges, Edge[] AddedEdges) edgesToReconnect, double improvement)
+        public void ReconnectEdges((Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement) edgesToReconnect)
         {
-            //Console.WriteLine("[+] RECONNECTING EDGES");
-            //Console.WriteLine($"\tBROKEN EDGE 1: {edgesToReconnect.BrokenEdges[0]}");
-            //Console.WriteLine($"\tBROKEN EDGE 2: {edgesToReconnect.BrokenEdges[1]}");
-            //Console.WriteLine($"\tBROKEN EDGE 3: {edgesToReconnect.BrokenEdges[2]}");
-            //Console.WriteLine($"\tBROKEN EDGE 4: {edgesToReconnect.BrokenEdges[3]}");
-            //Console.WriteLine($"\tADDED EDGE 1: {edgesToReconnect.AddedEdges[0]}");
-            //Console.WriteLine($"\tADDED EDGE 2: {edgesToReconnect.AddedEdges[1]}");
-            //Console.WriteLine($"\tADDED EDGE 3: {edgesToReconnect.AddedEdges[2]}");
-            //Console.WriteLine($"\tADDED EDGE 4: {edgesToReconnect.AddedEdges[3]}");
-            //Console.WriteLine($"\tIMPROVEMENT: {improvement}");
-            List<Node> newPath = new List<Node>();
+            List<Node> newPath = new();
 
             SetDirection(edgesToReconnect.BrokenEdges[0].node1, edgesToReconnect.BrokenEdges[0].node2);
 
@@ -238,7 +207,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             }
             newPath.Add(edgesToReconnect.BrokenEdges[1].node1);
 
-            _length -= improvement;
+            _length -= edgesToReconnect.Improvement;
             this._edges = null;
             path = newPath;
         }

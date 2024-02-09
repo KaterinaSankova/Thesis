@@ -9,97 +9,68 @@ namespace TravellingSalesmanProblem
     { 
         static void Main()
         {
-            //Stopwatch stopWatch = new Stopwatch();
+            Stopwatch stopWatch = new Stopwatch();
 
-            //Random rand = new Random();
-            //List<Node> nodes = new List<Node>();
-            //for (int i = 0; i < 250; i++)
-            //{
-            //    nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
-            //    //Console.WriteLine(nodes[i]);
-            //    //Console.WriteLine($"Node node{i} = new Node({nodes[i].id}, {nodes[i].x}, {nodes[i].y});");
-            //    //Console.WriteLine($"nodes.Add(node{i});");
-            //}
-            //var n1 = new Node(0, 1, 1);
-            //var n2 = new Node(1, 2, 2);
-            //var a = new Edge(n1, n2);
-            //var b = new Edge(n2, n1);
-            //Console.WriteLine(a.Equals(b));
+            Random rand = new Random();
+            rand.Next(20);
+            List<Node> nodes = new List<Node>();
+            for (int i = 0; i < 1000; i++)
+            {
+                nodes.Add(new Node(i, rand.Next(1000), rand.Next(1000)));
+            }
 
-            //Node node0 = new Node(0, 8, 6);
-            //nodes.Add(node0);
-            //Node node1 = new Node(1, 1, 11);
-            //nodes.Add(node1);
-            //Node node2 = new Node(2, 8, 16);
-            //nodes.Add(node2);
-            //Node node3 = new Node(3, 1, 14);
-            //nodes.Add(node3);
-            //Node node4 = new Node(4, 20, 18);
-            //nodes.Add(node4);
-            //Node node5 = new Node(5, 20, 6);
-            //nodes.Add(node5);
-            //Node node6 = new Node(6, 14, 1);
-            //nodes.Add(node6);
-            //Node node7 = new Node(7, 14, 8);
-            //nodes.Add(node7);
-            //Node node8 = new Node(8, 16, 16);
-            //nodes.Add(node8);
-            //Node node9 = new Node(9, 4, 18);
-            //nodes.Add(node9);
-            //Console.WriteLine();
+            var saved = Console.Out;
+            FileStream filestream = new FileStream(".\\..\\..\\..\\..\\..\\log.txt", FileMode.Create);
+            var streamwriter = new StreamWriter(filestream);
+            streamwriter.AutoFlush = true;
 
-            //var saved = Console.Out;
-            //FileStream filestream = new FileStream(".\\..\\..\\..\\..\\..\\log.txt", FileMode.Create);
-            //var streamwriter = new StreamWriter(filestream);
-            //streamwriter.AutoFlush = true;
-            //Console.SetOut(streamwriter);
+            GraphStructures.Path path;
+            TimeSpan ts;
+            string elapsedTime;
 
-            //GraphStructures.Path path;
-            //TimeSpan ts;
-            //string elapsedTime;
-            //stopWatch.Start();
-            //path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
+            Console.SetOut(streamwriter);
+            stopWatch.Restart();
+            path = new KernighanLin().FindShortestPath(new Graph(nodes));
+            Console.SetOut(saved);
+            //Console.WriteLine(path);
+            Console.WriteLine(path.Length);
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("End KernighanLin\n");
 
-            //Console.SetOut(saved);
-            ////Console.WriteLine(path);
-            //Console.WriteLine(path.Length);
-            //stopWatch.Stop();
-            //ts = stopWatch.Elapsed;
-            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            //Console.WriteLine("RunTime " + elapsedTime);
-            //Console.WriteLine("End Christofides\n");
+            Console.SetOut(streamwriter);
+            stopWatch.Restart();
+            path = new GraphStructures.Path(new Christofides().FindShortestPath(new Graph(nodes)));
+            Console.SetOut(saved);
+            //Console.WriteLine(path);
+            Console.WriteLine(path.Length);
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("End Christofides\n");
 
-            //stopWatch.Restart();
-            //path = new GraphStructures.Path(new NearestAddition().FindShortestPath(new Graph(nodes)));
-            ////Console.WriteLine(path);
-            //Console.WriteLine(path.Length);
-            //stopWatch.Stop();
-            //ts = stopWatch.Elapsed;
-            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            //Console.WriteLine("RunTime " + elapsedTime);
-            //Console.WriteLine("End NearestAddition\n");
+            stopWatch.Restart();
+            path = new GraphStructures.Path(new NearestAddition().FindShortestPath(new Graph(nodes)));
+            //Console.WriteLine(path);
+            Console.WriteLine(path.Length);
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("End NearestAddition\n");
 
-            //stopWatch.Restart();
-            //path = new GraphStructures.Path(new DoubleTree().FindShortestPath(new Graph(nodes)));
-            ////Console.WriteLine(path);
-            //Console.WriteLine(path.Length);
-            //stopWatch.Stop();
-            //ts = stopWatch.Elapsed;
-            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            //Console.WriteLine("RunTime " + elapsedTime);
-            //Console.WriteLine("End DoubleTree\n");
-
-            //Console.SetOut(streamwriter);
-            //stopWatch.Restart();
-            //path = new KernighanLin().FindShortestPath(new Graph(nodes));
-            //Console.SetOut(saved);
-            ////Console.WriteLine(path);
-            //Console.WriteLine(path.Length);
-            //stopWatch.Stop();
-            //ts = stopWatch.Elapsed;
-            //elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
-            //Console.WriteLine("RunTime " + elapsedTime);
-            //Console.WriteLine("End KernighanLin\n");
+            stopWatch.Restart();
+            path = new GraphStructures.Path(new DoubleTree().FindShortestPath(new Graph(nodes)));
+            //Console.WriteLine(path);
+            Console.WriteLine(path.Length);
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            elapsedTime = $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+            Console.WriteLine("RunTime " + elapsedTime);
+            Console.WriteLine("End DoubleTree\n");
 
 
 
@@ -111,11 +82,11 @@ namespace TravellingSalesmanProblem
             // kl.FindShortestPath(new Graph(square));
 
             /*  var test = new TSPLibTest();
-              test.TestTPSLib();*/
+            //  test.TestTPSLib();*/
 
-            var test = new AlgorithmsTest();
+            //var test = new AlgorithmsTest();
 
-            test.TestAlgorithm();
+            //test.TestAlgorithm();
 
             //string path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\..\..\..\TestingData\BigTest"));
 

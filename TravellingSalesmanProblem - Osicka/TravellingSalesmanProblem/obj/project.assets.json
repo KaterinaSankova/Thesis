@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Kitty\\.nuget\\packages\\": {},
+    "C:\\Users\\kitty\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
+      "projectUniqueName": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
       "projectName": "TravellingSalesmanProblem",
-      "projectPath": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
-      "packagesPath": "C:\\Users\\Kitty\\.nuget\\packages\\",
-      "outputPath": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\obj\\",
+      "projectPath": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
+      "packagesPath": "C:\\Users\\kitty\\.nuget\\packages\\",
+      "outputPath": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Kitty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\kitty\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -66,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

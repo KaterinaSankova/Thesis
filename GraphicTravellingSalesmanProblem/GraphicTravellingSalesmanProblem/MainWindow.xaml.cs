@@ -23,7 +23,7 @@ namespace GraphicTravellingSalesmanProblem
     public partial class MainWindow : Window
     {
         private Line xAxisLine, yAxisLine;
-        private double xAxisStart = 100, yAxisStart = 100, interval = 0.5, lowestX = -1, lowestY = -5, highestX = 5, highestY = 6;
+        private double xAxisStart = 100, yAxisStart = 100, interval = 0.1, lowestX = -1, lowestY = -5, highestX = 5, highestY = 6;
         private Polyline chartPolyline;
 
         private Point origin;
@@ -40,7 +40,7 @@ namespace GraphicTravellingSalesmanProblem
             List<Node> nodes = new List<Node>();
             for (int i = 0; i < 20; i++)
             {
-                nodes.Add(new Node(i, rnd.Next(20), rnd.Next(20)));
+                nodes.Add(new Node(i, rnd.Next(20) * Math.Pow(-1, rnd.Next()), rnd.Next(20) * Math.Pow(-1, rnd.Next())));
             }
 
             Graph graph = new Graph(nodes);
@@ -81,7 +81,10 @@ namespace GraphicTravellingSalesmanProblem
         {
             try
             {
-                if (this.ActualWidth > 0 && this.ActualHeight > 0)
+                double width = Grid.ColumnDefinitions[1].ActualWidth;
+                double height = Grid.RowDefinitions[1].ActualHeight;
+
+                if (width > 0 && height > 0)
                 {
                     chartCanvas.Children.Clear();
 
@@ -101,7 +104,7 @@ namespace GraphicTravellingSalesmanProblem
 
                     int numberOfHorizontalLines = Math.Abs(highestYValue - lowestYValue);
 
-                    (double X1, double X2, double Y1, double Y2) actualBounds = (xAxisStart, this.ActualWidth - xAxisStart, yAxisStart - 50, this.ActualHeight - yAxisStart);
+                    (double X1, double X2, double Y1, double Y2) actualBounds = (xAxisStart, width - xAxisStart, yAxisStart - 50, height - yAxisStart);
 
                     double trueHorizontalSpacing = Math.Abs(actualBounds.X1 - actualBounds.X2) / numberOfVerticalLines;
                     double trueVerticalSpacing = Math.Abs(actualBounds.Y1 - actualBounds.Y2) / numberOfHorizontalLines;
@@ -110,9 +113,9 @@ namespace GraphicTravellingSalesmanProblem
                     xAxisLine = new Line()
                     {
                         X1 = actualBounds.X1,
-                        Y1 = this.ActualHeight - yAxisStart + lowestYValue * trueVerticalSpacing,
+                        Y1 = height - yAxisStart + lowestYValue * trueVerticalSpacing,
                         X2 = actualBounds.X2,
-                        Y2 = this.ActualHeight - yAxisStart + lowestYValue * trueVerticalSpacing,
+                        Y2 = height - yAxisStart + lowestYValue * trueVerticalSpacing,
                         Stroke = Brushes.Black,
                         StrokeThickness = 5,
                     };
@@ -145,7 +148,7 @@ namespace GraphicTravellingSalesmanProblem
                             X1 = xPoint,
                             Y1 = yAxisStart - 50,
                             X2 = xPoint,
-                            Y2 = this.ActualHeight - yAxisStart,
+                            Y2 = height - yAxisStart,
                             Stroke = Brushes.LightGray,
                             StrokeThickness = 5,
                             Opacity = 1,
@@ -173,7 +176,7 @@ namespace GraphicTravellingSalesmanProblem
                         {
                             X1 = xAxisStart,
                             Y1 = yPoint,
-                            X2 = this.ActualWidth - xAxisStart,
+                            X2 = width - xAxisStart,
                             Y2 = yPoint,
                             Stroke = Brushes.LightGray,
                             StrokeThickness = 5,

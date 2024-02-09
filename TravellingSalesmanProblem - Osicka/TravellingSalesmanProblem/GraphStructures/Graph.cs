@@ -136,5 +136,22 @@ namespace TravellingSalesmanProblem.GraphStructures
 
             return length;
         }
+
+        public (double MaxX, double MaxY, double MinX, double MinY) GetExtremeCoordinatesValues()
+        {
+            double maxX = double.MinValue, maxY = double.MinValue, minX = double.MaxValue, minY = double.MaxValue;
+
+            foreach (Node node in nodes)
+            {
+                if (node.x > maxX) maxX = node.x;
+                if (node.x < minX) minX = node.x;
+
+                if (node.y > maxY) maxY = node.y;
+                if (node.y < minY) minY = node.y;
+            }
+
+            return (maxX, maxY, minX, minY);
+
+        }
     }
 }

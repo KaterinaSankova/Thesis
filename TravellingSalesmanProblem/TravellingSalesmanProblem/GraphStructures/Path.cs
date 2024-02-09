@@ -30,10 +30,10 @@ namespace TravellingSalesmanProblem.GraphStructures
                 List<Edge> edges = new();
                 var startingNode = this.CurrentNode;
                 var node = Next();
-                edges.Add(new Edge(startingNode, node));
+                edges.Add(new(startingNode, node));
                 while (node != startingNode)
                 {
-                    edges.Add(new Edge(node, PeekNext()));
+                    edges.Add(new(node, PeekNext()));
                     node = Next();
                 }
 
@@ -42,7 +42,8 @@ namespace TravellingSalesmanProblem.GraphStructures
                 return edges;
             }
         }
-        public int CurrentIndex {
+        public int CurrentIndex
+        {
             get => _currentIndex;
             set
             {
@@ -156,7 +157,7 @@ namespace TravellingSalesmanProblem.GraphStructures
         {
             CurrentIndex = (CurrentIndex + (int)Direction + Count) % Count;
             return path[CurrentIndex];
-        } 
+        }
 
         public Node Prev()
         {
