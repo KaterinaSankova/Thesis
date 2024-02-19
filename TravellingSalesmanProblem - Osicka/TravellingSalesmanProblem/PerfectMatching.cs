@@ -6,7 +6,7 @@ namespace TravellingSalesmanProblem
     static public class PerfectMatching
     {
 
-        [DllImport("../../../libs/PMDLL.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("./../../../libs/PMDLL.dll", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
 
         public static extern unsafe int* find_minimal_perfect_matching(int nodeCount, int edgeCount, int* edges, double* weights, int* output);
 

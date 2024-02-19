@@ -1,0 +1,226 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\tspalgorithms\\kernighanlin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\tspalgorithms\\kernighanlin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\path.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\path.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\edge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\edge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\formats\\tsplib\\tsplib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\formats\\tsplib\\tsplib.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\enums\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\enums\\direction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\enums\\enumrecognizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\enums\\enumrecognizer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\graphstructures\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\tspalgorithms\\doubletree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\tspalgorithms\\doubletree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KLN2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\graphictravellingsalesmanproblem\\graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\perfectmatching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6D9B2BD-D33B-48C6-BA18-76D9230008DE}|GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem.csproj|solutionrelative:graphictravellingsalesmanproblem\\travellingsalesmanproblem\\algorithms\\perfectmatching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TSPLib.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Formats\\TSPLib\\TSPLib.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Formats\\TSPLib\\TSPLib.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Formats\\TSPLib\\TSPLib.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Formats\\TSPLib\\TSPLib.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.649Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EnumRecognizer.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\EnumRecognizer.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\EnumRecognizer.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\EnumRecognizer.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\EnumRecognizer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.651Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Direction.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\Direction.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\Direction.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\Direction.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Enums\\Direction.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ViewState": "AQIAACEAAAAAAAAAAAAiwEsAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:08.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\MainWindow.xaml",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\MainWindow.xaml",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2023-11-10T07:21:07.645Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Path.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "ViewState": "AQIAAHwBAAAAAAAAAAAUwI0BAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.653Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DoubleTree.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\DoubleTree.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\DoubleTree.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\DoubleTree.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\DoubleTree.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.655Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "KernighanLin.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\KernighanLin.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\KernighanLin.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\KernighanLin.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSPAlgorithms\\KernighanLin.cs",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAgwE4AAABsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "PerfectMatching.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\PerfectMatching.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\PerfectMatching.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\PerfectMatching.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\PerfectMatching.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAEwHoAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:08.089Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Edge.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Edge.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Edge.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Edge.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Edge.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAlwDEAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:08.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Graph.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "RelativeDocumentMoniker": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\GraphicTravellingSalesmanProblem\\GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "RelativeToolTip": "GraphicTravellingSalesmanProblem\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:08.092Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "KernighanLin.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeDocumentMoniker": "..\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeToolTip": "..\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ViewState": "AQIAADkAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T14:57:39.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "KLN2.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KLN2.cs",
+              "RelativeDocumentMoniker": "..\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KLN2.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KLN2.cs",
+              "RelativeToolTip": "..\\TravellingSalesmanProblem\\TravellingSalesmanProblem\\Algorithms\\TSP\\KLN2.cs",
+              "ViewState": "AQIAAMwBAAAAAAAAAAAAANMBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-10T07:21:07.634Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

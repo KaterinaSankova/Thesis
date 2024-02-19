@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.GraphStructures;
-using TravellingSalesmanProblem.Testing;
 
 namespace TravellingSalesmanProblem
 {
@@ -23,7 +22,7 @@ namespace TravellingSalesmanProblem
 
             Console.WriteLine("Nearest addition");
             stopWatch.Restart();
-            path = new GraphStructures.Path(new NearestAddition().FindShortestPath(graph));
+            path = new NearestAddition().FindShortestPath(graph);
             stopWatch.Stop();
             Console.WriteLine(path.Length);
             ts = stopWatch.Elapsed;
@@ -32,7 +31,7 @@ namespace TravellingSalesmanProblem
 
             Console.WriteLine("Double tree");
             stopWatch.Restart();
-            path = new GraphStructures.Path(new DoubleTree().FindShortestPath(graph));
+            path = new DoubleTree().FindShortestPath(graph);
             stopWatch.Stop();
             Console.WriteLine(path.Length);
             ts = stopWatch.Elapsed;
@@ -42,7 +41,7 @@ namespace TravellingSalesmanProblem
 
             Console.WriteLine("Christofides");
             stopWatch.Restart();
-            path = new GraphStructures.Path(new Christofides().FindShortestPath(graph));
+            path = new Christofides().FindShortestPath(graph);
             stopWatch.Stop();
             Console.WriteLine(path.Length);
             ts = stopWatch.Elapsed;

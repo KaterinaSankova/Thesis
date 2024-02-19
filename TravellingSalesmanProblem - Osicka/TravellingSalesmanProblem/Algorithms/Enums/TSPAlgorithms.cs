@@ -2,9 +2,9 @@
 {
     public enum TSPAlgorithms
     {
-        Christofides,
-        DoubleTree,
-        NearestAddition,
-        KernighanLin
+        NearestAddition = 0,
+        DoubleTree = 1,
+        Christofides = 2,
+        KernighanLin = 3
     }
 }

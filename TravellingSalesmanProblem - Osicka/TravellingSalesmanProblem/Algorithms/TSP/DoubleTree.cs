@@ -1,10 +1,11 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
+using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
     public class DoubleTree
     {
-        public List<Node> FindShortestPath(Graph graph)
+        public Path FindShortestPath(Graph graph)
         {
             List<Edge> minimalSpanningTree = Prims.FindSpanningTree(graph);
 
@@ -16,7 +17,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             path.Add(path[0]);
 
-            return path;
+            return new Path(path);
         }
     }
 }

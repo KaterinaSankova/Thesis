@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Documents\\Vyska\\Thesis\\tsp ui\\TreavellingSalesmanProblem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ViewState": "AQIAANAAAAAAAAAAAAAYwOcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-19T12:30:12.935Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

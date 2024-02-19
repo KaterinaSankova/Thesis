@@ -2,13 +2,21 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\TravellingSalesmanProblem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <libs Include="..\..\..\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\libs\PMDLL.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="System\" />
   </ItemGroup>
 
 </Project>

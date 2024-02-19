@@ -2,16 +2,9 @@
 
 namespace TravellingSalesmanProblem.Formats
 {
-    public class TSPDeserializer
+    public static class TSPDeserializer
     {
-        string path;
-
-        public TSPDeserializer(string path)
-        {
-            this.path = path;
-        }
-
-        private Node LineToNode(string line) //tryparse
+        private static Node LineToNode(string line) //tryparse
         {
             double x, y;
             int id;
@@ -30,7 +23,7 @@ namespace TravellingSalesmanProblem.Formats
             return new Node(id, x, y);
         }
 
-        private List<Node> DeserializeToNodes(StreamReader reader) //null
+        private static List<Node> DeserializeToNodes(StreamReader reader) //null
         {
             var nodes = new List<Node>();
 
@@ -44,7 +37,7 @@ namespace TravellingSalesmanProblem.Formats
             return nodes;
         }
 
-        public List<Node> DeserializeNodes()
+        public static List<Node> DeserializeNodes(string path)
         {
             List<Node> nodes = new List<Node>();
             using var reader = new StreamReader(new FileStream(path, FileMode.Open));
