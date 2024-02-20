@@ -1,24 +1,16 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
+using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Formats
 {
-    public class OptTourDeserializer
+    public static class OptTourDeserializer
     {
-        string path;
-        List<Node> nodes;
-
-        public OptTourDeserializer(string path, List<Node> nodes)
-        {
-            this.path = path;
-            this.nodes = nodes;
-        }
-
-        private Node LineToNode(string line)
+        private static Node LineToNode(string line, Graph graph)
         {
             int id;
 
             int.TryParse(line, out id);
-            var nodesWithId = nodes.Where((node) => node.id == id).ToList();
+            var nodesWithId = graph.nodes.Where((node) => node.id == id).ToList();
 
             if (nodesWithId.Count == 0)
                 return null;
@@ -26,7 +18,7 @@ namespace TravellingSalesmanProblem.Formats
                 return nodesWithId.First();
         }
 
-        private List<Node> DeserializeToNodes(StreamReader reader) //null
+        private static Path DeserializeToNodes(StreamReader reader, Graph graph) //null
         {
             var nodes = new List<Node>();
 
@@ -34,7 +26,7 @@ namespace TravellingSalesmanProblem.Formats
             Node currNode;
             while (line != "EOF")
             {
-                currNode = LineToNode(line.TrimStart(' '));
+                currNode = LineToNode(line.TrimStart(' '), graph);
 
                 if (currNode != null)
                     nodes.Add(currNode);
@@ -45,10 +37,10 @@ namespace TravellingSalesmanProblem.Formats
 
             nodes.Add(nodes.First());
 
-            return nodes;
+            return new Path(nodes);
         }
 
-        public List<Node> DeserializeNodes()
+        public static Path DeserializeNodes(string path, Graph graph)
         {
             List<Node> nodes = new List<Node>();
             using var reader = new StreamReader(new FileStream(path, FileMode.Open));
@@ -58,7 +50,7 @@ namespace TravellingSalesmanProblem.Formats
                 item = reader.ReadLine();
             } while (item != "TOUR_SECTION");
 
-            return DeserializeToNodes(reader);
+            return DeserializeToNodes(reader, graph);
         }
     }
 }

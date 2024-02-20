@@ -20,88 +20,21 @@ namespace TSP
         private StopWatchSection stopWatchSection;
         private ResultSection resultSection = new ResultSection();
 
-        private readonly NearestAddition nearestAddition = new();
-        private readonly DoubleTree doubleTree = new();
-        private readonly Christofides christofides = new();
-        private readonly KernighanLin kernighanLin = new();
+        private State state = new State();
 
         public MainWindow()
         {
             InitializeComponent();
-            DrawStartScreen();
+            InitializeActionScreen();
 
             this.StateChanged += (sender, e) => resultSection.RedrawGraphs();
             this.SizeChanged += (sender, e) => resultSection.RedrawGraphs();
-        }
-
-        public void DrawStartScreen()
-        {
-            GridExtentions.RestoreGrid(Grid);
-            CreateStartScreenGrid();
-
-            Label name = new Label();   //nazev
-            name.Content = "Travelling Salesman Problem";
-            name.SetValue(Grid.RowProperty, 1);
-            name.SetValue(Grid.ColumnProperty, 1);
-            name.HorizontalAlignment = HorizontalAlignment.Center;
-            name.VerticalAlignment = VerticalAlignment.Center;
-            name.FontSize = 30;
-            name.FontWeight = FontWeights.Bold;
-            name.Foreground = (Brush)new BrushConverter().ConvertFrom("#ecc400");
-            Grid.Children.Add(name);
-
-            CreateStartScreenButton("Find shortest path", 3, 1, DrawFindShortestPathScreen);
-            CreateStartScreenButton("Compare algorithms", 5, 1, DrawCompareAlgorithmsScreen);
-        }
-
-        public void CreateStartScreenGrid()
-        {
-            GridExtentions.AddRowToGrid(Grid, 1, GridUnitType.Star);
-            GridExtentions.AddRowToGrid(Grid, 100);
-            GridExtentions.AddRowToGrid(Grid, 70);
-            GridExtentions.AddRowToGrid(Grid, 50);
-            GridExtentions.AddRowToGrid(Grid, 50);
-            GridExtentions.AddRowToGrid(Grid, 50);
-            GridExtentions.AddRowToGrid(Grid, 1, GridUnitType.Star);
-
-            GridExtentions.AddColumnToGrid(Grid, 1, GridUnitType.Star);
-            GridExtentions.AddColumnToGrid(Grid, 500);
-            GridExtentions.AddColumnToGrid(Grid, 1, GridUnitType.Star);
-        }
-
-        private void CreateStartScreenButton(string text, int row, int column, RoutedEventHandler handler)
-        {
-            Button findShortestPathButton = new Button();
-            findShortestPathButton.Content = text;
-            findShortestPathButton.SetValue(Grid.RowProperty, row);
-            findShortestPathButton.SetValue(Grid.ColumnProperty, column);
-            findShortestPathButton.Height = 50;
-            findShortestPathButton.Width = 200;
-            findShortestPathButton.Click += handler;
-            findShortestPathButton.FontSize = 16;
-            findShortestPathButton.Foreground = Brushes.White;
-            findShortestPathButton.Background = (Brush)new BrushConverter().ConvertFrom("#ecc400");
-            findShortestPathButton.BorderThickness = new Thickness(0);
-            findShortestPathButton.VerticalAlignment = VerticalAlignment.Top;
-            Grid.Children.Add(findShortestPathButton);
-        }
-
-        private void DrawFindShortestPathScreen(object sender, RoutedEventArgs e)
-        {
-            InitializeActionScreen();
-        }
-
-        private void DrawCompareAlgorithmsScreen(object sender, RoutedEventArgs e)
-        {
-            InitializeActionScreen();
         }
 
         private void InitializeActionScreen()
         {
             GridExtentions.RestoreGrid(Grid);
             CreateActionScreenGrid();
-
-            CreateHomeButton();
 
             inputSection = new InputSection(1, 1);
             Grid.Children.Add(inputSection);
@@ -129,45 +62,43 @@ namespace TSP
         }
         private void StartButtonClick(object sender, RoutedEventArgs e)
         {
+            List<string> additionalMessages = new();
             if (inputSection.InputMode == InputMode.File)
             {
-                if (inputSection.SourcePath == "")
+                if (inputSection.SourcePath == "" || inputSection.SourcePath == null)
                     resultSection.WriteErrorMessage("No file is selected.");
                 else
                 {
                     var nodes = TSPDeserializer.DeserializeNodes(inputSection.SourcePath);
                     var graph = new Graph(nodes);
                     var algorithms = algorithmsSection.SelectedAlgorithms;
+                    Path? resultPath = null;
                     if (algorithms.Count == 0)
                         resultSection.WriteErrorMessage("No algortihms selected.");
                     else
                     {
-                        var paths = new List<(Graph, Path)>();
-                        List<Task<Path>> tasks = new();
-                        foreach (var algorithm in algorithms)
+                        if (inputSection.ResultPath != "")
                         {
-                            switch (algorithm)
+                            try
                             {
-                                case TSPAlgorithms.NearestAddition:
-                                    tasks.Add(Task<Path>.Factory.StartNew(() => nearestAddition.FindShortestPath(graph)));
-                                    break;
-                                case TSPAlgorithms.DoubleTree:
-                                    tasks.Add(Task<Path>.Factory.StartNew(() => doubleTree.FindShortestPath(graph)));
-                                    break;
-                                case TSPAlgorithms.Christofides:
-                                    tasks.Add(Task<Path>.Factory.StartNew(() => christofides.FindShortestPath(graph)));
-                                    break;
-                                case TSPAlgorithms.KernighanLin:
-                                    tasks.Add(Task<Path>.Factory.StartNew(() => kernighanLin.FindShortestPath(graph)));
-                                    break;
-                                default:
-                                    break;
+                                resultPath = OptTourDeserializer.DeserializeNodes(inputSection.ResultPath, graph);
+                            }
+                            catch (System.Exception)
+                            {
+                                additionalMessages.Add($"File with results on path '{inputSection.ResultPath}' could not been deserialized.");
                             }
                         }
-                        foreach (var t in tasks)
-                            paths.Add((graph, t.Result));
 
-                        resultSection.DisplayGraphs(paths);
+                        var results = new List<Result>();
+                        List<Task<Result>> tasks = new();
+                        foreach (var algorithm in algorithms)
+                        {
+                            tasks.Add(Task<Result>.Factory.StartNew(() => new Result(algorithm, graph, stopWatchSection.IsChecked, resultPath)));
+                        }
+                        foreach (var t in tasks)
+                            results.Add(t.Result);
+
+                        resultSection.DisplayGraphs(results, additionalMessages);
                     }
                 }
             }
@@ -179,7 +110,6 @@ namespace TSP
 
         private void CreateActionScreenGrid()
         {
-            //homeButton homeButton
             GridExtentions.AddRowToGrid(Grid, 45);
 
             //input
@@ -207,25 +137,6 @@ namespace TSP
             GridExtentions.AddColumnToGrid(Grid, 1, GridUnitType.Star);
             GridExtentions.AddColumnToGrid(Grid, 45);
         }
-
-        private void CreateHomeButton()
-        {
-            var homeButton = new Button();
-            homeButton.Content = "🏠";
-            homeButton.SetValue(Grid.RowProperty, 0);
-            homeButton.SetValue(Grid.ColumnProperty, Grid.ColumnDefinitions.Count - 1);
-            homeButton.Height = 40;
-            homeButton.Width = 45;
-            homeButton.FontSize = 20;
-            homeButton.Foreground = Brushes.White;
-            homeButton.Background = (Brush)new BrushConverter().ConvertFrom("#bfafa0");
-            homeButton.BorderThickness = new Thickness(0);
-            homeButton.BorderThickness = new Thickness(0);
-            homeButton.Click += GoHome;
-            Grid.Children.Add(homeButton);
-        }
-
-        private void GoHome(object sender, RoutedEventArgs e) => DrawStartScreen();
 
     }
 }

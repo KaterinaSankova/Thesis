@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="TSP.Views.GenerateInputView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TSP.Views" xmlns:models="clr-namespace:TSP.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <models:GenerateInputModel/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="45"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <TextBlock Text="Input:" Margin="0, 0, 5, 0"></TextBlock>
+            <RadioButton Content="File" GroupName="input" Margin="0, 0, 5, 0"></RadioButton>
+            <RadioButton Content="Folder" GroupName="input" Margin="0, 0, 5, 0"></RadioButton>
+            <RadioButton Content="Generage" GroupName="input" Margin="0, 0, 5, 0" IsChecked="true"></RadioButton>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <TextBlock Text="Number of samples:" Margin="0, 0, 5, 0"></TextBlock>
+            <TextBox Text="{Binding NumberOfSamples, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+            <TextBlock Text="Number of cities:" Margin="0, 0, 5, 0"></TextBlock>
+            <TextBox Text="{Binding NumberOfCities, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+            <StackPanel Orientation="Horizontal" Margin="0, 0, 5, 0">
+                <TextBlock Text="Lowest X:" Margin="0, 0, 5, 0"></TextBlock>
+                <TextBox Text="{Binding LowestX, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 0, 5, 0">
+                <TextBlock Text="Highest X:" Margin="0, 0, 5, 0"></TextBlock>
+                <TextBox Text="{Binding HighestX, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 0, 5, 0">
+                <TextBlock Text="Lowest Y:" Margin="0, 0, 5, 0"></TextBlock>
+                <TextBox Text="{Binding LowestY, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 0, 5, 0">
+                <TextBlock Text="Highest Y:" Margin="0, 0, 5, 0"></TextBlock>
+                <TextBox Text="{Binding HighestY, UpdateSourceTrigger=PropertyChanged}" Width="30"></TextBox>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="Algorithms:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
+            <CheckBox Content="Nearest addition" Margin="0, 0, 5, 0" IsChecked="{Binding Path=NearestAddition, Mode=TwoWay}"></CheckBox>
+            <CheckBox Content="Double tree" Margin="0, 0, 5, 0" IsChecked="{Binding Path=DoubleTree, Mode=TwoWay}"></CheckBox>
+            <CheckBox Content="Christofides'" Margin="0, 0, 5, 0" IsChecked="{Binding Path=Christofides, Mode=TwoWay}"></CheckBox>
+            <CheckBox Content="Kernighan - Lin" Margin="0, 0, 5, 0" IsChecked="{Binding Path=KernighanLin, Mode=TwoWay}"></CheckBox>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+            <TextBlock Text="Stopwatch:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
+            <CheckBox IsChecked="{Binding Stopwatch}"></CheckBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
