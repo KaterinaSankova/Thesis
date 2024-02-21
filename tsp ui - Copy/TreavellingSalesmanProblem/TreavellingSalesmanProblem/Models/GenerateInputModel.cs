@@ -24,7 +24,6 @@ namespace TSP.Models
             set
             {
                 _numberOfSamples = value;
-                OnPropertyChanged(nameof(NumberOfSamples));
             }
         }
 
@@ -37,7 +36,6 @@ namespace TSP.Models
             set
             {
                 _numberOfCities = value;
-                OnPropertyChanged(nameof(NumberOfCities));
             }
         }
 
@@ -50,7 +48,6 @@ namespace TSP.Models
             set
             {
                 _lowestX = value;
-                OnPropertyChanged(nameof(LowestX));
             }
         }
 
@@ -63,7 +60,6 @@ namespace TSP.Models
             set
             {
                 _lowestY = value;
-                OnPropertyChanged($"{nameof(LowestY)}");
             }
         }
 
@@ -76,7 +72,6 @@ namespace TSP.Models
             set
             {
                 _highestX = value;
-                OnPropertyChanged(nameof(HighestX));
             }
         }
 
@@ -89,7 +84,6 @@ namespace TSP.Models
             set
             {
                 _highestY = value;
-                OnPropertyChanged($"{nameof(HighestY)}");
             }
         }
 

@@ -4,16 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TSP.Views"
-             xmlns:models="clr-namespace:TSP.Models"
+             xmlns:viewModels="clr-namespace:TSP.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.DataContext>
-        <models:FolderInputModel/>
+        <viewModels:FolderInputViewModel/>
     </UserControl.DataContext>
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
@@ -64,5 +65,7 @@
             <TextBlock Text="Stopwatch:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox IsChecked="{Binding Stopwatch}"></CheckBox>
         </StackPanel>
+
+        <Button Content="START" Command="{Binding StartCalculations}" Width="70" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1"/>
     </Grid>
 </UserControl>

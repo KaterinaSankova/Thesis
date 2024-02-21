@@ -8,16 +8,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="States\**" />
+    <Compile Remove="System\**" />
+    <EmbeddedResource Remove="States\**" />
+    <EmbeddedResource Remove="System\**" />
+    <None Remove="States\**" />
+    <None Remove="System\**" />
+    <Page Remove="States\**" />
+    <Page Remove="System\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\TravellingSalesmanProblem.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <libs Include="..\..\..\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\libs\PMDLL.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="States\" />
-    <Folder Include="System\" />
   </ItemGroup>
 
 </Project>

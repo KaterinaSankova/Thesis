@@ -9,7 +9,7 @@ using TravellingSalesmanProblem.Algorithms.Enums;
 
 namespace TSP.Models
 {
-    public class InputModel : INotifyPropertyChanged
+    public class InputModel
     {
         private bool _nearestAddition = true;
         private bool _doubleTree;
@@ -26,7 +26,6 @@ namespace TSP.Models
             set
             {
                 _nearestAddition = value;
-                OnPropertyChanged(nameof(NearestAddition));
             }
         }
 
@@ -39,7 +38,6 @@ namespace TSP.Models
             set
             {
                 _doubleTree = value;
-                OnPropertyChanged(nameof(DoubleTree));
             }
         }
 
@@ -51,7 +49,6 @@ namespace TSP.Models
             set
             {
                 _christofides = value;
-                OnPropertyChanged(nameof(Christofides));
             }
         }
 
@@ -64,17 +61,9 @@ namespace TSP.Models
             set
             {
                 _kernighanLin = value;
-                OnPropertyChanged(nameof(KernighanLin));
             }
         }
 
         public InputModel() { }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

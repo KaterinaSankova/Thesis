@@ -36,47 +36,47 @@ namespace TSP.Sections
             mode = ResultMode.ErrorMessage;
         }
 
-        public void DisplayGraphs(List<Result> results, List<string> additionalMessages)
-        {
-            GridExtentions.RestoreGrid(this);
-            graphIndex = 0;
+        //public void DisplayGraphs(List<Result> results, List<string> additionalMessages)
+        //{
+        //    GridExtentions.RestoreGrid(this);
+        //    graphIndex = 0;
 
-            for (int i = 0; i < additionalMessages.Count; i++)
-            {
-                GridExtentions.AddRowToGrid(this, 45);
-                var messageBlock = new TextBlock();
-                messageBlock.Text = additionalMessages[i];
-                messageBlock.SetValue(Grid.RowProperty, 0);
-                messageBlock.SetValue(Grid.ColumnProperty, 0);
-                messageBlock.Foreground = Brushes.Red;
-                this.Children.Add(messageBlock);
-                graphIndex++;
-            }
+        //    for (int i = 0; i < additionalMessages.Count; i++)
+        //    {
+        //        GridExtentions.AddRowToGrid(this, 45);
+        //        var messageBlock = new TextBlock();
+        //        messageBlock.Text = additionalMessages[i];
+        //        messageBlock.SetValue(Grid.RowProperty, 0);
+        //        messageBlock.SetValue(Grid.ColumnProperty, 0);
+        //        messageBlock.Foreground = Brushes.Red;
+        //        this.Children.Add(messageBlock);
+        //        graphIndex++;
+        //    }
 
-            GridExtentions.AddRowToGrid(this, 1, GridUnitType.Star);
+        //    GridExtentions.AddRowToGrid(this, 1, GridUnitType.Star);
 
-            numberOfGraphs = results.Count;
+        //    numberOfGraphs = results.Count;
 
-            double width = ((Grid)this.Parent).ColumnDefinitions[(int)this.GetValue(Grid.ColumnProperty)].ActualWidth;
-            double height = ((Grid)this.Parent).RowDefinitions[(int)this.GetValue(Grid.RowProperty)].ActualHeight;
+        //    double width = ((Grid)this.Parent).ColumnDefinitions[(int)this.GetValue(Grid.ColumnProperty)].ActualWidth;
+        //    double height = ((Grid)this.Parent).RowDefinitions[(int)this.GetValue(Grid.RowProperty)].ActualHeight;
 
-            var stackPanel = new StackPanel();
-            stackPanel.SetValue(Grid.RowProperty, graphIndex);
-            stackPanel.SetValue(Grid.ColumnProperty, 0);
-            stackPanel.Orientation = Orientation.Horizontal;
-            stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
-            stackPanel.Margin = new Thickness(0);
-            for (int i = 0; i < results.Count; i++)
-            {
-                var graphCanvas = new GraphCanvas(results[i].Graph, results[i].Path, width / numberOfGraphs, height);
-                graphCanvas.Margin = new Thickness(0, 0, width / numberOfGraphs, 0);
-                stackPanel.Children.Add(graphCanvas);
-            }
+        //    var stackPanel = new StackPanel();
+        //    stackPanel.SetValue(Grid.RowProperty, graphIndex);
+        //    stackPanel.SetValue(Grid.ColumnProperty, 0);
+        //    stackPanel.Orientation = Orientation.Horizontal;
+        //    stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
+        //    stackPanel.Margin = new Thickness(0);
+        //    for (int i = 0; i < results.Count; i++)
+        //    {
+        //        var graphCanvas = new GraphCanvas(results[i].Graph, results[i].Path, width / numberOfGraphs, height);
+        //        graphCanvas.Margin = new Thickness(0, 0, width / numberOfGraphs, 0);
+        //        stackPanel.Children.Add(graphCanvas);
+        //    }
 
-            this.Children.Add(stackPanel);
+        //    this.Children.Add(stackPanel);
 
-            mode = ResultMode.Graph;
-        }
+        //    mode = ResultMode.Graph;
+        //}
 
         public void RedrawGraphs()
         {

@@ -21,7 +21,6 @@ namespace TSP.Models
             set
             {
                 _sourceFilePath = value;
-                OnPropertyChanged(nameof(SourceFilePath));
             }
         }
 
@@ -35,7 +34,6 @@ namespace TSP.Models
             set
             {
                 _resultFilePath = value;
-                OnPropertyChanged(nameof(ResultFilePath));
             }
         }
 
@@ -48,7 +46,6 @@ namespace TSP.Models
             set
             {
                 _outputFolderPath = value;
-                OnPropertyChanged(nameof(OutputFolderPath));
             }
         }
 
