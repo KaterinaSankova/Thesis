@@ -19,19 +19,9 @@ namespace TSP
 {
     public partial class MainWindow : Window
     {
-        public MainWindow(ResultsModel resultData)
+        public MainWindow()
         {
             InitializeComponent();
-            var inputView = new Frame();
-            inputView.DataContext = new FileInputViewModel(resultData);
-            inputView.Source = new System.Uri(System.IO.Path.Combine(Environment.CurrentDirectory, ".\\Views\\FileInputView.xaml"));
-
-            Grid.Children.Add(inputView);
-
-
-
-        //< Frame Source = ".\Views\FileInputView.xaml" DataContext = "{Binding CurrentViewModel}" Grid.Row = "0" ></ Frame >
-        //< Frame Source = ".\Views\ResultsView.xaml" Grid.Row = "0" ></ Frame >
         }
     }
 }

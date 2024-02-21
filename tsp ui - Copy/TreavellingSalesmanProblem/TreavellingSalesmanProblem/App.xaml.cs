@@ -19,10 +19,11 @@ namespace TreavellingSalesmanProblem
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new MainWindow(_resultsData)
+            MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(_resultsData)
             };
+            MainWindow.Show();
             base.OnStartup(e);
         }
 

@@ -16,9 +16,6 @@
     <Compile Update="Views\GenerateInputView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\ResultsView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
@@ -31,9 +28,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\GenerateInputView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\ResultsView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

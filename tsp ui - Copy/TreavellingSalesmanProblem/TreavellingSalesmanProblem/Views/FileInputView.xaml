@@ -7,11 +7,6 @@
              xmlns:viewModels="clr-namespace:TSP.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
-    <UserControl.DataContext>
-        <viewModels:FileInputViewModel/>
-    </UserControl.DataContext>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>

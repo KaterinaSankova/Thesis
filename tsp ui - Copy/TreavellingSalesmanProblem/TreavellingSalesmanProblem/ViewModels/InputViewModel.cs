@@ -14,7 +14,7 @@ namespace TSP.ViewModels
 {
     public class InputViewModel : ViewModelBase
     {
-        private bool _nearestAddition = true;
+        private bool _nearestAddition;
         private bool _doubleTree;
         private bool _christofides;
         private bool _kernighanLin;
@@ -78,6 +78,7 @@ namespace TSP.ViewModels
         public InputViewModel(ResultsModel results)
         {
             StartCalculations = new StartCalculationsCommand(this, results);
+            NearestAddition = true;
         }
     }
 }

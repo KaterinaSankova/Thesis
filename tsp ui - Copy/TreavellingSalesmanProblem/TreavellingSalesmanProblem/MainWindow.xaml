@@ -16,10 +16,7 @@
     <!--WindowState="Maximized"-->
 
     <Grid x:Name="Grid">
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
+        <views:FileInputView DataContext="{Binding CurrentViewModel}"></views:FileInputView>
     </Grid>
 
 </Window>
