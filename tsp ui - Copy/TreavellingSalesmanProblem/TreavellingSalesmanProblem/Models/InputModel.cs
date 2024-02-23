@@ -15,7 +15,7 @@ namespace TSP.Models
         private bool _doubleTree;
         private bool _christofides;
         private bool _kernighanLin;
-        public bool Stopwatch;
+        private bool _stopwatch = true;
 
         public bool NearestAddition
         {
@@ -61,6 +61,18 @@ namespace TSP.Models
             set
             {
                 _kernighanLin = value;
+            }
+        }
+
+        public bool Stopwatch
+        {
+            get
+            {
+                return _stopwatch;
+            }
+            set
+            {
+                _stopwatch = value;
             }
         }
 

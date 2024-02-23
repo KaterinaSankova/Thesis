@@ -59,7 +59,8 @@ namespace TSP
             resultSection = new ResultSection(6, 1);
             Grid.Children.Add(resultSection);
 
-        }
+        }uuyhk
+
         private void StartButtonClick(object sender, RoutedEventArgs e)
         {
             List<string> additionalMessages = new();
@@ -105,7 +106,6 @@ namespace TSP
             else if (inputSection.InputMode == InputMode.Folder)
                 if (inputSection.SourcePath == "")
                     resultSection.WriteErrorMessage("No folder is selected.");
-
         }
 
         private void CreateActionScreenGrid()

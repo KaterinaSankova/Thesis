@@ -41,15 +41,7 @@ namespace TSP.Views
             // Process open folder dialog box results
             if (result == true)
             {
-                // Get the selected folder
-                var fileName = dialog.FolderName;
-                if (fileName.Length > 50)
-                {
-                    fileName = fileName.Substring(0, 50);
-                    fileName = fileName.Substring(0, fileName.LastIndexOf('\\') + 1);
-                    fileName += "...";
-                }
-                folderPathTextBlock.Text = fileName;
+                folderPathTextBlock.Text = dialog.FolderName;
             }
         }
     }

@@ -1,8 +1,9 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Interfaces;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public class KernighanLin
+    public class KernighanLin : ITspAlgorithm<KernighanLinPath>
     {
         private Graph graph = new();
         private KernighanLinPath path = new();
@@ -27,12 +28,12 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private Node? startingNode;
         private Node? enclosingNode;
         
-        public KernighanLinPath FindShortestPath(Graph inputGraph)
+        public KernighanLinPath FindShortestPath(Graph graph)
         {
-            if (inputGraph.nodes.Count < 4)
-                return new KernighanLinPath(inputGraph.nodes.ToList().Append(inputGraph.nodes.First()).ToList());
+            if (graph.nodes.Count < 4)
+                return new KernighanLinPath(graph.nodes.ToList().Append(graph.nodes.First()).ToList());
 
-            graph = inputGraph;
+            this.graph = graph;
             GeneratePath();
             SetupInitialState();
 

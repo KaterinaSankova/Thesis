@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TSP.Enum;
 using TSP.Models;
+using TSP.Stores;
 
 namespace TSP.ViewModels
 {
@@ -12,10 +14,15 @@ namespace TSP.ViewModels
     {
         private int _numberOfSamples = 1;
         private int _numberOfCities = 20;
-        private int _lowestX = -20;
-        private int _lowestY = -20;
-        private int _highestX = 20;
-        private int _highestY = 20;
+        private double _lowestX = -20;
+        private double _lowestY = -20;
+        private double _highestX = 20;
+        private double _highestY = 20;
+
+        private int highestPermitedNumberOfSamples = 100;
+        private int highestPermitedNumberOfCities = 20000;
+        private int lowestPermitedCoordinate = -50000;
+        private int highestPermitedCoordinate = 50000;
 
         public int NumberOfSamples
         {
@@ -25,7 +32,12 @@ namespace TSP.ViewModels
             }
             set
             {
-                _numberOfSamples = value;
+                if (value < 1)
+                    _numberOfSamples = 1;
+                else if (value > highestPermitedNumberOfSamples)
+                    _numberOfCities = highestPermitedNumberOfSamples;
+                else
+                    _numberOfSamples = value;
                 OnPropertyChanged(nameof(NumberOfSamples));
             }
         }
@@ -38,12 +50,17 @@ namespace TSP.ViewModels
             }
             set
             {
-                _numberOfCities = value;
+                if (value < 0)
+                    _numberOfCities = 0;
+                else if (value > highestPermitedNumberOfCities)
+                    _numberOfCities = highestPermitedNumberOfCities;
+                else
+                    _numberOfCities = value;
                 OnPropertyChanged(nameof(NumberOfCities));
             }
         }
 
-        public int LowestX
+        public double LowestX
         {
             get
             {
@@ -51,12 +68,18 @@ namespace TSP.ViewModels
             }
             set
             {
-                _lowestX = value;
+                if (value < lowestPermitedCoordinate)
+                    _lowestX = lowestPermitedCoordinate;
+                else if (value > HighestX)
+                    _lowestX = Math.Max(HighestX - 1, lowestPermitedCoordinate);
+                else
+                    _lowestX = value;
+
                 OnPropertyChanged(nameof(LowestX));
             }
         }
 
-        public int LowestY
+        public double LowestY
         {
             get
             {
@@ -64,12 +87,17 @@ namespace TSP.ViewModels
             }
             set
             {
-                _lowestY = value;
+                if (value < lowestPermitedCoordinate)
+                    _lowestY = lowestPermitedCoordinate;
+                else if (value > HighestY)
+                    _lowestY = Math.Max(HighestY - 1, lowestPermitedCoordinate);
+                else
+                    _lowestY = value;
                 OnPropertyChanged($"{nameof(LowestY)}");
             }
         }
 
-        public int HighestX
+        public double HighestX
         {
             get
             {
@@ -77,12 +105,17 @@ namespace TSP.ViewModels
             }
             set
             {
-                _highestX = value;
+                if (value > highestPermitedCoordinate)
+                    _highestX = highestPermitedCoordinate;
+                else if (value < LowestX)
+                    _highestX = Math.Min(LowestX + 1, highestPermitedCoordinate);
+                else
+                    _highestX = value;
                 OnPropertyChanged(nameof(HighestX));
             }
         }
 
-        public int HighestY
+        public double HighestY
         {
             get
             {
@@ -90,12 +123,17 @@ namespace TSP.ViewModels
             }
             set
             {
-                _highestY = value;
+                if (value > highestPermitedCoordinate)
+                    _highestY = highestPermitedCoordinate;
+                else if (value < LowestY)
+                    _highestY = Math.Min(LowestY + 1, highestPermitedCoordinate);
+                else
+                    _highestY = value;
                 OnPropertyChanged($"{nameof(HighestY)}");
             }
         }
 
-        public GenerateInputViewModel(ResultsModel results) : base(results) { }
+        public GenerateInputViewModel(NavigationStore navigationStore, Func<FileInputViewModel> createFileInputViewModel, Func<FolderInputViewModel> createFolderInputViewModel, Func<GenerateInputViewModel> createGenerateInputViewModel) : base(navigationStore, createFileInputViewModel, createFolderInputViewModel, createGenerateInputViewModel) { }
     }
 }
 

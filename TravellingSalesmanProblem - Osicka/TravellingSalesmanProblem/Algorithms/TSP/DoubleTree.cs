@@ -1,9 +1,10 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Interfaces;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public class DoubleTree
+    public class DoubleTree : ITspAlgorithm<Path>
     {
         public Path FindShortestPath(Graph graph)
         {

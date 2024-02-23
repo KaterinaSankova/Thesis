@@ -26,7 +26,6 @@ D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanP
 D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.pdb
 D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.genruntimeconfig.cache
 D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\ref\TSP.dll
-D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.dll
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.csproj.AssemblyReference.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\MainWindow.g.cs
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\Views\FileInputView.g.cs
@@ -70,6 +69,8 @@ D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSa
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.exe
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.deps.json
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.runtimeconfig.json
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.dll
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.pdb
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TravellingSalesmanProblem.dll
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TravellingSalesmanProblem.pdb
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.csproj.AssemblyReference.cache
@@ -96,5 +97,6 @@ D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSa
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\refint\TSP.dll
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.pdb
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\TSP.genruntimeconfig.cache
-D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Debug\net8.0-windows7.0\TSP.pdb
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\ref\TSP.dll
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\Views\ResultsView.g.cs
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows7.0\Views\ResultsView.baml

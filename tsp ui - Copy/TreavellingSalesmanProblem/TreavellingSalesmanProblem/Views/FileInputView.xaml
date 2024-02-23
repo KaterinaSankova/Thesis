@@ -25,30 +25,37 @@
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <TextBlock Text="Input:" Margin="0, 0, 5, 0"></TextBlock>
-            <RadioButton Content="File" GroupName="input" Margin="0, 0, 5, 0" IsChecked="true"></RadioButton>
-            <RadioButton Content="Folder" GroupName="input" Margin="0, 0, 5, 0"></RadioButton>
-            <RadioButton Content="Generage" GroupName="input" Margin="0, 0, 5, 0"></RadioButton>
+            <RadioButton Content="File" GroupName="input" Margin="0, 0, 5, 0" IsChecked="true" Command="{Binding NavigateToFileInput}"></RadioButton>
+            <RadioButton Content="Folder" GroupName="input" Margin="0, 0, 5, 0" Command="{Binding NavigateToFolderInput}"></RadioButton>
+            <RadioButton Content="Generate" GroupName="input" Margin="0, 0, 5, 0" Command="{Binding NavigateToGenerateInput}"></RadioButton>
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
             <TextBlock Text="Source:" Margin="0, 0, 5, 0"></TextBlock>
-            <TextBlock Name="SourceFileTextBlock" Text="{Binding SourceFilePath, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 5, 0" Width="330" Height="20" Background="LightGray"></TextBlock>
+            <TextBlock Name="SourceFileTextBlock" Text="{Binding SourceFilePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="0, 0, 5, 0" Width="330" Height="20" Background="LightGray"></TextBlock>
             <Button Content="Browse files" Width="90" Height="20" Click="SearchForSourceFile"></Button>
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
             <TextBlock Text="Result:" Margin="0, 0, 5, 0"></TextBlock>
-            <TextBlock Name="ResultFileTextBlock" Text="{Binding ResultFilePath, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 5, 0" Width="330" Height="20" Background="LightGray"></TextBlock>
-            <Button Content="Browse files" Width="90" Height="20" Click="SearchForResultFile"></Button>
+            <TextBlock Name="ResultFileTextBlock" Text="{Binding ResultFilePath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="330" Height="20" Background="LightGray"></TextBlock>
+            <Button Content="Browse files" Width="90" Height="20" Margin="5, 0, 5, 0"  Click="SearchForResultFile"></Button>
+            <Button Content="Clear" Width="90" Height="20" Command="{Binding ClearResultFileCommand}"></Button>
         </StackPanel>
-
+        
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
-            <TextBlock Text="Output:" Margin="0, 0, 5, 0"></TextBlock>
-            <TextBlock Name="OutputFolderTextBlock" Text="{Binding OutputFolderPath, UpdateSourceTrigger=PropertyChanged}" Margin="0, 0, 5, 0" Width="330" Height="20" Background="LightGray"></TextBlock>
-            <Button Content="Browse folders" Width="90" Height="20" Click="SearchForOutputFolder"></Button>
+            <TextBlock Text="Ignore not found result files:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
+            <CheckBox IsChecked="{Binding IgnoreNotFoundResultFiles, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></CheckBox>
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="Output:" Margin="0, 0, 5, 0"></TextBlock>
+            <TextBlock Name="OutputFolderTextBlock" Text="{Binding OutputFolderPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="330" Height="20" Background="LightGray"></TextBlock>
+            <Button Content="Browse folders" Width="90" Height="20" Margin="5, 0, 5, 0" Click="SearchForOutputFolder"></Button>
+            <Button Content="Clear" Width="90" Height="20" Command="{Binding ClearOutputFolderCommand}"></Button>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
             <TextBlock Text="Algorithms:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox Content="Nearest addition" Margin="0, 0, 5, 0" IsChecked="{Binding Path=NearestAddition, Mode=TwoWay}"></CheckBox>
             <CheckBox Content="Double tree" Margin="0, 0, 5, 0" IsChecked="{Binding Path=DoubleTree, Mode=TwoWay}"></CheckBox>
@@ -56,12 +63,9 @@
             <CheckBox Content="Kernighan - Lin" Margin="0, 0, 5, 0" IsChecked="{Binding Path=KernighanLin, Mode=TwoWay}"></CheckBox>
         </StackPanel>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
             <TextBlock Text="Stopwatch:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
-            <CheckBox IsChecked="{Binding Stopwatch}"></CheckBox>
+            <CheckBox IsChecked="{Binding Stopwatch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></CheckBox>
         </StackPanel>
-
-        <Button Content="START" Command="{Binding StartCalculations}" Width="70" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="1"/>
-
     </Grid>
 </UserControl>

@@ -1,9 +1,10 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
+using TravellingSalesmanProblem.Interfaces;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public class Christofides
+    public class Christofides : ITspAlgorithm<Path>
     {
         private readonly PerfectMatchingGreedyAlgorithm perfectMatchingAlgorithm = new();
 

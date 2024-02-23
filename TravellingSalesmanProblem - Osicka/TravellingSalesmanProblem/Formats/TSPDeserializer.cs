@@ -10,25 +10,28 @@ namespace TravellingSalesmanProblem.Formats
             int id;
             string[] coordinates;
 
-            int.TryParse(line[0..line.IndexOf(' ')], out id);
+            if (!int.TryParse(line[0..line.IndexOf(' ')], out id))
+                throw new Exception($"Invalid line '{line}'");
 
             line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
 
-            double.TryParse(line[0..line.IndexOf(' ')], out x);
+            if(!double.TryParse(line[0..line.IndexOf(' ')], out x))
+                throw new Exception($"Invalid line '{line}'");
 
             line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
 
-            double.TryParse(line, out y);
+            if(!double.TryParse(line, out y))
+                throw new Exception($"Invalid line '{line}'");
 
             return new Node(id, x, y);
         }
 
-        private static List<Node> DeserializeToNodes(StreamReader reader) //null
+        private static List<Node> DeserializeNodes(StreamReader reader) //null
         {
             var nodes = new List<Node>();
 
             string? line = reader.ReadLine();
-            while (line != "EOF" && line != null)
+            while (line != "EOF" && !string.IsNullOrEmpty(line))
             {
                 nodes.Add(LineToNode(line.TrimStart(' '))); //in some files spaces are in the beggining of lines for alignment
                 line = reader.ReadLine();
@@ -37,9 +40,8 @@ namespace TravellingSalesmanProblem.Formats
             return nodes;
         }
 
-        public static List<Node> DeserializeNodes(string path)
+        public static Graph DeserializeGraph(string path)
         {
-            List<Node> nodes = new List<Node>();
             using var reader = new StreamReader(new FileStream(path, FileMode.Open));
             string? item; //nullable type
             do
@@ -47,7 +49,14 @@ namespace TravellingSalesmanProblem.Formats
                 item = reader.ReadLine();
             } while (item != "NODE_COORD_SECTION");
 
-            return DeserializeToNodes(reader);
+            try
+            {
+                return new Graph(DeserializeNodes(reader));
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"File '{System.IO.Path.GetFileName(path)}' could not been deserialized: {e.Message}");
+            }
         }
     }
 }

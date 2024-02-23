@@ -4,17 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TSP.Models;
+using TSP.Stores;
 
 namespace TSP.ViewModels
 {
 
     public class MainViewModel : ViewModelBase
     {
-        public ViewModelBase CurrentViewModel { get; }
+        private readonly NavigationStore _navigationStore;
+        private readonly ResultsViewModel _resultsViewModel;
 
-        public MainViewModel(ResultsModel results)
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        public ResultsViewModel CurrentResultsViewModel => _resultsViewModel;
+
+        public MainViewModel(NavigationStore navigationStore, ResultsViewModel resultsViewModel)
         {
-            CurrentViewModel = new FileInputViewModel(results);
+            _navigationStore = navigationStore;
+
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
+            _resultsViewModel = resultsViewModel;
         }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
     }
 }

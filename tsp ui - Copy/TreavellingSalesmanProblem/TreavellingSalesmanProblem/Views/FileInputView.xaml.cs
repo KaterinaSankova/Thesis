@@ -42,15 +42,7 @@ namespace TSP.Views
             // Process open file dialog box results
             if (result == true)
             {
-                // Open document
-                var fileName = dialog.FileName;
-                if (fileName.Length > 58)
-                {
-                    fileName = fileName.Substring(0, 58);
-                    fileName = fileName.Substring(0, fileName.LastIndexOf('\\') + 1);
-                    fileName += "...";
-                }
-                filePathTextBlock.Text = fileName;
+                filePathTextBlock.Text = dialog.FileName;
             }
         }
 
@@ -67,15 +59,7 @@ namespace TSP.Views
             // Process open folder dialog box results
             if (result == true)
             {
-                // Get the selected folder
-                var fileName = dialog.FolderName;
-                if (fileName.Length > 50)
-                {
-                    fileName = fileName.Substring(0, 50);
-                    fileName = fileName.Substring(0, fileName.LastIndexOf('\\') + 1);
-                    fileName += "...";
-                }
-                folderPathTextBlock.Text = fileName;
+                folderPathTextBlock.Text = dialog.FolderName;
             }
         }
     }

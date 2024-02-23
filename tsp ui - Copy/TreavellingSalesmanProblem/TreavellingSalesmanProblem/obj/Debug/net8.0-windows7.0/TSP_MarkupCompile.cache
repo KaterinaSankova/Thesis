@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\App.xaml
-4-453234275
+5-930763438
 
-341523209757
+461524575663
 1991093191345
-MainWindow.xaml;Views\FileInputView.xaml;Views\FolderInputView.xaml;Views\GenerateInputView.xaml;
+MainWindow.xaml;Views\FileInputView.xaml;Views\FolderInputView.xaml;Views\GenerateInputView.xaml;Views\ResultsView.xaml;
 
 False
 

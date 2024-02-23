@@ -13,10 +13,29 @@
         MinHeight="800"
         MinWidth="1000"
         WindowStartupLocation="CenterScreen">
-    <!--WindowState="Maximized"-->
 
     <Grid x:Name="Grid">
-        <views:FileInputView DataContext="{Binding CurrentViewModel}"></views:FileInputView>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:FileInputViewModel}">
+                <views:FileInputView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:FolderInputViewModel}">
+                <views:FolderInputView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:GenerateInputViewModel}">
+                <views:GenerateInputView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ResultsViewModel}">
+                <views:ResultsView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="0"/>
+        <ContentControl Content="{Binding CurrentResultsViewModel}" Grid.Row="1"/>
     </Grid>
 
 </Window>

@@ -8,9 +8,9 @@ namespace TSP.Models
 {
     public class FileInputModel : InputModel
     {
-        private string _sourceFilePath;
-        private string _resultFilePath;
-        private string _outputFolderPath;
+        private string _sourceFilePath = "";
+        private string _resultFilePath = "";
+        private string _outputFolderPath = "";
 
         public string SourceFilePath
         {

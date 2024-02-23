@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TravellingSalesmanProblem.Algorithms.Enums;
 using TSP.Commands;
 using TSP.Models;
+using TSP.Stores;
 
 namespace TSP.ViewModels
 {
@@ -18,7 +20,8 @@ namespace TSP.ViewModels
         private bool _doubleTree;
         private bool _christofides;
         private bool _kernighanLin;
-        public bool Stopwatch;
+        private bool _stopwatch;
+        private bool _ignoreNotFoundResultFiles;
 
         public bool NearestAddition
         {
@@ -71,13 +74,43 @@ namespace TSP.ViewModels
             }
         }
 
-        public ICommand SwitchInputMode { get; }
-
-        public ICommand StartCalculations { get; }
-
-        public InputViewModel(ResultsModel results)
+        public bool Stopwatch
         {
-            StartCalculations = new StartCalculationsCommand(this, results);
+            get
+            {
+                return _stopwatch;
+            }
+            set
+            {
+                _stopwatch = value;
+                OnPropertyChanged(nameof(Stopwatch));
+            }
+        }
+        public bool IgnoreNotFoundResultFiles
+        {
+            get
+            {
+                return _ignoreNotFoundResultFiles;
+            }
+
+            set
+            {
+                _ignoreNotFoundResultFiles = value;
+                OnPropertyChanged(nameof(IgnoreNotFoundResultFiles));
+            }
+        }
+
+        public ICommand NavigateToFileInput { get; }
+
+        public ICommand NavigateToFolderInput { get; }
+
+        public ICommand NavigateToGenerateInput { get; }
+
+        public InputViewModel(NavigationStore navigationStore, Func<FileInputViewModel> createFileInputViewModel, Func<FolderInputViewModel> createFolderInputViewModel, Func<GenerateInputViewModel> createGenerateInputViewModel)
+        {
+            NavigateToFileInput = new NavigateCommand(navigationStore, createFileInputViewModel);
+            NavigateToFolderInput = new NavigateCommand(navigationStore, createFolderInputViewModel);
+            NavigateToGenerateInput = new NavigateCommand(navigationStore, createGenerateInputViewModel);
             NearestAddition = true;
         }
     }

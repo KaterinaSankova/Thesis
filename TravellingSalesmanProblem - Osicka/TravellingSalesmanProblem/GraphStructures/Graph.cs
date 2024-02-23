@@ -23,11 +23,6 @@ namespace TravellingSalesmanProblem.GraphStructures
         {
             nodes = input;
         }
-        
-        public Graph(string path)
-        {
-            nodes = TSPDeserializer.DeserializeNodes(path);
-        }
 
         public Edge ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
         {

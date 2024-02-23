@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TSP.Commands;
 using TSP.Models;
+using TSP.Stores;
 
 namespace TSP.ViewModels
 {
@@ -22,6 +26,7 @@ namespace TSP.ViewModels
             set
             {
                 _sourceFolderPath = value;
+                OnSourcePathChanged();
                 OnPropertyChanged(nameof(SourceFolderPath));
             }
         }
@@ -53,6 +58,20 @@ namespace TSP.ViewModels
             }
         }
 
-        public FolderInputViewModel(ResultsModel results) : base(results) { }
+        private void OnSourcePathChanged()
+        {
+            SourcePathChanged?.Invoke();
+        }
+
+        public event Action SourcePathChanged;
+
+        public ICommand ClearResultFolderCommand { get; }
+        public ICommand ClearOutputFolderCommand { get; }
+
+        public FolderInputViewModel(NavigationStore navigationStore, Func<FileInputViewModel> createFileInputViewModel, Func<FolderInputViewModel> createFolderInputViewModel, Func<GenerateInputViewModel> createGenerateInputViewModel) : base(navigationStore, createFileInputViewModel, createFolderInputViewModel, createGenerateInputViewModel)
+        {
+            ClearResultFolderCommand = new ClearResultFolderCommand(this);
+            ClearOutputFolderCommand = new ClearOutputFolderCommand(this);
+        }
     }
 }

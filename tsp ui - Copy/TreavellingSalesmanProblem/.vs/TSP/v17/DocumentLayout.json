@@ -3,52 +3,186 @@
   "WorkspaceRootPath": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\startcalculationscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\startcalculationscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\formats\\tspdeserializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\resultsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\resultsview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\fileinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\fileinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\fileinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\fileinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\generateinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\generateinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\formats\\opttourdeserializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\folderinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\folderinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\resultsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\resultsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\resultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\resultsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\resultsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\resultsmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\inputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\inputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\fileinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\fileinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\asynchcommandbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\asynchcommandbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\fileinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\fileinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\folderinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\folderinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\abortcalculationscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\abortcalculationscommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\clearoutputfoldercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\clearoutputfoldercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\clearresultfilecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\clearresultfilecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\clearresultfoldercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\clearresultfoldercommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\navigatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\navigatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\commands\\commandbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\commands\\commandbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\folderinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\folderinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\graphstructures\\path.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\graphstructures\\graph.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\algorithmresultviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\algorithmresultviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\fileinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\fileinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\fileinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\fileinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\algorithmresultmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\algorithmresultmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\generateinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\generateinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\interfaces\\itspalgorithm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\algorithms\\tsp\\christofides.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\algorithms\\tsp\\doubletree.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\algorithms\\tsp\\nearestaddition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\algorithms\\tsp\\kernighanlin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\stores\\navigationstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\stores\\navigationstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\viewmodelbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\generateinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\generateinputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\generateinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\generateinputview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\generateinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\generateinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\elements\\actionscreenlabel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\elements\\actionscreenlabel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\gridextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\gridextentions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\stores\\cancellationtokenstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\stores\\cancellationtokenstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\7901cb5a711f52a197ca94fa0b7867953e3e1345512e57b16abee66bc61a0e98\\App.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -66,26 +200,6 @@
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\329f3a7d0a8dec130abd973fcc4db1eb0b691ae509e93ba5ad536ac3ad443521\\Dispatcher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\generateinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\generateinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\inputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\inputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\folderinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\folderinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\models\\generateinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\models\\generateinputmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\views\\folderinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\views\\folderinputview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\elements\\filepicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\elements\\filepicker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -97,100 +211,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 2,
+              "Title": "ResultsView.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\ResultsView.xaml.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\ResultsView.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\ResultsView.xaml.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\ResultsView.xaml.cs",
+              "ViewState": "AQIAADcAAAAAAAAAAAAYwDoAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T09:12:46.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AsynchCommandBase.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\AsynchCommandBase.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\AsynchCommandBase.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\AsynchCommandBase.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\AsynchCommandBase.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAgwCQAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:25:18.963Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FileInputView.xaml.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FileInputView.xaml.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\FileInputView.xaml.cs",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FileInputView.xaml.cs",
               "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\FileInputView.xaml.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAAcwBgAAAAMAAAA",
+              "ViewState": "AQIAADAAAAAAAAAAAAA0wDYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-20T14:07:44.291Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "GenerateInputView.xaml",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-02-20T14:11:58.643Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MainViewModel.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:52:11.083Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "InputViewModel.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
-              "ViewState": "AQIAADgAAAAAAAAAAAAwwE8AAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:54:30.827Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "FileInputViewModel.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAYwDcAAABKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T09:04:27.66Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\App.xaml.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\App.xaml.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABkAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T16:02:10.46Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.xaml",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\App.xaml",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml*",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\App.xaml*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-02-20T16:02:07.242Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\MainWindow.xaml",
@@ -202,20 +266,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAAAcwBcAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T13:50:52.296Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 5,
               "Title": "FolderInputView.xaml",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FolderInputView.xaml",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\FolderInputView.xaml",
@@ -227,7 +278,136 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 1,
+              "Title": "TSPDeserializer.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAYwDsAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T18:56:59.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OptTourDeserializer.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\OptTourDeserializer.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\OptTourDeserializer.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\OptTourDeserializer.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\OptTourDeserializer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAABAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T19:03:36.837Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StartCalculationsCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAAwDUAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:11:39.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "InputModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\InputModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\InputModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\InputModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\InputModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T09:45:47.947Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ResultsView.xaml",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\ResultsView.xaml",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\ResultsView.xaml",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\ResultsView.xaml",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\ResultsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-02-22T09:11:52.314Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ResultsViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\ResultsViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\ResultsViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\ResultsViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\ResultsViewModel.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAowDsAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:49:15.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ResultsModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\ResultsModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\ResultsModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\ResultsModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\ResultsModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:27:34.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "InputViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "ViewState": "AQIAAFAAAAAAAAAAAAAcwGQAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T10:06:21.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "FolderInputViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FolderInputViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\FolderInputViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FolderInputViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\FolderInputViewModel.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T13:33:19.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "FileInputViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\FileInputViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:04:27.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
               "Title": "FileInputView.xaml",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FileInputView.xaml",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\FileInputView.xaml",
@@ -239,123 +419,459 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 17,
+              "Title": "ClearOutputFolderCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearOutputFolderCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\ClearOutputFolderCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearOutputFolderCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\ClearOutputFolderCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T11:27:34.901Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AbortCalculationsCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\AbortCalculationsCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\AbortCalculationsCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\AbortCalculationsCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\AbortCalculationsCommand.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAUwA0AAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T15:40:15.661Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CommandBase.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\CommandBase.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\CommandBase.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\CommandBase.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\CommandBase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:25:40.679Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "FolderInputView.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAkwCoAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-20T14:56:19.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ClearResultFileCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearResultFileCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\ClearResultFileCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearResultFileCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\ClearResultFileCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T11:27:30.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "NavigateCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\NavigateCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\NavigateCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\NavigateCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\NavigateCommand.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAmwAsAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T13:31:01.119Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ClearResultFolderCommand.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearResultFolderCommand.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\ClearResultFolderCommand.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\ClearResultFolderCommand.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\ClearResultFolderCommand.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T10:08:35.446Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Graph.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Graph.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAowBgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T10:56:52.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Path.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\GraphStructures\\Path.cs",
+              "ViewState": "AQIAAHcAAAAAAAAAAADwv38AAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T10:58:39.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AlgorithmResultViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\AlgorithmResultViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\AlgorithmResultViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\AlgorithmResultViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\AlgorithmResultViewModel.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAkwBQAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T14:56:32.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
               "Title": "FileInputModel.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\FileInputModel.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\FileInputModel.cs",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\FileInputModel.cs",
               "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\FileInputModel.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAowDMAAAAIAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA4AAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-20T13:56:13.604Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "DefaultBinder.cs",
-              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\SourceServer\\7376d3a7782ef3e665e6f0838e2a55d02b350aba85c65c70db3106cb733d0862\\src\\libraries\\System.Private.CoreLib\\src\\System\\DefaultBinder.cs",
-              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\SourceServer\\7376d3a7782ef3e665e6f0838e2a55d02b350aba85c65c70db3106cb733d0862\\src\\libraries\\System.Private.CoreLib\\src\\System\\DefaultBinder.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAcwDkAAAAQAAAA",
+              "DocumentIndex": 31,
+              "Title": "DoubleTree.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\DoubleTree.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\DoubleTree.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\DoubleTree.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\DoubleTree.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:52:35.646Z",
+              "WhenOpened": "2024-02-23T09:14:10.768Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "App.cs",
-              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\7901cb5a711f52a197ca94fa0b7867953e3e1345512e57b16abee66bc61a0e98\\App.cs",
-              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\7901cb5a711f52a197ca94fa0b7867953e3e1345512e57b16abee66bc61a0e98\\App.cs",
-              "ViewState": "AQIAABwAAAAAAAAAAAAcwCoAAAACAAAA",
+              "DocumentIndex": 27,
+              "Title": "AlgorithmResultModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\AlgorithmResultModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\AlgorithmResultModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\AlgorithmResultModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\AlgorithmResultModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:56:21.102Z",
+              "WhenOpened": "2024-02-22T08:30:00.573Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Application.cs",
-              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\42457897f1285ffc7ed978cbfb3f7b5933f5cb5427295abb3c44871bab3de3a0\\Application.cs",
-              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\42457897f1285ffc7ed978cbfb3f7b5933f5cb5427295abb3c44871bab3de3a0\\Application.cs",
-              "ViewState": "AQIAAPUFAAAAAAAAAAAcwAMGAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:56:23.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "DynamicMethodRuntime.cs",
-              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\0b407d0dd7a35776905fd32c111ea4f889a3d596d18ede38f2e03e31fa57eb93\\DynamicMethodRuntime.cs",
-              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\0b407d0dd7a35776905fd32c111ea4f889a3d596d18ede38f2e03e31fa57eb93\\DynamicMethodRuntime.cs",
-              "ViewState": "AQIAAJwAAAAAAAAAAAAcwKIAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:57:01.968Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Dispatcher.cs",
-              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\329f3a7d0a8dec130abd973fcc4db1eb0b691ae509e93ba5ad536ac3ad443521\\Dispatcher.cs",
-              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\329f3a7d0a8dec130abd973fcc4db1eb0b691ae509e93ba5ad536ac3ad443521\\Dispatcher.cs [Read Only]",
-              "ViewState": "AQIAAPQEAAAAAAAAAAAcwAIFAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-21T08:56:47.373Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 28,
               "Title": "GenerateInputModel.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\GenerateInputModel.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\GenerateInputModel.cs",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\GenerateInputModel.cs",
               "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\GenerateInputModel.cs",
-              "ViewState": "AQIAAEwAAAAAAAAAAAAcwF8AAAAmAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T14:14:44.161Z"
+              "WhenOpened": "2024-02-20T14:14:44.161Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 30,
+              "Title": "Christofides.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\Christofides.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\Christofides.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\Christofides.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\Christofides.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T08:10:55.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "ITspAlgorithm.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Interfaces\\ITspAlgorithm.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Interfaces\\ITspAlgorithm.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Interfaces\\ITspAlgorithm.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Interfaces\\ITspAlgorithm.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T09:13:44.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "NearestAddition.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\NearestAddition.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\NearestAddition.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\NearestAddition.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\NearestAddition.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T09:15:10.275Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "KernighanLin.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-23T09:15:07.971Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Program.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Program.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Program.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Program.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAgwCUAAABVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T10:00:42.339Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAcwBgAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-20T13:50:52.296Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "NavigationStore.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAQwCEAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T13:18:01.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "MainViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\MainViewModel.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAUwB4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:52:11.083Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "ViewModelBase.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\ViewModelBase.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\ViewModelBase.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\ViewModelBase.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\ViewModelBase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:40:28.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "GenerateInputViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\GenerateInputViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\GenerateInputViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\GenerateInputViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\GenerateInputViewModel.cs",
+              "ViewState": "AQIAAHMAAAAAAAAAAAAswIsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T13:35:04.253Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\App.xaml",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-02-20T16:02:07.242Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "GenerateInputView.xaml",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-02-20T14:11:58.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
               "Title": "GenerateInputView.xaml.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml.cs",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml.cs",
               "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\GenerateInputView.xaml.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAgAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-20T14:35:04.074Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "FolderInputModel.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\FolderInputModel.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\FolderInputModel.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\FolderInputModel.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\FolderInputModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADUAAAAAAAAA",
+              "DocumentIndex": 43,
+              "Title": "ActionScreenLabel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Elements\\ActionScreenLabel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Elements\\ActionScreenLabel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Elements\\ActionScreenLabel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Elements\\ActionScreenLabel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T14:38:24.371Z"
+              "WhenOpened": "2024-02-22T10:02:37.597Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "InputModel.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\InputModel.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Models\\InputModel.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Models\\InputModel.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\Models\\InputModel.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA8AAAAjAAAA",
+              "DocumentIndex": 44,
+              "Title": "GridExtentions.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\GridExtentions.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\GridExtentions.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\GridExtentions.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\GridExtentions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T14:32:25.68Z"
+              "WhenOpened": "2024-02-22T08:59:14.802Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 45,
+              "Title": "CancellationTokenStore.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\CancellationTokenStore.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Stores\\CancellationTokenStore.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\CancellationTokenStore.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Stores\\CancellationTokenStore.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAkAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T16:22:57.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\AssemblyInfo.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\AssemblyInfo.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\AssemblyInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:47:47.827Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "App.g.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\obj\\Debug\\net8.0-windows7.0\\App.g.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T09:17:58.732Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "DefaultBinder.cs",
+              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\SourceServer\\7376d3a7782ef3e665e6f0838e2a55d02b350aba85c65c70db3106cb733d0862\\src\\libraries\\System.Private.CoreLib\\src\\System\\DefaultBinder.cs",
+              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\SourceServer\\7376d3a7782ef3e665e6f0838e2a55d02b350aba85c65c70db3106cb733d0862\\src\\libraries\\System.Private.CoreLib\\src\\System\\DefaultBinder.cs",
+              "ViewState": "AQIAACsAAAAAAAAAAAAcwDkAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:52:35.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "App.cs",
+              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\7901cb5a711f52a197ca94fa0b7867953e3e1345512e57b16abee66bc61a0e98\\App.cs",
+              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\7901cb5a711f52a197ca94fa0b7867953e3e1345512e57b16abee66bc61a0e98\\App.cs",
+              "ViewState": "AQIAABwAAAAAAAAAAAAcwCoAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:56:21.102Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "Application.cs",
+              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\42457897f1285ffc7ed978cbfb3f7b5933f5cb5427295abb3c44871bab3de3a0\\Application.cs",
+              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\42457897f1285ffc7ed978cbfb3f7b5933f5cb5427295abb3c44871bab3de3a0\\Application.cs",
+              "ViewState": "AQIAAPUFAAAAAAAAAAAcwAMGAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:56:23.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "DynamicMethodRuntime.cs",
+              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\0b407d0dd7a35776905fd32c111ea4f889a3d596d18ede38f2e03e31fa57eb93\\DynamicMethodRuntime.cs",
+              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\0b407d0dd7a35776905fd32c111ea4f889a3d596d18ede38f2e03e31fa57eb93\\DynamicMethodRuntime.cs",
+              "ViewState": "AQIAAJwAAAAAAAAAAAAcwKIAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:57:01.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "Dispatcher.cs",
+              "DocumentMoniker": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\329f3a7d0a8dec130abd973fcc4db1eb0b691ae509e93ba5ad536ac3ad443521\\Dispatcher.cs",
+              "ToolTip": "C:\\Users\\kitty\\AppData\\Local\\Temp\\.vsdbgsrc\\329f3a7d0a8dec130abd973fcc4db1eb0b691ae509e93ba5ad536ac3ad443521\\Dispatcher.cs",
+              "ViewState": "AQIAAPQEAAAAAAAAAAAcwAIFAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T08:56:47.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
               "Title": "FilePicker.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Elements\\FilePicker.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Elements\\FilePicker.cs",
@@ -364,18 +880,6 @@
               "ViewState": "AQIAADIAAAAAAAAAAAAIwE0AAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-20T13:57:04.93Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "FolderInputView.xaml.cs",
-              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
-              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
-              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
-              "RelativeToolTip": "TreavellingSalesmanProblem\\Views\\FolderInputView.xaml.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAIwBsAAAB1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-20T14:56:19.684Z"
             }
           ]
         }
