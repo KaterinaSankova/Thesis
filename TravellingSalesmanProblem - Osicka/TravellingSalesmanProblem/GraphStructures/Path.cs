@@ -207,7 +207,6 @@ namespace TravellingSalesmanProblem.GraphStructures
         public List<Node> ToList()
         {
             var pathNodes = path.ToList();
-            pathNodes.Add(pathNodes[0]);
             return pathNodes;
         }
 

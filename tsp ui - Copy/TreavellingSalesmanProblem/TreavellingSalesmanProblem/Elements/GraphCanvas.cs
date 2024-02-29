@@ -92,7 +92,7 @@ namespace TSP.Elements
                 xValue = 0 + xStep;
                 i = 1;
                 int currentNumberOfLinesOnTheRight = 0;
-                while (currentNumberOfLinesOnTheRight < (numberOfLines - numberOfLinesOnTheLeft - 1))
+                while (currentNumberOfLinesOnTheRight <= (numberOfLines - numberOfLinesOnTheLeft - 1))
                 {
                     Point pt1 = new Point(originPoint.X + i * intervalX, Math.Max(lowestPoint.Y, originPoint.Y));
                     Point pt2 = new Point(originPoint.X + i * intervalX, 0);
@@ -156,7 +156,7 @@ namespace TSP.Elements
                 yValue = 0 + yStep;
                 i = -1;
                 int currentNumberOfLinesOnTheTop = 0;
-                while (currentNumberOfLinesOnTheTop < numberOfLinesOnTheTop - 1)
+                while (currentNumberOfLinesOnTheTop <= numberOfLinesOnTheTop - 1)
                 {
                     Point pt1 = new Point(Math.Min(lowestPoint.X, originPoint.X), originPoint.Y + i * intervalY);
                     Point pt2 = new Point(width, originPoint.Y + i * intervalY);
@@ -213,29 +213,29 @@ namespace TSP.Elements
                 Canvas.SetTop(xTextBlock0, originPoint.Y + 6);
 
                 // showing where are the connections points
-                var ellipseRadius = 5;
+                var ellipseRadius = 2;
                 foreach (var node in graph.nodes)
                 {
                     Ellipse oEllipse = new Ellipse()
                     {
                         Fill = Brushes.DarkBlue,
-                        Width = ellipseRadius,
-                        Height = ellipseRadius,
-                        Opacity = 0.5,
+                        Width = ellipseRadius * 2,
+                        Height = ellipseRadius * 2,
+                        Opacity = 0.5
                     };
 
                     var nodeCoords = GetRelativeCoordinates(node.x, node.y, width, height);
                     this.Children.Add(oEllipse);
-                    Canvas.SetLeft(oEllipse, nodeCoords.X - ellipseRadius / 2);
-                    Canvas.SetTop(oEllipse, nodeCoords.Y - ellipseRadius / 2);
+                    Canvas.SetLeft(oEllipse, nodeCoords.X - ellipseRadius);
+                    Canvas.SetTop(oEllipse, nodeCoords.Y - ellipseRadius);
 
-                    //if (graph.nodes.Count < 20)
-                    //{
-                    //    var xTextBlock1 = new TextBlock() { Text = $"{node}", FontSize = 15 };
-                    //    this.Children.Add(xTextBlock1);
-                    //    Canvas.SetLeft(xTextBlock1, nodeCoords.X + 5);
-                    //    Canvas.SetTop(xTextBlock1, nodeCoords.Y + 5);
-                    //}
+                    if (graph.nodes.Count <= 20)
+                    {
+                        var xTextBlock1 = new TextBlock() { Text = $"{node}", FontSize = 8 };
+                        this.Children.Add(xTextBlock1);
+                        Canvas.SetLeft(xTextBlock1, nodeCoords.X + 5);
+                        Canvas.SetTop(xTextBlock1, nodeCoords.Y + 5);
+                    }
                 }
 
                 for (int j = 0; j < path.Count; j++)
@@ -271,9 +271,10 @@ namespace TSP.Elements
             double originY = lowestY;
             if (lowestY > 0)
                 originY = 0;
-            double newOriginY = height + (originY * (height / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0))));
+            double a = Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0));
+            double newOriginY = height + (originY * (height / Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0))));
 
-            double newY = newOriginY - (y * height / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0)));
+            double newY = newOriginY - (y * height / Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0)));
 
             return new Point(newX, newY);
         }

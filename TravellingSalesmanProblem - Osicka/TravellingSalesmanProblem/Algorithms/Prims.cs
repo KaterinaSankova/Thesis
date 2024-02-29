@@ -6,7 +6,10 @@ namespace TravellingSalesmanProblem.Algorithms
     {
         public static List<Edge> FindSpanningTree(Graph graph) 
         {
-            Edge firstEdge = graph.ShortestEdge();
+            Edge? firstEdge = graph.ShortestEdge();
+            if (firstEdge == null)
+                return new();
+
             Edge shortestEdge;
             List<Node> includedCities = new();
             List<Node> remainingCities = graph.nodes.ToList();

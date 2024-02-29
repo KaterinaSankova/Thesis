@@ -22,5 +22,24 @@ namespace TSP.Views
             if (!double.TryParse(((TextBox)sender).Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
                 ((TextBox)sender).Text = "0";
         }
+
+        private void SearchForOutputFolder(object sender, RoutedEventArgs e) => SearchForFolder(OutputFolderTextBlock);
+
+        private void SearchForFolder(TextBlock folderPathTextBlock)
+        {
+            var dialog = new Microsoft.Win32.OpenFolderDialog();
+
+            dialog.Multiselect = false;
+            dialog.Title = "Select a folder";
+
+            // Show open folder dialog box
+            bool? result = dialog.ShowDialog();
+
+            // Process open folder dialog box results
+            if (result == true)
+            {
+                folderPathTextBlock.Text = dialog.FolderName;
+            }
+        }
     }
 }

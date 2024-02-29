@@ -22,6 +22,7 @@ namespace TSP.ViewModels
         private bool _kernighanLin;
         private bool _stopwatch;
         private bool _ignoreNotFoundResultFiles = true;
+        private string _outputFolderPath;
 
         public bool NearestAddition
         {
@@ -100,17 +101,33 @@ namespace TSP.ViewModels
             }
         }
 
+        public string OutputFolderPath
+        {
+            get
+            {
+                return _outputFolderPath;
+            }
+            set
+            {
+                _outputFolderPath = value;
+                OnPropertyChanged(nameof(OutputFolderPath));
+            }
+        }
+
         public ICommand NavigateToFileInput { get; }
 
         public ICommand NavigateToFolderInput { get; }
 
         public ICommand NavigateToGenerateInput { get; }
 
+        public ICommand ClearOutputFolderCommand { get; }
+
         public InputViewModel(NavigationStore navigationStore, Func<FileInputViewModel> createFileInputViewModel, Func<FolderInputViewModel> createFolderInputViewModel, Func<GenerateInputViewModel> createGenerateInputViewModel)
         {
             NavigateToFileInput = new NavigateCommand(navigationStore, createFileInputViewModel);
             NavigateToFolderInput = new NavigateCommand(navigationStore, createFolderInputViewModel);
             NavigateToGenerateInput = new NavigateCommand(navigationStore, createGenerateInputViewModel);
+            ClearOutputFolderCommand = new ClearOutputFolderCommand(this);
             NearestAddition = true;
         }
     }

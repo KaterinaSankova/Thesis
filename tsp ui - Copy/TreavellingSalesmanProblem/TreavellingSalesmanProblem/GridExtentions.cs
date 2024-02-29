@@ -19,6 +19,20 @@ namespace TSP
             grid.ColumnDefinitions.Add(cd);
         }
 
+        public static void AddColumnToGrid(Grid grid)
+        {
+            var cd = new ColumnDefinition();
+            cd.Width = GridLength.Auto;
+            grid.ColumnDefinitions.Add(cd);
+        }
+
+        public static void AddRowToGrid(Grid grid)
+        {
+            var rd = new RowDefinition();
+            rd.Height = GridLength.Auto;
+            grid.RowDefinitions.Add(rd);
+        }
+
         public static void RestoreGrid(Grid grid)
         {
             grid.Children.Clear();

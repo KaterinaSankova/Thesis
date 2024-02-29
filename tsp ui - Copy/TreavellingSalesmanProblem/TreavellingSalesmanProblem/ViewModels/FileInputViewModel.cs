@@ -15,7 +15,6 @@ namespace TSP.ViewModels
     {
         private string _sourceFilePath;
         private string _resultFilePath;
-        private string _outputFolderPath;
 
         public string SourceFilePath
         {
@@ -42,19 +41,6 @@ namespace TSP.ViewModels
             {
                 _resultFilePath = value;
                 OnPropertyChanged(nameof(ResultFilePath));
-            }
-        }
-
-        public string OutputFolderPath
-        {
-            get
-            {
-                return _outputFolderPath;
-            }
-            set
-            {
-                _outputFolderPath = value;
-                OnPropertyChanged(nameof(OutputFolderPath));
             }
         }
 

@@ -18,6 +18,7 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="45"></ColumnDefinition>
@@ -62,6 +63,13 @@
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="5" Grid.Column="1">
+            <TextBlock Text="Output:" Margin="0, 0, 5, 0"></TextBlock>
+            <TextBlock Name="OutputFolderTextBlock" Text="{Binding OutputFolderPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="330" Height="20" Background="LightGray"></TextBlock>
+            <Button Content="Browse folders" Width="90" Height="20" Margin="5, 0, 5, 0" Click="SearchForOutputFolder"></Button>
+            <Button Content="Clear" Width="90" Height="20" Command="{Binding ClearOutputFolderCommand}"></Button>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
             <TextBlock Text="Algorithms:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox Content="Nearest addition" Margin="0, 0, 5, 0" IsChecked="{Binding Path=NearestAddition, Mode=TwoWay}"></CheckBox>
             <CheckBox Content="Double tree" Margin="0, 0, 5, 0" IsChecked="{Binding Path=DoubleTree, Mode=TwoWay}"></CheckBox>
@@ -69,7 +77,7 @@
             <CheckBox Content="Kernighan - Lin" Margin="0, 0, 5, 0" IsChecked="{Binding Path=KernighanLin, Mode=TwoWay}"></CheckBox>
         </StackPanel>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
             <TextBlock Text="Stopwatch:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox IsChecked="{Binding Stopwatch, Mode=TwoWay}"></CheckBox>
         </StackPanel>

@@ -12,7 +12,6 @@ using TravellingSalesmanProblem.Formats;
 using TravellingSalesmanProblem.GraphStructures;
 using TSP.Enum;
 using TSP.Models;
-using TSP.Sections;
 using TSP.ViewModels;
 
 namespace TSP

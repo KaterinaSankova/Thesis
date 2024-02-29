@@ -19,7 +19,6 @@ using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.GraphStructures;
 using TSP.Elements;
 using TSP.Models;
-using TSP.Sections;
 using TSP.ViewModels;
 
 namespace TSP.Views
@@ -76,7 +75,10 @@ namespace TSP.Views
         {
             ResultsTable.Visibility = Visibility.Hidden;
             Graphs.Visibility = Visibility.Visible;
+            GraphLabels.Visibility = Visibility.Visible;
             Graphs.Children.Clear();
+            GraphLabels.Children.Clear();
+            GridExtentions.RestoreGrid(GraphLabels);
 
             var results = ((ResultsViewModel)this.DataContext).AlgoResults;
 
@@ -86,17 +88,20 @@ namespace TSP.Views
             for (int i = 0; i < results.Count; i++)
             {
                 var algoResults = results[i];
-                var stackPanel = new StackPanel();
+                if (algoResults.Path.Count == 0)
+                    break;
+
+                var graphCanvas = new GraphCanvas(algoResults.Graph, algoResults.Path, width / results.Count, height - 84);
+                graphCanvas.Margin = new Thickness(0, 0, width / results.Count, 0);
+                Graphs.Children.Add(graphCanvas);
+
+                GridExtentions.AddColumnToGrid(GraphLabels, 1, GridUnitType.Star);
 
                 var info = new TextBlock();
                 info.Text = $"Name: {algoResults.Name}\nLength: {algoResults.Length}\nRatio: {algoResults.Ratio}\nDuration: {algoResults.Duration}";
-                //stackPanel.Children.Add(info);
-
-                var graphCanvas = new GraphCanvas(algoResults.Graph, algoResults.Path, width / results.Count, height);
-                graphCanvas.Margin = new Thickness(0, 0, width / results.Count, 0);
-                stackPanel.Children.Add(graphCanvas);
-
-                Graphs.Children.Add(stackPanel);
+                info.SetValue(Grid.RowProperty, 0);
+                info.SetValue(Grid.ColumnProperty, i);
+                GraphLabels.Children.Add(info);
             }
         }
 
@@ -105,20 +110,23 @@ namespace TSP.Views
             var results = ((ResultsViewModel)this.DataContext).AlgoResults;
             var numberOfGraphs = results.Count;
 
-            double width = this.ActualWidth - 40;
-            double height = this.ActualHeight - 80;
+            if (Graphs.Children.Count == 0)
+                return;
 
-            foreach (var graphCanvas in Graphs.Children)
+            double width = this.ActualWidth - 40;
+            double height = Grid.RowDefinitions[2].ActualHeight;
+
+            foreach (var graph in Graphs.Children)
             {
-                ((GraphCanvas)graphCanvas).Redraw(width / numberOfGraphs, height);
+                ((GraphCanvas)graph).Redraw(width / numberOfGraphs, height);
             }
         }
 
         private void DisplayLargeResult()
         {
             Graphs.Visibility = Visibility.Hidden;
+            GraphLabels.Visibility = Visibility.Hidden;
             ResultsTable.Visibility = Visibility.Visible;
-
         }
     }
 }

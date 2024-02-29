@@ -24,10 +24,12 @@ namespace TravellingSalesmanProblem.GraphStructures
             nodes = input;
         }
 
-        public Edge ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
+        public Edge? ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
         {
             fromNodes ??= nodes;
             toNodes ??= nodes;
+            if (fromNodes.Count == 0 || toNodes.Count == 0)
+                return null;
 
             double minDistance = double.MaxValue;
             double currDistance;

@@ -3,8 +3,8 @@ using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Interfaces
 {
-    public interface ITspAlgorithm<T> where T: Path
+    public interface ITspAlgorithm
     {
-        public T FindShortestPath(Graph graph);
+        public Path FindShortestPath(Graph graph);
     }
 }

@@ -20,7 +20,7 @@ namespace TSP.Commands
 
         private void OnInputChange(object? sender, PropertyChangedEventArgs e)
         {
-            if ((e.PropertyName == nameof(FileInputViewModel.OutputFolderPath)) || (e.PropertyName == nameof(FolderInputViewModel.OutputFolderPath)))
+            if (e.PropertyName == nameof(InputViewModel.OutputFolderPath))
             {
                 OnCanExecutedChanged();
             }
@@ -28,26 +28,12 @@ namespace TSP.Commands
 
         public override bool CanExecute(object parameter)
         {
-            if (input.GetType().Name == nameof(FileInputViewModel))
-            {
-                return (!string.IsNullOrEmpty(((FileInputViewModel)input).OutputFolderPath)) && base.CanExecute(parameter);
-            }
-            else
-            {
-                return (!string.IsNullOrEmpty(((FolderInputViewModel)input).OutputFolderPath)) && base.CanExecute(parameter);
-            }
+            return !string.IsNullOrEmpty(input.OutputFolderPath) && base.CanExecute(parameter);
         }
 
         public override void Execute(object parameter)
         {
-            if (input.GetType().Name == nameof(FileInputViewModel))
-            {
-                ((FileInputViewModel)input).OutputFolderPath = "";
-            }
-            else
-            {
-                ((FolderInputViewModel)input).OutputFolderPath = "";
-            }
+            input.OutputFolderPath = "";
         }
     }
 }

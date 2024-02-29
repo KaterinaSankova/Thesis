@@ -13,7 +13,9 @@ namespace TravellingSalesmanProblem.Algorithms
 
             List<Edge> unvisitedEdges = edges.ToList();
 
-            Node currentNode = graph.nodes.First();
+            Node? currentNode = graph.nodes.FirstOrDefault();
+            if (currentNode == null)
+                return new();
 
             List<Edge> outgoingEdges = currentNode.OutgoingEdges(unvisitedEdges);
 

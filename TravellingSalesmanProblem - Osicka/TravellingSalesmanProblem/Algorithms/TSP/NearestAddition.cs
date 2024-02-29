@@ -4,11 +4,14 @@ using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public class NearestAddition : ITspAlgorithm<Path>
+    public class NearestAddition : ITspAlgorithm
     {
         public Path FindShortestPath(Graph graph)
         {
-            Edge firstEdge = graph.ShortestEdge();
+            Edge? firstEdge = graph.ShortestEdge();
+            if (firstEdge == null)
+                return new Path();
+
             Edge shortestEdge;
             List<Node> path = new();
             List<Node> remainingCities = graph.nodes.ToList();
@@ -26,7 +29,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 path.Insert(path.IndexOf(shortestEdge.node1) + 1, shortestEdge.node2);
                 remainingCities.Remove(shortestEdge.node2);
             }
-            return new Path(path);
+
+            return new Path(path.SkipLast(1).ToList());
         }
     }
 }

@@ -1,8 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "E8GyVaLvdMPcmNyncehVUqX6aBwOLSbLJ8kSGVEE+0ogLnEMRNIZfTOtpPvrLVz8T705CKQliVtHvhLW/MOheQ==",
+  "dgSpecHash": "Sj7/Vxl0DWUw1isEQYfbv0qljiegTUeJqM9GqQh3Q/xf1im10+DQLgZuueufFy1orj/BKtrP6eJqY1vZvNiVaw==",
   "success": true,
-  "projectFilePath": "E:\\Documents\\Škola\\Výška\\Bakalářská práce\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kitty\\.nuget\\packages\\microsoft.net.illink.analyzers\\7.0.100-1.23211.1\\microsoft.net.illink.analyzers.7.0.100-1.23211.1.nupkg.sha512",
+    "C:\\Users\\kitty\\.nuget\\packages\\microsoft.net.illink.tasks\\7.0.100-1.23211.1\\microsoft.net.illink.tasks.7.0.100-1.23211.1.nupkg.sha512",
+    "C:\\Users\\kitty\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\6.0.27\\microsoft.netcore.app.runtime.win-x86.6.0.27.nupkg.sha512",
+    "C:\\Users\\kitty\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\6.0.27\\microsoft.windowsdesktop.app.runtime.win-x86.6.0.27.nupkg.sha512",
+    "C:\\Users\\kitty\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\6.0.27\\microsoft.aspnetcore.app.runtime.win-x86.6.0.27.nupkg.sha512"
+  ],
   "logs": []
 }

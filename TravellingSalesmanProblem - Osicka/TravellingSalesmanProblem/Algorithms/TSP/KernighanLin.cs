@@ -1,9 +1,10 @@
 ﻿using TravellingSalesmanProblem.GraphStructures;
 using TravellingSalesmanProblem.Interfaces;
+using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TravellingSalesmanProblem.Algorithms.TSP
 {
-    public class KernighanLin : ITspAlgorithm<KernighanLinPath>
+    public class KernighanLin : ITspAlgorithm
     {
         private Graph graph = new();
         private KernighanLinPath path = new();
@@ -28,10 +29,15 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private Node? startingNode;
         private Node? enclosingNode;
         
-        public KernighanLinPath FindShortestPath(Graph graph)
+        public Path FindShortestPath(Graph graph)
         {
             if (graph.nodes.Count < 4)
-                return new KernighanLinPath(graph.nodes.ToList().Append(graph.nodes.First()).ToList());
+            {
+                var pathNodes = graph.nodes.ToList();
+                if (pathNodes.Count > 0)
+                    pathNodes = pathNodes.Append(pathNodes.First()).ToList();
+                return new KernighanLinPath(pathNodes);
+            }
 
             this.graph = graph;
             GeneratePath();
@@ -136,7 +142,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         {
                             UpdateLocalOptimum(shortestPath);
                             AddCheckOutNodes(node1, path);
-                            //NonsequentialExchange(path);
                             return true;
                         }
                         if (AlternativeNode4 != node1)
@@ -145,7 +150,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         {
                             UpdateLocalOptimum(shortestPath);
                             AddCheckOutNodes(node1, path);
-                            //NonsequentialExchange(path);
                             return true;
                         }
                     }
@@ -589,96 +593,6 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             enclosingNode = nextPair.NextNode;
 
             ImprovePathFromNode(nextPair.NextNode, nextBrokenEdge, currentPath, i+1);
-        }
-
-        private bool NonsequentialExchange(KernighanLinPath latestPath)
-        {
-            KernighanLinPath currentPath = latestPath.ToPath();
-            if (currentPath.Count < 8)
-                return false;
-
-            currentPath.SetDirection(currentPath[0], currentPath[1]);
-            currentPath.CurrentIndex = 0;
-            
-            List<(Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement)> exchangableEdges = new();
-            double brokenEdgesLengthSum, addedEdgesLengthSum, improvement;
-            for (int j = 0; j < 2; j++)
-            {
-                Edge brokenEdge1 = new(currentPath[j], currentPath.PeekNext(j));
-                if (addedEdges.Contains(brokenEdge1))
-                    continue;
-                if (goodEdges.Contains(brokenEdge1))
-                    continue;
-
-                for (int k = j + 2; k < currentPath.Count - 4; k++)
-                {
-                    Edge brokenEdge4 = new(currentPath[k], currentPath.PeekNext(k));
-                    if (addedEdges.Contains(brokenEdge4))
-                        continue;
-                    if (goodEdges.Contains(brokenEdge4))
-                        continue;
-
-                    for (int l = k + 2; l < currentPath.Count - 2; l++)
-                    {
-                        Edge brokenEdge2 = new(currentPath[l], currentPath.PeekNext(l));
-                        if (addedEdges.Contains(brokenEdge2))
-                            continue;
-                        if (goodEdges.Contains(brokenEdge2))
-                            continue;
-
-                        for (int m = l + 2; m < currentPath.Count; m++)
-                        {
-                            if (currentPath.PeekNext(m) == currentPath[j])
-                                continue;
-
-                            Edge brokenEdge3 = new(currentPath[m], currentPath.PeekNext(m));
-                            if (addedEdges.Contains(brokenEdge3))
-                                continue;
-                            if (goodEdges.Contains(brokenEdge3))
-                                continue;
-
-                            Edge addedEdge1 = new(brokenEdge1.node1, brokenEdge2.node2);
-                            if (brokenEdges.Contains(addedEdge1))
-                                continue;
-                            Edge addedEdge2 = new(brokenEdge2.node1, brokenEdge1.node2);
-                            if (brokenEdges.Contains(addedEdge2))
-                                continue;
-                            Edge addedEdge3 = new(brokenEdge3.node1, brokenEdge4.node2);
-                            if (brokenEdges.Contains(addedEdge3))
-                                continue;
-                            Edge addedEdge4 = new(brokenEdge3.node1, brokenEdge3.node2);
-                            if (brokenEdges.Contains(addedEdge4))
-                                continue;
-
-                            brokenEdgesLengthSum = brokenEdge1.Length + brokenEdge2.Length + brokenEdge3.Length + brokenEdge4.Length;
-                            addedEdgesLengthSum = addedEdge1.Length + addedEdge2.Length + addedEdge3.Length + addedEdge4.Length;
-
-                            if (brokenEdgesLengthSum - addedEdgesLengthSum + partialSum <= 0)
-                                continue;
-
-                            exchangableEdges.Add((
-                                new Edge[4] { brokenEdge1, brokenEdge2, brokenEdge3, brokenEdge4 },
-                                new Edge[4] { addedEdge1, addedEdge2, addedEdge3, addedEdge4 },
-                                brokenEdgesLengthSum - addedEdgesLengthSum
-                            ));
-                        }
-                    }
-                }
-            }
-
-            var orderedExchangeableEdges = exchangableEdges.OrderByDescending(e => e.Improvement).ToList();
-            if (orderedExchangeableEdges.Count == 0)
-            {
-                return false;
-            }
-            
-            var edgesToExchange = orderedExchangeableEdges.First();
-
-            currentPath.ReconnectEdges(edgesToExchange);
-
-            UpdateShortestPath(currentPath);
-
-            return true;
         }
 
         private bool IsNodeCheckedOut(Node node)
