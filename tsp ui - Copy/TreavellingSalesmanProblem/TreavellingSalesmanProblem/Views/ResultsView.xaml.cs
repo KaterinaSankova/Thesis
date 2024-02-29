@@ -81,14 +81,22 @@ namespace TSP.Views
             var results = ((ResultsViewModel)this.DataContext).AlgoResults;
 
             double width = this.ActualWidth - 40;
-            double height = this.ActualHeight - 80;
+            double height = this.ActualHeight - 80 ;
 
             for (int i = 0; i < results.Count; i++)
             {
                 var algoResults = results[i];
+                var stackPanel = new StackPanel();
+
+                var info = new TextBlock();
+                info.Text = $"Name: {algoResults.Name}\nLength: {algoResults.Length}\nRatio: {algoResults.Ratio}\nDuration: {algoResults.Duration}";
+                //stackPanel.Children.Add(info);
+
                 var graphCanvas = new GraphCanvas(algoResults.Graph, algoResults.Path, width / results.Count, height);
                 graphCanvas.Margin = new Thickness(0, 0, width / results.Count, 0);
-                Graphs.Children.Add(graphCanvas);
+                stackPanel.Children.Add(graphCanvas);
+
+                Graphs.Children.Add(stackPanel);
             }
         }
 

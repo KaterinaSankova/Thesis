@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace TSP.Views
@@ -18,7 +19,7 @@ namespace TSP.Views
         }
         private void ValidateDoubleInput(object sender, RoutedEventArgs e)
         {
-            if (!double.TryParse(((TextBox)sender).Text, out _))
+            if (!double.TryParse(((TextBox)sender).Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out _))
                 ((TextBox)sender).Text = "0";
         }
     }

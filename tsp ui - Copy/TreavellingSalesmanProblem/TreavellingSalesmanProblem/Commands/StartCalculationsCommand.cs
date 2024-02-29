@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using TravellingSalesmanProblem.Algorithms.Enums;
 using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.Formats;
@@ -26,15 +27,13 @@ namespace TSP.Commands
     public class StartCalculationsCommand : AsyncCommandBase
     {
         private ResultsViewModel _results;
+        private Random rand = new();
 
         public ViewModelBase InputViewModel => _results.NavigationStore.CurrentViewModel;
 
         public StartCalculationsCommand(ResultsViewModel results)
         {
             this._results = results;
-
-            _results.NavigationStore.PropertyChanged += OnViewModelPropertyChanged;
-            _results.NavigationStore.CurrentViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         private void StartCalculations()
@@ -70,10 +69,7 @@ namespace TSP.Commands
                 {
                     string resultFile = $"{input.ResultFolderPath}\\{System.IO.Path.GetFileName(sourceFile)[..^4]}.opt.tour";
 
-                    int numberOfLines = _results.Message.ToCharArray().Count(c => c == '\n');
-                    if (numberOfLines >= 1)
-                        _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                    _results.Message += $"\nCompleted {numberOfCurrentFile}/{numberOfAllFiles}\n";
+                    _results.Message = $"Completed {numberOfCurrentFile}/{numberOfAllFiles}";
 
                     try
                     {
@@ -93,6 +89,63 @@ namespace TSP.Commands
                     }
 
                     numberOfCurrentFile++;
+                }
+
+                _results.Message = $"Completed {numberOfAllFiles}/{numberOfAllFiles}";
+            }
+            else
+            {
+                var input = (GenerateInputViewModel)InputViewModel;
+                for (int i = 0; i < input.NumberOfSamples; i++)
+                {
+                    Graph graph = new();
+                    for (int j = 0; j < input.NumberOfCities; j++)
+                    {
+                        var x = rand.NextDouble() * (input.HighestX - input.LowestX) + input.LowestX;
+                        var y = rand.NextDouble() * (input.HighestY - input.LowestY) + input.LowestY;
+                        graph.nodes.Add(new Node(j, x, y));
+                    }
+
+                    if (input.NearestAddition)
+                    {
+                        _results.Message += $"\nProcessing sample{i+1} with nearest addition algorithm";
+                        var result = StartCalculations($"sample{i + 1}", graph, TSPAlgorithms.NearestAddition);
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                        else
+                            _results.Message = "";
+                    }
+                    if (input.DoubleTree)
+                    {
+                        _results.Message += $"\nProcessing sample{i + 1} with double tree algorithm";
+                        var result = StartCalculations($"sample{i + 1}", graph, TSPAlgorithms.DoubleTree);
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                        else
+                            _results.Message = "";
+                    }
+                    if (input.Christofides)
+                    {
+                        _results.Message += $"\nProcessing sample{i + 1} with Chistofides' algorithm";
+                        var result = StartCalculations($"sample{i + 1}", graph, TSPAlgorithms.Christofides);
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                        else
+                            _results.Message = "";
+                    }
+                    if (input.KernighanLin)
+                    {
+                        _results.Message += $"\nProcessing sample{i + 1} with Kernighan - Lin algorithm";
+                        var result = StartCalculations($"sample{i + 1}", graph, TSPAlgorithms.KernighanLin);
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                        else
+                            _results.Message = "";
+                    }
                 }
             }
         }
@@ -115,9 +168,49 @@ namespace TSP.Commands
 
         private void StartCalculations(string sourceFilePath, string resultFilePath)
         {
-            _results.Message += $"Processing file {System.IO.Path.GetFileName(sourceFilePath)}";
+            var input = (InputViewModel)InputViewModel;
+            if (input.NearestAddition)
+            {
+                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with nearest addition algorithm";
+                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.NearestAddition);
+                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                else
+                    _results.Message = "";
+            }
+            if (input.DoubleTree)
+            {
+                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with double tree algorithm";
+                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.DoubleTree);
+                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                else
+                    _results.Message = "";
+            }
+            if (input.Christofides)
+            {
+                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Christofides' algorithm";
+                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.Christofides);
+                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                else
+                    _results.Message = "";
+            }
+            if (input.KernighanLin)
+            {
+                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Kernighan - Lin algorithm";
+                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.KernighanLin);
+                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                else
+                    _results.Message = "";
+            }
+        }
+
+        private void StartAlgorithmCalculations(string sourceFilePath, string resultFilePath, TSPAlgorithms algo)
+        {
             var graph = TSPDeserializer.DeserializeGraph(sourceFilePath);
-            var result = StartCalculations(System.IO.Path.GetFileName(sourceFilePath), graph);
+            var result = StartCalculations(System.IO.Path.GetFileName(sourceFilePath), graph, algo);
             if (result == null)
             {
                 _results.Message = "No algorithms were selected.";
@@ -137,7 +230,13 @@ namespace TSP.Commands
                         msbxRslt = MessageBox.Show(message, "Error while processing file", button, icon, MessageBoxResult.Yes);
 
                         if (msbxRslt == MessageBoxResult.No)
+                        {
+                            if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                                _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                            else
+                                _results.Message = "";
                             return;
+                        }
                     }
                 }
                 else
@@ -146,25 +245,24 @@ namespace TSP.Commands
                 }
                 App.Current.Dispatcher.Invoke(() =>_results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
             }
-            if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-            else
-                _results.Message = "";
         }
 
 
-        private AlgorithmResultModel? StartCalculations(string name, Graph graph)
+        private AlgorithmResultModel? StartCalculations(string name, Graph graph, TSPAlgorithms algo)
         {
-            var input = (InputViewModel)InputViewModel;
-            if (input.NearestAddition)
-                return StartAlgorithmCalculations(name, graph, new NearestAddition(), TSPAlgorithms.NearestAddition);
-            if (input.DoubleTree)
-                return StartAlgorithmCalculations(name, graph, new DoubleTree(), TSPAlgorithms.DoubleTree);
-            if (input.Christofides)
-                return StartAlgorithmCalculations(name, graph, new Christofides(), TSPAlgorithms.Christofides);
-            if (input.KernighanLin)        
-                return StartAlgorithmCalculations(name, graph, new KernighanLin(), TSPAlgorithms.KernighanLin);
-            return null;
+            switch (algo)
+            {
+                case TSPAlgorithms.NearestAddition:
+                    return StartAlgorithmCalculations(name, graph, new NearestAddition(), TSPAlgorithms.NearestAddition);
+                case TSPAlgorithms.DoubleTree:
+                    return StartAlgorithmCalculations(name, graph, new DoubleTree(), TSPAlgorithms.DoubleTree);
+                case TSPAlgorithms.Christofides:
+                    return StartAlgorithmCalculations(name, graph, new Christofides(), TSPAlgorithms.Christofides);
+                case TSPAlgorithms.KernighanLin:
+                    return StartAlgorithmCalculations(name, graph, new KernighanLin(), TSPAlgorithms.KernighanLin);
+                default:
+                    return null;
+            }            
         }
 
         private AlgorithmResultModel StartAlgorithmCalculations<T>(string name, Graph graph, ITspAlgorithm<T> algo, TSPAlgorithms algoType) where T : Path
@@ -185,28 +283,7 @@ namespace TSP.Commands
             }
 
             return new AlgorithmResultModel(name ,algoType, graph, path, input.Stopwatch, ts);
-        }
-
-        private void OnViewModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
-        {
-            if ((e.PropertyName == nameof(FileInputViewModel.SourceFilePath)) || (e.PropertyName == nameof(FolderInputViewModel.SourceFolderPath)))
-            {
-                OnCanExecutedChanged();
-            }
-        }
-
-        public override bool CanExecute(object parameter)
-        {
-            if ((InputViewModel.GetType().Name == nameof(FileInputViewModel)) && string.IsNullOrEmpty(((FileInputViewModel)InputViewModel).SourceFilePath))
-            {
-                return false && base.CanExecute(parameter);
-            }
-            if ((InputViewModel.GetType().Name == nameof(FolderInputViewModel)) && string.IsNullOrEmpty(((FolderInputViewModel)InputViewModel).SourceFolderPath))
-            {
-                return false && base.CanExecute(parameter);
-            }
-            return base.CanExecute(parameter);
-        }        
+        }     
 
         public override Task ExecuteAsync(object parameter)
         {

@@ -21,7 +21,7 @@ namespace TSP.ViewModels
         private bool _christofides;
         private bool _kernighanLin;
         private bool _stopwatch;
-        private bool _ignoreNotFoundResultFiles;
+        private bool _ignoreNotFoundResultFiles = true;
 
         public bool NearestAddition
         {

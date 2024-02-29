@@ -1,4 +1,5 @@
-﻿using TravellingSalesmanProblem.GraphStructures;
+﻿using System.Globalization;
+using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Formats
 {
@@ -8,19 +9,19 @@ namespace TravellingSalesmanProblem.Formats
         {
             double x, y;
             int id;
-            string[] coordinates;
+            string coordLine = line.Replace(',', '.');
 
-            if (!int.TryParse(line[0..line.IndexOf(' ')], out id))
+            if (!int.TryParse(line[0..coordLine.IndexOf(' ')], out id))
                 throw new Exception($"Invalid line '{line}'");
 
-            line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
+            coordLine = coordLine.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
 
-            if(!double.TryParse(line[0..line.IndexOf(' ')], out x))
+            if (!double.TryParse(coordLine[0..coordLine.IndexOf(' ')], NumberStyles.Any, CultureInfo.InvariantCulture, out x))
                 throw new Exception($"Invalid line '{line}'");
 
-            line = line.Substring(line.IndexOf(' ') + 1).TrimStart(' ');
+            coordLine = coordLine.Substring(coordLine.IndexOf(' ') + 1).TrimStart(' ');
 
-            if(!double.TryParse(line, out y))
+            if(!double.TryParse(coordLine, NumberStyles.Any, CultureInfo.InvariantCulture, out y))
                 throw new Exception($"Invalid line '{line}'");
 
             return new Node(id, x, y);

@@ -28,21 +28,6 @@ E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProble
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.pdb
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.genruntimeconfig.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem\TravellingSalesmanProblem\obj\Debug\net6.0\ref\TravellingSalesmanProblem.dll
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.exe
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.deps.json
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.runtimeconfig.json
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.dll
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.pdb
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.GeneratedMSBuildEditorConfig.editorconfig
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.AssemblyInfoInputs.cache
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.AssemblyInfo.cs
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.csproj.CoreCompileInputs.cache
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.sourcelink.json
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.dll
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\refint\TravellingSalesmanProblem.dll
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.pdb
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.genruntimeconfig.cache
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\ref\TravellingSalesmanProblem.dll
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.exe
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.deps.json
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.runtimeconfig.json
@@ -58,3 +43,18 @@ D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanP
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.pdb
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.genruntimeconfig.cache
 D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\ref\TravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.exe
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.deps.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.runtimeconfig.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Debug\net6.0\TravellingSalesmanProblem.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.GeneratedMSBuildEditorConfig.editorconfig
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.AssemblyInfoInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.AssemblyInfo.cs
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.csproj.CoreCompileInputs.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.sourcelink.json
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\refint\TravellingSalesmanProblem.dll
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.pdb
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\TravellingSalesmanProblem.genruntimeconfig.cache
+E:\Documents\Škola\Výška\Bakalářská práce\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\obj\Debug\net6.0\ref\TravellingSalesmanProblem.dll

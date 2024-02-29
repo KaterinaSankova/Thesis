@@ -16,7 +16,8 @@ namespace TSP.ViewModels
 
         private NavigationStore _navigationStore;
         private bool _isInputValid = false;
-        private bool _calculationsFinished = false;
+        private bool _calculationsFinished = true;
+        private bool _canStartCalculations = false;
 
         public ObservableCollection<AlgorithmResultViewModel> AlgoResults
         {
@@ -50,6 +51,7 @@ namespace TSP.ViewModels
             set
             {
                 _isInputValid = value;
+                CanStartCalculations = _isInputValid && CalculationsFinished;
                 OnPropertyChanged(nameof(IsInputValid));
             }
         }
@@ -66,7 +68,21 @@ namespace TSP.ViewModels
             set
             {
                 _calculationsFinished = value;
+                CanStartCalculations = IsInputValid && _calculationsFinished;
                 OnPropertyChanged(nameof(CalculationsFinished));
+            }
+        }
+
+        public bool CanStartCalculations
+        {
+            get
+            {
+                return _canStartCalculations;
+            }
+            set
+            {
+                _canStartCalculations = value;
+                OnPropertyChanged(nameof(CanStartCalculations));
             }
         }
 
@@ -80,8 +96,11 @@ namespace TSP.ViewModels
             StartCalculations = new StartCalculationsCommand(this);
             AlgoResults = new();
 
-            navigationStore.CurrentViewModelChanged += OnViewModelChanged;
+            _navigationStore.CurrentViewModel.PropertyChanged += OnInputChanged;
+            navigationStore.CurrentViewModelChanged += OnInputChanged;
         }
+
+        private void OnInputChanged(object? sender, PropertyChangedEventArgs e) => IsInputValid = ValidateInput();
 
         private bool ValidateInput()
         {
@@ -105,6 +124,10 @@ namespace TSP.ViewModels
             }
         }
 
-        private void OnViewModelChanged() => IsInputValid = ValidateInput();
+        private void OnInputChanged()
+        {
+            _navigationStore.CurrentViewModel.PropertyChanged += OnInputChanged;
+            IsInputValid = ValidateInput();
+        }
     }
 }

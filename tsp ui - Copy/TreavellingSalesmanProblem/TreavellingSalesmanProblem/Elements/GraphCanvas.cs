@@ -40,19 +40,12 @@ namespace TSP.Elements
         {
             int numberOfLines = 10;
             this.Margin = new Thickness(0, 0, width, 0);
-            width -= 20;
+            width -= 40;
             height -= 20;
             double intervalY = Math.Round(height / numberOfLines, 2);
             double intervalX = Math.Round(width / numberOfLines, 2);
-            double xStep = (highestX - lowestX) / numberOfLines;
-            double yStep = (highestY - lowestY) / numberOfLines;
-
-            if (lowestX < xStep)
-                lowestX -= xStep;
-            if (lowestY < yStep)
-                lowestY -= yStep;
-            highestX += xStep;
-            highestY += yStep;
+            double xStep = (Math.Max(highestX, 0) - Math.Min(lowestX, 0)) / numberOfLines;
+            double yStep = (Math.Max(highestY, 0) - Math.Min(lowestY, 0)) / numberOfLines;
 
             if (width > 0 && height > 0)
             {
@@ -85,7 +78,7 @@ namespace TSP.Elements
 
                     this.Children.Add(line);
 
-                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", };
+                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
 
                     this.Children.Add(textBlock);
                     Canvas.SetLeft(textBlock, pt1.X - 12.5);
@@ -116,7 +109,7 @@ namespace TSP.Elements
 
                     this.Children.Add(line);
 
-                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", };
+                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
 
                     this.Children.Add(textBlock);
                     Canvas.SetLeft(textBlock, pt1.X - 12.5);
@@ -149,7 +142,7 @@ namespace TSP.Elements
 
                     this.Children.Add(line);
 
-                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", };
+                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
 
                     this.Children.Add(textBlock);
                     Canvas.SetLeft(textBlock, originPoint.X + 5);
@@ -180,7 +173,7 @@ namespace TSP.Elements
 
                     this.Children.Add(line);
 
-                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", };
+                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
 
                     this.Children.Add(textBlock);
                     Canvas.SetLeft(textBlock, originPoint.X + 5);
@@ -228,7 +221,7 @@ namespace TSP.Elements
                         Fill = Brushes.DarkBlue,
                         Width = ellipseRadius,
                         Height = ellipseRadius,
-                        Opacity = 1,
+                        Opacity = 0.5,
                     };
 
                     var nodeCoords = GetRelativeCoordinates(node.x, node.y, width, height);
@@ -260,7 +253,7 @@ namespace TSP.Elements
                         Y2 = node2Coords.Y,
                         Stroke = Brushes.Blue,
                         StrokeThickness = 1,
-                        Opacity = 1,
+                        Opacity = 0.5,
                     };
 
                     this.Children.Add(line);
@@ -271,16 +264,16 @@ namespace TSP.Elements
 
         private Point GetRelativeCoordinates(double x, double y, double width, double height)
         {
-            double newX = Math.Round(x * (width / Math.Abs(lowestX - highestX)), 2);
+            double newX = x * (width / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0)));
             if (lowestX < 0)
-                newX += Math.Round(Math.Abs(lowestX) * (width / Math.Abs(lowestX - highestX)), 2);
+                newX += Math.Abs(lowestX) * (width / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0)));
 
             double originY = lowestY;
             if (lowestY > 0)
                 originY = 0;
-            double newOriginY = Math.Round(height + (originY * (height / Math.Abs(lowestY - highestY))), 2);
+            double newOriginY = height + (originY * (height / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0))));
 
-            double newY = Math.Round(newOriginY - (y * height / Math.Abs(lowestY - highestY)), 2);
+            double newY = newOriginY - (y * height / Math.Abs(Math.Min(lowestX, 0) - Math.Max(highestX, 0)));
 
             return new Point(newX, newY);
         }
