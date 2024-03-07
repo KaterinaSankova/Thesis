@@ -3,6 +3,24 @@
   "WorkspaceRootPath": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\algorithms\\tsp\\kernighanlin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\stores\\navigationstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\stores\\navigationstore.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\viewmodels\\inputviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|d:\\documents\\vyska\\thesis\\tsp ui - copy\\treavellingsalesmanproblem\\treavellingsalesmanproblem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{483526BA-0CCA-4C84-925D-4A11EFDB645B}|TreavellingSalesmanProblem\\TSP.csproj|solutionrelative:treavellingsalesmanproblem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\perfectmatching.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BE6A6AA8-DC6F-47A1-BDA2-4C9A8A581E63}|..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj|d:\\documents\\vyska\\thesis\\travellingsalesmanproblem - osicka\\travellingsalesmanproblem\\travellingsalesmanproblem.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
@@ -41,30 +59,90 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "KernighanLin.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Algorithms\\TSP\\KernighanLin.cs",
+              "ViewState": "AQIAAFcAAAAAAAAAAAAmwFoBAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-07T12:11:40.069Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "InputViewModel.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\ViewModels\\InputViewModel.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T09:46:10.361Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NavigationStore.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\Stores\\NavigationStore.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAkwCMAAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T09:45:01.812Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml.cs",
+              "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\App.xaml.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\App.xaml.cs",
+              "RelativeToolTip": "TreavellingSalesmanProblem\\App.xaml.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-06T09:44:17.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PerfectMatching.cs",
+              "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\PerfectMatching.cs",
+              "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\PerfectMatching.cs",
+              "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\PerfectMatching.cs",
+              "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\PerfectMatching.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAABNAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-01T15:18:50.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "TravellingSalesmanProblem",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\TravellingSalesmanProblem.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-02-29T16:53:21.939Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T16:53:21.939Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "TSP",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\TSP.csproj",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\TSP.csproj",
               "ToolTip": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\TSP.csproj",
               "RelativeToolTip": "TreavellingSalesmanProblem\\TSP.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-02-29T16:51:26.543Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T16:51:26.543Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "TourSerializer.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourSerializer.cs",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourSerializer.cs",
@@ -72,12 +150,11 @@
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourSerializer.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAgwBoAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T14:07:57.135Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T14:07:57.135Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "TSPDeserializer.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
@@ -85,12 +162,11 @@
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPDeserializer.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T13:55:54.379Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T13:55:54.379Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "TourDeserializer.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourDeserializer.cs",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourDeserializer.cs",
@@ -98,12 +174,11 @@
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TourDeserializer.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAAowDQAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T13:54:37.35Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T13:54:37.35Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "TSPSerializer.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPSerializer.cs",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPSerializer.cs",
@@ -111,12 +186,11 @@
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPSerializer.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAABsAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T13:42:11.184Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T13:42:11.184Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "TSPLib.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPLib.cs",
               "RelativeDocumentMoniker": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPLib.cs",
@@ -124,12 +198,11 @@
               "RelativeToolTip": "..\\..\\TravellingSalesmanProblem - Osicka\\TravellingSalesmanProblem\\Formats\\TSPLib.cs",
               "ViewState": "AQIAAK8AAAAAAAAAAAASwLoAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T13:42:10.588Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T13:42:10.588Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 7,
               "Title": "StartCalculationsCommand.cs",
               "DocumentMoniker": "D:\\Documents\\Vyska\\Thesis\\tsp ui - Copy\\TreavellingSalesmanProblem\\TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
               "RelativeDocumentMoniker": "TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
@@ -137,8 +210,7 @@
               "RelativeToolTip": "TreavellingSalesmanProblem\\Commands\\StartCalculationsCommand.cs",
               "ViewState": "AQIAABwBAAAAAAAAAADgvzEBAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-29T13:27:56.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-02-29T13:27:56.596Z"
             }
           ]
         }

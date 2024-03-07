@@ -45,6 +45,12 @@
 \usetikzlibrary {positioning}
 \usetikzlibrary{babel}
 \usetikzlibrary{arrows}
+\usetikzlibrary{calc}
+\usepackage{float} % for the [H] specifier
+\usepackage{subcaption} % for sub-captions
+\usepackage{cancel}
+\usepackage{adjustbox}
+\usepackage{algorithmicx}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -125,7 +131,7 @@ Graf $G_2=\langle V_2, E_2 \rangle$ nazýváme \textit{podgraf} grafu $G=\langle
 \end{definition}
 
 \begin{definition}[Kostra grafu]
-Kostra neorientovaného grafu je jeho souvislý podgraf, který obsahuje všechny jeho vrcholy a nevyskytují se v něm žádné kružnice (viz později).
+Kostra neorientovaného grafu je jeho souvislý podgraf, který obsahuje všechny jeho vrcholy a nevyskytují se v něm žádné kružnice.
 \end{definition}
 
 Pokud mají hrany původního grafu přiřazené váhy příslušným hranovým ohodnocením $w$, potom můžeme uvažovat o \textit{minimální kostře grafu}. Tou budeme rozumět právě takovou kostru $MSP = \langle V, E' \rangle$, která bude mít mezi ostatními minimální součet  $\sum_{e \in E'} w(e)$.
@@ -269,21 +275,111 @@ U některých heuristik se navíc můžeme bavit o \textit{aproximačním faktor
 	
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
-vytvoř seznam $path$\;
-vytvoř seznam $unvisitedCities$\;
+new list $path$\;
+new list $unvisitedCities$\;
 $unvisitedCities \leftarrow nodes$\;
-$(i, j) \leftarrow $ nejkratší hrana v grafu\;
+$(i, j) \leftarrow $ shortest edge in graph\;
 $path.Add(i, j, i)$\;
 $unvisitedCities.Remove(i, j)$\;
 
 \While{$unvisitedCities.Count > 0$}{
-$(k, l) \leftarrow $ nejkratší hrana v grafu, kde $k \in path$ a $l \in unvisitedCities$\;
+$(k, l) \leftarrow $ shortest edge in graph, where $k \in path$ and $l \in unvisitedCities$\;
 $path.AddAfter(k, l)$\;
 $unvisitedCities.Remove(l)$\;
 }
 \Return{$path$}
 \caption{Nearest addition algoritmus}
-\end{algorithm}}
+\end{algorithm}}\leavevmode\newline
+
+Ukažme si jednoduchý příklad chodu algoritmu.
+
+\begin{figure}[H]
+    \begin{example}
+    \leavevmode\newline
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=1.2]
+                % Define the coordinates of the points
+                \coordinate (a) at (3.25,10.5);
+                \coordinate (b) at (2.75,11);
+                \coordinate (c) at (3.5,12.5);
+                \coordinate (d) at (5,11.5);
+                \coordinate (e) at (6,11.25);
+                
+                % Draw the lines
+                \draw[green] (b) to[out=0,in=90] (a);
+                \draw (a) to[out=180,in=-90] (b);
+    
+                \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
+                    \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+            \end{tikzpicture}
+            \caption{}\label{tikzpicture:naExampleA}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=1.2]
+                % Define the coordinates of the points
+                \coordinate (a) at (3.25,10.5);
+                \coordinate (b) at (2.75,11);
+                \coordinate (c) at (3.5,12.5);
+                \coordinate (d) at (5,11.5);
+                \coordinate (e) at (6,11.25);
+                
+                % Draw the lines
+                \draw (c) -- (a) -- (b);
+                \draw[green] (b) -- (c);
+    
+                \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
+                    \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+            \end{tikzpicture}
+            \caption{}\label{tikzpicture:naExampleB}
+        \end{subfigure}
+        
+        \vspace{15pt}
+        
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=1.2]
+                % Define the coordinates of the points
+                \coordinate (a) at (3.25,10.5);
+                \coordinate (b) at (2.75,11);
+                \coordinate (c) at (3.5,12.5);
+                \coordinate (d) at (5,11.5);
+                \coordinate (e) at (6,11.25);
+                
+                \draw (d) -- (a) -- (b) -- (c) ;
+                \draw[green] (c) -- (d);
+    
+                \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
+                    \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+            \end{tikzpicture}
+            \caption{}\label{tikzpicture:naExampleC}
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}{0.45\textwidth}
+            \centering
+            \begin{tikzpicture}[scale=1.2]
+                % Define the coordinates of the points
+                \coordinate (a) at (3.25,10.5);
+                \coordinate (b) at (2.75,11);
+                \coordinate (c) at (3.5,12.5);
+                \coordinate (d) at (5,11.5);
+                \coordinate (e) at (6,11.25);
+                
+                \draw (e) -- (a) -- (b) -- (c) -- (d) ;
+                \draw[green] (d) -- (e);
+    
+                \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
+                    \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+            \end{tikzpicture}
+            \caption{}\label{tikzpicture:naExampleD}
+        \end{subfigure}
+    \end{example}
+    \caption{Nearest addition příklad}
+\end{figure}
 
 \subsubsection{Aproximační faktor}
 \begin{theorem}
@@ -294,15 +390,15 @@ Abychom si tvrzení dokázali, musíme si nejdříve ukázat vztah k Primově al
 
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
-vytvoř seznam $spanningTree$\;
-vytvoř seznam $unvisitedCities$\;
+new list $spanningTree$\;
+new list $unvisitedCities$\;
 $unvisitedCities \leftarrow nodes$\;
-$(i, j) \leftarrow $ nejkratší hrana v grafu\;
+$(i, j) \leftarrow $ shortest edge in graph\;
 $spanningTree.Add((i, j))$\;
 $unvisitedCities.Remove(i, j)$\;
 
 \While{$unvisitedCities.Count > 0$}{
-$(k, l) \leftarrow $ nejkratší hrana v grafu, kde $k \notin unvisitedCities$ a $l \in unvisitedCities$\;
+$(k, l) \leftarrow $ shortest edge in graph, where $k \notin unvisitedCities$ and $l \in unvisitedCities$\;
 $spanningTree.Add((k, l))$\;
 $unvisitedCities.Remove(l)$\;
 }
@@ -310,16 +406,52 @@ $unvisitedCities.Remove(l)$\;
 \caption{Primův algoritmus}
 \end{algorithm}}\leavevmode\newline
 
-Z pseudokódu je jasné, že hrany nalezené Primovým algoritmem i Nearest addition algoritmem budou totožné.
+Z pseudokódu je jasné, že hrany nalezené Primovým algoritmem i~\mbox{nearest}~\mbox{addition} algoritmem budou totožné.
+
+Zůstaňme ještě chvíli u kostry grafy a jejím vztahu k cestě nalezené TSP algoritmy.
 
 \begin{lemma}\label{lemma:MSP}
 Pro libovolný vstup TSP je cena jeho optimální cesty alespoň tak vysoká, jako je cena minimální kostry pro tentýž vstup.
 \end{lemma}
 
 \begin{proof}
-Vezměme optimální cestu pro libovolný vstup s více než jedním vrcholem a odstraňme některou z hran. Takto vzniklý graf jistě nebude mít vyšší cenu než optimální cesta. Navíc bude také kostrou původního vstupu. To si můžeme snadno ověřit. Graf stále obsahuje všechny vrcholy, jeho souvislost jsme nijak neporušili a jedinou kružnici kterou obsahoval jsme otevřeli odstraněním jedné z hran. 
+Vezměme optimální cestu pro libovolný vstup s více než jedním vrcholem a odstraňme některou z hran. Takto vzniklý graf jistě nebude mít vyšší cenu než optimální cesta. Navíc bude také kostrou původního vstupu. To si můžeme snadno ověřit. Graf stále obsahuje všechny vrcholy, jeho souvislost jsme nijak neporušili a jedinou kružnici kterou obsahoval jsme otevřeli odstraněním jedné z hran.
 
-	To, že tato kostra nemůže mít nižší cenu než minimální kostra, je triviální a lemma jsme dokázali.
+
+\begin{center}
+	\begin{tikzpicture}[scale=1.2]
+		% Define the coordinates of the points
+		\coordinate (A) at (3.25,10.5);
+		\coordinate (B) at (2.75,11);
+		\coordinate (C) at (3.5,12.5);
+		\coordinate (D) at (5,11.5);
+		\coordinate (E) at (6,11.25);
+    
+		\foreach \point/\label in {A/A, B/B, C/C, D/D, E/E}
+			\fill (\point) circle (2.5pt) node[] {};
+
+		% Draw the lines
+		\draw (A) -- (B) -- (C) -- (D) -- (E) -- (A);
+	\end{tikzpicture}
+  	\hspace{70pt}
+	\begin{tikzpicture}[scale=1.2]
+		% Define the coordinates of the points
+		\coordinate (A) at (3.25,10.5);
+		\coordinate (B) at (2.75,11);
+		\coordinate (C) at (3.5,12.5);
+		\coordinate (D) at (5,11.5);
+		\coordinate (E) at (6,11.25);
+    
+		\foreach \point/\label in {A/A, B/B, C/C, D/D, E/E}
+			\fill (\point) circle (2.5pt) node[] {};
+
+		% Draw the lines
+		\draw (A) -- (B) -- (C) -- (D) -- (E);
+	\end{tikzpicture}
+\end{center} 		
+\captionof{figure}{Vztah okružní cesty v grafu a jeho kostry}\leavevmode\newline
+
+To, že tato kostra nemůže mít nižší cenu než minimální kostra, je triviální a lemma jsme dokázali.
 \end{proof}
 
 \begin{theorem}
@@ -327,23 +459,174 @@ Nearest addition algoritmus pro metrický problém obchodního cestujícího je 
 \end{theorem}
 
 \begin{proof}
-****to se musi prepsat***
-Mějme podmnožiny V $S_2, S_3,…,S_n$, kde $S_2$  je množina vrcholů určených první iterací, $S_3$ druhou atd. Jistě platí, že $|S_l| = l$ – začínáme s dvěma městy a poté přidáváme v každé iteraci jedno další. Dále řekněme, že $F = \{(i_2, j_2), (i_3, j_3), $ $\cdots$ $,(i_n, j_n)\}$ je množina nejkratších hran určených každým průchodem cyklu. Pro hranu $(i_l, j_l)$ platí, že $i_l \in S_{l - 1}$, pro $l \in {3,..., n}$. Již bylo zmíněno, že graf $\langle V, F \rangle$ je minimální kostra vstupu a optimální cena cesty, označme $OPT$, nemůže stát méně, tedy $OPT \ge \sum_{l = 2}^{n} c_{i_l j_l} $.
+Uvažujme podmnožiny $S_1, S_2,…,S_{n-1}$ hran grafu, kde $S_i$ je množina hran identifikovaných $i$-tou iterací. Vrátíme-li se k příkladu chodu algoritmu, pak ve stavu na obrázku \ref{tikzpicture:naExampleA} bude $S_1 = \{(a, b)\}$, pro stav na \ref{tikzpicture:naExampleB} bude $S_2 = \{(a, b), (b, c)\}$, atd. Dále mějme množinu $F = \{(i_1, j_1), (i_2, j_2), $ $\cdots$ $,(i_{n-1}, j_{n-1})\}$ reprezentující nejkratší hrany určené každým průchodem cyklu (na obrázku zvýrazněné zeleně). Jak bylo zmíněno výše, tato množina bude jistě množinou hran nejkratší kostry vstupního grafu. Tedy z lemma \ref{lemma:MSP} plyne
+$$
+OPT \ge\sum_{l = 1}^{n-1} c_{i_l j_l}
+$$
 
-	Uvědomme si, že cena cesty pro první dva uzly $i_2$ a $j_2$ je přesně $2c_{i_2 j_2}$, protože tuto hranu vkládáme na začátku do cesty dvakrát.
-		
-	Když vkládáme nově určené město $j$ do cesty mezi $i$ a $k$, tak vlastně hrany $(i, j)$ a $(j, k)$ přidáváme a $(i, k)$ odstraňujeme. Tedy celková cesta se může nejvíce prodloužit o $c_{ij} + c_{jk} - c_{ik}$. Z trojúhelníkové nerovnosti snadno odvodíme, že $c_{jk} - c_{ik} \le c_{ij}$. Rozdíl cen hran $c_{jk}$ a $c_{ik}$ je tedy shora ohraničený cenou $c_{ij}$. Dosadíme-li tuto hodnotu do předchozí rovnice,  zjistíme, že celková cesta se může v nejhorším případě prodloužit o $2c_{jk}$. Celková cesta nalezená Nearest addition algoritmem bude tedy maximálně $2\sum_{l=2}^{n}c_{i_l j_l}$.
-		
-	Upravíme li poslední nerovnost, dostaneme $\sum_{l=2}^{n}c_{i_l j_l} \le 2OPT$.
+Po najití první nejkratší hrany máme výslednou délku $c_1 = 2c_{i_1, j_1}$, jelikož ji vkládáme do cesty dvakrát. Dále, když přidáváme nové město $j$ mezi $i$ a $k$, tak rušíme hranu $(i, k)$ a přidáváme hrany $(i, j)$ a $(j, k)$. Cesta se tedy prodlužuje o $c_{ij} + c_{jk} - c_{ik}$. Z trojúhelníkové nerovnosti snadno odvodíme, že $c_{jk} - c_{ik} \le c_{ij}$. Rozdíl cen hran $c_{jk}$ a $c_{ik}$ je tedy shora ohraničený cenou $c_{ij}$.
 
-To znamená, že naše nalezená cesta bude v nejhorším případě stát dvakrát tolik, co optimální cesta pro stejný vstup, což je přesně to, co jsme chtěli dokázat.
+Dosadíme-li tuto hodnotu do předchozí rovnice, zjistíme, že celková cesta se může v nejhorším případě prodloužit o $2c_{ij}$. Celková cesta nalezená narest addition algoritmem bude tedy maximálně $2\sum_{l=1}^{n-1}c_{i_l j_l}$.
+
+Upravíme li poslední nerovnost, dostaneme $\sum_{l=2}^{n}c_{i_l j_l} \le 2OPT$.
+
+To znamená, že cesta nalezená algoritmem v nejhorším případě stát bude stát nejvýše dvakrát tolik, co optimální cesta pro stejný vstup, což je přesně to, co jsme chtěli dokázat.
 \end{proof}
 
-\begin{example}
-\end{example}
+\subsubsection{Tight example} \label{tightExample:NA}
+
+Můžeme si ukázat jeho tzv. \textit{tight example}, což je pro algoritmus s aproximačním faktorem $\alpha$ příklad, u kterého nalezne řešení s cenou $\alpha * OPT$ (můžeme povolit určitou konstantní odchylku). Tedy budeme chtít najít vstup  pro metrický TSP, pro který nám tento algoritmus vrátí cestu s délkou skoro $2 * OPT$.
+
+Vezměme si jako vstup $(n - 1)$-cípou hvězdu s jedním vrcholem ve svém středu. Hrany busou ohodnoceny následovně: hrany vlevo na obrázku budou mít cenu jedna a hrany vpravo dva.
+
+
+\begin{figure}[H]
+    \begin{center}
+		\begin{tikzpicture}[scale=0.8]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=2pt, label={360/5 * (\i - 1) + 90:${\i}$}] (t\i) {};}
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=2pt, label={above left:0}] (t0) {};
+ 	 		
+ 	 		\draw (t1) -- (t2) -- (t3) -- (t4) -- (t5) -- (t1);
+ 	 		\draw (t0) -- (t1);
+ 	 		\draw (t0) -- (t2);
+ 	 		\draw (t0) -- (t3);
+ 	 		\draw (t0) -- (t4);
+ 	 		\draw (t0) -- (t5);
+		\end{tikzpicture}
+		\hspace{75pt}
+		\begin{tikzpicture}[scale=0.8]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=2pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=2pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t1) -- (t3) -- (t5) -- (t2) -- (t4) -- (t1);
+ 	 		
+ 	 		\node[below, white] at (current bounding box.south) {0};
+		\end{tikzpicture}
+    \end{center}
+    \caption{Nearest addition tight example}
+\end{figure}
+
+Cena hran napravo je shora omezená právě dva, protože musí platit trojúhelníková nerovnost.
+
+\begin{figure}[H]
+    \begin{center}
+		\begin{tikzpicture}[scale=0.8]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=2pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=2pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t5) -- (t1) -- (t2) -- (t3) -- (t4) -- (t0) -- (t5);
+		\end{tikzpicture}
+		\hspace{75pt}
+		\begin{tikzpicture}[scale=0.8]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=2pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=2pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t1) -- (t3) -- (t5) -- (t2) -- (t4)-- (t0) -- (t1);
+		\end{tikzpicture}
+    \end{center}
+    \caption{Nearest addition tight example - cesty}
+\end{figure}
+
+Je snadno vidět, že optimální cesta (na obrázku výše vlevo) bude mít celkovou cenu $n$.  Algoritmem ale může být nalezena i cesta jako na obrázku nahoře vpravo (příklad chodu algoritmu je zobrazen níže). Taková cesta obsahuje $n-2$  hran s~vahou dva a dvě hrany s vahou jedna, tedy $2(n - 2) + 2 = 2n - 2 = 2*OPT - O(1)$.
+
+\begin{figure}[H]
+    \begin{center}
+		\begin{tikzpicture}[scale=0.57]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=1.5pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=1.5pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t0) to[out=75, in=-75] (t1);
+ 	 		\draw (t0) to[out=105, in=-105] (t1);
+ 	 		
+        	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{1}, 0};
+		\end{tikzpicture}
+		\hspace{4pt}
+		\begin{tikzpicture}[scale=0.57]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=1.5pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=1.5pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t0) -- (t3) -- (t1) -- (t0);
+ 	 		
+        	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{3}, 1, 0};
+		\end{tikzpicture}
+		\hspace{4pt}
+		\begin{tikzpicture}[scale=0.57]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=1.5pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=1.5pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t0) -- (t5) -- (t3) -- (t1) -- (t0);
+ 	 		
+        	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{5}, 3, 1, 0};
+		\end{tikzpicture}
+		\hspace{4pt}
+		\begin{tikzpicture}[scale=0.57]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=1.5pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=1.5pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t0) -- (t2) -- (t5) -- (t3) -- (t1) -- (t0);
+ 	 		
+        	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{2}, 5, 3, 1, 0};
+		\end{tikzpicture}
+		\hspace{4pt}
+		\begin{tikzpicture}[scale=0.57]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=1.5pt, label={}] (t\i) {};} 	 	
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=1.5pt, label={}] (t0) {};
+ 	 		
+ 	 		\draw (t0) -- (t4) -- (t2) -- (t5) -- (t3) -- (t1) -- (t0);
+ 	 		
+        	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{4}, 2, 5, 3, 1, 0};
+		\end{tikzpicture}
+    \end{center}
+    \caption{Nearest addition tight example - chod algoritmu}
+\end{figure}
 
 \subsection{Double-tree}
-Jádrem algoritmu je zdvojení hran minimální kostry vstupního grafu a následné nalezení uzavřeného eulerovského tahu. To, že se v takovémto grafu takový tah nachází je snadné dokázat. Z Věty xxx víme, že stačí, aby byl graf spojitý a všechny jeho uzly měly sudý stupeň. Zdvojíme-li každou hranu, vycházející z libovolného uzlu, pak bude mít jistě uzel sudý stupeň. Jelikož vycházíme z kostry grafu, spojitost je zřejmá.
+Jádrem algoritmu je zdvojení hran minimální kostry vstupního grafu a následné nalezení uzavřeného eulerovského tahu. To, že se v takovémto grafu takový tah nachází je snadné dokázat. Z Věty \ref{theorem:eulerianCircout} víme, že stačí, aby byl graf spojitý a všechny jeho uzly měly sudý stupeň. Zdvojíme-li každou hranu, vycházející z libovolného uzlu, pak bude mít jistě uzel sudý stupeň. Jelikož vycházíme z kostry grafu, spojitost je zřejmá.
 
 K vytvoření cesty už potřebujeme pouze zaručit, že nenavštívíme žádný uzel vícekrát. Toho dosáhneme pomocí zkracování. Máme-li eulerovský průchod $(i_0, i_1)$, $(i_1, i_2)$, $\cdots$ $(i_{k-1}, i_k)$, $(i_k, i_0)$, pak vezměme posloupnost $i_0, i_1,... i_k$ a ponechejme pro každý uzel pouze jeho první výskyt. Nakonec ještě vraťme $i_0$ na konec cesty. \newline
 
@@ -368,27 +651,130 @@ vytvoř seznam $path$\;
 \caption{Double-tree algoritmus}
 \end{algorithm}}\leavevmode\newline
 
+\begin{figure}[H]
+    \begin{example}
+    \leavevmode\newline
+    \begin{tikzpicture}[scale=1.2]
+		% Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw (a) -- (b) -- (c);
+        \draw (b) -- (d) -- (e);
+    
+        \foreach \point/\label in {a/a, b/b, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+        \foreach \point/\label in  {d/d, e/e}
+        \fill (\point) circle (2.5pt) node[label={above:\label}] { };
+        
+        \node[below, white] at (current bounding box.south) {a, b, c, d, e};
+     \end{tikzpicture}
+     \hfill
+     \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+         % Draw the lines
+        % Draw the lines
+        \draw (a) .. controls ($(a)!0.5!(b) + (0.1, 0.2)$) and ($(a)!0.5!(b) + (0.1, 0.2)$) .. (b);
+        \draw (a) .. controls ($(a)!0.5!(b) - (0.1, 0.2)$) and ($(a)!0.5!(b) - (0.1, 0.2)$) .. (b);
+        \draw (b) .. controls ($(b)!0.5!(c) + (0.2, 0.1)$) and ($(b)!0.5!(c) + (0.2, 0.1)$) .. (c);
+        \draw (b) .. controls ($(b)!0.5!(c) - (0.2, 0.1)$) and ($(b)!0.5!(c) - (0.2, 0.1)$) .. (c);
+        \draw (b) .. controls ($(b)!0.5!(d) + (0.3, 0)$) and ($(b)!0.5!(d) + (0.3, 0)$) .. (d);
+        \draw (b) .. controls ($(b)!0.5!(d) - (0.3, -0.1)$) and ($(b)!0.5!(d) - (0.3, -0.1)$) .. (d);
+        \draw (d) .. controls ($(d)!0.5!(e) + (0.1, 0.2)$) and ($(d)!0.5!(e) + (0.1, 0.2)$) .. (e);
+        \draw (d) .. controls ($(d)!0.5!(e) - (0.1, 0.2)$) and ($(d)!0.5!(e) - (0.1, 0.2)$) .. (e);
+    
+        \foreach \point/\label in {a/a, b/b, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+        \foreach \point/\label in  {d/d, e/e}
+        \fill (\point) circle (2.5pt) node[label={above:\label}] {};
+        
+        \node[below] at (current bounding box.south) {c, b, a, b, d, e, d, b, c};
+      \end{tikzpicture}
+      \hfill
+      \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+         % Draw the lines
+         \draw (a) -- (b) -- (c) -- (e) -- (d) -- cycle;
+    
+        \foreach \point/\label in {a/a, b/b, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+        \foreach \point/\label in  {d/d, e/e}
+        \fill (\point) circle (2.5pt) node[label={above:\label}] {};
+        \node[below] at (current bounding box.south) {c, b, a, \cancel{b}, d, e, \cancel{d}, \cancel{b}, c};
+      \end{tikzpicture}
+    \end{example}
+    \caption{Double-tree příklad}
+\end{figure}
+
+
 \subsubsection{Aproximační faktor}
 \begin{theorem}
-DoubleTree je 2-aproximační algoritmus.
+Double-tree je 2-aproximační algoritmus.
 \end{theorem}
-	Z Lemma \ref{lemma:MSP} víme, že optimální cesta stojí alespoň tolik, co minimální kostra. Jelikož každou její hranu máme dvakrát, pak tato cena bude dvojnásobek její ceny.
+	Z Lemma \ref{lemma:MSP} víme, že optimální cesta stojí alespoň tolik, co minimální kostra. Jelikož každou její hranu zdvojujeme, získáme dvakrát tak delší cestu.
 	
 	Při hledání eulerovského průchodu pouze hrany seřazujeme.
 	
-	Zbývá pouze zkracování.  Zde opět vycházíme z trojúhelníkové nerovnosti. Uvažujme, že $i$, $j$, $k$ jsou po sobě jdoucí města a $j$ jsme již navštívili, tedy bychom je měli přeskočit. Je zřejmé, že $c_{ij} + c_{jk} \ge c_{ik}$ , což dokazuje, cena tohoto úseku zůstane při nejhorším stejná.
+	Zbývá pouze zkracování. Zde opět vycházíme z trojúhelníkové nerovnosti. Uvažujme, že $i$, $j$, $k$ jsou po sobě jdoucí města a $j$ jsme již navštívili, tedy bychom je měli přeskočit. Je zřejmé, že $c_{ij} + c_{jk} \ge c_{ik}$ , což dokazuje, cena tohoto úseku zůstane při nejhorším stejná a horní ohraničení se tedy nemění.
 	
-\begin{example}
-\end{example}
+\subsubsection{Tight example}
+Jako příklad vstupu, pro který double-tree algortimus najde cestu délky $2OPT$ můžeme vzít vstup z kapitoly \ref{tightExample:NA} o nearest addition algoritmu. Jelikož mají oba algoritmy stejný aproximační faktor, pak stačí ukázat, že se můžeme double-tree algoritmem dostat ke stejné cestě jako v již zmíněné předchozí kapitole.
+
+U takového vstupu může být nalezena následná minimální kostra. V grafu se zdvojenými hranami, pak můžeme uvažovat eulerovský průchod 0, 4, 0, 2, 0, 5, 0, 3, 0, 1, 0, ze kterého zkrácením dostaneme cestu 0, 4, 2, 5, 3, 1, 0, což je stejná cesta jakou jsme nalezli algoritmem nearest addition.
+
+\begin{figure}[H]
+    \begin{center}
+		\begin{tikzpicture}[scale=0.8]
+ 			 % Set the radius of the imaginary circle
+ 	 		\def\radius{2cm}
+  
+	  		% Calculate the position of each point on the circle
+ 	 		\foreach \i in {1,...,5}
+ 		    	{\draw ({360/5 * (\i - 1) + 90}:\radius) node[circle, fill, inner sep=2pt, label={360/5 * (\i - 1) + 90:${\i}$}] (t\i) {};}
+ 	 		\draw ({0}:0) node[circle, fill, inner sep=2pt, label={above left:0}] (t0) {};
+ 	 		
+ 	 		\draw (t0) -- (t1);
+ 	 		\draw (t0) -- (t2);
+ 	 		\draw (t0) -- (t3);
+ 	 		\draw (t0) -- (t4);
+ 	 		\draw (t0) -- (t5);
+		\end{tikzpicture}
+    \caption{Double tree tight example - minimální kostra}
+    \end{center}
+\end{figure}
 
 \subsection{Christofides'}
-Christofidesův algoritmus je velice podobný Double-tree algoritmu. Opět začneme s minimální kostrou vstupního grafu. Existenci eulerovského průchodu ale zajistíme chytřeji. Připomeňme si, že eulerovský průchod se v grafu nachází právě tehdy, když mají všechny jeho stupně sudý stupeň. V Double-tree algoritmu jsme tuto podmínku splnili tak, že jsme zdvojili každou hranu kostry, to je ovšem redundantní. Postačí, když spárujeme uzly, které v ní mají lichý stupeň.
+Christofidesův algoritmus je velice podobný double-tree algoritmu. Opět začneme s minimální kostrou vstupního grafu. Existenci eulerovského průchodu ale zajistíme chytřeji. Připomeňme si, že eulerovský průchod se v grafu nachází právě tehdy, když mají všechny jeho uzly sudý stupeň. V double-tree algoritmu jsme tuto podmínku splnili tak, že jsme zdvojili každou hranu kostry. To je ovšem redundantní. Postačí, když spárujeme takové její uzly, které mají lichý stupeň.
 
-Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude $\forall v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. Takových množin může být více, přirozeně budeme hledat takovou z nich, která budeme mít minimální součet délek všech svých hran.
+Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy jeho minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude $\forall v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. Na množině jich samozřejmě může být více. Pro naše účely bude jistě nejlepší hledat takovou z nich, která budeme mít minimální součet délek všech svých hran, tedy \textit{minimální perfektní párování}.
 
-Uvědomme si ale, že aby takové párování pro $O$ existovalo, tak musí být $|O|$ sudé. Víme, že součet stupňů všech uzlů v neorientovaném grafu je sudé číslo (viz Věta \ref{theorem:degree}). Označme si množinu všech vrcholů grafu $V$ a množinu vrcholů se sudým stupněm $E$. Pak $\sum?_{v \in V} deg(v) = \sum?_{v \in E} deg(v) + \sum?_{v \in O} deg(v)$. $\sum?_{v \in V} deg(v)$ je ale sudé a to samé jistě platí pro $\sum?_{v \in E}$, tedy $\sum?_{v \in O} deg(v)$ musí být sudý. Vzhledem k tomu, že každý vrchol přispívá do součtu lichým číslem, pak jejich počet musí být sudý.
+Uvědomme si ale, že aby takové párování pro $O$ existovalo, tak musí být $|O|$ sudé. Víme, že součet stupňů všech uzlů v neorientovaném grafu je sudé číslo (viz Věta \ref{theorem:degree}). Označme si množinu všech vrcholů grafu $V$ a množinu vrcholů se sudým stupněm $E$. Jistě platí
+$$
+\sum_{v \in V} deg(v) = \sum_{v \in E} deg(v) + \sum_{v \in O} deg(v)
+$$
 
-Přidáním minimálního perfektního párování k minimální kostře zvýšíme stupeň každého vrcholu s lichým stupněm právě o jedna, tudíž zajistíme, že všechny uzly budou mít sudý stupeň a tudíž v grafu existuje uzavřený eulerovský tah. Po jeho nalezení už jen zkracujeme cestu stejně jako u Double-tree algoritmu.
+$\sum_{v \in V} deg(v)$ je ale určitě sudé a to samé platí pro $\sum?_{v \in E}$, tedy $\sum_{v \in O} deg(v)$ musí být také sudý. Vzhledem k tomu, že každý vrchol přispívá do součtu lichým číslem, pak musí být sudý jejich počet.
+
+Přidáním minimálního perfektního párování k minimální kostře zvýšíme stupeň každého vrcholu s lichým stupněm právě o jedna, tudíž zajistíme, že všechny uzly budou mít sudý stupeň. V takovém grafu pak existuje uzavřený eulerovský tah. Po jeho nalezení už jen zkracujeme cestu stejným způsobem jako u double-tree algoritmu.\leavevmode\newline
 
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
@@ -409,25 +795,230 @@ vytvoř seznam $path$\;
 \caption{Christofidesův algoritmus}
 \end{algorithm}}\leavevmode\newline
 
+\begin{figure}[H]
+    \begin{example}
+    \leavevmode\newline
+    \begin{tikzpicture}[scale=1.2]
+		% Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw (a) -- (b) -- (c);
+        \draw (b) -- (d) -- (e);
+    
+        \foreach \point/\label in {a/a, c/c}
+        \fill[blue] (\point) circle (2.5pt) node[label={below left:\label}] {};
+        
+        \fill[blue] (b) circle (2.5pt) node[label={above left:b}] {};
+        \fill (d) circle (2.5pt) node[label={above:d}] {};
+        \fill[blue] (e) circle (2.5pt) node[label={above:e}] {};
+        
+        \node[below, white] at (current bounding box.south) {a, b, c, d, e};
+     \end{tikzpicture}
+     \hfill
+     \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw (a) -- (b) -- (c) -- (b) -- (d) -- (e);
+        \draw[blue] (a) -- (c);
+        \draw[blue] (b) -- (e);
+    
+        \foreach \point/\label in {a/a, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+        \fill (b) circle (2.5pt) node[label={above left:b}] {};
+        
+        \foreach \point/\label in  {d/d, e/e}
+        \fill (\point) circle (2.5pt) node[label={above:\label}] {};
+        
+        \node[below] at (current bounding box.south) {a, b, d, e, b, c, a};
+      \end{tikzpicture}
+      \hfill
+      \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+         % Draw the lines
+         \draw (a) -- (b) -- (c) -- (e) -- (d) -- cycle;
+    
+        \foreach \point/\label in {a/a, b/b, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+    
+        \foreach \point/\label in  {d/d, e/e}
+        \fill (\point) circle (2.5pt) node[label={above:\label}] {};
+        \node[below] at (current bounding box.south) {a, b, d, e, \cancel{b}, c, a};
+      \end{tikzpicture}
+    \end{example}
+    \caption{Christofides' příklad}
+\end{figure}
+
 \subsubsection{Aproximační faktor}
 \begin{theorem}
 	Christofidesův algoritmus  je 3/2-aproximační algoritmus.
 \end{theorem}
-***nějaké obrazky***
 
 	Nejdřív si musíme rozmyslet, co vlastně potřebujeme dokázat. Potřebujeme, aby eulerovský průchod měl při nejhorším délku $\frac{3}{2}OPT$. Z lemmatu \ref{lemma:MSP} víme, že minimální kostra, která je v něm obsažená, má v nejhorším případě cenu OPT. Stačí tedy dokázat, že perfektní párování má maximálně cenu $\frac{1}{2} OPT$.
 	
-	Pracujeme s množinou lichých uzlů v MST $O$. Budeme v ní teď hledat cestu. Vyjdeme-li z nejkratší cesty nad všemi vrcholy vstupu, pak je zřejmé, že její délka bude $OPT$. Tuto cestu teď budeme pouze zkracovat. Uvažujeme-li dvě města $i$ a $j$, pro která platí, že na cestě mezi nimi jsou pouze města nenáležící do $O$, pak je jistě můžeme vynechat a z trojúhelníkové nerovnosti víme, že v nejhorším případě bude hrana $(i,j)$ stejně dlouhá jako původní cesta. V nejhorším případě tedy po tomto zkracování zůstane délka cesty rovna $OPT$.
+	Pracujeme s množinou lichých uzlů v MST $O$. Budeme v ní teď hledat cestu. Vyjdeme-li z nejkratší cesty nad všemi vrcholy vstupu, pak je zřejmé, že její délka bude nejvýše $OPT$. Tuto cestu teď budeme pouze zkracovat. Uvažujeme-li dvě města $i$ a $j$, pro která platí, že na cestě mezi nimi jsou pouze města nenáležící do $O$, pak je jistě můžeme vynechat a z trojúhelníkové nerovnosti víme, že v nejhorším případě bude hrana $(i,j)$ stejně dlouhá jako původní cesta. V nejhorším případě tedy po tomto zkracování zůstane délka cesty rovna $OPT$.
 	
 	Nyní začněme střídavě obarvovat hrany nalezené cesty, řekněme modrou a červenou. Množina červených i množina modrých hran je perfektním párováním na $O$, platí totiž, že pokrývají všechny vrcholy a žádné dvě hrany nesdílí vrchol. Víme, že dohromady množiny dávají $OPT$, pak jistě jedna z množin bude mít délka menší nebo rovnu $\frac{1}{2}OPT$, což jsme chtěli dokázat.
+
+\begin{figure}[H]
+    \leavevmode\newline
+    \begin{tikzpicture}[scale=1.2]
+		% Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw (a) -- (b) -- (c);
+        \draw (b) -- (d) -- (e);
+    
+        \foreach \point/\label in {a/a, c/c}
+        \fill[blue] (\point) circle (2.5pt) node[label={below left:\label}] {};
+        
+        \fill[blue] (b) circle (2.5pt) node[label={above left:b}] {};
+        \fill (d) circle (2.5pt) node[label={above:d}] {};
+        \fill[blue] (e) circle (2.5pt) node[label={above:e}] {};
+     \end{tikzpicture}
+     \hfill
+     \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw (a) -- (b);
+        \draw (c) -- (a);
+        \draw (e) -- (c);
+        \draw (e) -- (b);
+    
+        \foreach \point/\label in {a/a, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+        
+        \fill (b) circle (2.5pt) node[label={above left:b}] {};
+        \fill (e) circle (2.5pt) node[label={above:e}] {};
+      \end{tikzpicture}
+      \hfill
+      \begin{tikzpicture}[scale=1.2]
+		 % Define the coordinates of the points
+		\coordinate (a) at (0,1);
+		\coordinate (b) at (1,0.75);
+		\coordinate (c) at (1.5,0);
+  		\coordinate (d) at (2,2.5);
+        \coordinate (e) at (2.75,2.4);
+                
+        % Draw the lines
+        \draw[red] (a) -- (b);
+        \draw[blue] (c) -- (a);
+        \draw[red] (e) -- (c);
+        \draw[blue](e) -- (b);
+    
+        \foreach \point/\label in {a/a, c/c}
+        \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
+        
+        \fill (b) circle (2.5pt) node[label={above left:b}] {};
+        \fill (e) circle (2.5pt) node[label={above:e}] {};
+      \end{tikzpicture}
+    \caption{Perfektní párování}
+\end{figure}
+
 	
-	Z analýz aproximačních faktorů Christofidesova a Double-tree algoritmů ještě vyplývá následující tvrzení.
+	Z analýz aproximačních faktorů Christofidesova a double-tree algoritmů ještě vyplývá následující tvrzení.
 \begin{lemma}
 Sestrojíme-li pro vstup eulerovský podgraf délky $\alpha*OPT$, pak můžeme odvodit $\alpha$-aproximační algoritmus.
 \end{lemma}
 
-\begin{example}
-\end{example}
+\subsubsection{Tight example}
+Vezměme si následující vstup, kde mají vyznačené hrany délku 1.
+
+\begin{figure}[H]
+    \begin{center}
+            \begin{tikzpicture}[scale=1.2]
+			% Define the coordinates of the points
+			\coordinate (a) at (0,0);
+			\coordinate (b) at (2,0);
+			\coordinate (c) at (1,1.73206);
+			\coordinate (d) at (4,0);
+			\coordinate (e) at (3,1.73206);
+			
+			\coordinate (f) at (0+6,0);
+			\coordinate (g) at (2+6,0);
+			\coordinate (h) at (1+6,1.73206);
+			\coordinate (i) at (4+6,0);
+			\coordinate (j) at (3+6,1.73206);
+                
+        	% Draw the lines
+        	\draw (a) -- (c) -- (b) -- (e) -- (d) -- (a);
+        	\draw (c) -- (e);
+        	\draw (f) -- (h) -- (g) -- (j) -- (i) -- (f);
+        	\draw (h) -- (j);
+    
+        	\foreach \point/\label in {a/a, b/b, c/c, d/d, e/e, f/f, g/g, h/h, i/i, j/j}
+        	\fill (\point) circle (2.5pt) node[label={}] {};
+        	\node[font=\huge] at (current bounding box.center) {...};
+            \end{tikzpicture}
+    \end{center}
+    \caption{Christofides' tight example}
+\end{figure}
+
+Bude-li nalezena minimální kostra grafu zobrazená černými hranami na obrázku níže, pak jediné uzly s lichým stupněm budou krajní zobrazené modře. Jejich spojením pak dostanem cestu (zkracování zde jistě nepovede k žádnému zlepšení).
+
+\begin{figure}[H]
+        \begin{center}
+            \begin{tikzpicture}[scale=1.2]
+			% Define the coordinates of the points
+			\coordinate (a) at (0,0);
+			\coordinate (b) at (2,0);
+			\coordinate (c) at (1,1.73206);
+			\coordinate (d) at (4,0);
+			\coordinate (e) at (3,1.73206);
+			
+			\coordinate (f) at (0+6,0);
+			\coordinate (g) at (2+6,0);
+			\coordinate (h) at (1+6,1.73206);
+			\coordinate (i) at (4+6,0);
+			\coordinate (j) at (3+6,1.73206);
+                
+        	% Draw the lines
+        	\draw (a) -- (c) -- (b) -- (e) -- (d);
+        	\draw (f) -- (h) -- (g) -- (j) -- (i);
+        	\draw (a)[blue] to[out=-15, in=195] (i);
+    
+        	\foreach \point/\label in {a/a, b/b, c/c, d/d, e/e, f/f, g/g, h/h, i/i, j/j}
+        	\fill (\point) circle (2.5pt) node[label={}] {};
+        	
+        	\fill[blue] (a) circle (2.5pt) node[label={}] {};
+        	\fill[blue] (i) circle (2.5pt) node[label={}] {};
+        	
+        	\node[font=\huge] at (current bounding box.center) {...};
+        	\node[below, font=\large] at (current bounding box.south) {$\lfloor \frac{n}{2} \rfloor$};
+            \end{tikzpicture}
+        \end{center}
+    \caption{Christofides' tight example - cesta}
+\end{figure}
+
+Podívejme se na délku takto nalezené cesty. Kostra bude mít jistě délku $n - 1$ a poslední přidaná hrana $\lfloor \frac{n}{2} \rfloor$. Je také snadno vidět, že optimální cesta bude délky $n$. Pak už snadno $$(n - 1) + \lfloor \frac{n}{2} \rfloor = n - O(1) = OPT - O(1)$$
 
 \subsection{Keringhan - Lin}
 
@@ -447,16 +1038,15 @@ Obecná podoba heuristiky by se dala zapsat následovně:\newline
 {\LinesNumbered\SetAlgoNoLine\
 \begin{algorithm}[H]
 $T \leftarrow$ pseudonáhodné řešení\;
-$T' \leftarrow$ tranformace $T$ taková, že $f(T') < f(T)$\;
-\If {$T'$}
-{$T \leftarrow T'$\;
-\textbf{go to} 2\;}
-\Else
+$T' \leftarrow$ $T$\;
+\While{$T'$}
 {
-\Return{} nebo, pokud je to žádané \textbf{go to} 1\;
-\caption{Keringhan - Lin algoritmus - obecně}
+	$T' \leftarrow$ tranformace $T$ taková, že $f(T') < f(T)$\;
 }
-\end{algorithm}}\leavevmode\newline
+\Return or start over if desired\;
+\caption{Keringhan - Lin algoritmus - obecně}
+\end{algorithm}
+}\leavevmode\newline
 
 Vraťme se ještě ke zmíněnému koeficientu $k$. Jednou z možností, jak nad $k$ uvažovat je jako na předem zvolené číslo. Toho pro řešení TSP využil A. Croes s $k = 2$ a později S. Lin s $k = 3$. Tento přístup s sebou nese jistá úskalí a to hlavně správnou volbu $k$. S narůstající hodnotou se výrazně zvyšuje i výpočetní čas, ale přirozeně dostáváme lepší řešení. Zjistit pak, jaké číslo nám zajistí dostatečně dobré výsledky ve schůdném čase, je náročné.
 
@@ -466,24 +1056,24 @@ Tomu to problému se můžeme vyhnout tím, že $k$ nebude mít žádnou fixní 
 {\LinesNumbered\SetAlgoNoLine\
 \begin{algorithm}[H]
 \SetKwRepeat{Do}{do}{while}%
-$T \leftarrow$ pseudonáhodné řešení\;
-$T' \leftarrow T$\;
+$T \leftarrow$ pseudorandom solution\;
 \Do {$f(T') > f(T)$}
 {
 $i \leftarrow 0$\;
 $T \leftarrow T'$\;
-\While {může být nalezeno zlepšení}
+\While {improvement can be found}
 {
 $i \leftarrow i + 1$\;
-$(x_i, y_i) \leftarrow$ nejvýhodnější pár pro výměnu\;
-$G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
+$(x_i, y_i) \leftarrow$ best pair for exchange\;
+$G_i \leftarrow$ total gain for $\{x_1, x_2, ..., x_k\}$ and $\{y_1, y_2, ..., y_k\}$\;
 }
-$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}\;
+$k \leftarrow i$, where $G_i$ is max \tcp*[h]{(definition of $G_i$ is below)}\;
 $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 }
 \Return \;
 \caption{Keringhan - Lin algoritmus - variabilní $k$}
-\end{algorithm}}\leavevmode\newline
+\end{algorithm}
+}\leavevmode\newline
 
 
 Pro takový přístup vyvstává pár pravidel a otázek, které si budeme muset zodpovědět.
@@ -806,7 +1396,9 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
 \end{center}
 \captionof{figure}{Pár nevyhovující podmínce proveditelnosti}\leavevmode\newline
 
-Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany $y_i$, $x_{i+1}$, pro které je $|y_i| - |x_{i+1}|$ mezi ostatními páry vyhovujícím k výměně maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
+Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany  $x_{i}$, $y_i$, pro které je $|x_i| - |y_{i}|$ mezi ostatními páry maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
+
+ $y_i$, $x_{i+1}$, pro které je $|y_i| - |x_{i+1}|$ mezi ostatními páry vyhovujícím k výměně maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
 
 Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkce udávající zisk z dosavadně vybraných párů.
 $$G_i = \sum_{j=1}^{i}g_j$$
@@ -820,7 +1412,7 @@ Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
 $T \leftarrow$ pseudonáhodné řešení\;
 $T' \leftarrow T$\;
 $G* = 0$\;
-$k = 0$
+$k = 0$\;
 $i = 1$\;
 $t_1 =$ any node\;
 $t_2 =$ any node connected to $t_1$\;
@@ -836,13 +1428,13 @@ find pair $y_i = (t_{2i}, t_{2i+1}), x_{i+1} = (t_{2i+1}, t_{2i+2})$ for which:
 \end{itemize}}
 $i \leftarrow 0$\;
 $T \leftarrow T'$\;
-\While {může být nalezeno zlepšení}
+\While {improvement can be found}
 {
 $i \leftarrow i + 1$\;
-$(x_i, y_i) \leftarrow$ nejvýhodnější pár pro výměnu\;
+$(x_i, y_i) \leftarrow$ best pair for exchange\;
 $G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
 }
-$k \leftarrow i$, kde $G_i$ je maximální \tcp*[h]{(definice $G_i$ uvedena níže)}\;
+$k \leftarrow i$, where $G_i$ is max \tcp*[h]{(definition of $G_i$ is below)}\;
 $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 }
 \Return \;

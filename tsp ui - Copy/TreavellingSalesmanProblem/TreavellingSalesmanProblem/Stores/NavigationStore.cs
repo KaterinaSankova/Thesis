@@ -30,8 +30,31 @@ namespace TSP.Stores
             }
             set
             {
-                _currentViewModel = value;
-                _currentViewModel.PropertyChanged += InputChanged;
+                if (_currentViewModel is InputViewModel)
+                {
+                    var oldViewModel = (InputViewModel)_currentViewModel;
+                    _currentViewModel = value;
+                    ((InputViewModel)_currentViewModel).OutputFolderPath = oldViewModel.OutputFolderPath;
+                    ((InputViewModel)_currentViewModel).NearestAddition = oldViewModel.NearestAddition;
+                    ((InputViewModel)_currentViewModel).DoubleTree = oldViewModel.DoubleTree;
+                    ((InputViewModel)_currentViewModel).Christofides = oldViewModel.Christofides;
+                    ((InputViewModel)_currentViewModel).KernighanLin = oldViewModel.KernighanLin;
+                    ((InputViewModel)_currentViewModel).Stopwatch = oldViewModel.Stopwatch;
+                    if (oldViewModel is FileInputViewModel && _currentViewModel is FolderInputViewModel)
+                    {
+                        ((FolderInputViewModel)_currentViewModel).IgnoreNotFoundResultFiles = oldViewModel.IgnoreNotFoundResultFiles;
+
+                    }
+                    if (oldViewModel is FolderInputViewModel && _currentViewModel is FileInputViewModel)
+                    {
+                        ((FileInputViewModel)_currentViewModel).IgnoreNotFoundResultFiles = oldViewModel.IgnoreNotFoundResultFiles;
+                    }
+                    _currentViewModel.PropertyChanged += InputChanged;
+                }
+                else
+                {
+                    _currentViewModel = value;
+                }
                 OnCurrentViewModelChanged();
             }
         }

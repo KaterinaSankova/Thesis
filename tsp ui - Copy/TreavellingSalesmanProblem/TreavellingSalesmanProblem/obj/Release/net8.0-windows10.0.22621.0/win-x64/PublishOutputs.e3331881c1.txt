@@ -1,0 +1,4 @@
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Release\net8.0-windows10.0.22621.0\win-x64\publish\TSP.pdb
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Release\net8.0-windows10.0.22621.0\win-x64\publish\TravellingSalesmanProblem.runtimeconfig.json
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Release\net8.0-windows10.0.22621.0\win-x64\publish\TravellingSalesmanProblem.pdb
+D:\Documents\Vyska\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\bin\Release\net8.0-windows10.0.22621.0\win-x64\publish\TSP.exe

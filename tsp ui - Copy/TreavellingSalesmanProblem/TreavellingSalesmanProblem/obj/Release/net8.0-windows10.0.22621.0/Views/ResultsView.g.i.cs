@@ -85,7 +85,7 @@ namespace TSP.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/TSP;V1.0.0.0;component/views/resultsview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/TSP;component/views/resultsview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ResultsView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
