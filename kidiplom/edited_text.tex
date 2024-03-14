@@ -1043,7 +1043,7 @@ $T' \leftarrow$ $T$\;
 {
 	$T' \leftarrow$ tranformace $T$ taková, že $f(T') < f(T)$\;
 }
-\Return or start over if desired\;
+\Return $T'$ or start over if desired\;
 \caption{Keringhan - Lin algoritmus - obecně}
 \end{algorithm}
 }\leavevmode\newline
@@ -1070,7 +1070,7 @@ $G_i \leftarrow$ total gain for $\{x_1, x_2, ..., x_k\}$ and $\{y_1, y_2, ..., y
 $k \leftarrow i$, where $G_i$ is max \tcp*[h]{(definition of $G_i$ is below)}\;
 $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 }
-\Return \;
+\Return $T'$\;
 \caption{Keringhan - Lin algoritmus - variabilní $k$}
 \end{algorithm}
 }\leavevmode\newline
@@ -1396,12 +1396,12 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
 \end{center}
 \captionof{figure}{Pár nevyhovující podmínce proveditelnosti}\leavevmode\newline
 
-Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany  $x_{i}$, $y_i$, pro které je $|x_i| - |y_{i}|$ mezi ostatními páry maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
+Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany  $x_{i}$, $y_i$, pro které je $|x_i| - |y_{i}|$ mezi ostatními páry maximální. Právě tohoto \textit{pravidla výběru} se využívá.
 
- $y_i$, $x_{i+1}$, pro které je $|y_i| - |x_{i+1}|$ mezi ostatními páry vyhovujícím k výměně maximální. Právě tohoto \textit{pravidla výběru} se využívá. 
+Problémem ale může být to, že v momentě, kdy vybereme takový pár, tak nebere v úvahu délku $x_{i+1}$. Tohle není ideální, protože $x_{i+1}$ může být výhodná hrana. Navíc se začneme omezovat na lokání informaci o nejbližším vrcholu k $t_{2i}$. Dobrou vylepšením algoritmu je tedy neposuzovat páry jen na základě rozdílu jejich délek, ale i délky $x_{i+1}$.
 
-Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkce udávající zisk z dosavadně vybraných párů.
-$$G_i = \sum_{j=1}^{i}g_j$$
+Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkci udávající zisk z dosavadně vybraných párů.
+$$G_i = \sum_{j=1}^{i}g_j = \sum_{j=1}^{i}{(|x_j| - |y_j|)}$$
 
 Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
 \newline
@@ -1409,35 +1409,30 @@ Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
 {\LinesNumbered\SetAlgoNoLine\
 \begin{algorithm}[H]
 \SetKwRepeat{Do}{do}{while}%
-$T \leftarrow$ pseudonáhodné řešení\;
+$T \leftarrow$ pseudorandom solution\;
 $T' \leftarrow T$\;
-$G* = 0$\;
 $k = 0$\;
-$i = 1$\;
-$t_1 =$ any node\;
-$t_2 =$ any node connected to $t_1$\;
-$x_1 = (t_1, t_2)$\;
-$t_{enclosing} = t_2$\;
-\Do {$f(T') > f(T)$}
-{
-find pair $y_i = (t_{2i}, t_{2i+1}), x_{i+1} = (t_{2i+1}, t_{2i+2})$ for which:
-{\begin{itemize}
-\item[a)] $y_i \notin \{x_1, x_2,... x_i\}$ and $x_{i+1} \notin \{y_1, y_2,... y_i\}$
-\item[b)] $T - \{x_1, x_2,... x_i\} \cup \{y_1, y_2,... y_i\}$ is a tour
-\item[c)] $|x_{i+1}| - |y_i|$ is maximal between such pairs
-\end{itemize}}
-$i \leftarrow 0$\;
-$T \leftarrow T'$\;
-\While {improvement can be found}
+$i = 0$\;
+$G^* = 0$ \tcp*[h]{best improvement}\;
+\Do {$G^* > 0$}
 {
 $i \leftarrow i + 1$\;
-$(x_i, y_i) \leftarrow$ best pair for exchange\;
-$G_i \leftarrow$ celkový zisk pro $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$\;
+find pair $x_{i} = (t_{2i-1}, t_{2i}), y_i = (t_{2i}, t_{2i+1})$ for which:
+{\begin{itemize}
+\item[a)] $x_{i} \notin \{y_1, y_2,... y_i\}$ and  $y_i \notin \{x_1, x_2,... x_i\}$ 
+\item[b)] $T - \{x_1, x_2,... x_i\} \cup \{y_1, y_2,... y_i\}$ is a tour
+\item[c)] $|x_{i}| - |y_i|$ is maximal between such pairs
+\end{itemize}}
+\If {no $x_{i}, y_i$ were found}
+	{\textbf{break}\;}
+\If {$G_{i-1} + c_{t_{2i},t_1} > G^*$}
+	{$k \leftarrow i$\;
+	 $G^* = G_{i-1} + c_{t_{2i},t_1}$\;}
+\If {$G_i \le G^*$}
+	{\textbf{break}\;}
 }
-$k \leftarrow i$, where $G_i$ is max \tcp*[h]{(definition of $G_i$ is below)}\;
 $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
-}
-\Return \;
+\Return $T'$\;
 \caption{Keringhan - Lin algoritmus pro TSP}
 \end{algorithm}}\leavevmode\newline
 

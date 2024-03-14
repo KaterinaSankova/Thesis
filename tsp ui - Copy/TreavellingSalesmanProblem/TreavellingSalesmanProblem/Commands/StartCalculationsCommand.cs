@@ -294,6 +294,7 @@ namespace TSP.Commands
                         default:
                             throw new Exception("Invalid algorithm type.");
                     }
+
                     TourSerializer.SerializePath(result.Path, outputFolder, outputName);
                 }
             }

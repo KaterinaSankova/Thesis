@@ -30,7 +30,7 @@ namespace TravellingSalesmanProblem.Formats
 
             Node? currNode;
 
-            foreach (var line in nodeSection.Replace("\r\n", "\n").Trim().Split('\n'))
+            foreach (var line in nodeSection.Replace("\r\n", "\n").Trim().Split(new char[] {'\n', ' ', '\t'}, StringSplitOptions.RemoveEmptyEntries))
             {
                 if (string.IsNullOrEmpty(line))
                     continue;

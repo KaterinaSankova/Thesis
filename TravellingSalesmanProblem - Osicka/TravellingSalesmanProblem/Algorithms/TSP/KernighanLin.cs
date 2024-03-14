@@ -28,7 +28,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         private Node? startingNode;
         private Node? enclosingNode;
-        
+
         public Path FindShortestPath(Graph graph)
         {
             if (graph.nodes.Count < 4)
@@ -118,7 +118,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         investigatedNode3 = currentPath.Next();
                         investigatedNode4 = currentPath.PeekPrev();
                         nextPairValues.Add(
-                            (investigatedNode3, investigatedNode4, currentPath.PeekNext(), investigatedNode3.Distance(investigatedNode4) - node2.Distance(investigatedNode3))
+                            (investigatedNode3, investigatedNode4, currentPath.PeekNext(), brokenEdge1.Length - node2.Distance(investigatedNode3) + investigatedNode3.Distance(investigatedNode4))
                             );
                     }
                     var orderedNextPairs = nextPairValues.OrderByDescending(v => v.Value).ToList();
@@ -182,6 +182,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             UpdateShortestPath(latestPath);
             enclosingNode = node4;
 
+            if (partialSum < improvement)
+                return false;
+
             RestoreState(i);
 
             latestPath.SetStartingPoint(enclosingNode, startingNode, Direction.Backwards);
@@ -199,12 +202,12 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                 investigatedNode6 = latestPath.PeekPrev();
                 if (!addedEdges.Contains(new(investigatedNode5, investigatedNode6)))
                 {
-                    pairImprovement = investigatedNode5.Distance(investigatedNode6) - enclosingNode.Distance(investigatedNode5);
+                    pairImprovement = brokenEdge2.Length - node4.Distance(investigatedNode5) + investigatedNode5.Distance(investigatedNode6);
                     if (pairImprovement > 0)
                     {
                         pairValues.Add((investigatedNode5, investigatedNode6, pairImprovement));
                     }
-                }                    
+                }
                 investigatedNode5 = latestPath.Next();
             }
             var orderedPairValues = pairValues.OrderByDescending(v => v.Value).ToList();
@@ -251,7 +254,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             AlterBrokenEdge2(node2, node3, node4, latestPath, i);
 
-            if (improvement > 0)
+            if (improvement > partialSum)
             {
                 return true;
             }
@@ -317,7 +320,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             nextExchangePairs = nextExchangePairs.OrderByDescending(p => p.Gain).ToList();
 
-            
+
             if (nextExchangePairs.Count == 0)
             {
                 latestPath.SetStartingPoint(pair1Node1, pair1Node2, Direction.Backwards);
@@ -378,6 +381,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
                 UpdateShortestPath(currentPath);
                 UpdateLocalOptimum(currentPath);
+
+                if (partialSum < improvement)
+                    return false;
 
                 this.enclosingNode = pair2Node2;
 
@@ -529,6 +535,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                     UpdateShortestPath(currentPath);
                     UpdateLocalOptimum(currentPath);
 
+                    if (partialSum < improvement)
+                        return false;
+
                     this.enclosingNode = pair3Node2;
 
                     ImprovePathFromNode(pair3Node2, pair3BrokenEdge, currentPath, i + 1);
@@ -544,34 +553,47 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
         private void ImprovePathFromNode(Node fromNode, Edge lastBrokenEdge, KernighanLinPath latestPath, int i)
         {
+            (bool KeepImproving, Node FromNode, Edge LastBrokenEdge, KernighanLinPath Path) result = (true, fromNode, lastBrokenEdge, latestPath);
+
+            while (result.KeepImproving)
+            {
+                result = ImprovePathFromNodeIter(result.FromNode, result.LastBrokenEdge, result.Path, i);
+                i++;
+            }
+        }
+
+        private (bool KeepImproving, Node? FromNode, Edge? LastBrokenEdge, KernighanLinPath? Path) ImprovePathFromNodeIter(Node fromNode, Edge lastBrokenEdge, KernighanLinPath latestPath, int i)
+        {
             latestPath.SetStartingPoint(enclosingNode, startingNode, Direction.Backwards);
-            
-            (Node? Node, Node? NextNode, double Value) nextPair = (null, null, double.MaxValue);
-            List<(Node Node, Node NextNode, double Value)> nodesValues = new();
+
+            List<(Node Node, Node NextNode, double LastPairImprovement)> nextPairs = new();
             var stoppingNode = latestPath.PeekBefore(2);
-            Node investigatedNodes = latestPath.Next();
+            Node investigatedNode = latestPath.Next();
             Node? investigatedNextNode = null;
             double nextPairImprovement;
-            while (investigatedNodes != stoppingNode)
+            while (investigatedNode != stoppingNode)
             {
-                investigatedNodes = latestPath.Next();
-                if (brokenEdges.Contains(new(fromNode, investigatedNodes)))
+                investigatedNode = latestPath.Next();
+                if (brokenEdges.Contains(new(fromNode, investigatedNode)))
                     continue;
-                if (goodEdges.Contains(new(fromNode, investigatedNodes)))
+                if (goodEdges.Contains(new(fromNode, investigatedNode)))
                     continue;
                 investigatedNextNode = latestPath.PeekPrev();
-                if (!addedEdges.Contains(new(investigatedNodes, investigatedNextNode)))
+                if (!addedEdges.Contains(new(investigatedNode, investigatedNextNode)))
                 {
-                    nextPairImprovement = investigatedNodes.Distance(investigatedNextNode) - enclosingNode.Distance(investigatedNodes);
-                    if (nextPair.Value > nextPairImprovement)
+                    nextPairImprovement = lastBrokenEdge.Length - fromNode.Distance(investigatedNode);
+                    if (nextPairImprovement > partialSum)
                     {
-                        nextPair = (investigatedNodes, investigatedNextNode, nextPairImprovement);
+                        nextPairs.Add((investigatedNode, investigatedNextNode, nextPairImprovement));
                     }
                 }
             }
 
-            if (nextPair.Node == null)
-                return;
+            if (nextPairs.Count == 0)
+                return (false, null, null, null);
+
+            //var nextPair = nextPairs.OrderBy(p => p.LastPairImprovement).Take(5).MaxBy(p => p.Node.Distance(p.NextNode) - fromNode.Distance(p.Node));
+            var nextPair = nextPairs.MaxBy(p => (p.Node.Distance(p.NextNode) - fromNode.Distance(p.Node)) + p.LastPairImprovement);
 
             var currentPath = latestPath.ToPath();
             enclosingNode = fromNode;
@@ -580,19 +602,22 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             Edge nextBrokenEdge = new(nextPair.Node, nextPair.NextNode);
 
             if (!UpdatePartialSum(lastBrokenEdge.Length, addedEdge.Length))
-                return;
+                return (false, null, null, null);
 
             brokenEdges.Add(lastBrokenEdge);
             addedEdges.Add(addedEdge);
 
             currentPath.ReconnectEdges(startingNode, enclosingNode, nextPair.Node, nextPair.NextNode);
-            
+
             UpdateShortestPath(currentPath);
             UpdateLocalOptimum(currentPath);
 
             enclosingNode = nextPair.NextNode;
 
-            ImprovePathFromNode(nextPair.NextNode, nextBrokenEdge, currentPath, i+1);
+            if (partialSum < improvement)
+                return (false, null, null, null);
+
+            return (true, nextPair.NextNode, nextBrokenEdge, currentPath);
         }
 
         private bool IsNodeCheckedOut(Node node)
@@ -614,7 +639,7 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
         private Node[] FindNode2(Node node)
         {
             int nodeIndex = path.IndexOf(node);
-            var nodes2 = new Node[2] { path.PeekPrev(nodeIndex), path.PeekNext(nodeIndex)};
+            var nodes2 = new Node[2] { path.PeekPrev(nodeIndex), path.PeekNext(nodeIndex) };
 
             if (node.Distance(nodes2[1]) > node.Distance(nodes2[0]))
                 (nodes2[0], nodes2[1]) = (nodes2[1], nodes2[0]);
