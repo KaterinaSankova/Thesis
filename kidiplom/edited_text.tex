@@ -51,6 +51,7 @@
 \usepackage{cancel}
 \usepackage{adjustbox}
 \usepackage{algorithmicx}
+\usepackage{tabto}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -251,19 +252,24 @@ $$OPT_{TSP}(r(x)) = \begin{cases}
 
 Uvědomme si, že hrany s cenou $|V|\cdot2^{|V|}$ budou obsaženy v optimálním řešení pouze v případě, kdy nelze sestavit hamiltonovskou kružnici z hran původního grafu. Pokud musela být vybrána pouze jedna taková hrana, pak bude cena nalezené cesty $$(|V| - 1) + (|V|\cdot2^{|V|} + 1) > |V|\cdot2^{|V|}$$
 
-Díky takovému ohodnocení existuje tedy exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pokud bychom měli $2^n$\textendash aproximační polynomiální algoritmus $A$ pro TSP, pak pro pozitivní instance HC by našel cestu délky nejhůře $|V|\cdot2^{|V|}$, pro negativní instance zase nejlépe délky $|V|\cdot2^{|V|} + 1$.
+Díky takovému ohodnocení existuje tedy exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pokud bychom měli $2^n$\textendash aproximační polynomiální algoritmus $A$ pro TSP, pak pro pozitivní instance HC by našel cestu délky nejhůře $|V|\cdot2^{|V|}$, pro negativní instance zase nejlépe délky $(2^{|V|} + 1) \cdot |V|$.
 
 HC bychom mohli vyřešit tak, že bychom spustili $A$ na $r(x)$ a pokud by délka vrácené cesty byla menší nebo rovna $|V|\cdot2^{|V|}$, pak bychom vrátili \textsc{Ano}, v opačném případě \textsc{Ne}. Vzhledem k tomu, že převod na $r(x)$, $A$ i porovnání na konci běží v polynomiálním čase, pak bychom celý HC mohli rozhodnout v polynomiálním čase. Uvedli jsme navíc, že HC je \textbf{NP}\textendash úplný. V kapitole o složitosti jsme řešili, že nalezení polynomiálního algoritmu pro kterýkoli z problémů této množiny by znamenalo, že $\textbf{N} = \textbf{NP}$.
 
-\subsection{Metrický problém obchodního cestujícího}
-TSP může být žádané také omezit jiným způsobem. Pokud přidáme sna hranové ohodnocení podmínku, že musí platit trojúhelníková nerovnost, tedy $\forall u, v, w \in V$ platí $$c_{u, v} + c_{v, w} \ge c_{w, u}$$
-pak dostaneme \textit{metrický TSP}.
+\subsection{Podproblémy TSP}
+Z předchozí podkapitoly je vidět, že TSP je v obecném případě těžké i aproximovat. Přidáním jistých omezení na problém můžeme aproximační faktor výrazně snížit a často nám takové typy problémů pro reálné použití dostačují.
 
-\subsection{Euklidovský problém obchodního cestujícího}
+\subsubsection{Metrický problém obchodního cestujícího}
+Prvním takovým omezením je, že pro délky hran musí platit trojúhelníková nerovnost. Tedy $\forall u, v, w \in V$ platí $$c_{u, v} + c_{v, w} \ge c_{w, u}$$
+Takovému problému se říká \textit{metrický TSP}.
+
+\subsubsection{Euklidovský problém obchodního cestujícího}
 Přísnější podmínkou pak může být definice délky jako euklidovské vzdálenosti. Ta je pro vrcholy $u, v \in V$ se souřadnicemi $u = (u_1, u_2, \cdots, u_n)$, $v = (v_1, v_2, \cdots, v_n)$ definována
 $$
 c_{u, v} = \sqrt{\sum_{i=1}^{n} (u_i - v_i)^2}
 $$
+Jelikož při takovém ohodnocení bude jistě platiti i trojúhelníková nerovnost, pak je euklidovský TSP podproblémem metrického TSP.
+
 \pagebreak
 \section{Algoritmy}
 Jak bylo již zmíněno, TSP je řešitelný v polynomiálním čase pouze nedeterministickými stroji. U deterministických (klasických) strojů je složitost exponenciální. Z toho ale vyplývá, že bychom se pro větší vstupy nemuseli v reálném čase dočkat odpovědi. Z tohoto důvodu se pro hledání řešení používají tzv. \textit{heuristiky}. Při jejich použití se nemůžeme spolehnout, že najdeme optimální řešení. Jsme ale schopni nalézt přibližné řešení v reálném čase.
@@ -292,13 +298,12 @@ $unvisitedCities.Remove(l)$\;
 \end{algorithm}}\leavevmode\newline
 
 Ukažme si jednoduchý příklad chodu algoritmu.
-
 \begin{figure}[H]
     \begin{example}
     \leavevmode\newline
         \begin{subfigure}{0.45\textwidth}
             \centering
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
                 % Define the coordinates of the points
                 \coordinate (a) at (3.25,10.5);
                 \coordinate (b) at (2.75,11);
@@ -313,12 +318,11 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                 \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
             \end{tikzpicture}
-            \caption{}\label{tikzpicture:naExampleA}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.45\textwidth}
             \centering
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
                 % Define the coordinates of the points
                 \coordinate (a) at (3.25,10.5);
                 \coordinate (b) at (2.75,11);
@@ -334,14 +338,13 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
     
             \end{tikzpicture}
-            \caption{}\label{tikzpicture:naExampleB}
         \end{subfigure}
         
-        \vspace{15pt}
+        \vspace{30pt}
         
         \begin{subfigure}{0.45\textwidth}
             \centering
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
                 % Define the coordinates of the points
                 \coordinate (a) at (3.25,10.5);
                 \coordinate (b) at (2.75,11);
@@ -355,12 +358,11 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                 \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
             \end{tikzpicture}
-            \caption{}\label{tikzpicture:naExampleC}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.45\textwidth}
             \centering
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
                 % Define the coordinates of the points
                 \coordinate (a) at (3.25,10.5);
                 \coordinate (b) at (2.75,11);
@@ -375,7 +377,6 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
     
             \end{tikzpicture}
-            \caption{}\label{tikzpicture:naExampleD}
         \end{subfigure}
     \end{example}
     \caption{Nearest addition příklad}
@@ -408,7 +409,7 @@ $unvisitedCities.Remove(l)$\;
 
 Z pseudokódu je jasné, že hrany nalezené Primovým algoritmem i~\mbox{nearest}~\mbox{addition} algoritmem budou totožné.
 
-Zůstaňme ještě chvíli u kostry grafy a jejím vztahu k cestě nalezené TSP algoritmy.
+Zůstaňme ještě chvíli u kostry grafy a jejím vztahu k cestě nalezené TSP~algoritmy.
 
 \begin{lemma}\label{lemma:MSP}
 Pro libovolný vstup TSP je cena jeho optimální cesty alespoň tak vysoká, jako je cena minimální kostry pro tentýž vstup.
@@ -482,7 +483,7 @@ Vezměme si jako vstup $(n - 1)$-cípou hvězdu s jedním vrcholem ve svém stř
 
 \begin{figure}[H]
     \begin{center}
-		\begin{tikzpicture}[scale=0.8]
+		\begin{tikzpicture}[scale=0.7]
  			 % Set the radius of the imaginary circle
  	 		\def\radius{2cm}
   
@@ -499,7 +500,7 @@ Vezměme si jako vstup $(n - 1)$-cípou hvězdu s jedním vrcholem ve svém stř
  	 		\draw (t0) -- (t5);
 		\end{tikzpicture}
 		\hspace{75pt}
-		\begin{tikzpicture}[scale=0.8]
+		\begin{tikzpicture}[scale=0.7]
  			 % Set the radius of the imaginary circle
  	 		\def\radius{2cm}
   
@@ -520,7 +521,7 @@ Cena hran napravo je shora omezená právě dva, protože musí platit trojúhel
 
 \begin{figure}[H]
     \begin{center}
-		\begin{tikzpicture}[scale=0.8]
+		\begin{tikzpicture}[scale=0.7]
  			 % Set the radius of the imaginary circle
  	 		\def\radius{2cm}
   
@@ -532,7 +533,7 @@ Cena hran napravo je shora omezená právě dva, protože musí platit trojúhel
  	 		\draw (t5) -- (t1) -- (t2) -- (t3) -- (t4) -- (t0) -- (t5);
 		\end{tikzpicture}
 		\hspace{75pt}
-		\begin{tikzpicture}[scale=0.8]
+		\begin{tikzpicture}[scale=0.7]
  			 % Set the radius of the imaginary circle
  	 		\def\radius{2cm}
   
@@ -654,7 +655,7 @@ vytvoř seznam $path$\;
 \begin{figure}[H]
     \begin{example}
     \leavevmode\newline
-    \begin{tikzpicture}[scale=1.2]
+    \begin{tikzpicture}[scale=1]
 		% Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -675,7 +676,7 @@ vytvoř seznam $path$\;
         \node[below, white] at (current bounding box.south) {a, b, c, d, e};
      \end{tikzpicture}
      \hfill
-     \begin{tikzpicture}[scale=1.2]
+     \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -703,7 +704,7 @@ vytvoř seznam $path$\;
         \node[below] at (current bounding box.south) {c, b, a, b, d, e, d, b, c};
       \end{tikzpicture}
       \hfill
-      \begin{tikzpicture}[scale=1.2]
+      \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -739,11 +740,11 @@ Double-tree je 2-aproximační algoritmus.
 \subsubsection{Tight example}
 Jako příklad vstupu, pro který double-tree algortimus najde cestu délky $2OPT$ můžeme vzít vstup z kapitoly \ref{tightExample:NA} o nearest addition algoritmu. Jelikož mají oba algoritmy stejný aproximační faktor, pak stačí ukázat, že se můžeme double-tree algoritmem dostat ke stejné cestě jako v již zmíněné předchozí kapitole.
 
-U takového vstupu může být nalezena následná minimální kostra. V grafu se zdvojenými hranami, pak můžeme uvažovat eulerovský průchod 0, 4, 0, 2, 0, 5, 0, 3, 0, 1, 0, ze kterého zkrácením dostaneme cestu 0, 4, 2, 5, 3, 1, 0, což je stejná cesta jakou jsme nalezli algoritmem nearest addition.
+U takového vstupu může být nalezena následná minimální kostra.
 
 \begin{figure}[H]
     \begin{center}
-		\begin{tikzpicture}[scale=0.8]
+		\begin{tikzpicture}[scale=0.7]
  			 % Set the radius of the imaginary circle
  	 		\def\radius{2cm}
   
@@ -762,19 +763,21 @@ U takového vstupu může být nalezena následná minimální kostra. V grafu s
     \end{center}
 \end{figure}
 
+V grafu se zdvojenými hranami, pak můžeme uvažovat eulerovský průchod 0,~4, 0, 2, 0, 5, 0, 3, 0, 1, 0, ze kterého zkrácením dostaneme cestu 0, 4, 2, 5, 3, 1, 0, což je stejná cesta jakou jsme nalezli algoritmem nearest addition.
+
 \subsection{Christofides'}
-Christofidesův algoritmus je velice podobný double-tree algoritmu. Opět začneme s minimální kostrou vstupního grafu. Existenci eulerovského průchodu ale zajistíme chytřeji. Připomeňme si, že eulerovský průchod se v grafu nachází právě tehdy, když mají všechny jeho uzly sudý stupeň. V double-tree algoritmu jsme tuto podmínku splnili tak, že jsme zdvojili každou hranu kostry. To je ovšem redundantní. Postačí, když spárujeme takové její uzly, které mají lichý stupeň.
+Christofidesův algoritmus je velice podobný double-tree algoritmu. Opět \mbox{začneme} s minimální kostrou vstupního grafu. Existenci eulerovského průchodu ale~\mbox{zajistíme} o něco chytřeji. Připomeňme si, že eulerovský průchod se v grafu nachází právě tehdy, když mají všechny jeho uzly sudý stupeň. V double-tree algoritmu jsme tuto podmínku splnili tak, že jsme zdvojili každou hranu kostry. To je ovšem redundantní. Postačí, když spárujeme takové její uzly, které mají lichý stupeň.
 
-Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy jeho minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude $\forall v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. Na množině jich samozřejmě může být více. Pro naše účely bude jistě nejlepší hledat takovou z nich, která budeme mít minimální součet délek všech svých hran, tedy \textit{minimální perfektní párování}.
+Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy jeho minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude $\forall v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. Na~\mbox{množině} jich samozřejmě může být více. Pro naše účely bude jistě nejlepší hledat takovou z nich, která budeme mít minimální součet délek všech svých hran, tedy \textit{minimální perfektní párování}. K jeho nalezení se v programu používá C++ knihovna Vladimira Kolmogorova, která implementuje $Blossom~V$ algoritmus.
 
-Uvědomme si ale, že aby takové párování pro $O$ existovalo, tak musí být $|O|$ sudé. Víme, že součet stupňů všech uzlů v neorientovaném grafu je sudé číslo (viz Věta \ref{theorem:degree}). Označme si množinu všech vrcholů grafu $V$ a množinu vrcholů se sudým stupněm $E$. Jistě platí
+Uvědomme si ale, že aby takové párování pro $O$ existovalo, tak musí být $|O|$ sudé. Víme, že součet stupňů všech uzlů v neorientovaném grafu je sudé číslo (viz Věta \ref{theorem:degree}). Označme si množinu všech vrcholů grafu $V$ a množinu vrcholů se~sudým stupněm $E$. Jistě platí
 $$
 \sum_{v \in V} deg(v) = \sum_{v \in E} deg(v) + \sum_{v \in O} deg(v)
 $$
 
 $\sum_{v \in V} deg(v)$ je ale určitě sudé a to samé platí pro $\sum?_{v \in E}$, tedy $\sum_{v \in O} deg(v)$ musí být také sudý. Vzhledem k tomu, že každý vrchol přispívá do součtu lichým číslem, pak musí být sudý jejich počet.
 
-Přidáním minimálního perfektního párování k minimální kostře zvýšíme stupeň každého vrcholu s lichým stupněm právě o jedna, tudíž zajistíme, že všechny uzly budou mít sudý stupeň. V takovém grafu pak existuje uzavřený eulerovský tah. Po jeho nalezení už jen zkracujeme cestu stejným způsobem jako u double-tree algoritmu.\leavevmode\newline
+Přidáním minimálního perfektního párování k minimální kostře zvýšíme stupeň každého vrcholu s lichým stupněm právě o jedna, tudíž zajistíme, že~všechny uzly budou mít sudý stupeň. V takovém grafu pak existuje uzavřený eulerovský tah. Po jeho nalezení už jen zkracujeme cestu stejným způsobem jako u double-tree algoritmu.\leavevmode\newline
 
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
@@ -798,7 +801,7 @@ vytvoř seznam $path$\;
 \begin{figure}[H]
     \begin{example}
     \leavevmode\newline
-    \begin{tikzpicture}[scale=1.2]
+    \begin{tikzpicture}[scale=1]
 		% Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -820,7 +823,7 @@ vytvoř seznam $path$\;
         \node[below, white] at (current bounding box.south) {a, b, c, d, e};
      \end{tikzpicture}
      \hfill
-     \begin{tikzpicture}[scale=1.2]
+     \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -844,7 +847,7 @@ vytvoř seznam $path$\;
         \node[below] at (current bounding box.south) {a, b, d, e, b, c, a};
       \end{tikzpicture}
       \hfill
-      \begin{tikzpicture}[scale=1.2]
+      \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -879,7 +882,7 @@ vytvoř seznam $path$\;
 
 \begin{figure}[H]
     \leavevmode\newline
-    \begin{tikzpicture}[scale=1.2]
+    \begin{tikzpicture}[scale=1]
 		% Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -899,7 +902,7 @@ vytvoř seznam $path$\;
         \fill[blue] (e) circle (2.5pt) node[label={above:e}] {};
      \end{tikzpicture}
      \hfill
-     \begin{tikzpicture}[scale=1.2]
+     \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -920,7 +923,7 @@ vytvoř seznam $path$\;
         \fill (e) circle (2.5pt) node[label={above:e}] {};
       \end{tikzpicture}
       \hfill
-      \begin{tikzpicture}[scale=1.2]
+      \begin{tikzpicture}[scale=1]
 		 % Define the coordinates of the points
 		\coordinate (a) at (0,1);
 		\coordinate (b) at (1,0.75);
@@ -954,7 +957,7 @@ Vezměme si následující vstup, kde mají vyznačené hrany délku 1.
 
 \begin{figure}[H]
     \begin{center}
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
 			% Define the coordinates of the points
 			\coordinate (a) at (0,0);
 			\coordinate (b) at (2,0);
@@ -986,7 +989,7 @@ Bude-li nalezena minimální kostra grafu zobrazená černými hranami na obráz
 
 \begin{figure}[H]
         \begin{center}
-            \begin{tikzpicture}[scale=1.2]
+            \begin{tikzpicture}[scale=1]
 			% Define the coordinates of the points
 			\coordinate (a) at (0,0);
 			\coordinate (b) at (2,0);
@@ -1048,9 +1051,9 @@ $T' \leftarrow$ $T$\;
 \end{algorithm}
 }\leavevmode\newline
 
-Vraťme se ještě ke zmíněnému koeficientu $k$. Jednou z možností, jak nad $k$ uvažovat je jako na předem zvolené číslo. Toho pro řešení TSP využil A. Croes s $k = 2$ a později S. Lin s $k = 3$. Tento přístup s sebou nese jistá úskalí a to hlavně správnou volbu $k$. S narůstající hodnotou se výrazně zvyšuje i výpočetní čas, ale přirozeně dostáváme lepší řešení. Zjistit pak, jaké číslo nám zajistí dostatečně dobré výsledky ve schůdném čase, je náročné.
+Vraťme se ještě ke zmíněnému koeficientu $k$. Jednou z možností, jak nad $k$ uvažovat je jako na předem zvolené číslo. Toho pro řešení TSP využil A. Croes s~$k = 2$ a později S. Lin s $k = 3$. Tento přístup s sebou nese jistá úskalí a to hlavně správnou volbu $k$. S narůstající hodnotou se výrazně zvyšuje i výpočetní čas, ale~přirozeně dostáváme lepší řešení. Zjistit pak, jaké číslo nám zajistí dostatečně dobré výsledky ve schůdném čase, je náročné.
 
-Tomu to problému se můžeme vyhnout tím, že $k$ nebude mít žádnou fixní hodnotu. Takového způsobu využijeme my. Jelikož $k$ nebude známé, nemůžeme již jednoduše uvažovat všechny podmnožiny $T$ o velikosti $k$, jako u předchozí varianty, ale budeme iterativně hledat vždy nejvýhodnější $x_i$ a $y_i$ pro výměnu.
+Tomuto problému se můžeme vyhnout tím, že $k$ nebude mít žádnou pevně danou hodnotu. Takového způsobu se bude využívat v naší podobě algoritmu. Jelikož $k$ nebude známé, nemůžeme již jednoduše uvažovat všechny podmnožiny $T$ o velikosti $k$, jako u předchozí varianty. Na místo toho budeme iterativně hledat vždy nejvýhodnější $x_i$ a $y_i$ pro výměnu, budeme si zaznamenávat, pro jaké $i$ byl zisk nejvyšší a až když žádné zlepšení nebude moct být nalezeno, vyměníme příslušné množiny.
 \newline
 
 {\LinesNumbered\SetAlgoNoLine\
@@ -1075,26 +1078,26 @@ $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 \end{algorithm}
 }\leavevmode\newline
 
-
+\leavevmode\newline\leavevmode\newline
 Pro takový přístup vyvstává pár pravidel a otázek, které si budeme muset zodpovědět.
 
 Prvním pravidlem je \textit{pravidlo disjunkce}. Budeme požadovat, aby množiny $\{x_1, x_2, ..., x_k\}$ a $\{y_1, y_2, ..., y_k\}$ nesdílely žádné prvky a zbytečně jsme opakovaně neprozkoumávali záměny, které nevedou ke zlepšení.
 
-Druhé pravidlo vyplývá z variability $k$. Jelikož nevíme, pro jaké $i$ budeme chtít výměnu provést, musíme vědět, že po každé výměně $\{x_1, x_2, ..., x_i\}$ za $\{y_1, y_2, ..., y_i\}$ dostaneme platné řešení. Podmínce, která musí být splněna, aby pravidlo platilo budeme říkat \textit{podmínka proveditelnosti}.
+Druhé pravidlo vyplývá z variability $k$. Jelikož nevíme, pro jaké $i$ budeme chtít výměnu provést, musíme vědět, že po každé výměně $\{x_1, x_2, ..., x_i\}$ za~$\{y_1, y_2, ..., y_i\}$ dostaneme platné řešení. Podmínce, která musí být splněna, aby~pravidlo platilo budeme říkat \textit{podmínka proveditelnosti}.
 
-Z pseudokódu uvedeného výše není zřejmé ještě pár věcí. Nejzřejmější je, jak identifikovat pár s největším ziskem. Potřebujeme najít takové \textit{pravidlo výběru}, které bude rychlé a zároveň co nejefektivnější.
+Z pseudokódu uvedeného výše není zřejmé ještě pár věcí. Nejzřejmější je, jak~identifikovat pár s největším ziskem. Potřebujeme najít takové \textit{pravidlo výběru}, které bude rychlé a zároveň co nejefektivnější.
 
-Další neznámou je funkce $G_i$. Tato funkce udává celkový zisk pro aktuálně nalezené prvky. Určíme-li $g_i$ jako zisk pro $(x_i, y_i)$, pak nejsnazším řešením je za $G_i$ uvažovat $g_1 + g_2 + ... + g_i$. Tímto se také vyhneme tomu, že bychom přestali hledat v momentu, kdy bychom nalezly pár se zápornou hodnotou $g_i$.
+Další neznámou je funkce $G_i$. Tato funkce udává celkový zisk pro aktuálně nalezené prvky. Určíme-li $g_i$ jako zisk pro $(x_i, y_i)$, pak nejsnazším řešením je za~$G_i$ uvažovat $g_1 + g_2 + ... + g_i$. Tímto se také vyhneme tomu, že bychom přestali hledat v momentu, kdy bychom nalezly pár se zápornou hodnotou $g_i$. U~této funkce budeme požadovat, aby dávala vždy kladné hodnoty, čili-že abychom se nevydávali po cestách, které nám nedávají žádný zisk. Tomuto požadavku budeme říkat \textit{pravidlo zisku}.
 
-Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrý balanc mezi schůdným výpočetním časem a prozkoumáváním dostatku příležitostí.
+Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k~dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrý balanc mezi schůdným výpočetním časem a prozkoumáváním dostatku příležitostí.
 
 \subsubsection{Keringhan - Lin pro TSP}
-Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za množinu $S$ můžeme brát všechny hrany úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subseteq S$, aby $T$ byla řešením problému, jistě bude, že hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
+Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za~množinu $S$ můžeme brát všechny hrany úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subseteq S$, aby $T$ byla řešením problému, jistě bude, že~hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
 
 Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat pro TSP. Jeho jádrem je sekvenční hledání párů hran, kde první v původním řešení zrušíme a druhou do nového přidáme. Co je myšleno sekvenčním hledání si nejprve ilustrujeme následujícím obrázkem.
 
 \begin{center}
-	\begin{tikzpicture}[baseline]
+	\begin{tikzpicture}[baseline, scale=0.9]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
@@ -1118,7 +1121,8 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
   
 	 \draw[dotted, red] (t2) to[out=95,in=-35] node[midway, right] {$x_1$} (t1);
 	\end{tikzpicture}
-	\begin{tikzpicture}[baseline]
+	\hspace{25pt}
+	\begin{tikzpicture}[baseline, scale=0.9]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
@@ -1144,7 +1148,8 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
   
 	 \draw[green!70!black] (t2) to[] node[near start, above] {$y_1$} (t3);
 	\end{tikzpicture}
-	\begin{tikzpicture}[baseline]
+	
+	\begin{tikzpicture}[baseline, scale=0.9]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
@@ -1169,7 +1174,8 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
 	 \draw[green!70!black] (t2) to[] node[near start, above] {$y_1$} (t3);
  	 \draw[green!70!black] (t4) to[] node[midway, right] {$y_2$} (t5);
 	\end{tikzpicture}
-	\begin{tikzpicture}[baseline]
+	\hspace{25pt}
+	\begin{tikzpicture}[baseline, scale=0.9]
  	 % Set the radius of the imaginary circle
  	 \def\radius{2cm}
  	 % Define the array of labels
@@ -1200,9 +1206,15 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
 
 Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak přidaná hrana s ní bude druhý bod sdílet, tedy $y_i = (t_{i+1}, t_{i+2})$, a následně zrušená hrana bude mít zase tvar $x_{i+1} = (t_{i+2}, t_{i+3})$. Poslední přidaná hrana potom bude $y_k = (t_{2i}, t_1)$.
 
-Další podmínky kladené na vybírané hrany jsou již zmíněné \textit{pravidlo disjunkce}, kde $\{x_1, x_2, ... x_k\} \cap \{y_1, y_2, ... y_k\} = \emptyset$, \textit{podmínka proveditelnosti} a námi určené \textit{pravidlo výběru}.
+\hspace{6.5mm}Další podmínky kladené na vybírané hrany jsou již zmíněné \textit{pravidlo disjunkce}, kde $\{x_1, x_2, ... x_k\} \cap \{y_1, y_2, ... y_k\} = \emptyset$, \textit{podmínka proveditelnosti} a námi určené \textit{pravidlo výběru}.
 
-Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, že po přidání hrany $y_k = (t_{2i}, t_1)$ nám vznikne znovu cesta. V implementaci knihovny je toto řešeno následovně. Při každé iteraci je k dispozici cesta, která vznikla záměnou $\{x_1, x_2, ... x_{i-1}\}$ za $\{y_1, y_2, ... y_{i-1}\}$. Navíc se ještě udržuje hodnota $t_1$ (ta se v průběhu nemění) a $t_{2(i-1)}$. Cestu znovu otevřeme odstraněním hrany $y_{i-1}~=~(t_1, t_{2(i-1)})$. Nová hrana $x_i = (t_{2i-1}, t_{2i})$ pak musí mít stejný směr jako hrana $(t_{2(i-1)}, t_1)$. Při obrácené orientaci by došlo k rozdělení grafu na dvě komponenty. Jelikož klademe podmínku, že hrany jsou hledané sekvenčně, tak přidaná hrana, pak bude mít tvar $y_{i-1} = (t_{2(i-1)}, t_{2i-1})$. Nakonec cestu opět uzavřeme přidáním hrany $y_i = (t_1, t_{2i})$.
+\hspace{6.5mm}Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, že po přidání hrany $y_k = (t_{2i}, t_1)$ nám vznikne znovu cesta. V implementaci knihovny je toto řešeno následovně.
+
+\hspace{6.5mm}Při každé iteraci je k dispozici cesta, která vznikla záměnou $\{x_1, x_2, ... x_{i-1}\}$ za $\{y_1, y_2, ... y_{enc}\}$. Navíc se ještě udržuje hodnota $t_1$ (ta se v průběhu nemění) a~$t_{2(i-1)}$.
+
+\hspace{6.5mm}Odstraněním $y_{enc} = (t_1, t_{2(i-1)})$ kružnici otevřeme. Nyní další rušená hrana $x_i = (t_{2i-1}, t_{2i})$ musí mít stejný směr jako hrana $(t_{2(i-1)}, t_1)$. Při obrácené orientaci by došlo k rozdělení grafu na dvě komponenty.
+
+\hspace{6.5mm}Jelikož klademe podmínku, že hrany jsou hledané sekvenčně, tak přidaná hrana, pak bude mít tvar $y_{i-1} = (t_{2(i-1)}, t_{2i-1})$. Nakonec cestu opět uzavřeme přidáním hrany $y_{enc} = (t_1, t_{2i})$.
 
 
 \begin{center}
@@ -1228,7 +1240,7 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
  	 
  	 \draw ({360/6 * (1.5 - 1)}:\radius) ;
   
- 	 \draw[->, >=open triangle 45] (t2) to[] node[near end, below right] {$y_{i-1}$} (t4);
+ 	 \draw[->, >=open triangle 45] (t2) to[] node[near end, below right] {$y_{enc}$} (t4);
  	 \draw[->, >=open triangle 45] (t1) to[] (t3);
  	 
 	\end{tikzpicture}
@@ -1293,7 +1305,7 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
  	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
   
  	 \draw (t2) to[] (t5);
- 	 \draw (t4) to[] node[near start, above] {$y_{i}$} (t6);
+ 	 \draw (t4) to[] node[near start, above=3pt] {$y_{enc}$} (t6);
  	 \draw (t3) to[] (t1);
  	 
 	\end{tikzpicture}
@@ -1324,7 +1336,7 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
  	 
  	 \draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
   
- 	 \draw[->, >=open triangle 45] (t4) to[] node[near start, below right] {$y_{i-1}$} (t2);
+ 	 \draw[->, >=open triangle 45] (t4) to[] node[near start, below right] {$y_{enc}$} (t2);
  	 \draw[->, >=open triangle 45] (t3) to[] (t1);
  	 
 	\end{tikzpicture}
@@ -1389,7 +1401,7 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
  	 %\draw ({360/6 * (1.5 - 1)}:\radius) node[above, right] {$x_{i-1}$};
   
  	 \draw (t2) to[] (t6);
- 	 \draw (t4) to[] node[midway, right] {$y_{i}$} (t5);
+ 	 \draw (t4) to[] node[midway, above right=2pt] {$y_{enc}$} (t5);
  	 \draw (t3) to[] (t1);
  	 
 	\end{tikzpicture}
@@ -1398,12 +1410,14 @@ Abychom mohli kdykoli s hledáním skončit, musíme pro každý pár ověřit, 
 
 Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany  $x_{i}$, $y_i$, pro které je $|x_i| - |y_{i}|$ mezi ostatními páry maximální. Právě tohoto \textit{pravidla výběru} se využívá.
 
-Problémem ale může být to, že v momentě, kdy vybereme takový pár, tak nebere v úvahu délku $x_{i+1}$. Tohle není ideální, protože $x_{i+1}$ může být výhodná hrana. Navíc se začneme omezovat na lokání informaci o nejbližším vrcholu k $t_{2i}$. Dobrou vylepšením algoritmu je tedy neposuzovat páry jen na základě rozdílu jejich délek, ale i délky $x_{i+1}$.
+\hspace{6.5mm}Problémem ale může být to, že v momentě, kdy vybereme takový pár, tak nebere v úvahu délku $x_{i+1}$. Tohle není ideální, protože $x_{i+1}$ může být výhodná hrana. Navíc se začneme omezovat na lokání informaci o nejbližším vrcholu k $t_{2i}$. Dobrou vylepšením algoritmu je tedy neposuzovat páry jen na základě rozdílu jejich délek, ale i délky $x_{i+1}$.
 
-Nakonec nám ještě zbývá určit, za jakých podmínek již se zkracováním cesty přestaneme. Jasnou podmínkou je, že nám dojdou páry, které by vyhovovaly \textit{pravidlu disjunkce} a \textit{podmínce proveditelnosti}. Abychom mohli podmínku zpřísnit, zavedeme si funkci udávající zisk z dosavadně vybraných párů.
+\hspace{6.5mm}Zbývá nám ještě definovat ziskovou funkci $G_i$. Snadno se nabízí následná definice
 $$G_i = \sum_{j=1}^{i}g_j = \sum_{j=1}^{i}{(|x_j| - |y_j|)}$$
 
-Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
+\hspace{6.5mm}Nakonec nám ještě musíme určit, za jakých podmínek již se zkracováním cesty přestaneme. Hledání přirozeně přestane, dojdou-li páry, které by vyhovovaly předešle definovaným podmínkám a pravidlům. Pro naši \textit{ukončovací podmínku} si zavedeme proměnnou $G^*$, která bude vyjadřovat největší nalezené zlepšení cesty. Uvědomme si, že $G^* \ne G_k$. Nejedná se totiž o zisk z vyměněných párů, ale o skutečné zkrácení cesty. Tuto hodnotu zjistíme pro $i$-tou iteraci následovně $G_{i-1} + |y_{enc}|$, kde $y_{enc}= (t_{2i}, t_1)$. Čili-že hrana $y_{enc}$ uzavírá cestu, kde je poslední odstraněnou hranou $x_i$. Samotná ukončovací podmínka pak bude $G_i \le G^*$.
+
+\hspace{6.5mm}Nyní už si můžeme ukázat upravenou verzi Keringhan - Lin pro TSP.
 \newline
 
 {\LinesNumbered\SetAlgoNoLine\
@@ -1436,10 +1450,318 @@ $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 \caption{Keringhan - Lin algoritmus pro TSP}
 \end{algorithm}}\leavevmode\newline
 
+Co pseudokód neukazuje je omezený backtracking, který se provádí v případě, že $G^* = 0$. V takovém případě se na první a druhé úrovni zkoušejí ostatní možnosti za jednotlivé hrany. Tedy nejdříve budeme zkoušet alternativní $y_2$ (postupně podle sestupné hodnoty $|x_2| - |y_2|$), ve chvíli, kdy jsou všechny možnosti vyčerpány, se zkusí použít alternativní $x_2$ (tento případ je složitější). Takto se pokračuje i se všemi $y_1$, $x_1$ a $t_1$. V momentě, kdy nám žádná ze záměn nepřinese zlepšení, algoritmus končí a vrátí upravenou cestu.
 
+\hspace{6.5mm}Zřejmě kdybychom prováděli takovýto backtracking na každé úrovni, tak bychom byli schopni nalézt optimální řešení. To by ale trvalo nesmírně dlouho. Najít zlatou střední cestu mezi optimalitou a rychlostí je klíčové. Experimenty ukazují, že nezkoušíme-li všechna $y_1$, $y_2$ tak za mírné zhoršení efektivity dostaneme o kratší výpočetní čas.
 
-\subsubsection{Random info}
-Rychlost cca $n ^ 2$
+\hspace{6.5mm}Vraťme se nyní ještě k problému s alternativní volbou $x_2$. Pro tuto hranu máme jistě dvě volby. Abychom mohli cestu uzavřít musí se $t_4$ nacházet mezi $t_2$ a $t_3$. V případě, že to tak není bychom cestu přidáním $y_{enc}$ místo uzavření rozdělili na dvě komponenty.
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above:$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above:$t_4'$}] {};
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[dotted, red, bend right=30, looseness=0.45] (t3) to[] node[above right] {$x_2$} (t4);
+ 	 \draw[bend right=30, looseness=0.45] (t4) to[] (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[bend right=30, looseness=0.45] (t8) to[] (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$}  (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[bend right=30, looseness=0.45] (t15) to[] (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, right] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t11) to[] node[near start , left] {$y_{enc}$} (t3);
+	\end{tikzpicture}
+	\hspace{50pt}
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[above] {$x_2'$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[bend right=30, looseness=0.45] (t8) to[] (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[midway, below] {$x_1$}  (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[bend right=30, looseness=0.45] (t15) to[] (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[midway , right] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t11) to[] node[midway , left] {$y_{enc}$} (t5);
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Problém alternativního $x_2$}\leavevmode\newline
+
+Abychom i přes to mohli použít druhou volbu $x_2$ svolíme na chvíli z podmínky proveditelnosti a budeme pokračovat v hledání hran následovně. První možností je vybrat $y_2$ tak, že $t_5$ leží mezi $t_3$ a $t_2$. $t_6$ pak může být na libovolné straně od $t_5$. V tuto chvíli je již možné cestu řádně uzavřít.
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+ 	 
+ 	 \draw ({360/16 * 14}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 14}:{$t_5$}] {};
+ 	 \draw ({360/16 * 15}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 15}:{$t_6$}] {};
+ 	 \draw ({360/16 * 16}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 16}:{$t_5'$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[midway, above] {$x_2'$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[bend right=30, looseness=0.45] (t8) to[] (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$}  (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[bend right=30, looseness=0.45] (t15) to[] (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, above left] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t16) to[] node[near start , left] {$y_2$} (t5);
+	\end{tikzpicture}
+	\hspace{50pt}
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+ 	 
+ 	 \draw ({360/16 * 14}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 14}:{$t_5$}] {};
+ 	 \draw ({360/16 * 15}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 15}:{$t_6$}] {};
+ 	 \draw ({360/16 * 16}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 16}:{$t_5'$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[midway, above] {$x_2$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[bend right=30, looseness=0.45] (t8) to[] (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$} (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t15) to[] node[right,pos=0.25] {$x_3$} (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] node[right,pos=0.3] {$x_3'$} (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, above left] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t16) to[] node[near start , left] {$y_2$} (t5);
+ 	 \draw[green!70!black] (t15) to[] node[near start, above] {$y_{enc}$} (t11);
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Alternativní $x_2$ - první možnost cesty}\leavevmode\newline
+
+Druhou možností je zvolit $t_5$ tak, že leží mezi $t_4'$ a $t_1$. $t_6$ se pak musí nacházet mezi $t_6$ a $t_1$. Nakonec $t_7$ musí být mezi $t_3$ a $t_2$ s tím, že volba $t_8$ závisí, zda-li je delší $x_4$ nebo $x_4'$.
+
+\begin{center}
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+ 	 
+ 	 \draw ({360/16 * 7}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_6$}] {};
+ 	 \draw ({360/16 * 8}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_5$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[midway, above] {$x_2'$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[bend right=30, looseness=0.45] (t8) to[] (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$}  (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[bend right=30, looseness=0.45] (t15) to[] (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, above left] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t9) to[] node[near end, below right] {$y_2$} (t5);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+ 	 
+ 	 \draw ({360/16 * 7}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_6$}] {};
+ 	 \draw ({360/16 * 8}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_5$}] {};
+
+ 	 \draw ({360/16 * 14}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 14}:{$t_8$}] {};
+ 	 \draw ({360/16 * 15}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 15}:{$t_7$}] {};
+ 	 \draw ({360/16 * 16}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 16}:{$t_8'$}] {};
+  
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[midway, above] {$x_2'$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[dotted, red, bend right=30, looseness=0.45] (t8) to[] node[left] {$x_3$}  (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$}  (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[bend right=30, looseness=0.45] (t15) to[] (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, above left] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t9) to[] node[near end, below right] {$y_2$} (t5);
+ 	 \draw[green!70!black] (t8) to[] node[near end, above right] {$y_3$} (t16);
+	\end{tikzpicture}
+	\hfill
+	\begin{tikzpicture}[scale=0.88]
+ 	 % Set the radius of the imaginary circle
+ 	 \def\radius{2cm}
+  
+	  % Calculate the position of each point on the circle
+ 	 \foreach \i in {1,...,16} {
+ 	 	\coordinate (t\i) at ({360/16 * (\i - 1)}:\radius);
+ 	 }
+ 	 
+ 	 \draw ({360/16 * 2}:\radius) node[circle, fill, inner sep=2pt, label={above right:$t_4$}] {};
+ 	 \draw ({360/16 * 3}:\radius) node[circle, fill, inner sep=2pt, label={above right :$t_3$}] {};
+ 	 \draw ({360/16 * 4}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_4'$}] {};
+ 	 
+ 	 \draw ({360/16 * 10}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_1$}] {};
+ 	 \draw ({360/16 * 11}:\radius) node[circle, fill, inner sep=2pt, label={below:$t_2$}] {};
+ 	 
+ 	 \draw ({360/16 * 7}:\radius) node[circle, fill, inner sep=2pt, label={above left:$t_6$}] {};
+ 	 \draw ({360/16 * 8}:\radius) node[circle, fill, inner sep=2pt, label={below left:$t_5$}] {};
+
+ 	 \draw ({360/16 * 14}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 14}:{$t_8$}] {};
+ 	 \draw ({360/16 * 15}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 15}:{$t_7$}] {};
+ 	 \draw ({360/16 * 16}:\radius) node[circle, fill, inner sep=2pt, label={360/16 * 16}:{$t_8'$}] {};
+ 	 % Draw curved edges between specific points
+	 \draw[bend right=30, looseness=0.45] (t1) to[] (t2);
+ 	 \draw[bend right=30, looseness=0.45] (t2) to[] (t3);
+	 \draw[bend right=30, looseness=0.45] (t3) to[] (t4);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t4) to[] node[midway, above] {$x_2'$} (t5);
+ 	 \draw[bend right=30, looseness=0.45] (t5) to[] (t6);
+ 	 \draw[bend right=30, looseness=0.45] (t6) to[] (t7);
+ 	 \draw[bend right=30, looseness=0.45] (t7) to[] (t8);
+	 \draw[dotted, red, bend right=30, looseness=0.45] (t8) to[] node[left] {$x_3$}  (t9);
+ 	 \draw[bend right=30, looseness=0.45] (t9) to[] (t10);
+ 	 \draw[bend right=30, looseness=0.45] (t10) to[] (t11);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t11) to[] node[below, midway] {$x_1$} (t12);
+ 	 \draw[bend right=30, looseness=0.45] (t12) to[] (t13);
+ 	 \draw[bend right=30, looseness=0.45] (t13) to[] (t14);
+ 	 \draw[bend right=30, looseness=0.45] (t14) to[] (t15);
+ 	 \draw[dotted, red, bend right=30, looseness=0.45] (t15) to[] node[near start, right] {$x_4$} (t16);
+ 	 \draw[bend right=30, looseness=0.45] (t16) to[] node[near start, right] {$x_4'$} (t1);
+
+ 	 \draw[green!70!black] (t12) to[] node[near start, above left] {$y_1$} (t4);
+ 	 \draw[green!70!black] (t9) to[] node[near end, below right] {$y_2$} (t5);
+ 	 \draw[green!70!black] (t8) to[] node[near end, above right] {$y_3$} (t16);
+ 	 \draw[green!70!black] (t11) to[] node[near end, above] {$y_{enc}$} (t15);
+	\end{tikzpicture}
+\end{center}
+\captionof{figure}{Alternativní $x_2$ - druhá možnost cesty} \leavevmode\newline
 
 \begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.
@@ -1469,13 +1791,17 @@ Thesis conclusions in \uv{English}.
 % \begin{thebibliography}{9}
 %\bibitem{kniha2} \uppercase{Hawke}, Paul. NanoHttpd: Light-weight HTTP server designed for embedding in other applications. GitHub [online]. 2014-05-12. [cit. 2014-12-06]. Dostupné z: \url{https://github.com/NanoHttpd/nanohttpd}
 %
-%\bibitem{jeske13} \uppercase{Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
+%\bibitem{jeske13} \uppercase{ Jeske}, David; \uppercase{Novák}, Josef. Simple HTTP Server in \csharp: Threaded synchronous HTTP Server abstract class, to respond to HTTP requests. CodeProject: For those who code [online]. 2014-05-24. [cit. 2014-12-06]. Dostupné z: \url{http://www.codeproject.com/Articles/137979/Simple-HTTP-Server-in-C}
 %
 %\bibitem{uzis2012} \uppercase{ÚSTAV ZDRAVOTNICKÝCH INFORMACÍ A STATISTIKY ČR}. Lékaři, zubní lékaři a farmaceuti 2012 [online]. Praha 2, Palackého náměstí 4: Ústav zdravotnických informací a statistiky ČR, 2012 [cit. 2014-12-06]. ISBN 978-80-7472-089-5. Dostupné z: \url{http://www.uzis.cz/publikace/lekari-zubni-lekari-farmaceuti-2012}
 % \end{thebibliography}
 
 %% Sazba volitelného rejstříku, za bibliografií.
 \printindex
+
+\listoffigures
+
+\listoftables
 
 \end{document}
 

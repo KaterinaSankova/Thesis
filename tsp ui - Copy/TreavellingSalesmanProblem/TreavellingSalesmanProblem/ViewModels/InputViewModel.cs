@@ -20,9 +20,11 @@ namespace TSP.ViewModels
         private bool _doubleTree;
         private bool _christofides;
         private bool _kernighanLin;
+        private bool _kernighanLinRb;
         private bool _stopwatch;
         private bool _ignoreNotFoundResultFiles = true;
         private string _outputFolderPath;
+        private int _numberOfCalculations = 1;
 
         public bool NearestAddition
         {
@@ -74,6 +76,18 @@ namespace TSP.ViewModels
                 OnPropertyChanged(nameof(KernighanLin));
             }
         }
+        public bool KernighanLinRb
+        {
+            get
+            {
+                return _kernighanLinRb;
+            }
+            set
+            {
+                _kernighanLinRb = value;
+                OnPropertyChanged(nameof(KernighanLinRb));
+            }
+        }
 
         public bool Stopwatch
         {
@@ -111,6 +125,19 @@ namespace TSP.ViewModels
             {
                 _outputFolderPath = value;
                 OnPropertyChanged(nameof(OutputFolderPath));
+            }
+        }
+
+        public int NumberOfCalculations
+        {
+            get
+            {
+                return _numberOfCalculations;
+            }
+            set
+            {
+                _numberOfCalculations = value;
+                OnPropertyChanged(nameof(_numberOfCalculations));
             }
         }
 

@@ -65,7 +65,7 @@ namespace TSP.Views
 
         public void DisplayResults()
         {
-            if (((ResultsViewModel)this.DataContext).AlgoResults.Count < 5)
+            if ((((ResultsViewModel)this.DataContext).AlgoResults.Count < 5) && (((ResultsViewModel)this.DataContext).AlgoResults.Where(r => r.Graph == null).ToList().Count == 0))
                 DisplayGraphs();
             else
                 DisplayLargeResult();
@@ -98,7 +98,7 @@ namespace TSP.Views
                 GridExtentions.AddColumnToGrid(GraphLabels, 1, GridUnitType.Star);
 
                 var info = new TextBlock();
-                info.Text = $"Name: {algoResults.Name}\nLength: {algoResults.Length}\nRatio: {algoResults.Ratio}\nDuration: {algoResults.Duration}";
+                info.Text = $"Name: {algoResults.Name}\nAverage length: {algoResults.AverageLength}\nRatio: {algoResults.Ratio}\nAverage uration: {algoResults.AverageDuration}";
                 info.SetValue(Grid.RowProperty, 0);
                 info.SetValue(Grid.ColumnProperty, i);
                 GraphLabels.Children.Add(info);

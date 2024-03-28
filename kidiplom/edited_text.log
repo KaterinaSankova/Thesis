@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.6.22)  13 MAR 2024 15:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.6.22)  21 MAR 2024 09:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1626,6 +1626,10 @@ Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
 \c@ALG@storecount=\count514
 \c@ALG@tmpcounter=\count515
 \ALG@tmplength=\skip120
+) (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/tabto-ltx\tabto.sty
+Package: tabto 2018/12/28  v 1.4  Another tabbing mechanism
+\CurrentLineWidth=\dimen327
+\TabPrevPos=\dimen328
 )
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
@@ -1639,41 +1643,41 @@ Package biblatex Warning: Attempt to redefine deprecated '\mkbibnamelast'.
 
 Package biblatex Warning: Conflicting options.
 (biblatex)                'urldate=iso' requires 'seconds=true'.
-(biblatex)                Setting 'seconds=true' on input line 55.
+(biblatex)                Setting 'seconds=true' on input line 56.
 
 (edited_text.aux)
 \openout1 = `edited_text.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
-LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 56.
+LaTeX Font Info:    ... okay on input line 56.
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count516
-\scratchdimen=\dimen327
+\scratchdimen=\dimen329
 \scratchbox=\box133
 \nofMPsegments=\count517
 \nofMParguments=\count518
 \everyMPshowfont=\toks64
 \MPscratchCnt=\count519
-\MPscratchDim=\dimen328
+\MPscratchDim=\dimen330
 \MPnumerator=\count520
 \makeMPintoPDFobject=\count521
 \everyMPtoPDFconversion=\toks65
@@ -1688,7 +1692,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring ON on input line 55.
+Package hyperref Info: Link coloring ON on input line 56.
 \c@lstlisting=\count522
 Package biblatex Info: Trying to load language 'czech' -> 'czech-iso'...
 Package biblatex Info: ... file 'czech-iso.lbx' found.
@@ -1751,8 +1755,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'edited_text.bbl' not found.
 
 No file edited_text.bbl.
-Package biblatex Info: Reference section=0 on input line 55.
-Package biblatex Info: Reference segment=0 on input line 55.
+Package biblatex Info: Reference section=0 on input line 56.
+Package biblatex Info: Reference segment=0 on input line 56.
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
 * driver: pdftex
@@ -1792,50 +1796,50 @@ Package caption Info: End \AtBeginDocument code.
 <graphics/kititle-cz-nofont.pdf, id=6, 375.4025pt x 72.27pt>
 File: graphics/kititle-cz-nofont.pdf Graphic file (type pdf)
 <use graphics/kititle-cz-nofont.pdf>
-Package pdftex.def Info: graphics/kititle-cz-nofont.pdf  used on input line 60.
+Package pdftex.def Info: graphics/kititle-cz-nofont.pdf  used on input line 61.
 
 (pdftex.def)             Requested size: 225.24323pt x 43.36232pt.
 <graphics/UP_znak.pdf, id=7, 101.59215pt x 101.59215pt>
 File: graphics/UP_znak.pdf Graphic file (type pdf)
 <use graphics/UP_znak.pdf>
-Package pdftex.def Info: graphics/UP_znak.pdf  used on input line 60.
+Package pdftex.def Info: graphics/UP_znak.pdf  used on input line 61.
 (pdftex.def)             Requested size: 101.59187pt x 101.59187pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 6
-0.
+1.
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 6
-0.
+1.
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-60.
+61.
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-60.
+61.
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 60.
+(Font)              <12> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 60.
+(Font)              <8> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 60.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 60.
+(Font)              <6> on input line 61.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 61.
 
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 60.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 61.
 
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -1849,7 +1853,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 y/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./graphics/kitit
 le-cz-nofont.pdf> <./graphics/UP_znak.pdf>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 60.
+(Font)              <10.95> on input line 61.
  [2] [3
 
 ] [4
@@ -1869,11 +1873,11 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 ]
 Package hyperref Info: bookmark level for unknown definition defaults to 0 on i
-nput line 76.
+nput line 77.
 Package hyperref Info: bookmark level for unknown theorem defaults to 0 on inpu
-t line 84.
+t line 85.
 
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 90--92
 
  []
 
@@ -1884,158 +1888,177 @@ Underfull \hbox (badness 10000) in paragraph at lines 89--91
 {C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/
 Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-08.
+09.
 
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 10000) in paragraph at lines 120--122
+Underfull \hbox (badness 10000) in paragraph at lines 121--123
 
  []
 
 
-Overfull \hbox (3.37791pt too wide) in paragraph at lines 134--135
+Overfull \hbox (3.37791pt too wide) in paragraph at lines 135--136
 [] []\T1/lmr/m/n/12 Kostra ne-o-ri-en-to-va-ného grafu je jeho sou-vislý pod-gr
 af, který ob-sa-huje v²echny
  []
 
 [8{C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
 
-Underfull \hbox (badness 10000) in paragraph at lines 162--164
+Underfull \hbox (badness 10000) in paragraph at lines 163--165
 
  []
 
 [9] [10]
-Underfull \hbox (badness 1394) in paragraph at lines 223--224
+Underfull \hbox (badness 1394) in paragraph at lines 224--225
 [] []\T1/lmr/m/it/12 Po-kud by exis-to-val $\OT1/lmr/m/n/12 2[]$\T1/lmr/m/it/12
  ^^Uaproxima£ní po-ly-no-mi-ální al-go-rit-mus pro TSP,
  []
 
 [11] [12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
+Underfull \hbox (badness 10000) in paragraph at lines 280--281
 
  []
 
 
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 276--292
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 282--298
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 292--293
+Underfull \hbox (badness 10000) in paragraph at lines 298--299
 
  []
 
 Package hyperref Info: bookmark level for unknown example defaults to 0 on inpu
-t line 298.
+t line 303.
 [14]
-Underfull \hbox (badness 10000) in paragraph at lines 389--390
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
 
  []
 
 
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 391--407
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 392--408
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 407--408
+Underfull \hbox (badness 10000) in paragraph at lines 408--409
 
  []
 
 
-Underfull \hbox (badness 5787) in paragraph at lines 409--410
+Underfull \hbox (badness 5787) in paragraph at lines 410--411
 []\T1/lmr/m/n/12 Z pseu-do-kódu je jasné, ºe hrany na-le-zené Pri-mo-vým al-go-
 rit-mem
  []
 
 [15]
 Package hyperref Info: bookmark level for unknown lemma defaults to 0 on input 
-line 413.
+line 414.
 Package hyperref Info: bookmark level for unknown proof defaults to 0 on input 
-line 418.
+line 419.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 452.
+(caption)                particular \caption on input line 453.
 See the caption package documentation for explanation.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 452--453
+Underfull \hbox (badness 10000) in paragraph at lines 453--454
 
  []
 
 
-LaTeX Warning: Command \textellipsis invalid in math mode on input line 462.
+LaTeX Warning: Command \textellipsis invalid in math mode on input line 463.
+
+
+LaTeX Warning: Reference `tikzpicture:naExampleA' on page 16 undefined on input
+ line 463.
+
+
+LaTeX Warning: Reference `tikzpicture:naExampleB' on page 16 undefined on input
+ line 463.
 
 [16] [17]
-Underfull \hbox (badness 10000) in paragraph at lines 631--632
+Underfull \hbox (badness 10000) in paragraph at lines 632--633
 
  []
 
 
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 633--652
-[] []$[]$ 
- []
-
-[18]
-Underfull \hbox (badness 10000) in paragraph at lines 652--653
-
- []
-
-[19] [20]
-Underfull \hbox (badness 10000) in paragraph at lines 777--778
-
- []
-
-
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 779--796
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 634--653
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--797
+Underfull \hbox (badness 10000) in paragraph at lines 653--654
 
  []
 
-[21] [22]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 1015.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 1015.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 1015.
- [23]
-Underfull \hbox (badness 10000) in paragraph at lines 1035--1036
+[18] [19]
+Underfull \hbox (badness 2042) in paragraph at lines 769--770
+\T1/lmr/m/n/12 Christofides·v al-go-rit-mus je ve-lice po-dobný double-tree al-
+go-ritmu. Op¥t
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 780--781
 
  []
 
 
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 1038--1048
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 782--799
+[] []$[]$ 
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
+
+ []
+
+[21]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 1018.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 1018.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 1018.
+ [22] [23]
+Underfull \hbox (badness 10000) in paragraph at lines 1038--1039
+
+ []
+
+
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 1041--1051
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1049--1050
+Underfull \hbox (badness 10000) in paragraph at lines 1052--1053
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1053--1055
+Underfull \hbox (badness 10000) in paragraph at lines 1056--1058
 
  []
 
 LaTeX Font Info:    Trying to load font information for T1+pcr on input line 10
-72.
+75.
 (C:\Users\Kitty\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-Overfull \hbox (20.23589pt too wide) in paragraph at lines 1056--1075
+Overfull \hbox (20.23589pt too wide) in paragraph at lines 1059--1078
 [] []$[]$ 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1076--1077
+Underfull \hbox (badness 10000) in paragraph at lines 1079--1080
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1081--1083
 
  []
 
@@ -2043,73 +2066,117 @@ Underfull \hbox (badness 10000) in paragraph at lines 1076--1077
 [25]
 
 Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 1199.
+(caption)                outside box or environment on input line 1205.
 See the caption package documentation for explanation.
 
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1199.
+(caption)                particular \caption on input line 1205.
 See the caption package documentation for explanation.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1199--1200
-
- []
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1301.
-See the caption package documentation for explanation.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1301--1302
+Underfull \hbox (badness 10000) in paragraph at lines 1205--1206
 
  []
 
 [26]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 1397.
+(caption)                particular \caption on input line 1313.
 See the caption package documentation for explanation.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1397--1398
+Underfull \hbox (badness 10000) in paragraph at lines 1313--1314
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1406--1408
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1409.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1409--1410
 
  []
 
 
-Overfull \hbox (35.24956pt too wide) detected at line 1437
+Underfull \hbox (badness 10000) in paragraph at lines 1420--1422
+
+ []
+
+[27]
+Overfull \hbox (35.24956pt too wide) detected at line 1451
 [][] 
  []
 
 
-Overfull \hbox (2.61107pt too wide) in paragraph at lines 1409--1437
+Overfull \hbox (2.61107pt too wide) in paragraph at lines 1423--1451
 [] []$[]$ 
  []
 
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 1437--1438
+
+Underfull \hbox (badness 10000) in paragraph at lines 1451--1452
 
  []
 
-[28] [29
+[28]
 
-] [30
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1535.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1535--1536
+
+ []
+
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1626.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1626--1627
+
+ []
+
+[29]
+
+Package caption Warning: The option `hypcap=true' will be ignored for this
+(caption)                particular \caption on input line 1764.
+See the caption package documentation for explanation.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1764--1765
+
+ []
+
+[30] [31
+
+] [32
 
 ]
 No file edited_text.acr.
-[31
+[33
 
 ]
 
-LaTeX Warning: Empty bibliography on input line 1466.
+LaTeX Warning: Empty bibliography on input line 1788.
 
-(edited_text.ind) 
+(edited_text.ind) (edited_text.lof)
+\tf@lof=\write12
+\openout12 = `edited_text.lof'.
+
+ (edited_text.lot)
+\tf@lot=\write13
+\openout13 = `edited_text.lot'.
+
+ [34
+
+
+]
+
 enddocument/afterlastpage: lastpage setting LastPage.
 (edited_text.aux)
 
@@ -2125,43 +2192,39 @@ Package logreq Info: Writing requests to 'edited_text.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 45702 strings out of 476331
- 877994 string characters out of 5787765
- 1907660 words of memory out of 5000000
- 65143 multiletter control sequences out of 15000+600000
+ 46249 strings out of 476331
+ 888893 string characters out of 5787765
+ 1913660 words of memory out of 5000000
+ 65672 multiletter control sequences out of 15000+600000
  621276 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 126i,17n,120p,2611b,2061s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{section*.18} has been referenced but does not exist
-, replaced by a fixed one
-
-<C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxf
-ont/line10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmbx10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmbx12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmbx8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-lm/lmbxi10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmcsc10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmex10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmmi10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmmi12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/lm/lmmi6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmmi8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-lm/lmr10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/l
-m/lmr12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
-/lmr17.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/
-lmr6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
-r8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri
-12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy
-10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy
-6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8
-.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-symbols/msbm10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/ur
-w/courier/ucrr8a.pfb>
-Output written on edited_text.pdf (31 pages, 502609 bytes).
+ 126i,17n,120p,2611b,2063s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/lat
+xfont/line10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmbx10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmbx12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmbx8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/lm/lmbxi10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmcsc10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmex10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmmi10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmmi12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmmi6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/lm/lmmi8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/lm/lmr10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/lm/lmr12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+lm/lmr17.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/l
+m/lmr6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/
+lmr8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+ri12.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+sy10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
+sy6.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lms
+y8.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/symbols/msbm10.pfb><C:/Users/Kitty/AppData/Local/Programs/MiKTeX/fonts/type1/
+urw/courier/ucrr8a.pfb>
+Output written on edited_text.pdf (34 pages, 516754 bytes).
 PDF statistics:
- 567 PDF objects out of 1000 (max. 8388607)
- 168 named destinations out of 1000 (max. 500000)
+ 603 PDF objects out of 1000 (max. 8388607)
+ 177 named destinations out of 1000 (max. 500000)
  263 words of extra memory for PDF output out of 10000 (max. 10000000)
 

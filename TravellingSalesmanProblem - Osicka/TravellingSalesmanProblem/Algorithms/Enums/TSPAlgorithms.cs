@@ -5,6 +5,7 @@
         NearestAddition = 0,
         DoubleTree = 1,
         Christofides = 2,
-        KernighanLin = 3
+        KernighanLin = 3,
+        KernighanLinRb = 4
     }
 }

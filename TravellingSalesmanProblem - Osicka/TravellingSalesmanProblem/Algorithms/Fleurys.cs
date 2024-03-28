@@ -4,20 +4,22 @@ namespace TravellingSalesmanProblem.Algorithms
 {
     public class Fleurys
     {
-        public static List<Node> FindEulerCircuit(Graph graph, List<Edge> edges)
+        public static List<Node> FindEulerCircuit(Graph inputGraph, List<Edge> edges)
         {
             List<Node> result = new();
+            var graph = new Graph(inputGraph.nodes, edges);
 
             if (graph.OddDegreeNodes(edges).Count != 0)
                 throw new Exception("Euler circuit does not exist");
 
             List<Edge> unvisitedEdges = edges.ToList();
 
-            Node? currentNode = graph.nodes.FirstOrDefault();
+            Node? currentNode = graph.nodes.OrderBy(i => new Random().Next()).FirstOrDefault();
+
             if (currentNode == null)
                 return new();
 
-            List<Edge> outgoingEdges = currentNode.OutgoingEdges(unvisitedEdges);
+            List<Edge> outgoingEdges = graph.OutgoingEdges(currentNode);
 
             Edge currentEdge;
 
@@ -25,14 +27,14 @@ namespace TravellingSalesmanProblem.Algorithms
             {
                 currentEdge = outgoingEdges.First();
                 if (outgoingEdges.Count >= 1)
-                    if (currentEdge.IsBridge(graph, unvisitedEdges))
+                    if (graph.IsBridge(currentEdge))
                         currentEdge = outgoingEdges.Last();
 
                 result.Add(currentNode);
                 currentNode = currentEdge.node1 == currentNode ? currentEdge.node2 : currentEdge.node1;
-                unvisitedEdges.Remove(currentEdge);
+                graph.edges.Remove(currentEdge);
 
-                outgoingEdges = currentNode.OutgoingEdges(unvisitedEdges);
+                outgoingEdges = graph.OutgoingEdges(currentNode);
             }
 
             return result;

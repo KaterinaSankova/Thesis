@@ -13,19 +13,6 @@
             this.y = y;
         }
 
-        public List<Edge> OutgoingEdges(List<Edge> edges)
-        {
-            List<Edge> outgoingEdges = new();
-            foreach (var edge in edges)
-            {
-                if (edge.node1 == this)
-                    outgoingEdges.Add(edge);
-                else if (edge.node2 == this)
-                    outgoingEdges.Add(edge);
-            }
-            return outgoingEdges;
-        }
-
         public List<Node> ConnectedNodes(List<Edge> edges)
         {
             List<Node> connectedNodes = new();

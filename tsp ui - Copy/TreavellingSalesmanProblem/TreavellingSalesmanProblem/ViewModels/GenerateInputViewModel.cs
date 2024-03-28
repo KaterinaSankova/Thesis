@@ -16,12 +16,13 @@ namespace TSP.ViewModels
     {
         private int _numberOfSamples = 1;
         private int _numberOfCities = 20;
+        private bool _averageResults = false;
         private double _lowestX = -20;
         private double _lowestY = -20;
         private double _highestX = 20;
         private double _highestY = 20;
 
-        private int highestPermitedNumberOfSamples = 100;
+        private int highestPermitedNumberOfSamples = 1000;
         private int highestPermitedNumberOfCities = 20000;
         private int lowestPermitedCoordinate = -50000;
         private int highestPermitedCoordinate = 50000;
@@ -59,6 +60,19 @@ namespace TSP.ViewModels
                 else
                     _numberOfCities = value;
                 OnPropertyChanged(nameof(NumberOfCities));
+            }
+        }
+
+        public bool AverageResults
+        {
+            get
+            {
+                return _averageResults;
+            }
+            set
+            {
+                _averageResults = value;
+                OnPropertyChanged(nameof(AverageResults));
             }
         }
 

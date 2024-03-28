@@ -40,6 +40,7 @@ namespace TSP.Stores
                     ((InputViewModel)_currentViewModel).Christofides = oldViewModel.Christofides;
                     ((InputViewModel)_currentViewModel).KernighanLin = oldViewModel.KernighanLin;
                     ((InputViewModel)_currentViewModel).Stopwatch = oldViewModel.Stopwatch;
+                    ((InputViewModel)_currentViewModel).NumberOfCalculations = oldViewModel.NumberOfCalculations;
                     if (oldViewModel is FileInputViewModel && _currentViewModel is FolderInputViewModel)
                     {
                         ((FolderInputViewModel)_currentViewModel).IgnoreNotFoundResultFiles = oldViewModel.IgnoreNotFoundResultFiles;

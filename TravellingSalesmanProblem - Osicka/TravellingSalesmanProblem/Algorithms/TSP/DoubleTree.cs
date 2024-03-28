@@ -12,7 +12,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<Edge> multiGraph = minimalSpanningTree.Concat(minimalSpanningTree).ToList(); //refactor
 
-            List<Node> eulerCircuit = Fleurys.FindEulerCircuit(graph, multiGraph);
+            var g = new Graph(graph.nodes, multiGraph);
+
+            List<Node> eulerCircuit = g.FindEulerCircuit();
+
+            //List<Node> eulerCircuit = Fleurys.FindEulerCircuit(graph, multiGraph);
 
             List<Node> path = eulerCircuit.Distinct().ToList(); //shortcutting
 

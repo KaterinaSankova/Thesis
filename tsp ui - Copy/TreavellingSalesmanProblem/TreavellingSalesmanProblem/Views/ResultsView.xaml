@@ -44,10 +44,10 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Name" Width="300">
+                    <GridViewColumn Header="Name" Width="130">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Name}"/>
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding Name, Mode=OneWay}" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -55,32 +55,45 @@
                     <GridViewColumn Header="Algorithm" Width="70">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Algorithm}" />
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding Algorithm, Mode=OneWay}" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Length" Width="200">
+                    <GridViewColumn Header="Average length" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Length}" />
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding AverageLength, Mode=OneWay}" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Ratio" Width="100">
+                    <GridViewColumn Header="Best length" Width="100">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Ratio}"  Width="auto"/>
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding BestLength, Mode=OneWay}" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
-                    <GridViewColumn Header="Duration" Width="100">
+                    <GridViewColumn Header="Ratio" Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Duration}" />
-                            </DataTemplate>
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding Ratio, Mode=OneWay}"  Width="auto" BorderThickness="0"/>                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Average duration" Width="175">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding AverageDuration, Mode=OneWay}"  BorderThickness="0"/>                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Shortest duration" Width="175">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox IsReadOnly="True" HorizontalAlignment="Center" Text="{Binding BestDuration, Mode=OneWay}"  BorderThickness="0"/>                            </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>

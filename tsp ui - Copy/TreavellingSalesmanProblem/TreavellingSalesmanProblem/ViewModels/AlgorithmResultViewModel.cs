@@ -33,30 +33,50 @@ namespace TSP.ViewModels
                         return "C";
                     case TSPAlgorithms.KernighanLin:
                         return "KL";
+                    case TSPAlgorithms.KernighanLinRb:
+                        return "KLrb";
                     default:
                         return "UNK";
                 }
             }
         }
-        public double Length => Math.Round(_result.Path.Length, 2);
+        public double BestLength => Math.Round(_result.BestPathLength, 2);
+        public double AverageLength => Math.Round(_result.AveragePathLength, 2);
+
         public string Ratio
         {
             get
             {
                 if (_result.ResultPath != null)
-                    return Math.Round(_result.Path.Length / _result.ResultPath.Length, 2).ToString();
+                    return Math.Round(_result.AveragePathLength / _result.ResultPath.Length, 2).ToString();
                 else
                     return "UNK";
             }
         }
-        public string Duration
+
+        public string AverageDuration
         {
             get
             {
                 if (_result.Stopwatch)
                 {
-                    var ts = (TimeSpan)_result.Duration;
-                    return $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms";
+                    var ts = (TimeSpan)_result.AverageTime;
+                    return $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds}ms {ts.Microseconds}μs {ts.Nanoseconds}ns";
+                }
+                else
+                {
+                    return "UNK";
+                }
+            }
+        }
+        public string BestDuration
+        {
+            get
+            {
+                if (_result.Stopwatch)
+                {
+                    var ts = (TimeSpan)_result.BestTime;
+                    return $"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds}ms {ts.Microseconds}μs {ts.Nanoseconds}ns";
                 }
                 else
                 {

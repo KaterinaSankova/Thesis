@@ -21,14 +21,6 @@
 
         public bool Contains(Node node) => node1.Equals(node) || node2.Equals(node);
 
-        public bool IsBridge(Graph graph, List<Edge> edges)
-        {
-            var edgesWithoutSelf = edges.ToList();
-            edgesWithoutSelf.Remove(this);
-
-            return Graph.DepthFirstSearch(edges, node1).Count != Graph.DepthFirstSearch(edgesWithoutSelf, node1).Count;
-        }
-
         public bool SharesNode(Edge edge) => edge.Contains(this.node1) || edge.Equals(this.node2);
 
         public Node GetOtherNode(Node node)

@@ -6,25 +6,26 @@
 \contentsline {subsubsection}{\numberline {1.2.1}Složitost}{10}{subsubsection.1.2.1}%
 \contentsline {section}{\numberline {2}Problém obchodního cestujícího}{11}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Složitost}{11}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Metrický problém obchodního cestujícího}{13}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Euklidovský problém obchodního cestujícího}{13}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.2}Podproblémy TSP}{13}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Metrický problém obchodního cestujícího}{13}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Euklidovský problém obchodního cestujícího}{13}{subsubsection.2.2.2}%
 \contentsline {section}{\numberline {3}Algoritmy}{14}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Nearest addition}{14}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Aproximační faktor}{15}{subsubsection.3.1.1}%
 \contentsline {subsubsection}{\numberline {3.1.2}Tight example}{17}{subsubsection.3.1.2}%
 \contentsline {subsection}{\numberline {3.2}Double-tree}{18}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Aproximační faktor}{19}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Tight example}{20}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2}Tight example}{19}{subsubsection.3.2.2}%
 \contentsline {subsection}{\numberline {3.3}Christofides'}{20}{subsection.3.3}%
 \contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{21}{subsubsection.3.3.1}%
 \contentsline {subsubsection}{\numberline {3.3.2}Tight example}{22}{subsubsection.3.3.2}%
 \contentsline {subsection}{\numberline {3.4}Keringhan - Lin}{23}{subsection.3.4}%
 \contentsline {subsubsection}{\numberline {3.4.1}Keringhan - Lin pro TSP}{25}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Random info}{28}{subsubsection.3.4.2}%
-\contentsline {section}{Z\'av\v er}{29}{section*.13}%
+\contentsline {section}{Z\'av\v er}{31}{section*.13}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Conclusions}{30}{section*.15}%
+\contentsline {section}{Conclusions}{32}{section*.15}%
 \babel@toc {english}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Seznam zkratek}{31}{section*.17}%
+\contentsline {section}{Seznam zkratek}{33}{section*.17}%
+\contentsline {section}{Literatura}{34}{section*.18}%

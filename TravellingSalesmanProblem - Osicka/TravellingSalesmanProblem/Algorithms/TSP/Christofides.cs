@@ -15,6 +15,10 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
 
             List<Node> path = Fleurys.FindEulerCircuit(graph, minimalSpanningTree.Concat(perfectMatching).ToList()).Distinct().ToList();
 
+            //var g = new Graph(graph.nodes, minimalSpanningTree.Concat(perfectMatching).ToList());
+
+            //List<Node> eulerCircuit = g.FindEulerCircuit();
+
             return new Path(path);
         }
     }

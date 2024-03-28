@@ -6,7 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using TravellingSalesmanProblem.Algorithms.Enums;
@@ -19,6 +21,7 @@ using TSP.Enum;
 using TSP.Models;
 using TSP.Stores;
 using TSP.ViewModels;
+using Windows.Storage;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TSP.Commands
@@ -95,6 +98,9 @@ namespace TSP.Commands
             else
             {
                 var input = (GenerateInputViewModel)InputViewModel;
+                List<AlgorithmResultModel> naResults = new(), dtResults = new(), chResults = new(), klResults = new(), klRbResults = new();
+                AlgorithmResultModel avgResult;
+                TimeSpan? averageTime = null, bestTime = null;
                 for (int i = 0; i < input.NumberOfSamples; i++)
                 {
                     string sampleName = $"sample{i + 1}";
@@ -116,7 +122,10 @@ namespace TSP.Commands
 
                         var result = StartCalculations(sampleName, graph, TSPAlgorithms.NearestAddition);
 
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (input.AverageResults)
+                            naResults.Add(result);
+                        else
+                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
 
                         if (!string.IsNullOrEmpty(input.OutputFolderPath))
                             TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_NA");
@@ -132,7 +141,10 @@ namespace TSP.Commands
 
                         var result = StartCalculations(sampleName, graph, TSPAlgorithms.DoubleTree);
 
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (input.AverageResults)
+                            dtResults.Add(result);
+                        else
+                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
 
                         if (!string.IsNullOrEmpty(input.OutputFolderPath))
                             TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_DT");
@@ -144,11 +156,14 @@ namespace TSP.Commands
                     }
                     if (input.Christofides)
                     {
-                        _results.Message += $"\nProcessing{sampleName} with Chistofides' algorithm";
+                        _results.Message += $"\nProcessing {sampleName} with Chistofides' algorithm";
 
                         var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.Christofides);
 
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (input.AverageResults)
+                            chResults.Add(result);
+                        else
+                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
 
                         if (!string.IsNullOrEmpty(input.OutputFolderPath))
                             TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_C");
@@ -164,7 +179,10 @@ namespace TSP.Commands
 
                         var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.KernighanLin);
 
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+                        if (input.AverageResults)
+                            klResults.Add(result);
+                        else
+                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
 
                         if (!string.IsNullOrEmpty(input.OutputFolderPath))
                             TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_KL");
@@ -173,6 +191,143 @@ namespace TSP.Commands
                             _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
                         else
                             _results.Message = "";
+                    }
+                    if (input.KernighanLinRb)
+                    {
+                        _results.Message += $"\nProcessing {sampleName} with Kernighan - Lin reduced backtracking algorithm";
+
+                        var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.KernighanLinRb);
+
+                        if (input.AverageResults)
+                            klRbResults.Add(result);
+                        else
+                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+
+                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
+                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_KLrb");
+
+                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                        else
+                            _results.Message = "";
+                    }
+                }
+                if (input.AverageResults)
+                {
+                    if (input.NearestAddition)
+                    {
+                        if (input.Stopwatch)
+                        {
+                            averageTime = TimeSpan.FromMicroseconds(naResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                            bestTime = naResults.Select(r => r.BestTime).Min();
+                        }
+
+                        avgResult = new(
+                            "sample_NA",
+                            TSPAlgorithms.NearestAddition,
+                            input.Stopwatch,
+                            naResults.Select(r => r.Path.Length).Min(),
+                            naResults.Select(r => r.Path.Length).Average(),
+                            null,
+                            null,
+                            averageTime,
+                            bestTime,
+                            null
+                        );
+
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
+                    }
+                    if (input.DoubleTree)
+                    {
+                        if (input.Stopwatch)
+                        {
+                            averageTime = TimeSpan.FromMicroseconds(dtResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                            bestTime = dtResults.Select(r => r.BestTime).Min();
+                        }
+
+                        avgResult = new(
+                            "sample_DT",
+                            TSPAlgorithms.DoubleTree,
+                            input.Stopwatch,
+                            dtResults.Select(r => r.Path.Length).Min(),
+                            dtResults.Select(r => r.Path.Length).Average(),
+                            null,
+                            null,
+                            averageTime,
+                            bestTime,
+                            null
+                        );
+
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
+                    }
+                    if (input.Christofides)
+                    {
+                        if (input.Stopwatch)
+                        {
+                            averageTime = TimeSpan.FromMicroseconds(chResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                            bestTime = chResults.Select(r => r.BestTime).Min();
+                        }
+
+                        avgResult = new(
+                            "sample_C",
+                            TSPAlgorithms.Christofides,
+                            input.Stopwatch,
+                            chResults.Select(r => r.Path.Length).Min(),
+                            chResults.Select(r => r.Path.Length).Average(),
+                            null,
+                            null,
+                            averageTime,
+                            bestTime,
+                            null
+                        );
+
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
+                    }
+                    if (input.KernighanLin)
+                    {
+                        if (input.Stopwatch)
+                        {
+                            averageTime = TimeSpan.FromMicroseconds(klResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                            bestTime = klResults.Select(r => r.BestTime).Min();
+                        }
+
+                        avgResult = new(
+                            "sample_KL",
+                            TSPAlgorithms.KernighanLin,
+                            input.Stopwatch,
+                            klResults.Select(r => r.Path.Length).Min(),
+                            klResults.Select(r => r.Path.Length).Average(),
+                            null,
+                            null,
+                            averageTime,
+                            bestTime,
+                            null
+                        );
+
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
+                    }
+                    if (input.KernighanLinRb)
+                    {
+                        if (input.Stopwatch)
+                        {
+                            averageTime = TimeSpan.FromMicroseconds(klRbResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                            bestTime = klRbResults.Select(r => r.BestTime).Min();
+                        }
+
+                        avgResult = new(
+                            "sample_KLrb",
+                            TSPAlgorithms.KernighanLinRb,
+                            input.Stopwatch,
+                            klRbResults.Select(r => r.Path.Length).Min(),
+                            klRbResults.Select(r => r.Path.Length).Average(),
+                            null,
+                            null,
+                            averageTime,
+                            bestTime,
+                            null
+                        );
+
+                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
                     }
                 }
             }
@@ -228,6 +383,15 @@ namespace TSP.Commands
             {
                 _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Kernighan - Lin algorithm";
                 StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.KernighanLin, input.OutputFolderPath);
+                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
+                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
+                else
+                    _results.Message = "";
+            }
+            if (input.KernighanLinRb)
+            {
+                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Kernighan - Lin reduced backtracking algorithm";
+                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.KernighanLinRb, input.OutputFolderPath);
                 if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
                     _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
                 else
@@ -291,6 +455,9 @@ namespace TSP.Commands
                         case TSPAlgorithms.KernighanLin:
                             outputName += "_KL";
                             break;
+                        case TSPAlgorithms.KernighanLinRb:
+                            outputName += "_KLrb";
+                            break;
                         default:
                             throw new Exception("Invalid algorithm type.");
                     }
@@ -315,6 +482,8 @@ namespace TSP.Commands
                     return StartAlgorithmCalculations(name, graph, new Christofides(), TSPAlgorithms.Christofides);
                 case TSPAlgorithms.KernighanLin:
                     return StartAlgorithmCalculations(name, graph, new KernighanLin(), TSPAlgorithms.KernighanLin);
+                case TSPAlgorithms.KernighanLinRb:
+                    return StartAlgorithmCalculations(name, graph, new KeringhanLinReducedBacktracking(), TSPAlgorithms.KernighanLinRb);
                 default:
                     return null;
             }            
@@ -325,19 +494,34 @@ namespace TSP.Commands
             var input = (InputViewModel)InputViewModel;
 
             Stopwatch sw = new();
-            TimeSpan? ts = null;
+            TimeSpan? averageTime = null;
+            TimeSpan? bestTime = null;
             if (input.Stopwatch)
                 sw.Start();
 
-            Path path = algo.FindShortestPath(graph);
+            List<Path> paths = new ();
+            List<TimeSpan> times = new();
+            for (int i = 0; i < input.NumberOfCalculations; i++)
+            {
+                if (input.Stopwatch)
+                    sw.Start();
+
+                paths.Add(algo.FindShortestPath(graph));
+
+                if (input.Stopwatch)
+                {
+                    sw.Stop();
+                    times.Add(sw.Elapsed);
+                }
+            }
 
             if (input.Stopwatch)
             {
-                sw.Stop();
-                ts = sw.Elapsed;
+                averageTime = TimeSpan.FromMicroseconds(times.Select(t => ((TimeSpan)t).TotalMicroseconds).Average());
+                bestTime = times.Min();
             }
 
-            return new AlgorithmResultModel(name, algoType, graph, path, input.Stopwatch, ts);
+            return new AlgorithmResultModel(name, algoType, input.Stopwatch, paths.Min(p => p.Length), paths.Average(p => p.Length), graph, paths.MinBy(p => p.Length), averageTime, bestTime);
         }     
 
         public override Task ExecuteAsync(object parameter)

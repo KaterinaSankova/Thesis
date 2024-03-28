@@ -17,6 +17,7 @@
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
             <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="45"></ColumnDefinition>
@@ -56,14 +57,20 @@
         </StackPanel>
 
         <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+            <TextBlock Text="Average from number of samples:" Margin="0, 0, 5, 0"></TextBlock>
+            <ComboBox SelectedValue="{Binding NumberOfCalculations}" ItemsSource="{Binding Source={StaticResource EnumerableRange}}"/>
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
             <TextBlock Text="Algorithms:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox Content="Nearest addition" Margin="0, 0, 5, 0" IsChecked="{Binding Path=NearestAddition, Mode=TwoWay}"></CheckBox>
             <CheckBox Content="Double tree" Margin="0, 0, 5, 0" IsChecked="{Binding Path=DoubleTree, Mode=TwoWay}"></CheckBox>
             <CheckBox Content="Christofides'" Margin="0, 0, 5, 0" IsChecked="{Binding Path=Christofides, Mode=TwoWay}"></CheckBox>
             <CheckBox Content="Kernighan - Lin" Margin="0, 0, 5, 0" IsChecked="{Binding Path=KernighanLin, Mode=TwoWay}"></CheckBox>
+            <CheckBox Content="Kernighan - Lin reduced backtracking" Margin="0, 0, 5, 0" IsChecked="{Binding Path=KernighanLinRb, Mode=TwoWay}"></CheckBox>
         </StackPanel>
 
-        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
+        <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="8" Grid.Column="1">
             <TextBlock Text="Stopwatch:" Margin="0, 0, 5, 0" VerticalAlignment="Center"></TextBlock>
             <CheckBox IsChecked="{Binding Stopwatch, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"></CheckBox>
         </StackPanel>
