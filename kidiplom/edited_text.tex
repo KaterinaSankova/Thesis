@@ -1,13 +1,17 @@
 \documentclass[
-%  master,
-%  program=infpvs,
-%  printversion,
-  biblatex,
-%  language=english,
-%  font=sans,
-  figures=false,
-  glossaries,
-  index
+  printversion=false,
+  joinlists=true,
+  glossaries=true,
+  figures=true,
+  tables=true,
+  sourcecodes=false,
+  theorems=false,
+  bibencoding=utf8,
+  language=czech,
+  encoding=utf8,
+  program=infpvs,
+  index=true,
+  biblatex=true
 ]{kidiplom}
 
 \title{Algoritmy pro problém obchodního cestujícího}
@@ -52,6 +56,8 @@
 \usepackage{adjustbox}
 \usepackage{algorithmicx}
 \usepackage{tabto}
+\usepackage{multirow}
+\renewcommand*\arraystretch{1.3}
 
 \begin{document}
 %% Sazba úvodních stran -- titulní, s bibliografickými údaji, s
@@ -77,7 +83,7 @@ Graf je jedna ze základních reprezentací prvků množiny objektů a jejich vz
 \begin{definition}[Neorientovaný graf]
 \textit{Neorientovaný graf} je dvojice $\langle V, E \rangle$, kde $V$ je neprázdná množina vrcholů a $E \subseteq \{\{u, v\} \mid u, v \in V$, $u \neq v \}$ je množina (\textit{neorientovaných}) hran.
 
-$u, v$ nazýváme \textit{koncové uzly} hrany.
+$u, v$ nazýváme \textit{koncové uzly} hrany ${u, v}$.
 \end{definition}
  
 V některých situacích nás bude zajímat počet hran, kterým je jistý uzel koncovým. Tomuto číslu budeme říkat \textit{stupeň vrcholu} $u$ a budeme ho značit $deg(u)$. Důležité bude také následující tvrzení.
@@ -86,30 +92,29 @@ V některých situacích nás bude zajímat počet hran, kterým je jistý uzel 
 V každém grafu $G=\langle V, E \rangle$ platí, že $\sum_{v \in V} deg(v) = 2 |E|$.
 \end{theorem}
 
-U problému obchodního cestujícího také chceme, aby hrany vstupních grafů měly nějakou váhu. Tu jim přiřazuje tzv. \textit{hranové ohodnocení} definované následovně:
-$$w : E \rightarrow D$$
-kde $w$ je \textit{hranové ohodnocení}, $E$ je množina hran příslušného grafu a $D$ je nějaká množina hodnot.\newline
+U problému obchodního cestujícího také chceme, aby hrany vstupních grafů měly nějakou váhu. Tu jim přiřazuje tzv. \textit{hranové ohodnocení}, funkce $$w : E \rightarrow D$$
+kde $D$ je množina hodnot, kterými hrany ohodnocujeme. V případě problému obchodního cestujícího se jedná o množinu reálných (nebo racionálních) čísel.\newline
 
 Dále je vstupem tzv. \textit{úplný} graf. V takovém grafu platí, že každé dva jeho vrcholy  jsou spojeny hranou.
 
 \subsubsection{Cestování v grafech}
-Důležitou oblastí práce s grafy je cestování v nich. Vychází se z toho, že se z jednoho uzlu můžeme přemístit k druhé. právě když mezi nimi existuje hrana (v případě orientovaných grafů musí mít ještě hrana správný směr). Jednou z úloh o cestování je právě problém obchodního cestujícího.
+Důležitou oblastí práce s grafy je cestování v nich. Vychází se z toho, že se z jednoho uzlu můžeme přemístit k druhému, právě když mezi nimi existuje hrana (v případě orientovaných grafů musí mít ještě hrana správný směr). Jednou z úloh o cestování je právě problém obchodního cestujícího.
 
 
 Základním pojmem, od kterého budeme odvozovat další, je \textit{sled}.
 
 
 \begin{definition}
-\textit{Sledem} v grafu $G=\langle V, E \rangle$ rozumíme posloupnost $v_0, e_1, v_1, e_2, v_2, \cdots, e_n, v_n$, kde $\forall i \in \{0,\cdots, n\} \ v_i \in V$ a $\forall j \in \{1, \cdots, n\} \ e_j \in E$.
+\textit{Sledem} v grafu $G=\langle V, E \rangle$ rozumíme posloupnost $v_0, e_1, v_1, e_2, v_2, \cdots, e_n, v_n$, kde pro každé $i \in \{0,\cdots, n\}$ máme $v_i \in V$ a pro každé $j \in \{1, \cdots, n\}$ máme $e_j \in E$.
 \end{definition}
 
 
 Sled nazýváme
 \begin{itemize}
 \item \textit{uzavřený}, pokud $v_0 = v_n$
-\item \textit{tah}, pokud $\forall k, l \in \{1, \cdots, n\}$, kde $k \neq l$, $e_k \neq e_l$ (neopakují se hrany)
-\item \textit{cesta}, pokud $\forall k, l \in \{0, \cdots, n\}$, kde $k \neq l$, $v_k \neq v_l$ (neopakují se vrcholy)
-\item \textit{kružnice}, pokud je \textit{cestou}, ale $v_0 = v_n$
+\item \textit{tah}, pokud pro každé $k, l \in \{1, \cdots, n\}$, kde $k \neq l$, platí $e_k \neq e_l$ (neopakují se hrany)
+\item \textit{cesta}, pokud pro každé $k, l \in \{0, \cdots, n\}$, kde $k \neq l$, platí $v_k \neq v_l$ (neopakují se vrcholy)
+\item \textit{kružnice}, pokud v definici cesty požadujeme $v_0 = v_n$
 \end{itemize}
 
 Speciální druh tahu je tzv. \textit{eulerovský tah}. Pro něj platí, že vede přes všechny vrcholy a každá hrana se v něm vyskytuje právě jednou. 
@@ -124,7 +129,7 @@ Pro TSP je ještě klíčový termín \textit{hamiltonovská kružnice}. Tou roz
 Některé z algoritmů v knihovně jsou založené na hledání tzv. \textit{minimální kostry grafu} . Před zavedením tohoto pojmu je ještě nutné si definovat, co je to \textit{souvislý graf} a \textit{podgraf} grafu.
 
 \begin{definition}[Souvislý graf]
-Neorientovaný graf $G=\langle V, E \rangle$ nazýváme \textit{souvislý}, pokud $\forall u,v \in V$ existuje sled (viz později) z $u$ do $v$.
+Neorientovaný graf $G=\langle V, E \rangle$ nazýváme \textit{souvislý}, pokud pro každé $u,v \in V$ existuje sled z $u$ do $v$.
 \end{definition}
 
 \begin{definition}[Podgraf]
@@ -137,10 +142,10 @@ Kostra neorientovaného grafu je jeho souvislý podgraf, který obsahuje všechn
 
 Pokud mají hrany původního grafu přiřazené váhy příslušným hranovým ohodnocením $w$, potom můžeme uvažovat o \textit{minimální kostře grafu}. Tou budeme rozumět právě takovou kostru $MSP = \langle V, E' \rangle$, která bude mít mezi ostatními minimální součet  $\sum_{e \in E'} w(e)$.
 
-\subsection{Problém}
+\subsection{Algoritmické problémy}
 Obecně lze problémy, u kterých je rozumné chtít pro řešení použít počítač, definovat pomocí množiny vstupů $In$, množiny možných výstupů $Out$ a funkce $p : In \rightarrow Out$, která každému vstupu přiřazuje odpovídající výstup. Tedy $P = \langle In, Out, p \rangle$.
 
-\textit{Optimalizační problémy} jsou takové problémy, kde pro vstup existuje víc možných řešení a jejich úlohou je najít mezi nimi najít které bude mezi nimi buď minimální nebo maximální vzhledem k nějaké předem dané funkci.
+\textit{Optimalizační problémy} jsou takové problémy, kde pro vstup existuje víc možných řešení a jejich úlohou je mezi nimi najít to, které má mezi ostatními minimální nebo maximální hodnotu předem definované funkce.
 
 Tyto problémy se dají charakterizovat 
 \begin{itemize}
@@ -152,36 +157,36 @@ Tyto problémy se dají charakterizovat
 
 Podle hodnoty $goal$ se problému říká \textit{minimalizační} nebo \textit{maximalizační}. \textit{Optimálním řešením} pro vstup $x \in In$ pak označujeme takové řešení $y \in sol(x)$, pro které platí, že $cost(x, y) = goal\{cost(x, y') \mid y' \in sol(x)\}$. Cenu takového řešení značíme $OPT(x)$.
 
-\sloppy Při hledání algoritmu, které řeší takový problém zvažujeme jeho \textit{správnost} a \textit{optimalitu}. Řekneme, že algoritmus $A$ pro problém $P$ je \textit{správný}, pokud $\forall x~\in~In, A(x) \in sol(x)$. \textit{Optimální} je navíc pokud $\forall x \in In$ je $A(x)$ optimální řešení.
+\sloppy Při hledání algoritmu, které řeší takový problém zvažujeme jeho \textit{správnost} a \textit{optimalitu}. Řekneme, že algoritmus $A$ pro problém $P$ je \textit{správný}, pokud pro každé $x~\in~In$ platí, $A(x) \in sol(x)$. \textit{Optimální} je navíc pokud pro každé $x \in In$ je $A(x)$ optimální řešení.
 
 \sloppy Některé optimální algoritmy bývají ale časově náročné, často se proto hledají algoritmy, které nevydají pokaždé optimální řešení, ale pouze přibližné. Těmto algoritmům se říká \textit{aproximační}.
 
 Mějme takový algoritmus $A$. Pro každý vstup $x \in In$ můžeme definovat \textit{aproximační faktor} jako $$R_A(x) = \max\{\frac{cost(x, A(x))}{OPT(x)},\frac{OPT(x)}{cost(x, A(x)}\}$$
 
-Pro samotný algoritmus můžeme také definovat jeho aproximační faktor, vzhledem k nějaké funkci $F$ mapující vstupy na přirozená čísla, a to následovně $$R_A(n)~=~\max\{R_A(x) \mid x \in In, F(x) = n\}$$
+Pro samotný algoritmus můžeme také definovat jeho aproximační faktor, vzhledem k nějaké funkci $F$ mapující vstupy na přirozená čísla (typicky velikost vstupu, případně jiná jeho významná vlastnost), a to následovně $$R_A(n)~=~\max\{R_A(x) \mid x \in In, F(x) = n\}$$
 
-$A$ můžeme označit za $f(n)$\textendash aproximační algoritmus, pokud $\forall n \in \mathbb{N}$ platí $R_A(n) \le f(n)$. Jinými slovy, pokud u algoritmu známe jeho aproximační faktor, pak se můžeme spolehnout, že pro každý vstup velikosti $n$ dostaneme v nejhorším případě $f(n)$\textendash krát horší výsledek vůči optimu.
+$A$ můžeme označit za $f(n)$\textendash aproximační algoritmus, pokud pro každé $n \in \mathbb{N}$ platí $R_A(n) \le f(n)$. Jinými slovy, pokud u algoritmu známe jeho aproximační faktor, pak se můžeme spolehnout, že pro každý vstup velikosti $n$ dostaneme~v nejhorším případě $f(n)$\textendash krát horší výsledek vůči optimu.
 \newline
 
 Další významnou množinou problémů jsou \textit{rozhodovací problémy}. Ty se vyznačují tím, že množina výstupů je omezena jen na \textsc{Ano} a \textsc{Ne}.
 
-Každý optimalizační problém má svoji \textit{rozhodovací verzi}. Místo, aby na vstupu byla pouze instance problému $x \in In$, přidá se navíc ještě číslo $k \in \mathbb{Q}$. Pokud je $k \ge OPT(x)$, u minimalizačního problému, nebo $k \le OPT(x)$, u maximalizačního, pak je výsledkem  \textsc{Ano}, jinak \textsc{Ne}.
+Každý optimalizační problém má svoji \textit{rozhodovací verzi}. Místo, aby na vstupu byla pouze instance problému $x \in In$, přidá se navíc ještě číslo $k \in \mathbb{Q}$. Pokud je $k \ge OPT(x)$, u minimalizačního problému, nebo $k \le OPT(x)$, u maximalizačního, pak je výsledkem \textsc{Ano}, jinak \textsc{Ne}.
 
-\subsubsection{Složitost}
-Na začátku je třeba si zavést třídy \textbf{P} a \textbf{NP}. Algoritmy, které spadají do třídy \textbf{P} jsou řešitelné deterministickými stroji v polynomiálním čase a bereme je za praktický zvládnutelné. Na nedeterministických strojích můžeme řešit v polynomiálním čase \textbf{NP} problémy. U těchto strojů předpokládáme, že z možných kroků provede vždy ten žádaný a dostane se tak ke správnému výsledku bez nutnosti zkoušet všechny možnosti. Jistě platí $\textbf{P} \subseteq \textbf{NP}$, jelikož deterministické stoje jsou speciálním případem nedeterministických, které pouze nevyužívají možnosti nedeterministického výběru.
+\subsubsection{Složitost} \label{chapter:slozitost}
+Na začátku je třeba si zavést třídy \textbf{P} a \textbf{NP}. Rozhodovací problémy, které spadají do třídy \textbf{P} jsou řešitelné deterministickými stroji v polynomiálním čase a bereme je za praktický zvládnutelné. \textbf{NP} problémy jsou také řešitelné v polynomiálním čase, ale nedeterministickými stroji. U těchto strojů předpokládáme, že z možných kroků provede vždy ten žádaný a dostane se tak ke správnému výsledku bez nutnosti zkoušet všechny možnosti. Jistě platí $\textbf{P} \subseteq \textbf{NP}$, jelikož deterministické stroje jsou speciálním případem nedeterministických, které pouze nemají možnost nedeterministického výběru.
 
-Některé rozhodovací problémy mají navíc tu vlastnost, že jsou na ně polynomiálně redukovatelné všechny rozhodovací problémy v \textbf{NP}. To znamená, že pro každý vstup libovolného problému $P_1$ můžeme v polynomiálním čase najít vstup pro $P_2$, který bude vracet stejnou odpověď, jakou by vrátil $P_1$ na původní vstup. Problémům s touto vlastností se říká \textit{\textbf{NP}\textendash těžké}.
+Některé rozhodovací problémy mají navíc tu vlastnost, že jsou na ně polynomiálně redukovatelné všechny rozhodovací problémy v \textbf{NP}. To znamená, že pro každý vstup libovolného problému $P_1$ můžeme v polynomiálním čase najít vstup pro $P_2$, který pro které je správná stejná odpověď. Problémům s touto vlastností se říká \textit{\textbf{NP}\textendash těžké}. Pokud navíc \textbf{NP}-těžký problém patří do NP, říkáme mu \textit{\textbf{NP}-úplný}.
 
-Pokud jsou navíc \textbf{NP}, říká se jim \textit{\textbf{NP}-úplné}. Tyto problémy jsou důležité, protože kdyby se podařilo najít algoritmus řešící kterýkoli z nich v polynomiálním čase, pak bychom jistě zvládli vyřešit i všechny \textbf{NP} problémy v polynomiálním čase, tedy $\textbf{NP} \subseteq \textbf{P}$ a z toho $\textbf{NP} = \textbf{P}$. Naopak, pokud bychom zjistili, že $\textbf{NP} \neq \textbf{P}$, pak pro žádný \textbf{NP}\textendash úplný problém jistě nemůže existovat polynomiální algoritmus, který ho řeší.
+\textbf{NP}-těžké problémy jsou důležité, protože kdyby se podařilo najít algoritmus řešící kterýkoli z nich v polynomiálním čase, pak bychom jistě zvládli vyřešit i všechny \textbf{NP} problémy v polynomiálním čase, tedy $\textbf{NP} \subseteq \textbf{P}$ a z toho $\textbf{NP} = \textbf{P}$. Naopak, pokud bychom zjistili, že $\textbf{NP} \neq \textbf{P}$, pak pro žádný \textbf{NP}\textendash úplný problém jistě nemůže existovat polynomiální algoritmus, který ho řeší.
 
-Z $\textbf{P} \neq \textbf{NP}$ jde vyvodit ještě jedno důležité tvrzení. Nechť $P_O$ je optimalizační problém a $P_D$ je jeho rozhodovací verze. Pokud dokážeme, že $P_D$ je \textbf{NP}\textendash těžký, pak pro $P_O$ neexistuje polynomický algoritmus. Kdyby totiž takový algoritmus existoval, stačilo by ho využít pro nalezení optimálního řešení, porovnat jeho cenu s se zadaným číslem $k$ pro $P_D$ a na základě toho, jestli by bylo větší nebo menší v závislosti na povaze $P_O$ vydat \textsc{Ano} nebo \textsc{Ne}. Tímto bychom tedy získali polynomiální algoritmus řešící také $P_D$. Jenže protože $P_D$ je \textbf{NP}\textendash těžký, tak všechny \textbf{NP} problémy jsou na něj polynomiálně redukovatelné a zvládli bychom je tedy i v polynomiálním čase řešit a tedy \textbf{P} = \textbf{NP}, což je spor.
+Z $\textbf{P} \neq \textbf{NP}$ jde vyvodit ještě jedno důležité tvrzení. Nechť $P_O$ je optimalizační problém a $P_D$ je jeho rozhodovací verze. Pokud dokážeme, že $P_D$ je \textbf{NP}\textendash těžký, pak pro $P_O$ neexistuje optimální polynomický algoritmus. Kdyby totiž takový algoritmus existoval, využili bychom ho k nalezení optimálního řešení instance $x$ problému $P_O$. Pak bychom cenu tohoto řešení porovnaly s číslem $k$, a rozhodli o tom, jestli odpověď pro instanci $(x, k)$ problému $P_D$ \textsc{Ano} nebo \textsc{Ne}. Tímto bychom tedy získali polynomiální algoritmus řešící také $P_D$. Jenže protože $P_D$ je \textbf{NP}\textendash těžký, tak všechny \textbf{NP} problémy jsou na něj polynomiálně redukovatelné a zvládli bychom je tedy i v polynomiálním čase řešit a tedy \textbf{P} = \textbf{NP}, což je spor.
 
 
 \pagebreak
 \section{Problém obchodního cestujícího}
 Problém obchodního cestujícího (TSP - \textit{Travelling Salesman Problem}) je jedním z nejstudovanějších optimalizačních problémů. Podstatou je mezi zadanými městy nalézt cestu, která začíná i končí ve stejném místě a zbytek měst navštíví právě jedenkrát. Jelikož seznam měst můžeme brát jako množinu vrcholů grafu, můžeme o TSP uvažovat jako o úloze o cestování v grafu. Cestou, kterou hledáme je pak \textit{hamiltonovská kružnice}.
 
-Formálně bychom mohli TSP definovat následně:
+TSP definujeme následně:
 \begin{definition}[Problém obchodního cestujícího]
 \begin{itemize}[label={}]
   \item
@@ -189,7 +194,7 @@ Formálně bychom mohli TSP definovat následně:
   \item \textsc{Vstup}: Úplný neorientovaný graf $G=\langle V, E \rangle$,
   \begin{itemize}[label={}]
   \item \begin{itemize}[label={}]
-  \item hranové ohodnocení $c : E \leftarrow R^+$
+  \item hranové ohodnocení $c : E \rightarrow R^+$
   \end{itemize}
   \end{itemize}
   \item \textsc{Výstup}: Hamiltonovská kružnice v $G$ minimální délky
@@ -199,8 +204,6 @@ Formálně bychom mohli TSP definovat následně:
 Ceny hran budeme nazývat také \textit{délky} a pro jednoduchost budeme místo $c(\{u, v\})$ psát $c_{u, v}$.
 
 \subsection{Složitost}
-Jedním z důvodů, proč je TSP tak zkoumaným problémem, je jeho složitost. Samotný problém je jistě v \textbf{NP}. Nedeterministický stroj, který by měl za úkol ho vyřešit, by prostě vybral $|V|$ hran z $E$ a jelikož by vždy volil správně, vrátil by nejkratší hamiltonovskou kružnici v grafu. Tohle by samozřejmě zvládnul provést v  polynomiálním čase.
-
 Zavedeme si nyní rozhodovací verzi k TSP.
 \begin{definition}[Rozhodovací verze TSP]
 \begin{itemize}[label={}]
@@ -217,15 +220,17 @@ Zavedeme si nyní rozhodovací verzi k TSP.
 \end{itemize}
 \end{definition}
 
-Ví se, že tato verze problému je \textbf{NP}\textendash úplná. Tedy platí, že pokud nalezneme polynomiální algoritmus řešící TSP, pak dokážeme \textbf{P} = \textbf{NP}.
+Jedním z důvodů, proč je TSP tak zkoumaným problémem, je jeho složitost. Rozhodovací verze TSP je jistě v \textbf{NP}. Nedeterministický stroj, který by měl za úkol najít řešení pro $(x,k)$, by prostě nedeterministicky vybral množinu $|V|$ hran z $E$ a potom by ověřil, že vybraná množina hran je hamiltonovská kružnice a že má cenu větší než $k$. Tohle by samozřejmě zvládnul provést v  polynomiálním čase.
+
+Ví se, že rozhodovací verze TSP je \textbf{NP}\textendash úplná. Tedy platí, že pokud nalezneme polynomiální algoritmus řešící TSP, pak dokážeme \textbf{P} = \textbf{NP}.
 
 Nyní si dokážeme ještě zajímavější tvrzení.
 \begin{theorem}
 Pokud by existoval $2^n$\textendash aproximační polynomiální algoritmus pro TSP, pak~$\textbf{P} = \textbf{NP}$.
 \end{theorem}
 
-Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamiltonovské kružnice (\textit{HC - Hamiltonian Cycle}) v grafu.
-\begin{definition}[Rozhodovací verze HC]
+Něž začneme s důkazem, musíme ji ještě zavést rozhodovací problém nalezení hamiltonovské kružnice (\textit{HC - Hamiltonian Cycle}) v grafu.
+\begin{definition}[HC]
 \begin{itemize}[label={}]
   \item
   \item \textsc{Název}: HC
@@ -236,7 +241,7 @@ Něž začneme s důkazem, musíme ji ještě zavést problém nalezení hamilto
 
 O tomto problému je známo, že je také \textbf{NP}\textendash úplný. Navíc se dá snadno převést na TSP.
 
-Jak jsme již zmínili, TSP má ve své klasické podobě na vstupu graf a jeho příslušné hranové ohodnocení. Vstup $x$ pro HC bychom mohli redukovat na vstup $r(x)$ pro TSP tak, že bychom vytvořili úplný graf mezi uzly z původní instance a ohodnotili bychom jeho hrany následovně:
+Jak jsme již zmínili, TSP má ve své klasické podobě na vstupu graf a jeho příslušné hranové ohodnocení. Vstupní graf $x = \langle V, E \rangle$ pro HC bychom mohli redukovat na vstup $r(x)$ pro TSP tak, že bychom vytvořili úplný graf mezi uzly z původní instance a ohodnotili bychom jeho hrany následovně:
 
 $$c_e = \begin{cases}
 1  & \text{pro } e \in E\\
@@ -254,13 +259,13 @@ Uvědomme si, že hrany s cenou $|V|\cdot2^{|V|}$ budou obsaženy v optimálním
 
 Díky takovému ohodnocení existuje tedy exponenciálně velká mezera mezi pozitivními a negativními instancemi HC. Pokud bychom měli $2^n$\textendash aproximační polynomiální algoritmus $A$ pro TSP, pak pro pozitivní instance HC by našel cestu délky nejhůře $|V|\cdot2^{|V|}$, pro negativní instance zase nejlépe délky $(2^{|V|} + 1) \cdot |V|$.
 
-HC bychom mohli vyřešit tak, že bychom spustili $A$ na $r(x)$ a pokud by délka vrácené cesty byla menší nebo rovna $|V|\cdot2^{|V|}$, pak bychom vrátili \textsc{Ano}, v opačném případě \textsc{Ne}. Vzhledem k tomu, že převod na $r(x)$, $A$ i porovnání na konci běží v polynomiálním čase, pak bychom celý HC mohli rozhodnout v polynomiálním čase. Uvedli jsme navíc, že HC je \textbf{NP}\textendash úplný. V kapitole o složitosti jsme řešili, že nalezení polynomiálního algoritmu pro kterýkoli z problémů této množiny by znamenalo, že $\textbf{N} = \textbf{NP}$.
+HC bychom mohli vyřešit tak, že bychom spustili $A$ na $r(x)$ a pokud by délka vrácené cesty byla menší nebo rovna $|V|\cdot2^{|V|}$, pak bychom vrátili \textsc{Ano}, v opačném případě \textsc{Ne}. Vzhledem k tomu, že převod na $r(x)$, $A$ i porovnání na konci běží v polynomiálním čase, pak bychom celý HC mohli rozhodnout v polynomiálním čase. Protože HC je NP-úplný, znamenalo by to, jak jsme diskutovaly v kapitole \ref{chapter:slozitost}, že P=NP.
 
 \subsection{Podproblémy TSP}
-Z předchozí podkapitoly je vidět, že TSP je v obecném případě těžké i aproximovat. Přidáním jistých omezení na problém můžeme aproximační faktor výrazně snížit a často nám takové typy problémů pro reálné použití dostačují.
+Z předchozí podkapitoly je vidět, že TSP je v obecném případě těžké v polynomickém čase i aproximovat. Přidáním jistých omezení na problém můžeme tuto obtížnost výrazně snížit a často nám takové typy problémů pro reálné použití dostačují.
 
 \subsubsection{Metrický problém obchodního cestujícího}
-Prvním takovým omezením je, že pro délky hran musí platit trojúhelníková nerovnost. Tedy $\forall u, v, w \in V$ platí $$c_{u, v} + c_{v, w} \ge c_{w, u}$$
+Prvním takovým omezením je, že pro délky hran musí platit trojúhelníková nerovnost. Tedy pro každé $u, v, w \in V$ platí $$c_{u, v} + c_{v, w} \ge c_{w, u}$$
 Takovému problému se říká \textit{metrický TSP}.
 
 \subsubsection{Euklidovský problém obchodního cestujícího}
@@ -272,32 +277,35 @@ Jelikož při takovém ohodnocení bude jistě platiti i trojúhelníková nerov
 
 \pagebreak
 \section{Algoritmy}
-Jak bylo již zmíněno, TSP je řešitelný v polynomiálním čase pouze nedeterministickými stroji. U deterministických (klasických) strojů je složitost exponenciální. Z toho ale vyplývá, že bychom se pro větší vstupy nemuseli v reálném čase dočkat odpovědi. Z tohoto důvodu se pro hledání řešení používají tzv. \textit{heuristiky}. Při jejich použití se nemůžeme spolehnout, že najdeme optimální řešení. Jsme ale schopni nalézt přibližné řešení v reálném čase.
+Pro TSP není známý žádný optimální polynomický algoritmus a platí-li $\textbf{P} \ne \textbf{NP}$, pak ani takový algoritmus existovat nemůže. Z tohoto důvodu se pro hledání řešení používají tzv. \textit{heuristiky}. Při jejich použití se sice nemůžeme spolehnout, že najdeme optimální řešení, ale jsme schopni nalézt přibližné řešení v reálném čase.
 
-U některých heuristik se navíc můžeme bavit o \textit{aproximačním faktoru}. Mějme libovolný vstup problému $I$, pro který je cena optimálního řešení $OPT$ a heuristiku s aproximačním faktorem $\alpha$. Potom se můžeme spolehnout, že cena řešení, které dostaneme použitím dané heuristiky na $I$ bude při nejhorším $\alpha * OPT$.
+U některých heuristik se navíc můžeme bavit o \textit{aproximačním faktoru}. Připomeňme, že pro libovolný vstup problému $I$, pro který je cena optimálního řešení $OPT$ a heuristiku s aproximačním faktorem $\alpha$ platí, že se můžeme spolehnout, že cena řešení, které dostaneme použitím dané heuristiky na $I$ bude při nejhorším $\alpha * OPT$.
 
-\subsection{Nearest addition}
+\subsection{Nearest-addition algoritmus}
 	Tento algoritmus spadá do skupiny hladových algoritmů a je poměrně intuitivní. Vychází z myšlenky, že k vytvářené cestě vždy přidáme nejbližší nenavštívené město. Nejprve najdeme taková dvě města $i, j$, která jsou si v grafu nejblíže a vytvoříme cestu $path$, která povede z $i$ do $j$ a zpět. Následuje cyklus, ve kterém budeme hledat takovou hranu $(k, l)$, že $k \in path$, $l \notin path$ a $c_{kl}$ je všemi takovými hranami minimální. Předpokládejme, že město $m$ je aktuálně v $path$ za $k$. Vložíme $l$ do $path$ mezi $k$ a $m$ a následuje další iterace. Cyklus skončí v momentu, kdy jsme navštívili všechny města.\newline
 	
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
 new list $path$\;
-new list $unvisitedCities$\;
-$unvisitedCities \leftarrow nodes$\;
+new list $unvisited$\;
+$unvisited \leftarrow nodes$\;
 $(i, j) \leftarrow $ shortest edge in graph\;
 $path.Add(i, j, i)$\;
-$unvisitedCities.Remove(i, j)$\;
+$unvisited.Remove(i, j)$\;
 
-\While{$unvisitedCities.Count > 0$}{
-$(k, l) \leftarrow $ shortest edge in graph, where $k \in path$ and $l \in unvisitedCities$\;
+\While{$unvisited.Count > 0$}{
+$(k, l) \leftarrow $ shortest edge in graph, where $k \in path$ and $l \in unvisited$\;
 $path.AddAfter(k, l)$\;
-$unvisitedCities.Remove(l)$\;
+$unvisited.Remove(l)$\;
 }
 \Return{$path$}
-\caption{Nearest addition algoritmus}
+\caption{Nearest-addition algoritmus}
 \end{algorithm}}\leavevmode\newline
 
-Ukažme si jednoduchý příklad chodu algoritmu.
+Procedury \textit{Add}, \textit{AddAfter} a \textit{Remove} použité v kódu pracují se seznamy a to tak, že \textit{list.Add(a, b, ...)} přidá na konec seznamu\textit{list} všechny předané argumenty v pořadí od prvního k poslednímu, \textit{list.AddAfter(a, b)} najde, kde se v \textit{list} nachází prvek \textit{a} a vloží za něj \textit{b} a \textit{list.Remove(a)} \textit{list} první výskyt \textit{a}.
+
+Ukažme si jednoduchý příklad chodu algoritmu. Na obrázku níže jsou rozbrazeny vrcholy vstupního grafu. Za délky hran mezi nimi uvažujme euklidovskou vzdálenost. Dále je na každém obrázku ukázaná aktuální cesta \textit{path} a zelená hrana reprezentuje poslední nalezenou nejkratší hranu.
+
 \begin{figure}[H]
     \begin{example}
     \leavevmode\newline
@@ -318,6 +326,7 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                 \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
             \end{tikzpicture}
+        \caption{}\label{tikzpicture:naExampleA}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.45\textwidth}
@@ -338,6 +347,7 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
     
             \end{tikzpicture}
+        \caption{}\label{tikzpicture:naExampleB}
         \end{subfigure}
         
         \vspace{30pt}
@@ -358,6 +368,7 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                 \foreach \point/\label in {a/a, b/b, c/c, d/d, e/e}
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
             \end{tikzpicture}
+        \caption{}\label{tikzpicture:naExampleC}
         \end{subfigure}
         \hfill
         \begin{subfigure}{0.45\textwidth}
@@ -377,14 +388,15 @@ Ukažme si jednoduchý příklad chodu algoritmu.
                     \fill (\point) circle (2.5pt) node[label={below left:\label}] {};
     
             \end{tikzpicture}
+        \caption{}\label{tikzpicture:naExampleD}
         \end{subfigure}
     \end{example}
-    \caption{Nearest addition příklad}
+    \caption{Příklad nearest-addition algoritmu}
 \end{figure}
 
 \subsubsection{Aproximační faktor}
 \begin{theorem}
-Nearest addition  je 2-aproximační algoritmus.
+Nearest-addition je 2-aproximační algoritmus.
 \end{theorem}
 
 Abychom si tvrzení dokázali, musíme si nejdříve ukázat vztah k Primově algoritmu, který hledá minimální kostru grafu.\newline
@@ -392,16 +404,16 @@ Abychom si tvrzení dokázali, musíme si nejdříve ukázat vztah k Primově al
 {\SetAlgoNoLine\
 \begin{algorithm}[H]
 new list $spanningTree$\;
-new list $unvisitedCities$\;
-$unvisitedCities \leftarrow nodes$\;
+new list $unvisited$\;
+$unvisited \leftarrow nodes$\;
 $(i, j) \leftarrow $ shortest edge in graph\;
 $spanningTree.Add((i, j))$\;
-$unvisitedCities.Remove(i, j)$\;
+$unvisited.Remove(i, j)$\;
 
-\While{$unvisitedCities.Count > 0$}{
-$(k, l) \leftarrow $ shortest edge in graph, where $k \notin unvisitedCities$ and $l \in unvisitedCities$\;
+\While{$unvisited.Count > 0$}{
+$(k, l) \leftarrow $ shortest edge in graph, where $k \notin unvisited$ and $l \in unvisited$\;
 $spanningTree.Add((k, l))$\;
-$unvisitedCities.Remove(l)$\;
+$unvisited.Remove(l)$\;
 }
 \Return{$spanningTree$}
 \caption{Primův algoritmus}
@@ -418,7 +430,7 @@ Pro libovolný vstup TSP je cena jeho optimální cesty alespoň tak vysoká, ja
 \begin{proof}
 Vezměme optimální cestu pro libovolný vstup s více než jedním vrcholem a odstraňme některou z hran. Takto vzniklý graf jistě nebude mít vyšší cenu než optimální cesta. Navíc bude také kostrou původního vstupu. To si můžeme snadno ověřit. Graf stále obsahuje všechny vrcholy, jeho souvislost jsme nijak neporušili a jedinou kružnici kterou obsahoval jsme otevřeli odstraněním jedné z hran.
 
-
+\begin{figure}[h]
 \begin{center}
 	\begin{tikzpicture}[scale=1.2]
 		% Define the coordinates of the points
@@ -449,17 +461,18 @@ Vezměme optimální cestu pro libovolný vstup s více než jedním vrcholem a 
 		% Draw the lines
 		\draw (A) -- (B) -- (C) -- (D) -- (E);
 	\end{tikzpicture}
-\end{center} 		
-\captionof{figure}{Vztah okružní cesty v grafu a jeho kostry}\leavevmode\newline
+\end{center} 
+\end{figure}
+\captionof{figure}{Vztah okružní cesty v grafu a jeho kostry}\leavevmode\newline		
 
 To, že tato kostra nemůže mít nižší cenu než minimální kostra, je triviální a lemma jsme dokázali.
 \end{proof}
 
 \begin{theorem}
-Nearest addition algoritmus pro metrický problém obchodního cestujícího je 2-aproximační algoritmus.
+Nearest-addition algoritmus pro metrický problém obchodního cestujícího je 2-aproximační algoritmus.
 \end{theorem}
 
-\begin{proof}
+\proof
 Uvažujme podmnožiny $S_1, S_2,…,S_{n-1}$ hran grafu, kde $S_i$ je množina hran identifikovaných $i$-tou iterací. Vrátíme-li se k příkladu chodu algoritmu, pak ve stavu na obrázku \ref{tikzpicture:naExampleA} bude $S_1 = \{(a, b)\}$, pro stav na \ref{tikzpicture:naExampleB} bude $S_2 = \{(a, b), (b, c)\}$, atd. Dále mějme množinu $F = \{(i_1, j_1), (i_2, j_2), $ $\cdots$ $,(i_{n-1}, j_{n-1})\}$ reprezentující nejkratší hrany určené každým průchodem cyklu (na obrázku zvýrazněné zeleně). Jak bylo zmíněno výše, tato množina bude jistě množinou hran nejkratší kostry vstupního grafu. Tedy z lemma \ref{lemma:MSP} plyne
 $$
 OPT \ge\sum_{l = 1}^{n-1} c_{i_l j_l}
@@ -467,16 +480,13 @@ $$
 
 Po najití první nejkratší hrany máme výslednou délku $c_1 = 2c_{i_1, j_1}$, jelikož ji vkládáme do cesty dvakrát. Dále, když přidáváme nové město $j$ mezi $i$ a $k$, tak rušíme hranu $(i, k)$ a přidáváme hrany $(i, j)$ a $(j, k)$. Cesta se tedy prodlužuje o $c_{ij} + c_{jk} - c_{ik}$. Z trojúhelníkové nerovnosti snadno odvodíme, že $c_{jk} - c_{ik} \le c_{ij}$. Rozdíl cen hran $c_{jk}$ a $c_{ik}$ je tedy shora ohraničený cenou $c_{ij}$.
 
-Dosadíme-li tuto hodnotu do předchozí rovnice, zjistíme, že celková cesta se může v nejhorším případě prodloužit o $2c_{ij}$. Celková cesta nalezená narest addition algoritmem bude tedy maximálně $2\sum_{l=1}^{n-1}c_{i_l j_l}$.
+Dosadíme-li tuto hodnotu do předchozí rovnice, zjistíme, že celková cesta se může v nejhorším případě prodloužit o $2c_{ij}$. Celková cesta nalezená narest-addition algoritmem bude tedy maximálně $$2\sum_{l=1}^{n-1}c_{i_l j_l}$$
 
 Upravíme li poslední nerovnost, dostaneme $\sum_{l=2}^{n}c_{i_l j_l} \le 2OPT$.
 
-To znamená, že cesta nalezená algoritmem v nejhorším případě stát bude stát nejvýše dvakrát tolik, co optimální cesta pro stejný vstup, což je přesně to, co jsme chtěli dokázat.
-\end{proof}
+\subsubsection{Těsný příklad} \label{tightExample:NA}
 
-\subsubsection{Tight example} \label{tightExample:NA}
-
-Můžeme si ukázat jeho tzv. \textit{tight example}, což je pro algoritmus s aproximačním faktorem $\alpha$ příklad, u kterého nalezne řešení s cenou $\alpha * OPT$ (můžeme povolit určitou konstantní odchylku). Tedy budeme chtít najít vstup  pro metrický TSP, pro který nám tento algoritmus vrátí cestu s délkou skoro $2 * OPT$.
+Můžeme si ukázat jeho tzv. \textit{těsný příklad} (tight example), což je pro algoritmus s aproximačním faktorem $\alpha$ příklad, u kterého nalezne řešení s cenou $\alpha * OPT$ (můžeme povolit určitou konstantní odchylku). Tedy budeme chtít najít vstup  pro metrický TSP, pro který nám tento algoritmus vrátí cestu s délkou skoro $2 * OPT$.
 
 Vezměme si jako vstup $(n - 1)$-cípou hvězdu s jedním vrcholem ve svém středu. Hrany busou ohodnoceny následovně: hrany vlevo na obrázku budou mít cenu jedna a hrany vpravo dva.
 
@@ -514,7 +524,7 @@ Vezměme si jako vstup $(n - 1)$-cípou hvězdu s jedním vrcholem ve svém stř
  	 		\node[below, white] at (current bounding box.south) {0};
 		\end{tikzpicture}
     \end{center}
-    \caption{Nearest addition tight example}
+    \caption{Těsný příklad nearest-addition algoritmu}
 \end{figure}
 
 Cena hran napravo je shora omezená právě dva, protože musí platit trojúhelníková nerovnost.
@@ -545,7 +555,7 @@ Cena hran napravo je shora omezená právě dva, protože musí platit trojúhel
  	 		\draw (t1) -- (t3) -- (t5) -- (t2) -- (t4)-- (t0) -- (t1);
 		\end{tikzpicture}
     \end{center}
-    \caption{Nearest addition tight example - cesty}
+    \caption{Těsný příklad nearest-addition algoritmu - cesty}
 \end{figure}
 
 Je snadno vidět, že optimální cesta (na obrázku výše vlevo) bude mít celkovou cenu $n$.  Algoritmem ale může být nalezena i cesta jako na obrázku nahoře vpravo (příklad chodu algoritmu je zobrazen níže). Taková cesta obsahuje $n-2$  hran s~vahou dva a dvě hrany s vahou jedna, tedy $2(n - 2) + 2 = 2n - 2 = 2*OPT - O(1)$.
@@ -623,10 +633,11 @@ Je snadno vidět, že optimální cesta (na obrázku výše vlevo) bude mít cel
         	\node[below=7mm] at (current bounding box.south) {\footnotesize 0, \textbf{4}, 2, 5, 3, 1, 0};
 		\end{tikzpicture}
     \end{center}
-    \caption{Nearest addition tight example - chod algoritmu}
+    \caption{Těsný příklad nearest-addition algoritmu - chod algoritmu}
 \end{figure}
 
-\subsection{Double-tree}
+\pagebreak
+\subsection{Algoritmus double-tree}
 Jádrem algoritmu je zdvojení hran minimální kostry vstupního grafu a následné nalezení uzavřeného eulerovského tahu. To, že se v takovémto grafu takový tah nachází je snadné dokázat. Z Věty \ref{theorem:eulerianCircout} víme, že stačí, aby byl graf spojitý a všechny jeho uzly měly sudý stupeň. Zdvojíme-li každou hranu, vycházející z libovolného uzlu, pak bude mít jistě uzel sudý stupeň. Jelikož vycházíme z kostry grafu, spojitost je zřejmá.
 
 K vytvoření cesty už potřebujeme pouze zaručit, že nenavštívíme žádný uzel vícekrát. Toho dosáhneme pomocí zkracování. Máme-li eulerovský průchod $(i_0, i_1)$, $(i_1, i_2)$, $\cdots$ $(i_{k-1}, i_k)$, $(i_k, i_0)$, pak vezměme posloupnost $i_0, i_1,... i_k$ a ponechejme pro každý uzel pouze jeho první výskyt. Nakonec ještě vraťme $i_0$ na konec cesty. \newline
@@ -651,6 +662,8 @@ vytvoř seznam $path$\;
 \Return{$path$}
 \caption{Double-tree algoritmus}
 \end{algorithm}}\leavevmode\newline
+
+Na následujícím obrázku je vidět jednoduchý chod algoritmu. Vlevo je nalezená minimální kostra, uprostřed pak graf se zdvojenými hranami a jeho eulerovským průchodem, vpravo pak nakonec výsledná cesta vzniklá zkracováním.
 
 \begin{figure}[H]
     \begin{example}
@@ -723,9 +736,10 @@ vytvoř seznam $path$\;
         \node[below] at (current bounding box.south) {c, b, a, \cancel{b}, d, e, \cancel{d}, \cancel{b}, c};
       \end{tikzpicture}
     \end{example}
-    \caption{Double-tree příklad}
+    \caption{Příklad algoritmu double-tree}
 \end{figure}
 
+\pagebreak
 
 \subsubsection{Aproximační faktor}
 \begin{theorem}
@@ -737,8 +751,8 @@ Double-tree je 2-aproximační algoritmus.
 	
 	Zbývá pouze zkracování. Zde opět vycházíme z trojúhelníkové nerovnosti. Uvažujme, že $i$, $j$, $k$ jsou po sobě jdoucí města a $j$ jsme již navštívili, tedy bychom je měli přeskočit. Je zřejmé, že $c_{ij} + c_{jk} \ge c_{ik}$ , což dokazuje, cena tohoto úseku zůstane při nejhorším stejná a horní ohraničení se tedy nemění.
 	
-\subsubsection{Tight example}
-Jako příklad vstupu, pro který double-tree algortimus najde cestu délky $2OPT$ můžeme vzít vstup z kapitoly \ref{tightExample:NA} o nearest addition algoritmu. Jelikož mají oba algoritmy stejný aproximační faktor, pak stačí ukázat, že se můžeme double-tree algoritmem dostat ke stejné cestě jako v již zmíněné předchozí kapitole.
+\subsubsection{Těsný příklad}
+Jako příklad vstupu, pro který double-tree algortimus najde cestu délky $2OPT$ můžeme vzít vstup z kapitoly \ref{tightExample:NA} o nearest-addition algoritmu. Jelikož mají oba algoritmy stejný aproximační faktor, pak stačí ukázat, že se můžeme double-tree algoritmem dostat ke stejné cestě jako v již zmíněné předchozí kapitole.
 
 U takového vstupu může být nalezena následná minimální kostra.
 
@@ -759,23 +773,23 @@ U takového vstupu může být nalezena následná minimální kostra.
  	 		\draw (t0) -- (t4);
  	 		\draw (t0) -- (t5);
 		\end{tikzpicture}
-    \caption{Double tree tight example - minimální kostra}
+    \caption{Těsný příklad algoritmu double-tree - minimální kostra}
     \end{center}
 \end{figure}
 
-V grafu se zdvojenými hranami, pak můžeme uvažovat eulerovský průchod 0,~4, 0, 2, 0, 5, 0, 3, 0, 1, 0, ze kterého zkrácením dostaneme cestu 0, 4, 2, 5, 3, 1, 0, což je stejná cesta jakou jsme nalezli algoritmem nearest addition.
+V grafu se zdvojenými hranami, pak můžeme uvažovat eulerovský průchod 0,~4, 0, 2, 0, 5, 0, 3, 0, 1, 0, ze kterého zkrácením dostaneme cestu 0, 4, 2, 5, 3, 1, 0, což je stejná cesta jakou jsme nalezli algoritmem nearest-addition.
 
-\subsection{Christofides'}
+\subsection{Christofidesův algoritmus}
 Christofidesův algoritmus je velice podobný double-tree algoritmu. Opět \mbox{začneme} s minimální kostrou vstupního grafu. Existenci eulerovského průchodu ale~\mbox{zajistíme} o něco chytřeji. Připomeňme si, že eulerovský průchod se v grafu nachází právě tehdy, když mají všechny jeho uzly sudý stupeň. V double-tree algoritmu jsme tuto podmínku splnili tak, že jsme zdvojili každou hranu kostry. To je ovšem redundantní. Postačí, když spárujeme takové její uzly, které mají lichý stupeň.
 
-Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy jeho minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude $\forall v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. Na~\mbox{množině} jich samozřejmě může být více. Pro naše účely bude jistě nejlepší hledat takovou z nich, která budeme mít minimální součet délek všech svých hran, tedy \textit{minimální perfektní párování}. K jeho nalezení se v programu používá C++ knihovna Vladimira Kolmogorova, která implementuje $Blossom~V$ algoritmus.
+Mějme úplný graf, jehož množinou vrcholů budou právě ty vrcholy jeho minimální kostry s lichým stupněm, označme ji $O$. Z množiny jeho hran se budeme snažit vybrat takovou podmnožinu, ve které bude pro každé $v \in O$ právě jedna hrana, pro kterou je $v$ koncový uzel. Taková množina se nazývá \textit{perfektní párování}. V~grafu jich samozřejmě může být více. Pro naše účely bude jistě nejlepší hledat takové z nich, které bude mít minimální součet délek všech svých hran, tedy \textit{minimální perfektní párování}. K jeho nalezení se v programu používá C++ knihovna Vladimira Kolmogorova, která implementuje $Blossom~V$ algoritmus.
 
 Uvědomme si ale, že aby takové párování pro $O$ existovalo, tak musí být $|O|$ sudé. Víme, že součet stupňů všech uzlů v neorientovaném grafu je sudé číslo (viz Věta \ref{theorem:degree}). Označme si množinu všech vrcholů grafu $V$ a množinu vrcholů se~sudým stupněm $E$. Jistě platí
 $$
 \sum_{v \in V} deg(v) = \sum_{v \in E} deg(v) + \sum_{v \in O} deg(v)
 $$
 
-$\sum_{v \in V} deg(v)$ je ale určitě sudé a to samé platí pro $\sum?_{v \in E}$, tedy $\sum_{v \in O} deg(v)$ musí být také sudý. Vzhledem k tomu, že každý vrchol přispívá do součtu lichým číslem, pak musí být sudý jejich počet.
+$\sum_{v \in V} deg(v)$ je ale určitě sudé a to samé platí pro $\sum_{v \in E}deg(v)$, tedy $\sum_{v \in O} deg(v)$ musí být také sudý. Vzhledem k tomu, že každý vrchol přispívá do součtu lichým číslem, pak musí být sudý jejich počet.
 
 Přidáním minimálního perfektního párování k minimální kostře zvýšíme stupeň každého vrcholu s lichým stupněm právě o jedna, tudíž zajistíme, že~všechny uzly budou mít sudý stupeň. V takovém grafu pak existuje uzavřený eulerovský tah. Po jeho nalezení už jen zkracujeme cestu stejným způsobem jako u double-tree algoritmu.\leavevmode\newline
 
@@ -797,6 +811,8 @@ vytvoř seznam $path$\;
 \Return{$path$}
 \caption{Christofidesův algoritmus}
 \end{algorithm}}\leavevmode\newline
+
+Podobně jako u algoritmu double-tree si ukážeme jednoduchý příklad. Vlevo je opět vidět minimální kostra, kde jsou modrou barvou zobrazeny vrcholy s lichým stupněm. Na dalším obrázku je k hranám přidáno minimální párování modrých vrcholů s eulerovským průchodem takového grafu. Nakonec pak opět výsledná zkrácená cesta.
 
 \begin{figure}[H]
     \begin{example}
@@ -866,7 +882,7 @@ vytvoř seznam $path$\;
         \node[below] at (current bounding box.south) {a, b, d, e, \cancel{b}, c, a};
       \end{tikzpicture}
     \end{example}
-    \caption{Christofides' příklad}
+    \caption{Příklad Christofidesova algoritmu}
 \end{figure}
 
 \subsubsection{Aproximační faktor}
@@ -876,7 +892,7 @@ vytvoř seznam $path$\;
 
 	Nejdřív si musíme rozmyslet, co vlastně potřebujeme dokázat. Potřebujeme, aby eulerovský průchod měl při nejhorším délku $\frac{3}{2}OPT$. Z lemmatu \ref{lemma:MSP} víme, že minimální kostra, která je v něm obsažená, má v nejhorším případě cenu OPT. Stačí tedy dokázat, že perfektní párování má maximálně cenu $\frac{1}{2} OPT$.
 	
-	Pracujeme s množinou lichých uzlů v MST $O$. Budeme v ní teď hledat cestu. Vyjdeme-li z nejkratší cesty nad všemi vrcholy vstupu, pak je zřejmé, že její délka bude nejvýše $OPT$. Tuto cestu teď budeme pouze zkracovat. Uvažujeme-li dvě města $i$ a $j$, pro která platí, že na cestě mezi nimi jsou pouze města nenáležící do $O$, pak je jistě můžeme vynechat a z trojúhelníkové nerovnosti víme, že v nejhorším případě bude hrana $(i,j)$ stejně dlouhá jako původní cesta. V nejhorším případě tedy po tomto zkracování zůstane délka cesty rovna $OPT$.
+	Pracujeme s množinou lichých uzlů v MST $O$. Budeme v ní teď hledat cestu. Vyjdeme-li z nejkratší hamiltonovské kružnice nad všemi vrcholy vstupu, pak je zřejmé, že její délka bude nejvýše $OPT$. Tuto kružnici teď budeme pouze zkracovat. Uvažujeme-li dva vrcholy $i$ a $j$, pro která platí, že na cestě mezi nimi jsou pouze vrcholy nenáležící do $O$, pak je jistě můžeme vynechat a z trojúhelníkové nerovnosti víme, že v nejhorším případě bude hrana $(i,j)$ stejně dlouhá jako původní cesta. V nejhorším případě tedy po tomto zkracování zůstane délka kružnice rovna $OPT$.
 	
 	Nyní začněme střídavě obarvovat hrany nalezené cesty, řekněme modrou a červenou. Množina červených i množina modrých hran je perfektním párováním na $O$, platí totiž, že pokrývají všechny vrcholy a žádné dvě hrany nesdílí vrchol. Víme, že dohromady množiny dávají $OPT$, pak jistě jedna z množin bude mít délka menší nebo rovnu $\frac{1}{2}OPT$, což jsme chtěli dokázat.
 
@@ -949,11 +965,11 @@ vytvoř seznam $path$\;
 	
 	Z analýz aproximačních faktorů Christofidesova a double-tree algoritmů ještě vyplývá následující tvrzení.
 \begin{lemma}
-Sestrojíme-li pro vstup eulerovský podgraf délky $\alpha*OPT$, pak můžeme odvodit $\alpha$-aproximační algoritmus.
+Sestrojíme-li pro vstup metrického TSP eulerovský podgraf délky $\alpha*OPT$, pak můžeme odvodit jeho $\alpha$-aproximační algoritmus.
 \end{lemma}
 
 \subsubsection{Tight example}
-Vezměme si následující vstup, kde mají vyznačené hrany délku 1.
+Vezměme si následující vstup, kde mají vyznačené hrany délku 1. U ostatních hran uvažujme jejich délku vyšší 1.
 
 \begin{figure}[H]
     \begin{center}
@@ -982,10 +998,10 @@ Vezměme si následující vstup, kde mají vyznačené hrany délku 1.
         	\node[font=\huge] at (current bounding box.center) {...};
             \end{tikzpicture}
     \end{center}
-    \caption{Christofides' tight example}
+    \caption{Těsný říklad Christofidesova algoritmu}
 \end{figure}
 
-Bude-li nalezena minimální kostra grafu zobrazená černými hranami na obrázku níže, pak jediné uzly s lichým stupněm budou krajní zobrazené modře. Jejich spojením pak dostanem cestu (zkracování zde jistě nepovede k žádnému zlepšení).
+Bude-li nalezena minimální kostra grafu zobrazená černými hranami na obrázku níže, pak jediné uzly s lichým stupněm budou krajní zobrazené modře. Jejich spojením pak dostaneme cestu (zkracování zde jistě nepovede k žádnému zlepšení).
 
 \begin{figure}[H]
         \begin{center}
@@ -1018,12 +1034,12 @@ Bude-li nalezena minimální kostra grafu zobrazená černými hranami na obráz
         	\node[below, font=\large] at (current bounding box.south) {$\lfloor \frac{n}{2} \rfloor$};
             \end{tikzpicture}
         \end{center}
-    \caption{Christofides' tight example - cesta}
+    \caption{Těsný říklad Christofidesova algoritmu - cesta}
 \end{figure}
 
 Podívejme se na délku takto nalezené cesty. Kostra bude mít jistě délku $n - 1$ a poslední přidaná hrana $\lfloor \frac{n}{2} \rfloor$. Je také snadno vidět, že optimální cesta bude délky $n$. Pak už snadno $$(n - 1) + \lfloor \frac{n}{2} \rfloor = n - O(1) = OPT - O(1)$$
 
-\subsection{Keringhan - Lin}
+\subsection{Keringhan - Lin algoritmus}
 
 Tento heuristický algoritmus není specifický pro TSP, ale je možné jím řešit obecně problémy, kde máme nějakou podmínku $C$, kterou musejí splňovat jejich řešení, a funkci $f$, která takovým řešením přiřazuje určitou hodnotu. Zadanou pak máme množinu $S$, ve které hledáme podmnožinu $T$, která bude nejen splňovat podmínku $C$, ale její hodnota $f$ bude mezi všemi vyhovujícími podmnožinami minimální. Takové problémy mívají často exponenciální složitost, proto se zpravidla spokojíme s hledáním takových podmnožin, které splňují $C$ a jejich hodnota $f$ je dostatečně malá. Jedním z takových problémů, kde se Kernighan - Lin využívá je například \textit{dělení grafů}. 
 
@@ -1040,11 +1056,11 @@ Obecná podoba heuristiky by se dala zapsat následovně:\newline
 
 {\LinesNumbered\SetAlgoNoLine\
 \begin{algorithm}[H]
-$T \leftarrow$ pseudonáhodné řešení\;
+$T \leftarrow$ pseudorandom solution\;
 $T' \leftarrow$ $T$\;
 \While{$T'$}
 {
-	$T' \leftarrow$ tranformace $T$ taková, že $f(T') < f(T)$\;
+	$T' \leftarrow$ transformation of $T$ such that $f(T') < f(T)$\;
 }
 \Return $T'$ or start over if desired\;
 \caption{Keringhan - Lin algoritmus - obecně}
@@ -1070,7 +1086,7 @@ $i \leftarrow i + 1$\;
 $(x_i, y_i) \leftarrow$ best pair for exchange\;
 $G_i \leftarrow$ total gain for $\{x_1, x_2, ..., x_k\}$ and $\{y_1, y_2, ..., y_k\}$\;
 }
-$k \leftarrow i$, where $G_i$ is max \tcp*[h]{(definition of $G_i$ is below)}\;
+$k \leftarrow i$, where $G_i$ is max \textbackslash\textbackslash definition of $G_i$ is below\;
 $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 }
 \Return $T'$\;
@@ -1089,13 +1105,14 @@ Z pseudokódu uvedeného výše není zřejmé ještě pár věcí. Nejzřejměj
 
 Další neznámou je funkce $G_i$. Tato funkce udává celkový zisk pro aktuálně nalezené prvky. Určíme-li $g_i$ jako zisk pro $(x_i, y_i)$, pak nejsnazším řešením je za~$G_i$ uvažovat $g_1 + g_2 + ... + g_i$. Tímto se také vyhneme tomu, že bychom přestali hledat v momentu, kdy bychom nalezly pár se zápornou hodnotou $g_i$. U~této funkce budeme požadovat, aby dávala vždy kladné hodnoty, čili-že abychom se nevydávali po cestách, které nám nedávají žádný zisk. Tomuto požadavku budeme říkat \textit{pravidlo zisku}.
 
-Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k~dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrý balanc mezi schůdným výpočetním časem a prozkoumáváním dostatku příležitostí.
+Nakonec ještě musíme nalézt odpovídající \textit{ukončovací podmínku}, která bude udávat, zda-li má smysl pokračovat v hledání nebo jsme již došli do bodu, kdy k~dalšímu zlepšení nedojdeme. Nejtěžší úkol je pak najít dobrou rovnováhu mezi schůdným výpočetním časem a prozkoumáváním dostatku možností.
 
 \subsubsection{Keringhan - Lin pro TSP}
-Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za~množinu $S$ můžeme brát všechny hrany úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subseteq S$, aby $T$ byla řešením problému, jistě bude, že~hrany, které obsahuje, musí tvořit okružní cestu mezi vstupními městy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
+Nejprve si uvědomme že skutečně lze tuto heuristiku využít pro řešení TSP. Za~množinu $S$ můžeme brát všechny hrany úplného grafu nad vstupními městy. Podmínka $C$ kladená na $T \subseteq S$, aby $T$ byla řešením problému, jistě bude, že~hrany, které obsahuje, musí tvořit hamiltonovskou kružnici mezi vstupními vrcholy. Funkce $f$ pak bude přiřazovat takovým cestám jejich délku.
 
 Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat pro TSP. Jeho jádrem je sekvenční hledání párů hran, kde první v původním řešení zrušíme a druhou do nového přidáme. Co je myšleno sekvenčním hledání si nejprve ilustrujeme následujícím obrázkem.
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[baseline, scale=0.9]
  	 % Set the radius of the imaginary circle
@@ -1202,7 +1219,8 @@ Nyní už se podíváme na to, jak konkrétně bude takový algoritmus vypadat p
  	 \draw[green!70!black] (t4) to[] node[midway, right] {$y_2$} (t5);
 	\end{tikzpicture}
 \end{center}
-\captionof{figure}{Sekvenční hledání hran}\leavevmode\newline
+\caption{Sekvenční hledání hran}\leavevmode\newline
+\end{figure}
 
 Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak přidaná hrana s ní bude druhý bod sdílet, tedy $y_i = (t_{i+1}, t_{i+2})$, a následně zrušená hrana bude mít zase tvar $x_{i+1} = (t_{i+2}, t_{i+3})$. Poslední přidaná hrana potom bude $y_k = (t_{2i}, t_1)$.
 
@@ -1216,7 +1234,7 @@ Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak p
 
 \hspace{6.5mm}Jelikož klademe podmínku, že hrany jsou hledané sekvenčně, tak přidaná hrana, pak bude mít tvar $y_{i-1} = (t_{2(i-1)}, t_{2i-1})$. Nakonec cestu opět uzavřeme přidáním hrany $y_{enc} = (t_1, t_{2i})$.
 
-
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
@@ -1310,9 +1328,10 @@ Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak p
  	 
 	\end{tikzpicture}
 \end{center}
+\end{figure}
 \captionof{figure}{Pár vyhovující podmínce proveditelnosti}\leavevmode\newline
 
-
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[baseline]
  	 % Set the radius of the imaginary circle
@@ -1406,6 +1425,7 @@ Sekvenčnost tedy znamená, že zrušíme-li hranu $x_i = (t_i, t_{i+1})$, pak p
  	 
 	\end{tikzpicture}
 \end{center}
+\end{figure}
 \captionof{figure}{Pár nevyhovující podmínce proveditelnosti}\leavevmode\newline
 
 Nyní se podíváme na to, jak identifikovat aktuálně nejvýhodnější pár k výměně. Přirozeně se naskýtá možnost vybrat takové hrany  $x_{i}$, $y_i$, pro které je $|x_i| - |y_{i}|$ mezi ostatními páry maximální. Právě tohoto \textit{pravidla výběru} se využívá.
@@ -1452,10 +1472,11 @@ $T' \leftarrow (T - \{x_1, x_2, ..., x_k\}) \cup \{y_1, y_2, ..., y_k\}$\;
 
 Co pseudokód neukazuje je omezený backtracking, který se provádí v případě, že $G^* = 0$. V takovém případě se na první a druhé úrovni zkoušejí ostatní možnosti za jednotlivé hrany. Tedy nejdříve budeme zkoušet alternativní $y_2$ (postupně podle sestupné hodnoty $|x_2| - |y_2|$), ve chvíli, kdy jsou všechny možnosti vyčerpány, se zkusí použít alternativní $x_2$ (tento případ je složitější). Takto se pokračuje i se všemi $y_1$, $x_1$ a $t_1$. V momentě, kdy nám žádná ze záměn nepřinese zlepšení, algoritmus končí a vrátí upravenou cestu.
 
-\hspace{6.5mm}Zřejmě kdybychom prováděli takovýto backtracking na každé úrovni, tak bychom byli schopni nalézt optimální řešení. To by ale trvalo nesmírně dlouho. Najít zlatou střední cestu mezi optimalitou a rychlostí je klíčové. Experimenty ukazují, že nezkoušíme-li všechna $y_1$, $y_2$ tak za mírné zhoršení efektivity dostaneme o kratší výpočetní čas.
+\hspace{6.5mm}Zřejmě kdybychom prováděli takovýto backtracking na každé úrovni, tak bychom byli schopni nalézt optimální řešení. To by ale trvalo nesmírně dlouho. Najít zlatou střední cestu mezi optimalitou a rychlostí je klíčové. Experimenty ukazují, že nezkoušíme-li všechna $y_1$, $y_2$ tak za mírné zhoršení efektivity dostaneme kratší výpočetní čas.
 
 \hspace{6.5mm}Vraťme se nyní ještě k problému s alternativní volbou $x_2$. Pro tuto hranu máme jistě dvě volby. Abychom mohli cestu uzavřít musí se $t_4$ nacházet mezi $t_2$ a $t_3$. V případě, že to tak není bychom cestu přidáním $y_{enc}$ místo uzavření rozdělili na dvě komponenty.
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[scale=0.88]
  	 % Set the radius of the imaginary circle
@@ -1532,10 +1553,12 @@ Co pseudokód neukazuje je omezený backtracking, který se provádí v případ
  	 \draw[green!70!black] (t11) to[] node[midway , left] {$y_{enc}$} (t5);
 	\end{tikzpicture}
 \end{center}
+\end{figure}
 \captionof{figure}{Problém alternativního $x_2$}\leavevmode\newline
 
 Abychom i přes to mohli použít druhou volbu $x_2$ svolíme na chvíli z podmínky proveditelnosti a budeme pokračovat v hledání hran následovně. První možností je vybrat $y_2$ tak, že $t_5$ leží mezi $t_3$ a $t_2$. $t_6$ pak může být na libovolné straně od $t_5$. V tuto chvíli je již možné cestu řádně uzavřít.
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[scale=0.88]
  	 % Set the radius of the imaginary circle
@@ -1623,10 +1646,12 @@ Abychom i přes to mohli použít druhou volbu $x_2$ svolíme na chvíli z podm�
  	 \draw[green!70!black] (t15) to[] node[near start, above] {$y_{enc}$} (t11);
 	\end{tikzpicture}
 \end{center}
+\end{figure}
 \captionof{figure}{Alternativní $x_2$ - první možnost cesty}\leavevmode\newline
 
 Druhou možností je zvolit $t_5$ tak, že leží mezi $t_4'$ a $t_1$. $t_6$ se pak musí nacházet mezi $t_6$ a $t_1$. Nakonec $t_7$ musí být mezi $t_3$ a $t_2$ s tím, že volba $t_8$ závisí, zda-li je delší $x_4$ nebo $x_4'$.
 
+\begin{figure}[H]
 \begin{center}
 	\begin{tikzpicture}[scale=0.88]
  	 % Set the radius of the imaginary circle
@@ -1761,7 +1786,150 @@ Druhou možností je zvolit $t_5$ tak, že leží mezi $t_4'$ a $t_1$. $t_6$ se 
  	 \draw[green!70!black] (t11) to[] node[near end, above] {$y_{enc}$} (t15);
 	\end{tikzpicture}
 \end{center}
+\end{figure}
 \captionof{figure}{Alternativní $x_2$ - druhá možnost cesty} \leavevmode\newline
+
+\pagebreak
+\section{Experimenty}
+Nad probranými algoritmy byly provedené experimenty pro porovnání jejich efektivity. Nejdříve jimi byly zpracovávány náhodně generované euklidovské grafy. Pro množství vrcholů od 5 do 500 bylo testováno 1000 vzorků, výše pak 10 s rozpětím souřadnic (-1000 - 1000). U měření byl zaznamenána vždy průměrná a nejkratší délka cesty, stejně tak průměrný a nejkratší čas.
+
+\subsubsection{Testování nearest-addition algoritmu}
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[H]
+\catcode`\-=12
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Počet vrcholů}} & \multicolumn{2}{c|}{\textbf{Délka}}                                              & \multicolumn{2}{c|}{\textbf{Čas}} \\ \cline{2-5}
+& \textbf{průměrná} & \textbf{nejkratší} & \textbf{průměrný} & \textbf{nejkratší} \\
+\hline
+5    & 4535,18   & 1823,87   & 0.01ms   & 0.01ms  \\
+10   & 6924,88   & 3953,35   & 0.05ms   & 0.03ms  \\
+15   & 8557,2    & 4810,07   & 0.11ms   & 0.1ms   \\
+25   & 11045,27  & 7643,03   & 0.43ms   & 0.38ms  \\
+50   & 15487,12  & 12341,39  & 2.92ms   & 2.53ms  \\
+100  & 21589,98  & 18600,28  & 20.54ms  & 18.48ms \\
+250  & 33688,58  & 30896,78  & 307.27ms & 278.7ms \\
+500  &            &           &           &         \\
+1000 &            &           &           &         \\
+2500 &            &           &           &         \\
+5000 &            &           &           &         \\
+\hline
+\end{tabular}
+\caption{Test náhodně generovaných grafů - nearest-addition algoritmus}
+\end{table}
+
+sfdsdf
+
+\subsubsection{Testování double-tree algoritmu}
+\begin{table}[H]
+\catcode`\-=12
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Počet vrcholů}} & \multicolumn{2}{c|}{\textbf{Délka}}                                              & \multicolumn{2}{c|}{\textbf{Čas}} \\ \cline{2-5}
+& \textbf{průměrná} & \textbf{nejkratší} & \textbf{průměrný} & \textbf{nejkratší} \\
+\hline
+5                      & 4466,56                 & 1823,87                  & 0.04ms                & 0.02ms                 \\
+10                     & 6722,22                 & 3953,35                  & 0.14ms                & 0.08ms                 \\
+15                     & 8272,35                 & 5144,13                  & 0.2ms                 & 0.16ms                 \\
+25                     & 10666,78                & 7051,07                  & 0.58ms                & 0.46ms                 \\
+50                     & 14862,38                & 11762,88                 & 3.21ms                & 2.71ms                 \\
+100                    & 20664,7                 & 17151,54                 & 21.14ms               & 18.87ms                \\
+250                    & 32247,16                & 28819,29                 & 309.17ms              & 280,73ms               \\
+500                    &                         &                          &                       &                        \\
+1000                   &                         &                          &                       &                        \\
+2500                   &                         &                          &                       &                        \\
+5000                   &                         &                          &                       &                        \\ \hline
+\end{tabular}
+\caption{Test náhodně generovaných grafů - double-tree algoritmus}
+\end{table}
+
+\subsubsection{Testování Christofidesova algoritmu}
+
+\begin{table}[H]
+\catcode`\-=12
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Počet vrcholů}} & \multicolumn{2}{c|}{\textbf{Délka}}                                              & \multicolumn{2}{c|}{\textbf{Čas}} \\ \cline{2-5}
+& \textbf{průměrná} & \textbf{nejkratší} & \textbf{průměrný} & \textbf{nejkratší} \\
+\hline
+5                      & 4311,98                 & 1823,87                  & 0.04m                 & 0.03ms                 \\
+10                     & 6058,89                 & 3953,35                  & 0.16ms                & 0.08ms                 \\
+15                     & 7259,48                 & 4726,46                  & 0.29ms                & 0.18ms                 \\
+25                     & 9225,93                 & 6860,62                  & 0.96ms                & 0.66ms                 \\
+50                     & 12594,04                & 10650,56                 & 5.89ms                & 4.54ms                 \\
+100                    & 17280,01                & 15277,42                 & 39.56ms               & 31.9ms                 \\
+250                    & 26585,91                & 24564,74                 & 576.95ms              & 500.34ms               \\
+500                    &                         &                          &                       &                        \\
+1000                   &                         &                          &                       &                        \\
+2500                   &                         &                          &                       &                        \\
+5000                   &                         &                          &                       &                        \\ \hline
+\end{tabular}
+\caption{Test náhodně generovaných grafů - Christofidesův algoritmus}
+\end{table}
+
+\subsubsection{Testování Kernighan - Lin algoritmu}
+
+\begin{table}[H]
+\catcode`\-=12
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Počet vrcholů}} & \multicolumn{2}{c|}{\textbf{Délka}}                                              & \multicolumn{2}{c|}{\textbf{Čas}} \\ \cline{2-5}
+& \textbf{průměrná} & \textbf{nejkratší} & \textbf{průměrný} & \textbf{nejkratší} \\
+\hline
+5                      & 4220,89                 & 1816,18                  & 0.08ms                & 0.02ms                 \\
+10                     & 5762,91                 & 3768,08                  & 0.56ms                & 0.11ms                 \\
+15                     & 6796,69                 & 4417,87                  & 1.03ms                & 0.36ms                 \\
+25                     & 8524,89                 & 6338,58                  & 3.36ms                & 1.36ms                 \\
+50                     & 11623,58                & 9971,3                   & 17.69ms               & 6.83ms                 \\
+100                    & 16194,06                & 14228,2                  & 82.59ms               & 45.14ms                \\
+250                    & 24709,99                & 23283,12                 & 673.13ms              & 419.97ms               \\
+500                    &                         &                          &                       &                        \\
+1000                   &                         &                          &                       &                        \\
+2500                   &                         &                          &                       &                        \\
+5000                   &                         &                          &                       &                        \\ \hline
+\end{tabular}
+\caption{Test náhodně generovaných grafů - Kernighan - Lin algoritmus}
+\end{table}
+
+\begin{table}[H]
+\catcode`\-=12
+\centering
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\multirow{2}{*}{\textbf{Počet vrcholů}} & \multicolumn{2}{c|}{\textbf{Délka}}                                              & \multicolumn{2}{c|}{\textbf{Čas}} \\ \cline{2-5}
+& \textbf{průměrná} & \textbf{nejkratší} & \textbf{průměrný} & \textbf{nejkratší} \\
+\hline
+5                      & 4220,76                                      & 1816,18                                       & 0.07ms                                     & 0.02ms                                      \\
+10                     & 5766,36                                      & 3768,08                                       & 0.46ms                                     & 0.11ms                                      \\
+15                     & 6811,56                                      & 4417,87                                       & 0.76ms                                     & 0.3ms                                       \\
+25                     & 8573,7                                       & 6447,74                                       & 2.34ms                                     & 0.92ms                                      \\
+50                     & 11739,94                                     & 9998,61                                       & 11.86ms                                    & 4.89ms                                      \\
+100                    & 16194,06                                     & 14336,08                                      & 55.18ms                                    & 27.6ms                                      \\
+250                    & 25072,9                                      & 23064,13                                      & 453.65ms                                   & 268.31ms                                    \\
+500                    &                                              &                                               &                                            &                                             \\
+1000                   & \multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{}                      & \multicolumn{1}{c|}{}                       \\
+2500                   & \multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{}                      & \multicolumn{1}{c|}{}                       \\
+5000                   & \multicolumn{1}{c|}{}                        & \multicolumn{1}{c|}{}                         & \multicolumn{1}{c|}{}                      & \multicolumn{1}{c|}{}                       \\ \hline
+\end{tabular}
+\caption{Test náhodně generovaných grafů - Kernighan - Lin algoritmus s~omezeným backtrackingem}
+\end{table}
+
+Díky tomu, že je TSP tak řešeným problémem, je k dispozici spousta grafů se známými optimálními cestami. Ty se jistě hodí k zjištění, jak si na tom algoritmy vedou, co se aproximačního faktoru jeho řešení týče.
+
+\pagebreak
+\section{Knihovna}
+Program umožňuje dostat jako vstup soubor, složku nebo hodnoty pro vygenerování grafu.
+
+Uživatel si může zvolit algoritmy, které chce porovnávat a zda-li chce stopovat délku jejich trvání. U náhodně generovaného vstupu se navíc dá volit rozsah souřadnic vrcholů grafu. Navíc lze zvolit, jestli je žádané dostat výsledky pro každý graf zvlášť nebo pouze nejlepší a průměrné hodnoty.
+
+V případě vstupu ze souboru (případně složky) je možné zvolit i soubor (složku) s optimálním řešením. V tom případě pak bude u výsledků zobrazená i hodnota \textit{ratio} vyjadřující poměr délky cesty nalezené algoritmem a optimální cesty.
+
+Výsledky je možné uložit do zvolené složky v TSPLib formátu. V případě náhodně generovaného grafu se zároveň vytvoří i soubor obsahující graf.
 
 \begin{kiconclusions}
 Závěr práce v \uv{českém} jazyce.
@@ -1798,10 +1966,6 @@ Thesis conclusions in \uv{English}.
 
 %% Sazba volitelného rejstříku, za bibliografií.
 \printindex
-
-\listoffigures
-
-\listoftables
 
 \end{document}
 

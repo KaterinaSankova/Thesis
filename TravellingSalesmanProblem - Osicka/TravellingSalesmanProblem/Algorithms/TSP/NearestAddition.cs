@@ -8,6 +8,11 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
     {
         public Path FindShortestPath(Graph graph)
         {
+            if (graph.IsEmpty)
+                return new Path();
+            if (graph.Size == 1)
+                return new Path(new List<Node>() { graph.nodes.First() });
+
             Edge? firstEdge = graph.ShortestEdge();
             if (firstEdge == null)
                 return new Path();

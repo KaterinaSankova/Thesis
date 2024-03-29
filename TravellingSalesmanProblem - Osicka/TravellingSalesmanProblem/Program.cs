@@ -12,7 +12,7 @@ namespace TravellingSalesmanProblem
 
             Random rand = new();
             Graph graph = new();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10; i++)
             {
                 graph.nodes.Add(new Node(i, rand.Next(20), rand.Next(20)));
             }
@@ -20,37 +20,9 @@ namespace TravellingSalesmanProblem
             TimeSpan ts;
             GraphStructures.Path path;
 
-            Console.WriteLine("Nearest addition");
-            stopWatch.Restart();
-            path = new NearestAddition().FindShortestPath(graph);
-            stopWatch.Stop();
-            Console.WriteLine(path.Length);
-            ts = stopWatch.Elapsed;
-            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
-            Console.WriteLine();
-
             Console.WriteLine("Double tree");
             stopWatch.Restart();
             path = new DoubleTree().FindShortestPath(graph);
-            stopWatch.Stop();
-            Console.WriteLine(path.Length);
-            ts = stopWatch.Elapsed;
-            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
-            Console.WriteLine();
-
-
-            Console.WriteLine("Christofides");
-            stopWatch.Restart();
-            path = new Christofides().FindShortestPath(graph);
-            stopWatch.Stop();
-            Console.WriteLine(path.Length);
-            ts = stopWatch.Elapsed;
-            Console.WriteLine($"{ts.Minutes}m {ts.Seconds}s {ts.Milliseconds / 10}ms");
-            Console.WriteLine();
-
-            Console.WriteLine("KernighanLin");
-            stopWatch.Restart();
-            path = new KernighanLin().FindShortestPath(graph);
             stopWatch.Stop();
             Console.WriteLine(path.Length);
             ts = stopWatch.Elapsed;

@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {1}Teorie}{7}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Graf}{7}{subsection.1.1}%
 \contentsline {subsubsection}{\numberline {1.1.1}Cestování v grafech}{7}{subsubsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.2}Problém}{8}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.2}Algoritmické problémy}{9}{subsection.1.2}%
 \contentsline {subsubsection}{\numberline {1.2.1}Složitost}{10}{subsubsection.1.2.1}%
 \contentsline {section}{\numberline {2}Problém obchodního cestujícího}{11}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Složitost}{11}{subsection.2.1}%
@@ -10,22 +10,27 @@
 \contentsline {subsubsection}{\numberline {2.2.1}Metrický problém obchodního cestujícího}{13}{subsubsection.2.2.1}%
 \contentsline {subsubsection}{\numberline {2.2.2}Euklidovský problém obchodního cestujícího}{13}{subsubsection.2.2.2}%
 \contentsline {section}{\numberline {3}Algoritmy}{14}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Nearest addition}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.1}Nearest-addition algoritmus}{14}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Aproximační faktor}{15}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Tight example}{17}{subsubsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.2}Double-tree}{18}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Aproximační faktor}{19}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}Tight example}{19}{subsubsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.3}Christofides'}{20}{subsection.3.3}%
-\contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{21}{subsubsection.3.3.1}%
-\contentsline {subsubsection}{\numberline {3.3.2}Tight example}{22}{subsubsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.4}Keringhan - Lin}{23}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Keringhan - Lin pro TSP}{25}{subsubsection.3.4.1}%
-\contentsline {section}{Z\'av\v er}{31}{section*.13}%
+\contentsline {subsubsection}{\numberline {3.1.2}Těsný příklad}{17}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}Algoritmus double-tree}{19}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Aproximační faktor}{20}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Těsný příklad}{20}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Christofidesův algoritmus}{20}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Aproximační faktor}{22}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Tight example}{23}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}Keringhan - Lin algoritmus}{24}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Keringhan - Lin pro TSP}{26}{subsubsection.3.4.1}%
+\contentsline {section}{\numberline {4}Experimenty}{32}{section.4}%
+\contentsline {subsubsection}{\numberline {4.0.1}Testování nearest-addition algoritmu}{32}{subsubsection.4.0.1}%
+\contentsline {subsubsection}{\numberline {4.0.2}Testování double-tree algoritmu}{33}{subsubsection.4.0.2}%
+\contentsline {subsubsection}{\numberline {4.0.3}Testování Christofidesova algoritmu}{33}{subsubsection.4.0.3}%
+\contentsline {subsubsection}{\numberline {4.0.4}Testování Kernighan - Lin algoritmu}{34}{subsubsection.4.0.4}%
+\contentsline {section}{\numberline {5}Knihovna}{36}{section.5}%
+\contentsline {section}{Z\'av\v er}{37}{section*.26}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Conclusions}{32}{section*.15}%
+\contentsline {section}{Conclusions}{38}{section*.28}%
 \babel@toc {english}{}\relax 
 \babel@toc {czech}{}\relax 
-\contentsline {section}{Seznam zkratek}{33}{section*.17}%
-\contentsline {section}{Literatura}{34}{section*.18}%
+\contentsline {section}{Seznam zkratek}{39}{section*.30}%

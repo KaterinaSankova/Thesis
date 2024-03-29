@@ -1,21 +1,21 @@
 \babel@toc {czech}{}\relax 
-\contentsline {figure}{\numberline {1}{\ignorespaces Nearest addition příklad}}{15}{figure.caption.3}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Příklad nearest-addition algoritmu}}{15}{figure.caption.4}%
 \contentsline {figure}{\numberline {2}{\ignorespaces Vztah okružní cesty v grafu a jeho kostry}}{16}{figure.2}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Nearest addition tight example}}{17}{figure.caption.4}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Nearest addition tight example - cesty}}{17}{figure.caption.5}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Nearest addition tight example - chod algoritmu}}{18}{figure.caption.6}%
-\contentsline {figure}{\numberline {6}{\ignorespaces Double-tree příklad}}{19}{figure.caption.7}%
-\contentsline {figure}{\numberline {7}{\ignorespaces Double tree tight example - minimální kostra}}{19}{figure.caption.8}%
-\contentsline {figure}{\numberline {8}{\ignorespaces Christofides' příklad}}{21}{figure.caption.9}%
-\contentsline {figure}{\numberline {9}{\ignorespaces Perfektní párování}}{22}{figure.caption.10}%
-\contentsline {figure}{\numberline {10}{\ignorespaces Christofides' tight example}}{22}{figure.caption.11}%
-\contentsline {figure}{\numberline {11}{\ignorespaces Christofides' tight example - cesta}}{23}{figure.caption.12}%
-\contentsline {figure}{\numberline {12}{\ignorespaces Sekvenční hledání hran}}{26}{figure.12}%
-\contentsline {figure}{\numberline {13}{\ignorespaces Pár vyhovující podmínce proveditelnosti}}{27}{figure.13}%
-\contentsline {figure}{\numberline {14}{\ignorespaces Pár nevyhovující podmínce proveditelnosti}}{27}{figure.14}%
-\contentsline {figure}{\numberline {15}{\ignorespaces Problém alternativního $x_2$}}{29}{figure.15}%
-\contentsline {figure}{\numberline {16}{\ignorespaces Alternativní $x_2$ - první možnost cesty}}{29}{figure.16}%
-\contentsline {figure}{\numberline {17}{\ignorespaces Alternativní $x_2$ - druhá možnost cesty}}{30}{figure.17}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Těsný příklad nearest-addition algoritmu}}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Těsný příklad nearest-addition algoritmu - cesty}}{18}{figure.caption.7}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Těsný příklad nearest-addition algoritmu - chod algoritmu}}{18}{figure.caption.8}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Příklad algoritmu double-tree}}{19}{figure.caption.9}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Těsný příklad algoritmu double-tree - minimální kostra}}{20}{figure.caption.10}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Příklad Christofidesova algoritmu}}{22}{figure.caption.11}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Perfektní párování}}{23}{figure.caption.12}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Těsný říklad Christofidesova algoritmu}}{23}{figure.caption.13}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Těsný říklad Christofidesova algoritmu - cesta}}{24}{figure.caption.14}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Sekvenční hledání hran}}{27}{figure.caption.15}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Pár vyhovující podmínce proveditelnosti}}{28}{figure.13}%
+\contentsline {figure}{\numberline {14}{\ignorespaces Pár nevyhovující podmínce proveditelnosti}}{28}{figure.14}%
+\contentsline {figure}{\numberline {15}{\ignorespaces Problém alternativního $x_2$}}{30}{figure.15}%
+\contentsline {figure}{\numberline {16}{\ignorespaces Alternativní $x_2$ - první možnost cesty}}{30}{figure.16}%
+\contentsline {figure}{\numberline {17}{\ignorespaces Alternativní $x_2$ - druhá možnost cesty}}{31}{figure.17}%
 \babel@toc {czech}{}\relax 
 \babel@toc {czech}{}\relax 
 \babel@toc {english}{}\relax 

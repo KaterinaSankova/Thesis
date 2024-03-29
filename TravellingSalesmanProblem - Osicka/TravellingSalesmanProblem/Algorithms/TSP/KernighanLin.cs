@@ -34,8 +34,8 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
             if (graph.nodes.Count < 4)
             {
                 var pathNodes = graph.nodes.ToList();
-                if (pathNodes.Count > 0)
-                    pathNodes = pathNodes.Append(pathNodes.First()).ToList();
+                //if (pathNodes.Count > 0)
+                //    pathNodes = pathNodes.Append(pathNodes.First()).ToList();
                 return new KernighanLinPath(pathNodes);
             }
 
