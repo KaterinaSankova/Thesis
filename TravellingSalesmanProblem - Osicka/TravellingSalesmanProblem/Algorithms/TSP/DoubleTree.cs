@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using TravellingSalesmanProblem.GraphStructures;
+﻿using TravellingSalesmanProblem.GraphStructures;
 using TravellingSalesmanProblem.Interfaces;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
@@ -40,10 +39,9 @@ namespace TravellingSalesmanProblem.Algorithms.TSP
                         index++;
                     }
                 }
-                if (nextNode == null)
-                {
-                    nextNode = outgoingNodes.First();
-                }
+
+                nextNode ??= outgoingNodes.First();
+
                 path.Add(currNode);
                 multiGraph.Remove(new Edge(currNode, nextNode));
                 currNode = nextNode;

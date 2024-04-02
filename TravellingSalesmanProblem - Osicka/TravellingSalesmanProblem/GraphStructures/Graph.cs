@@ -1,15 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Xml.Linq;
-using TravellingSalesmanProblem.Algorithms;
-using TravellingSalesmanProblem.Formats;
-
-namespace TravellingSalesmanProblem.GraphStructures
+﻿namespace TravellingSalesmanProblem.GraphStructures
 {
-    public class Graph //osetrit grafy s 0 nebo 1 nodem
+    public class Graph
     {
         public readonly List<Node> nodes;
         public List<Edge>? edges;
@@ -34,12 +25,12 @@ namespace TravellingSalesmanProblem.GraphStructures
             this.edges = edges;
         }
 
-        public Edge? ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
+        public Edge ShortestEdge(List<Node>? fromNodes = null, List<Node>? toNodes = null)
         {
             fromNodes ??= nodes;
             toNodes ??= nodes;
             if (fromNodes.Count == 0 || toNodes.Count == 0)
-                return null;
+                throw new Exception("Cannot search for shortest path when no fromNodes or toNodes are provided.");
 
             double minDistance = double.MaxValue;
             double currDistance;
@@ -61,53 +52,80 @@ namespace TravellingSalesmanProblem.GraphStructures
             return minEdge;
         }
 
-        public List<Node> OddDegreeNodes(List<Edge> edges = null)
+        public List<Node> OddDegreeNodes(List<Edge>? edges = null)
         {
             if (edges == null)
-                edges = this.edges;
+            {
+                if (this.edges != null)
+                    edges = this.edges;
+                else
+                    return new();
+            }
 
             Dictionary<int, int> nodeDegres = new();
-            int degree;
 
             foreach (Edge edge in edges)
             {
-                if (!nodeDegres.TryGetValue(edge.node1.id, out degree))
-                    nodeDegres.Add(edge.node1.id, 1);
+                if (!nodeDegres.TryGetValue(edge.Node1.Id, out int degree))
+                    nodeDegres.Add(edge.Node1.Id, 1);
                 else
-                    nodeDegres[edge.node1.id]++;
+                    nodeDegres[edge.Node1.Id]++;
 
-                if (!nodeDegres.TryGetValue(edge.node2.id, out degree))
-                    nodeDegres.Add(edge.node2.id, 1);
+                if (!nodeDegres.TryGetValue(edge.Node2.Id, out degree))
+                    nodeDegres.Add(edge.Node2.Id, 1);
                 else
-                    nodeDegres[edge.node2.id]++;
+                    nodeDegres[edge.Node2.Id]++;
             }
 
-            return nodes.Where(n => nodeDegres[n.id] % 2 == 1) .ToList();
+            return nodes.Where(n => nodeDegres[n.Id] % 2 == 1) .ToList();
         }
 
-        public List<Edge> OutgoingEdges(Node node)
+        public List<Edge> OutgoingEdges(Node node, List<Edge>? edges = null)
         {
+            if (edges == null)
+            {
+                if (this.edges != null)
+                    edges = this.edges;
+                else
+                    return new();
+            }
+
             List<Edge> outgoingEdges = new();
             foreach (var edge in edges)
             {
-                if (edge.node1 == node)
+                if (edge.Node1 == node)
                     outgoingEdges.Add(edge);
-                else if (edge.node2 == node)
+                else if (edge.Node2 == node)
                     outgoingEdges.Add(edge);
             }
             return outgoingEdges;
         }
 
-        public bool IsBridge(Edge edge)
+        public bool IsBridge(Edge edge, List<Edge>? edges = null)
         {
+            if (edges == null)
+            {
+                if (this.edges != null)
+                    edges = this.edges;
+                else
+                    return new();
+            }
+
             var edgesWithoutSelf = edges.ToList();
             edgesWithoutSelf.Remove(edge);
 
-            return Graph.DepthFirstSearch(edges, edge.node1).Count != Graph.DepthFirstSearch(edgesWithoutSelf, edge.node1).Count;
+            return DepthFirstSearch(edge.Node1, edges).Count != DepthFirstSearch(edge.Node1, edgesWithoutSelf).Count;
         }
 
-        public static List<Node> DepthFirstSearch(List<Edge> edges, Node node)
+        public List<Node> DepthFirstSearch(Node node, List<Edge>? edges = null)
         {
+            if (edges == null)
+            {
+                if (this.edges != null)
+                    edges = this.edges;
+                else
+                    return new();
+            }
             List<Node> visited = new();
             Stack<Node> stack = new();
 
@@ -138,15 +156,14 @@ namespace TravellingSalesmanProblem.GraphStructures
 
             foreach (Node node in nodes)
             {
-                if (node.x > maxX) maxX = node.x;
-                if (node.x < minX) minX = node.x;
+                if (node.X > maxX) maxX = node.X;
+                if (node.X < minX) minX = node.X;
 
-                if (node.y > maxY) maxY = node.y;
-                if (node.y < minY) minY = node.y;
+                if (node.Y > maxY) maxY = node.Y;
+                if (node.Y < minY) minY = node.Y;
             }
 
             return (maxX, maxY, minX, minY);
-
         }
     }
 }

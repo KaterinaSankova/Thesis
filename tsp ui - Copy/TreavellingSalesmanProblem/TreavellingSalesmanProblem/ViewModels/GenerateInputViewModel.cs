@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using TSP.Commands;
-using TSP.Enum;
-using TSP.Models;
 using TSP.Stores;
 
 namespace TSP.ViewModels
@@ -17,15 +8,15 @@ namespace TSP.ViewModels
         private int _numberOfSamples = 1;
         private int _numberOfCities = 20;
         private bool _averageResults = false;
-        private double _lowestX = -20;
-        private double _lowestY = -20;
-        private double _highestX = 20;
-        private double _highestY = 20;
+        private double _lowestX = -1000;
+        private double _lowestY = -1000;
+        private double _highestX = 1000;
+        private double _highestY = 1000;
 
         private int highestPermitedNumberOfSamples = 1000;
-        private int highestPermitedNumberOfCities = 20000;
-        private int lowestPermitedCoordinate = -50000;
-        private int highestPermitedCoordinate = 50000;
+        private int highestPermitedNumberOfCities = 100000;
+        private int lowestPermitedCoordinate = -500000;
+        private int highestPermitedCoordinate = 500000;
 
         public int NumberOfSamples
         {
@@ -86,14 +77,14 @@ namespace TSP.ViewModels
             {
                 if (value < lowestPermitedCoordinate)
                     _lowestX = lowestPermitedCoordinate;
-                else if (value > HighestX)
+                else if (value >= HighestX)
                     _lowestX = Math.Max(HighestX - 1, lowestPermitedCoordinate);
                 else
                     _lowestX = value;
 
                 OnPropertyChanged(nameof(LowestX));
             }
-        }
+        }  
 
         public double LowestY
         {
@@ -105,7 +96,7 @@ namespace TSP.ViewModels
             {
                 if (value < lowestPermitedCoordinate)
                     _lowestY = lowestPermitedCoordinate;
-                else if (value > HighestY)
+                else if (value >= HighestY)
                     _lowestY = Math.Max(HighestY - 1, lowestPermitedCoordinate);
                 else
                     _lowestY = value;
@@ -123,7 +114,7 @@ namespace TSP.ViewModels
             {
                 if (value > highestPermitedCoordinate)
                     _highestX = highestPermitedCoordinate;
-                else if (value < LowestX)
+                else if (value <= LowestX)
                     _highestX = Math.Min(LowestX + 1, highestPermitedCoordinate);
                 else
                     _highestX = value;
@@ -141,7 +132,7 @@ namespace TSP.ViewModels
             {
                 if (value > highestPermitedCoordinate)
                     _highestY = highestPermitedCoordinate;
-                else if (value < LowestY)
+                else if (value <= LowestY)
                     _highestY = Math.Min(LowestY + 1, highestPermitedCoordinate);
                 else
                     _highestY = value;

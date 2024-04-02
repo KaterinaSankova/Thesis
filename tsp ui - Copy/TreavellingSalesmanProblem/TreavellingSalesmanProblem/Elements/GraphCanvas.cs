@@ -10,6 +10,8 @@ namespace TSP.Elements
 {
     public class GraphCanvas : Canvas
     {
+        private readonly double offset = 20;
+
         private double lowestX;
         private double highestX;
         private double lowestY;
@@ -22,243 +24,262 @@ namespace TSP.Elements
             this.graph = graph;
             this.path = path;
 
-            var bounds = graph.GetExtremeCoordinatesValues();
-            lowestX = bounds.MinX;
-            lowestY = bounds.MinY;
-            highestX = bounds.MaxX;
-            highestY = bounds.MaxY;
+            var (MaxX, MaxY, MinX, MinY) = graph.GetExtremeCoordinatesValues();
+            lowestX = MinX;
+            lowestY = MinY;
+            highestX = MaxX;
+            highestY = MaxY;
 
             Redraw(width, height);
-        }
-        public GraphCanvas(Graph graph, Path path, double width, double height, int row, int column) : this(graph, path, width, height)
-        {
-            this.SetValue(Grid.RowProperty, row);
-            this.SetValue(Grid.ColumnProperty, column);
         }
 
         public void Redraw(double width, double height)
         {
-            int numberOfLines = 10;
             this.Margin = new Thickness(0, 0, width, 0);
-            width -= 40;
-            height -= 20;
+            this.Children.Clear();
+
+            width -= 40 + offset * 2;
+            height -= 20 + offset * 2;
+
+            int numberOfLines = (int)Math.Min(width, height) / 40;
+
             double intervalY = Math.Round(height / numberOfLines, 2);
             double intervalX = Math.Round(width / numberOfLines, 2);
+
             double xStep = (Math.Max(highestX, 0) - Math.Min(lowestX, 0)) / numberOfLines;
             double yStep = (Math.Max(highestY, 0) - Math.Min(lowestY, 0)) / numberOfLines;
 
-            if (width > 0 && height > 0)
+            var lowestPoint = GetRelativeCoordinates(lowestX, lowestY, width, height);
+            var originPoint = GetRelativeCoordinates(0, 0, width, height);
+
+            // y axis lines
+            double numberOfLinesOnTheLeft = Math.Max(originPoint.X / intervalX - 1, 0);
+            int i = -1;
+            int currentNumberOfLinesOnTheLeft = 0;
+            while (currentNumberOfLinesOnTheLeft <= numberOfLinesOnTheLeft - 1)
             {
-                this.Children.Clear();
-
-                var lowestPoint = GetRelativeCoordinates(lowestX, lowestY, width, height);
-                var originPoint = GetRelativeCoordinates(0, 0, width, height);
-
-
-
-                // y axis lines
-                double xValue = 0 - xStep;
-                double numberOfLinesOnTheLeft = originPoint.X / intervalX;
-                int i = -1;
-                int currentNumberOfLinesOnTheLeft = 0;
-                while (currentNumberOfLinesOnTheLeft <= numberOfLinesOnTheLeft - 1)
+                var pt1 = new Point(originPoint.X + i * intervalX, Math.Max(lowestPoint.Y, originPoint.Y));
+                var pt2 = new Point(originPoint.X + i * intervalX, 0 + offset);
+                var line = new Line()
                 {
-                    Point pt1 = new Point(originPoint.X + i * intervalX, Math.Max(lowestPoint.Y, originPoint.Y));
-                    Point pt2 = new Point(originPoint.X + i * intervalX, 0);
-                    var line = new Line()
-                    {
-                        X1 = pt1.X,
-                        Y1 = pt1.Y,
-                        X2 = pt2.X,
-                        Y2 = pt2.Y,
-                        Stroke = Brushes.LightGray,
-                        StrokeThickness = 3,
-                        Opacity = 1,
-                    };
-
-                    this.Children.Add(line);
-
-                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
-
-                    this.Children.Add(textBlock);
-                    Canvas.SetLeft(textBlock, pt1.X - 12.5);
-                    Canvas.SetTop(textBlock, originPoint.Y + 5);
-
-                    xValue -= xStep;
-                    currentNumberOfLinesOnTheLeft++;
-                    i--;
-                }
-
-                xValue = 0 + xStep;
-                i = 1;
-                int currentNumberOfLinesOnTheRight = 0;
-                while (currentNumberOfLinesOnTheRight <= (numberOfLines - numberOfLinesOnTheLeft - 1))
-                {
-                    Point pt1 = new Point(originPoint.X + i * intervalX, Math.Max(lowestPoint.Y, originPoint.Y));
-                    Point pt2 = new Point(originPoint.X + i * intervalX, 0);
-                    var line = new Line()
-                    {
-                        X1 = pt1.X,
-                        Y1 = pt1.Y,
-                        X2 = pt2.X,
-                        Y2 = pt2.Y,
-                        Stroke = Brushes.LightGray,
-                        StrokeThickness = 3,
-                        Opacity = 1,
-                    };
-
-                    this.Children.Add(line);
-
-                    var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
-
-                    this.Children.Add(textBlock);
-                    Canvas.SetLeft(textBlock, pt1.X - 12.5);
-                    Canvas.SetTop(textBlock, originPoint.Y + 5);
-
-                    xValue += xStep;
-                    currentNumberOfLinesOnTheRight++;
-                    i++;
-                }
-
-                //x axis lines
-                double yValue = 0 - yStep;
-                double numberOfLinesOnTheTop = originPoint.Y / intervalY;
-                i = 1;
-                int currentNumberOfLinesOnTheBottom = 0;
-                while (currentNumberOfLinesOnTheBottom <= (numberOfLines - numberOfLinesOnTheTop - 1))
-                {
-                    Point pt1 = new Point(Math.Min(lowestPoint.X, originPoint.X), originPoint.Y + i * intervalY);
-                    Point pt2 = new Point(width, originPoint.Y + i * intervalY);
-                    var line = new Line()
-                    {
-                        X1 = pt1.X,
-                        Y1 = pt1.Y,
-                        X2 = pt2.X,
-                        Y2 = pt2.Y,
-                        Stroke = Brushes.LightGray,
-                        StrokeThickness = 3,
-                        Opacity = 1,
-                    };
-
-                    this.Children.Add(line);
-
-                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
-
-                    this.Children.Add(textBlock);
-                    Canvas.SetLeft(textBlock, originPoint.X + 5);
-                    Canvas.SetTop(textBlock, pt2.Y - 5);
-
-                    yValue -= yStep;
-                    currentNumberOfLinesOnTheBottom++;
-                    i++;
-                }
-
-                yValue = 0 + yStep;
-                i = -1;
-                int currentNumberOfLinesOnTheTop = 0;
-                while (currentNumberOfLinesOnTheTop <= numberOfLinesOnTheTop - 1)
-                {
-                    Point pt1 = new Point(Math.Min(lowestPoint.X, originPoint.X), originPoint.Y + i * intervalY);
-                    Point pt2 = new Point(width, originPoint.Y + i * intervalY);
-                    var line = new Line()
-                    {
-                        X1 = pt1.X,
-                        Y1 = pt1.Y,
-                        X2 = pt2.X,
-                        Y2 = pt2.Y,
-                        Stroke = Brushes.LightGray,
-                        StrokeThickness = 3,
-                        Opacity = 1,
-                    };
-
-                    this.Children.Add(line);
-
-                    var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
-
-                    this.Children.Add(textBlock);
-                    Canvas.SetLeft(textBlock, originPoint.X + 5);
-                    Canvas.SetTop(textBlock, pt2.Y - 5);
-
-                    yValue += yStep;
-                    currentNumberOfLinesOnTheTop++;
-                    i--;
-                }
-
-                // axis lines
-                var xAxisLine = new Line()
-                {
-                    X1 = 0,
-                    Y1 = originPoint.Y,
-                    X2 = width,
-                    Y2 = originPoint.Y,
-                    Stroke = Brushes.Black,
+                    X1 = pt1.X,
+                    Y1 = pt1.Y,
+                    X2 = pt2.X,
+                    Y2 = pt2.Y,
+                    Stroke = Brushes.LightGray,
                     StrokeThickness = 3,
+                    Opacity = 1,
                 };
-                this.Children.Add(xAxisLine);
 
-                var yAxisLine = new Line()
+                this.Children.Add(line);
+
+                currentNumberOfLinesOnTheLeft++;
+                i--;
+            }
+
+            i = 1;
+            int currentNumberOfLinesOnTheRight = 0;
+            while (currentNumberOfLinesOnTheRight <= (numberOfLines - numberOfLinesOnTheLeft - 2))
+            {
+                var pt1 = new Point(originPoint.X + i * intervalX, Math.Max(lowestPoint.Y, originPoint.Y));
+                var pt2 = new Point(originPoint.X + i * intervalX, 0 + offset);
+                var line = new Line()
                 {
-                    X1 = originPoint.X,
-                    Y1 = 0,
-                    X2 = originPoint.X,
-                    Y2 = height,
-                    Stroke = Brushes.Black,
+                    X1 = pt1.X,
+                    Y1 = pt1.Y,
+                    X2 = pt2.X,
+                    Y2 = pt2.Y,
+                    Stroke = Brushes.LightGray,
                     StrokeThickness = 3,
+                    Opacity = 1,
                 };
-                this.Children.Add(yAxisLine);
 
-                var xTextBlock0 = new TextBlock() { Text = $"{0}", FontSize = 15 };
-                this.Children.Add(xTextBlock0);
-                Canvas.SetLeft(xTextBlock0, originPoint.X + 6); // 6 = thickness os je 5, aby to bylo vidět
-                Canvas.SetTop(xTextBlock0, originPoint.Y + 6);
+                this.Children.Add(line);
+                currentNumberOfLinesOnTheRight++;
+                i++;
+            }
 
-                // showing where are the connections points
-                var ellipseRadius = 2;
-                foreach (var node in graph.nodes)
+            //x axis lines
+            double numberOfLinesOnTheTop = Math.Max(originPoint.Y / intervalY - 1, 0);
+            i = 1;
+            int currentNumberOfLinesOnTheBottom = 0;
+            while (currentNumberOfLinesOnTheBottom <= (numberOfLines - numberOfLinesOnTheTop - 2))
+            {
+                var pt1 = new Point(Math.Min(lowestPoint.X, originPoint.X), originPoint.Y + i * intervalY);
+                var pt2 = new Point(width + offset, originPoint.Y + i * intervalY);
+                var line = new Line()
                 {
-                    Ellipse oEllipse = new Ellipse()
-                    {
-                        Fill = Brushes.DarkBlue,
-                        Width = ellipseRadius * 2,
-                        Height = ellipseRadius * 2,
-                        Opacity = 0.5
-                    };
+                    X1 = pt1.X,
+                    Y1 = pt1.Y,
+                    X2 = pt2.X,
+                    Y2 = pt2.Y,
+                    Stroke = Brushes.LightGray,
+                    StrokeThickness = 3,
+                    Opacity = 1,
+                };
 
-                    var nodeCoords = GetRelativeCoordinates(node.x, node.y, width, height);
-                    this.Children.Add(oEllipse);
-                    Canvas.SetLeft(oEllipse, nodeCoords.X - ellipseRadius);
-                    Canvas.SetTop(oEllipse, nodeCoords.Y - ellipseRadius);
+                this.Children.Add(line);
+                currentNumberOfLinesOnTheBottom++;
+                i++;
+            }
 
-                    if (graph.nodes.Count <= 20)
-                    {
-                        var xTextBlock1 = new TextBlock() { Text = $"{node}", FontSize = 8 };
-                        this.Children.Add(xTextBlock1);
-                        Canvas.SetLeft(xTextBlock1, nodeCoords.X + 5);
-                        Canvas.SetTop(xTextBlock1, nodeCoords.Y + 5);
-                    }
-                }
-
-                for (int j = 0; j < path.Count; j++)
+            i = -1;
+            int currentNumberOfLinesOnTheTop = 0;
+            while (currentNumberOfLinesOnTheTop <= numberOfLinesOnTheTop - 1)
+            {
+                var pt1 = new Point(Math.Min(lowestPoint.X, originPoint.X), originPoint.Y + i * intervalY);
+                var pt2 = new Point(width + offset, originPoint.Y + i * intervalY);
+                var line = new Line()
                 {
-                    var node1 = path[j];
-                    var node2 = path[(j + 1) % path.Count];
-                    var node1Coords = GetRelativeCoordinates(node1.x, node1.y, width, height);
-                    var node2Coords = GetRelativeCoordinates(node2.x, node2.y, width, height);
+                    X1 = pt1.X,
+                    Y1 = pt1.Y,
+                    X2 = pt2.X,
+                    Y2 = pt2.Y,
+                    Stroke = Brushes.LightGray,
+                    StrokeThickness = 3,
+                    Opacity = 1,
+                };
 
-                    var line = new Line()
-                    {
-                        X1 = node1Coords.X,
-                        Y1 = node1Coords.Y,
-                        X2 = node2Coords.X,
-                        Y2 = node2Coords.Y,
-                        Stroke = Brushes.Blue,
-                        StrokeThickness = 1,
-                        Opacity = 0.5,
-                    };
+                this.Children.Add(line);
+                currentNumberOfLinesOnTheTop++;
+                i--;
+            }
 
-                    this.Children.Add(line);
-                }
+            // main axis lines
+            var xAxisLine = new Line()
+            {
+                X1 = 0 + offset,
+                Y1 = originPoint.Y,
+                X2 = width + offset,
+                Y2 = originPoint.Y,
+                Stroke = Brushes.Black,
+                StrokeThickness = 3,
+            };
+            this.Children.Add(xAxisLine);
 
+            var yAxisLine = new Line()
+            {
+                X1 = originPoint.X,
+                Y1 = 0 + offset,
+                X2 = originPoint.X,
+                Y2 = height + offset,
+                Stroke = Brushes.Black,
+                StrokeThickness = 3,
+            };
+            this.Children.Add(yAxisLine);
+
+            // origin point
+            var originLabel = new TextBlock() { Text = $"{0}", FontSize = 15 };
+            this.Children.Add(originLabel);
+            Canvas.SetLeft(originLabel, originPoint.X + 6);
+            Canvas.SetTop(originLabel, originPoint.Y + 6);
+
+            // path points
+            var ellipseRadius = 2;
+            foreach (var node in graph.nodes)
+            {
+                Ellipse oEllipse = new Ellipse()
+                {
+                    Fill = Brushes.DarkBlue,
+                    Width = ellipseRadius * 2,
+                    Height = ellipseRadius * 2,
+                    Opacity = 0.5
+                };
+
+                var nodeCoords = GetRelativeCoordinates(node.X, node.Y, width, height);
+                this.Children.Add(oEllipse);
+                Canvas.SetLeft(oEllipse, nodeCoords.X - ellipseRadius);
+                Canvas.SetTop(oEllipse, nodeCoords.Y - ellipseRadius);
+            }
+
+            // path edges
+            for (int j = 0; j < path.Count; j++)
+            {
+                var node1 = path[j];
+                var node2 = path[(j + 1) % path.Count];
+                var node1Coords = GetRelativeCoordinates(node1.X, node1.Y, width, height);
+                var node2Coords = GetRelativeCoordinates(node2.X, node2.Y, width, height);
+
+                var line = new Line()
+                {
+                    X1 = node1Coords.X,
+                    Y1 = node1Coords.Y,
+                    X2 = node2Coords.X,
+                    Y2 = node2Coords.Y,
+                    Stroke = Brushes.Blue,
+                    StrokeThickness = 1,
+                    Opacity = 0.5,
+                };
+
+                this.Children.Add(line);
+            }
+
+            // y axis lines labels
+            double xValue = 0 - xStep;
+            numberOfLinesOnTheLeft = Math.Max(originPoint.X / intervalX - 1, 0);
+            i = -1;
+            currentNumberOfLinesOnTheLeft = 0;
+            while (currentNumberOfLinesOnTheLeft <= numberOfLinesOnTheLeft - 1)
+            {
+                var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
+
+                this.Children.Add(textBlock);
+                Canvas.SetLeft(textBlock, originPoint.X + i * intervalX - 12.5);
+                Canvas.SetTop(textBlock, originPoint.Y + 5);
+
+                xValue -= xStep;
+                currentNumberOfLinesOnTheLeft++;
+                i--;
+            }
+
+            xValue = 0 + xStep;
+            i = 1;
+            currentNumberOfLinesOnTheRight = 0;
+            while (currentNumberOfLinesOnTheRight <= (numberOfLines - numberOfLinesOnTheLeft - 2))
+            {
+                var textBlock = new TextBlock { Text = $"{Math.Round(xValue, 2)}", FontSize = 10 };
+
+                this.Children.Add(textBlock);
+                Canvas.SetLeft(textBlock, originPoint.X + i * intervalX - 12.5);
+                Canvas.SetTop(textBlock, originPoint.Y);
+
+                xValue += xStep;
+                currentNumberOfLinesOnTheRight++;
+                i++;
+            }
+
+            //x axis lines labels
+            double yValue = 0 - yStep;
+            numberOfLinesOnTheTop = Math.Max(originPoint.Y / intervalY - 1, 0);
+            i = 1;
+            currentNumberOfLinesOnTheBottom = 0;
+            while (currentNumberOfLinesOnTheBottom <= (numberOfLines - numberOfLinesOnTheTop - 2))
+            {
+                var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
+
+                this.Children.Add(textBlock);
+                Canvas.SetLeft(textBlock, originPoint.X + 5);
+                Canvas.SetTop(textBlock, originPoint.Y + i * intervalY - 5);
+
+                yValue -= yStep;
+                currentNumberOfLinesOnTheBottom++;
+                i++;
+            }
+
+            yValue = 0 + yStep;
+            i = -1;
+            currentNumberOfLinesOnTheTop = 0;
+            while (currentNumberOfLinesOnTheTop <= numberOfLinesOnTheTop - 1)
+            {
+                var textBlock = new TextBlock { Text = $"{Math.Round(yValue, 2)}", FontSize = 10 };
+
+                this.Children.Add(textBlock);
+                Canvas.SetLeft(textBlock, originPoint.X + 5);
+                Canvas.SetTop(textBlock, originPoint.Y + i * intervalY - 5);
+
+                yValue += yStep;
+                currentNumberOfLinesOnTheTop++;
+                i--;
             }
         }
 
@@ -271,12 +292,11 @@ namespace TSP.Elements
             double originY = lowestY;
             if (lowestY > 0)
                 originY = 0;
-            double a = Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0));
             double newOriginY = height + (originY * (height / Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0))));
 
             double newY = newOriginY - (y * height / Math.Abs(Math.Min(lowestY, 0) - Math.Max(highestY, 0)));
 
-            return new Point(newX, newY);
+            return new Point(newX + offset, newY + offset);
         }
     }
 }

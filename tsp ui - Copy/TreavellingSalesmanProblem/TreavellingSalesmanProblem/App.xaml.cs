@@ -12,23 +12,21 @@ namespace TreavellingSalesmanProblem
     /// </summary>
     public partial class App : Application
     {
-        private ResultsViewModel _resultsViewModel;
-        private readonly NavigationStore _navigationStore;
-        private CancellationTokenStore _cancellationTokenStore;
+        private ResultsViewModel resultsViewModel;
+        private readonly NavigationStore navigationStore = new();
+        private CancellationTokenStore cancellationTokenStore = new();
 
         public App()
         {
-            _navigationStore = new NavigationStore();
-            _navigationStore.CurrentViewModel = CreateFileInputViewModel();
-            _resultsViewModel = new ResultsViewModel(_navigationStore);
-            //_cancellationTokenStore = new CancellationTokenStore();
+            navigationStore.CurrentViewModel = CreateFileInputViewModel();
+            resultsViewModel = new ResultsViewModel(navigationStore, cancellationTokenStore);
         }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             MainWindow = new MainWindow()
             {
-                DataContext = new MainViewModel(_navigationStore, _resultsViewModel)
+                DataContext = new MainViewModel(resultsViewModel, navigationStore)
             };
 
             MainWindow.Show();
@@ -36,9 +34,9 @@ namespace TreavellingSalesmanProblem
             base.OnStartup(e);
         }
 
-        private FileInputViewModel CreateFileInputViewModel() => new FileInputViewModel(_navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
-        private FolderInputViewModel CreateFolderInputViewModel() => new FolderInputViewModel(_navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
-        private GenerateInputViewModel CreateGenerateInputViewModel() => new GenerateInputViewModel(_navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
+        private FileInputViewModel CreateFileInputViewModel() => new FileInputViewModel(navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
+        private FolderInputViewModel CreateFolderInputViewModel() => new FolderInputViewModel(navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
+        private GenerateInputViewModel CreateGenerateInputViewModel() => new GenerateInputViewModel(navigationStore, CreateFileInputViewModel, CreateFolderInputViewModel, CreateGenerateInputViewModel);
 
     }
 }

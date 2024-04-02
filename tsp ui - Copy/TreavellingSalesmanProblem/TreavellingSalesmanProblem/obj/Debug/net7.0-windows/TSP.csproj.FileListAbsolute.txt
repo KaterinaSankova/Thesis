@@ -1,5 +1,0 @@
-D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net7.0-windows\TSP.csproj.AssemblyReference.cache
-D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net7.0-windows\MainWindow.g.cs
-D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net7.0-windows\App.g.cs
-D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net7.0-windows\TSP_MarkupCompile.cache
-D:\Documents\Vyska\Thesis\tsp ui\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net7.0-windows\TSP_MarkupCompile.lref

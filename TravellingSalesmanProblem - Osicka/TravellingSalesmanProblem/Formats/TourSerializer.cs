@@ -14,7 +14,7 @@ namespace TravellingSalesmanProblem.Formats
             StringBuilder tourSection = new StringBuilder("");
             foreach (var node in path.ToList())
             {
-                tourSection.AppendLine(node.id.ToString());
+                tourSection.AppendLine(node.Id.ToString());
             }
             tourSection.Append("-1");
             tsp.TourSection = tourSection.ToString();

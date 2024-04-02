@@ -15,7 +15,7 @@ namespace TravellingSalesmanProblem.Formats
             StringBuilder nodesSection = new StringBuilder("");
             foreach (var node in graph.nodes)
             {
-                nodesSection.AppendLine($"\t{node.id}\t{node.x}\t{node.y}");
+                nodesSection.AppendLine($"\t{node.Id}\t{node.X}\t{node.Y}");
             }
             nodesSection.Append("EOF");
             tsp.NodeCoordSection = nodesSection.ToString();

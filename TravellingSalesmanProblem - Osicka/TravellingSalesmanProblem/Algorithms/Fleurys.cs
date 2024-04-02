@@ -31,7 +31,7 @@ namespace TravellingSalesmanProblem.Algorithms
                         currentEdge = outgoingEdges.Last();
 
                 result.Add(currentNode);
-                currentNode = currentEdge.node1 == currentNode ? currentEdge.node2 : currentEdge.node1;
+                currentNode = currentEdge.Node1 == currentNode ? currentEdge.Node2 : currentEdge.Node1;
                 graph.edges.Remove(currentEdge);
 
                 outgoingEdges = graph.OutgoingEdges(currentNode);

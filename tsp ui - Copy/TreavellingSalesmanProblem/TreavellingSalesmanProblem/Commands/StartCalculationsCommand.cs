@@ -1,16 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Documents;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using TravellingSalesmanProblem.Algorithms.Enums;
 using TravellingSalesmanProblem.Algorithms.TSP;
 using TravellingSalesmanProblem.Formats;
@@ -21,514 +15,372 @@ using TSP.Enum;
 using TSP.Models;
 using TSP.Stores;
 using TSP.ViewModels;
-using Windows.Storage;
 using Path = TravellingSalesmanProblem.GraphStructures.Path;
 
 namespace TSP.Commands
 {
     public class StartCalculationsCommand : AsyncCommandBase
     {
-        private ResultsViewModel _results;
-        private Random rand = new();
+        private readonly ResultsViewModel results;
+        private readonly CancellationTokenStore cancellationToken;
 
-        public ViewModelBase InputViewModel => _results.NavigationStore.CurrentViewModel;
+        private readonly NearestAddition nearestAdditionAlgo = new();
+        private readonly DoubleTree doubleTreeAlgo = new();
+        private readonly Christofides christofidesAlgo = new();
+        private readonly KernighanLin kernighanLinAlgo = new();
+        private readonly KeringhanLinReducedBacktracking kernignahLinRbAlgo = new();
+        private readonly Random rand = new();
 
-        public StartCalculationsCommand(ResultsViewModel results)
+        //common
+        private InputMode inputMode;
+        private string outputFolderPath = "";
+        private bool stopwatch;
+        private readonly List<TSPAlgorithm> algorithmList = new();
+
+        //file
+        private string sourceFilePath = "";
+        private string resultFilePath = "";
+
+        //folder
+        private string sourceFolderPath = "";
+        private string resultFolderPath = "";
+        private bool ignoreNotFoundResultFiles;
+
+        //generate
+        private int numberOfSamples;
+        private int numberOfCities;
+        private bool averageResults;
+        private double highestX;
+        private double lowestX;
+        private double highestY;
+        private double lowestY;
+
+        public ViewModelBase InputViewModel => results.NavigationStore.CurrentViewModel;
+
+        public StartCalculationsCommand(ResultsViewModel results, CancellationTokenStore cancellationToken)
         {
-            this._results = results;
+            this.results = results;
+            this.cancellationToken = cancellationToken;
+            SetupState();
+        }
+
+        private void SetupState()
+        {
+            inputMode = results.NavigationStore.GetInputMode();
+
+            outputFolderPath = ((InputViewModel)InputViewModel).OutputFolderPath;
+            stopwatch = ((InputViewModel)InputViewModel).Stopwatch;
+
+            algorithmList.Clear();
+            if (((InputViewModel)InputViewModel).NearestAddition)
+                algorithmList.Add(TSPAlgorithm.NearestAddition);
+            if (((InputViewModel)InputViewModel).DoubleTree)
+                algorithmList.Add(TSPAlgorithm.DoubleTree);
+            if (((InputViewModel)InputViewModel).Christofides)
+                algorithmList.Add(TSPAlgorithm.Christofides);
+            if (((InputViewModel)InputViewModel).KernighanLin)
+                algorithmList.Add(TSPAlgorithm.KernighanLin);
+            if (((InputViewModel)InputViewModel).KernighanLinRb)
+                algorithmList.Add(TSPAlgorithm.KernighanLinRb);
+
+            switch (inputMode)
+            {
+                case InputMode.File:
+                    sourceFilePath = ((FileInputViewModel)InputViewModel).SourceFilePath;
+                    resultFilePath = ((FileInputViewModel)InputViewModel).ResultFilePath;
+                    break;
+                case InputMode.Folder:
+                    sourceFolderPath = ((FolderInputViewModel)InputViewModel).SourceFolderPath;
+                    resultFolderPath = ((FolderInputViewModel)InputViewModel).ResultFolderPath;
+                    ignoreNotFoundResultFiles = ((FolderInputViewModel)InputViewModel).IgnoreNotFoundResultFiles;
+                    break;
+                case InputMode.Generate:
+                    numberOfSamples = ((GenerateInputViewModel)InputViewModel).NumberOfSamples;
+                    numberOfCities = ((GenerateInputViewModel)InputViewModel).NumberOfCities;
+                    averageResults = ((GenerateInputViewModel)InputViewModel).AverageResults;
+                    highestX = ((GenerateInputViewModel)InputViewModel).HighestX;
+                    lowestX = ((GenerateInputViewModel)InputViewModel).LowestX;
+                    highestY = ((GenerateInputViewModel)InputViewModel).HighestY;
+                    lowestY = ((GenerateInputViewModel)InputViewModel).LowestY;
+                    break;
+            }
+            
+            results.AlgoResults = new();
         }
 
         private void StartCalculations()
         {
+            SetupState();
+            switch (inputMode)
+            {
+                case InputMode.File:
+                    StartCalculationsForFile(sourceFilePath, resultFilePath);
+                    break;
+                case InputMode.Folder:
+                    string[] sourceFiles = GetSourceFiles();
 
-            _results.AlgoResults = new();
-            InputMode mode = GetInputMode();
-            if (mode == InputMode.File)
-            {
-                var input = (FileInputViewModel)InputViewModel;
-                StartCalculations(input.SourceFilePath, input.ResultFilePath);
+                    int numberOfAllFiles = sourceFiles.Length;
+                    int numberOfCurrentFile = 0;
+                    foreach (var sourceFile in sourceFiles)
+                    {
+                        if (cancellationToken.Token.IsCancellationRequested)
+                            return;
+                        if (!StartCalculationsForFileFromFolder(sourceFile, numberOfCurrentFile, numberOfAllFiles))
+                        {
+                            results.RemoveLastMessage();
+                            return;
+                        }
+                        numberOfCurrentFile++;
+                    }
+
+                    if (sourceFiles.Length > 0)
+                        results.WriteMessage($"Completed {numberOfAllFiles}/{numberOfAllFiles}");
+
+                    break;
+                case InputMode.Generate:
+                    List<AlgorithmResultModel> naResults = new(), dtResults = new(), chResults = new(), klResults = new(), klRbResults = new();
+                    for (int i = 0; i < numberOfSamples; i++)
+                    {
+                        if (cancellationToken.Token.IsCancellationRequested)
+                            break;
+
+                        string sampleName = $"sample{i + 1}";
+
+                        Graph graph = GenerateGraph();
+
+                        if (!string.IsNullOrEmpty(outputFolderPath))
+                            TSPSerializer.SerializeGraph(graph, outputFolderPath, sampleName);
+
+                        foreach (var algo in algorithmList)
+                            StartCalculationsForGeneratedSample(graph, sampleName, naResults, algo);
+                    }
+                    if (averageResults)
+                    {
+                        foreach (var algo in algorithmList)
+                            AddAverageResult(naResults, algo);
+                    }
+                    break;
+                default:
+                    break;
             }
-            else if (mode == InputMode.Folder)
+        }
+
+        private bool StartCalculationsForFile(string sourceFilePath, string resultFilePath)
+        {
+            foreach (var algo in algorithmList)
             {
-                var input = (FolderInputViewModel)InputViewModel;
-                string[] sourceFiles;
                 try
                 {
-                    sourceFiles = Directory.GetFiles(input.SourceFolderPath, "*.tsp");
+                    if (!StartAlgorithmCalculationsForFile(sourceFilePath, resultFilePath, algo))
+                        return false;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    throw new Exception($"No files could have been retrieved from path '{input.SourceFolderPath}'.");
-                }
-                if (sourceFiles.Length == 0)
-                {
-                    _results.Message = $"No TSP files found in folder {input.SourceFolderPath}";
-                    return;
-                }
-                int numberOfAllFiles = sourceFiles.Length;
-                int numberOfCurrentFile = 0;
-                foreach (var sourceFile in sourceFiles)
-                {
-                    string resultFile = $"{input.ResultFolderPath}\\{System.IO.Path.GetFileName(sourceFile)[..^4]}.opt.tour";
+                    string message = $"{exception.Message}\nWould you like to continue?";
+                    MessageBoxButton button = MessageBoxButton.YesNo;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult result;
 
-                    _results.Message = $"Completed {numberOfCurrentFile}/{numberOfAllFiles}";
+                    result = MessageBox.Show(message, "Error while processing file", button, icon, MessageBoxResult.Yes);
 
-                    try
-                    {
-                        StartCalculations(sourceFile, resultFile);
-                    }
-                    catch (Exception exception)
-                    {
-                        string message = $"{exception.Message}\nWould you like to continue?";
-                        MessageBoxButton button = MessageBoxButton.YesNo;
-                        MessageBoxImage icon = MessageBoxImage.Warning;
-                        MessageBoxResult result;
-
-                        result = MessageBox.Show(message, "Error while processing file", button, icon, MessageBoxResult.Yes);
-
-                        if (result == MessageBoxResult.No)
-                            return;
-                    }
-
-                    numberOfCurrentFile++;
-                }
-
-                _results.Message = $"Completed {numberOfAllFiles}/{numberOfAllFiles}";
-            }
-            else
-            {
-                var input = (GenerateInputViewModel)InputViewModel;
-                List<AlgorithmResultModel> naResults = new(), dtResults = new(), chResults = new(), klResults = new(), klRbResults = new();
-                AlgorithmResultModel avgResult;
-                TimeSpan? averageTime = null, bestTime = null;
-                for (int i = 0; i < input.NumberOfSamples; i++)
-                {
-                    string sampleName = $"sample{i + 1}";
-
-                    Graph graph = new();
-                    for (int j = 0; j < input.NumberOfCities; j++)
-                    {
-                        var x = Math.Round(rand.NextDouble() * (input.HighestX - input.LowestX) + input.LowestX, 2);
-                        var y = Math.Round(rand.NextDouble() * (input.HighestY - input.LowestY) + input.LowestY, 2);
-                        graph.nodes.Add(new Node(j, x, y));
-                    }
-
-                    if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                        TSPSerializer.SerializeGraph(graph, input.OutputFolderPath, sampleName);
-
-                    if (input.NearestAddition)
-                    {
-                        _results.Message += $"\nProcessing {sampleName} with nearest addition algorithm";
-
-                        var result = StartCalculations(sampleName, graph, TSPAlgorithms.NearestAddition);
-
-                        if (input.AverageResults)
-                            naResults.Add(result);
-                        else
-                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_NA");
-
-                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                        else
-                            _results.Message = "";
-                    }
-                    if (input.DoubleTree)
-                    {
-                        _results.Message += $"\nProcessing {sampleName} with double tree algorithm";
-
-                        var result = StartCalculations(sampleName, graph, TSPAlgorithms.DoubleTree);
-
-                        if (input.AverageResults)
-                            dtResults.Add(result);
-                        else
-                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_DT");
-
-                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                        else
-                            _results.Message = "";
-                    }
-                    if (input.Christofides)
-                    {
-                        _results.Message += $"\nProcessing {sampleName} with Chistofides' algorithm";
-
-                        var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.Christofides);
-
-                        if (input.AverageResults)
-                            chResults.Add(result);
-                        else
-                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_C");
-
-                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                        else
-                            _results.Message = "";
-                    }
-                    if (input.KernighanLin)
-                    {
-                        _results.Message += $"\nProcessing {sampleName} with Kernighan - Lin algorithm";
-
-                        var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.KernighanLin);
-
-                        if (input.AverageResults)
-                            klResults.Add(result);
-                        else
-                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_KL");
-
-                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                        else
-                            _results.Message = "";
-                    }
-                    if (input.KernighanLinRb)
-                    {
-                        _results.Message += $"\nProcessing {sampleName} with Kernighan - Lin reduced backtracking algorithm";
-
-                        var result = StartCalculations($"{sampleName}", graph, TSPAlgorithms.KernighanLinRb);
-
-                        if (input.AverageResults)
-                            klRbResults.Add(result);
-                        else
-                            App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-                        if (!string.IsNullOrEmpty(input.OutputFolderPath))
-                            TourSerializer.SerializePath(result.Path, input.OutputFolderPath, $"{sampleName}_KLrb");
-
-                        if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                            _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                        else
-                            _results.Message = "";
-                    }
-                }
-                if (input.AverageResults)
-                {
-                    if (input.NearestAddition)
-                    {
-                        if (input.Stopwatch)
-                        {
-                            averageTime = TimeSpan.FromMicroseconds(naResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
-                            bestTime = naResults.Select(r => r.BestTime).Min();
-                        }
-
-                        avgResult = new(
-                            "sample_NA",
-                            TSPAlgorithms.NearestAddition,
-                            input.Stopwatch,
-                            naResults.Select(r => r.Path.Length).Min(),
-                            naResults.Select(r => r.Path.Length).Average(),
-                            null,
-                            null,
-                            averageTime,
-                            bestTime,
-                            null
-                        );
-
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
-                    }
-                    if (input.DoubleTree)
-                    {
-                        if (input.Stopwatch)
-                        {
-                            averageTime = TimeSpan.FromMicroseconds(dtResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
-                            bestTime = dtResults.Select(r => r.BestTime).Min();
-                        }
-
-                        avgResult = new(
-                            "sample_DT",
-                            TSPAlgorithms.DoubleTree,
-                            input.Stopwatch,
-                            dtResults.Select(r => r.Path.Length).Min(),
-                            dtResults.Select(r => r.Path.Length).Average(),
-                            null,
-                            null,
-                            averageTime,
-                            bestTime,
-                            null
-                        );
-
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
-                    }
-                    if (input.Christofides)
-                    {
-                        if (input.Stopwatch)
-                        {
-                            averageTime = TimeSpan.FromMicroseconds(chResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
-                            bestTime = chResults.Select(r => r.BestTime).Min();
-                        }
-
-                        avgResult = new(
-                            "sample_C",
-                            TSPAlgorithms.Christofides,
-                            input.Stopwatch,
-                            chResults.Select(r => r.Path.Length).Min(),
-                            chResults.Select(r => r.Path.Length).Average(),
-                            null,
-                            null,
-                            averageTime,
-                            bestTime,
-                            null
-                        );
-
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
-                    }
-                    if (input.KernighanLin)
-                    {
-                        if (input.Stopwatch)
-                        {
-                            averageTime = TimeSpan.FromMicroseconds(klResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
-                            bestTime = klResults.Select(r => r.BestTime).Min();
-                        }
-
-                        avgResult = new(
-                            "sample_KL",
-                            TSPAlgorithms.KernighanLin,
-                            input.Stopwatch,
-                            klResults.Select(r => r.Path.Length).Min(),
-                            klResults.Select(r => r.Path.Length).Average(),
-                            null,
-                            null,
-                            averageTime,
-                            bestTime,
-                            null
-                        );
-
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
-                    }
-                    if (input.KernighanLinRb)
-                    {
-                        if (input.Stopwatch)
-                        {
-                            averageTime = TimeSpan.FromMicroseconds(klRbResults.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
-                            bestTime = klRbResults.Select(r => r.BestTime).Min();
-                        }
-
-                        avgResult = new(
-                            "sample_KLrb",
-                            TSPAlgorithms.KernighanLinRb,
-                            input.Stopwatch,
-                            klRbResults.Select(r => r.Path.Length).Min(),
-                            klRbResults.Select(r => r.Path.Length).Average(),
-                            null,
-                            null,
-                            averageTime,
-                            bestTime,
-                            null
-                        );
-
-                        App.Current.Dispatcher.Invoke(() => _results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
-                    }
+                    return result == MessageBoxResult.Yes;
                 }
             }
+            return true;
         }
 
-
-        private InputMode GetInputMode()
+        private string[] GetSourceFiles()
         {
-            switch (InputViewModel.GetType().Name)
+            string[] sourceFiles;
+            try
             {
-                case nameof(FileInputViewModel):
-                    return InputMode.File;
-                case nameof(FolderInputViewModel):
-                    return InputMode.Folder;
-                case nameof(GenerateInputViewModel):
-                    return InputMode.Generate;
-                default:
-                    throw new Exception("Invalid view model");
+                sourceFiles = Directory.GetFiles(sourceFolderPath, "*.tsp");
             }
+            catch (Exception)
+            {
+                throw new Exception($"No files could have been retrieved from path '{sourceFolderPath}'.");
+            }
+
+            if (sourceFiles.Length == 0)
+            {
+                results.Message = $"No TSP files found in folder {sourceFolderPath}";
+            }
+            return sourceFiles;
         }
 
-        private void StartCalculations(string sourceFilePath, string resultFilePath)
+        private bool StartCalculationsForFileFromFolder(string sourceFile, int numberOfCurrentFile, int numberOfAllFiles)
         {
-            var input = (InputViewModel)InputViewModel;
-            if (input.NearestAddition)
-            {
-                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with nearest addition algorithm";
-                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.NearestAddition, input.OutputFolderPath);
-                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                else
-                    _results.Message = "";
-            }
-            if (input.DoubleTree)
-            {
-                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with double tree algorithm";
-                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.DoubleTree, input.OutputFolderPath);
-                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                else
-                    _results.Message = "";
-            }
-            if (input.Christofides)
-            {
-                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Christofides' algorithm";
-                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.Christofides, input.OutputFolderPath);
-                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                else
-                    _results.Message = "";
-            }
-            if (input.KernighanLin)
-            {
-                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Kernighan - Lin algorithm";
-                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.KernighanLin, input.OutputFolderPath);
-                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                else
-                    _results.Message = "";
-            }
-            if (input.KernighanLinRb)
-            {
-                _results.Message += $"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with Kernighan - Lin reduced backtracking algorithm";
-                StartAlgorithmCalculations(sourceFilePath, resultFilePath, TSPAlgorithms.KernighanLinRb, input.OutputFolderPath);
-                if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                    _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                else
-                    _results.Message = "";
-            }
+            string resultFile = "";
+            if (!string.IsNullOrEmpty(resultFolderPath))
+                resultFile = $"{resultFolderPath}\\{System.IO.Path.GetFileName(sourceFile)[..^4]}.opt.tour";
+
+            results.WriteMessage($"Completed {numberOfCurrentFile}/{numberOfAllFiles}");
+
+            return StartCalculationsForFile(sourceFile, resultFile);
         }
 
-        private void StartAlgorithmCalculations(string sourceFilePath, string resultFilePath, TSPAlgorithms algo, string outputFolder)
+        private Graph GenerateGraph()
         {
-            var graph = TSPDeserializer.DeserializeGraph(sourceFilePath);
-            var result = StartCalculations(System.IO.Path.GetFileName(sourceFilePath), graph, algo);
+            Graph graph = new();
+            for (int i = 0; i < numberOfCities; i++)
+            {
+                var x = Math.Round(rand.NextDouble() * (highestX - lowestX) + lowestX, 2);
+                var y = Math.Round(rand.NextDouble() * (highestY - lowestY) + lowestY, 2);
+                graph.nodes.Add(new Node(i, x, y));
+            }
+            return graph;
+        }
+
+        private void StartCalculationsForGeneratedSample(Graph graph, string sampleName, List<AlgorithmResultModel> results, TSPAlgorithm algo)
+        {
+
+            this.results.AddMessage($"\nProcessing {sampleName} with {TSPAlgorithmExtentions.ToFullString(algo)}");
+
+            var result = StartAlgorithmCalculations(sampleName, graph, algo);
             if (result == null)
             {
-                _results.Message = "No algorithms were selected.";
+                this.results.RemoveLastMessage();
                 return;
+            }
+
+            if (averageResults)
+                results.Add(result);
+            else
+                App.Current.Dispatcher.Invoke(() => this.results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+
+            if (!string.IsNullOrEmpty(outputFolderPath))
+                TourSerializer.SerializePath(result.Path, outputFolderPath, $"{sampleName}_{TSPAlgorithmExtentions.ToAbbreviationString(algo)}");
+
+            this.results.RemoveLastMessage();
+        }
+
+        private void AddAverageResult(List<AlgorithmResultModel> results, TSPAlgorithm algo)
+        {
+            TimeSpan? averageTime = null, bestTime = null;
+
+            if (stopwatch)
+            {
+                averageTime = TimeSpan.FromMicroseconds(results.Select(r => ((TimeSpan)r.BestTime).TotalMicroseconds).Average());
+                bestTime = results.Select(r => r.BestTime).Min();
+            }
+
+            AlgorithmResultModel avgResult = new(
+                $"sample_{TSPAlgorithmExtentions.ToAbbreviationString(algo)}",
+                algo,
+                stopwatch,
+                results.Select(r => r.Path.Length).Min(),
+                results.Select(r => r.Path.Length).Average(),
+                null,
+                null,
+                averageTime,
+                bestTime,
+                null
+            );
+
+            App.Current.Dispatcher.Invoke(() => this.results.AlgoResults.Add(new AlgorithmResultViewModel(avgResult)));
+        }
+
+        private bool StartAlgorithmCalculationsForFile(string sourceFilePath, string resultFilePath, TSPAlgorithm algo)
+        {
+            results.AddMessage($"\nProcessing file {System.IO.Path.GetFileName(sourceFilePath)} with {TSPAlgorithmExtentions.ToFullString(algo)}");
+
+            var graph = TSPDeserializer.DeserializeGraph(sourceFilePath);
+
+            var fileName = System.IO.Path.GetFileName(sourceFilePath);
+            fileName = fileName[0..fileName.IndexOf('.')];
+            var result = StartAlgorithmCalculations(fileName, graph, algo);
+
+            if (result == null)
+            {
+                results.RemoveLastMessage();
+                return false;
+            }
+
+            if (!File.Exists(resultFilePath))
+            {
+                if (!ignoreNotFoundResultFiles && !string.IsNullOrEmpty(resultFilePath))
+                {
+                    string message = $"Result file '{resultFilePath}' could not been found.\nWould you like to continue?";
+                    MessageBoxButton button = MessageBoxButton.YesNo;
+                    MessageBoxImage icon = MessageBoxImage.Warning;
+                    MessageBoxResult msbxRslt;
+
+                    msbxRslt = MessageBox.Show(message, "Error while processing file", button, icon, MessageBoxResult.Yes);
+
+                    if (msbxRslt == MessageBoxResult.No)
+                    {
+                        results.RemoveLastMessage();
+                        return false;
+                    }
+                }
             }
             else
             {
-                if (!File.Exists(resultFilePath))
-                {
-                    if (!((InputViewModel)InputViewModel).IgnoreNotFoundResultFiles && !string.IsNullOrEmpty(resultFilePath))
-                    {
-                        string message = $"Result file '{resultFilePath}' could not been found.\nWould you like to continue?";
-                        MessageBoxButton button = MessageBoxButton.YesNo;
-                        MessageBoxImage icon = MessageBoxImage.Warning;
-                        MessageBoxResult msbxRslt;
-
-                        msbxRslt = MessageBox.Show(message, "Error while processing file", button, icon, MessageBoxResult.Yes);
-
-                        if (msbxRslt == MessageBoxResult.No)
-                        {
-                            if (_results.Message.ToCharArray().Count(c => c == '\n') > 0)
-                                _results.Message = _results.Message[.._results.Message.IndexOf('\n')];
-                            else
-                                _results.Message = "";
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    result.ResultPath = TourDeserializer.DeserializePath(resultFilePath, graph);
-                }
-                App.Current.Dispatcher.Invoke(() =>_results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
-
-
-                if (!string.IsNullOrEmpty(outputFolder))
-                {
-                    string outputName = result.Name;
-                    switch (algo)
-                    {
-                        case TSPAlgorithms.NearestAddition:
-                            outputName += "_NA";
-                            break;
-                        case TSPAlgorithms.DoubleTree:
-                            outputName += "_DA";
-                            break;
-                        case TSPAlgorithms.Christofides:
-                            outputName += "_C";
-                            break;
-                        case TSPAlgorithms.KernighanLin:
-                            outputName += "_KL";
-                            break;
-                        case TSPAlgorithms.KernighanLinRb:
-                            outputName += "_KLrb";
-                            break;
-                        default:
-                            throw new Exception("Invalid algorithm type.");
-                    }
-
-                    TourSerializer.SerializePath(result.Path, outputFolder, outputName);
-                }
+                result.ResultPath = TourDeserializer.DeserializePath(resultFilePath, graph);
             }
+            App.Current.Dispatcher.Invoke(() => results.AlgoResults.Add(new AlgorithmResultViewModel(result)));
+
+            if (!string.IsNullOrEmpty(outputFolderPath))
+                SaveCalculationsResult(result, algo);
+
+            results.RemoveLastMessage();
+            return true;
         }
 
-        private AlgorithmResultModel? StartCalculations(string fileName, Graph graph, TSPAlgorithms algo)
+        private AlgorithmResultModel? StartAlgorithmCalculations(string name, Graph graph, TSPAlgorithm algo)
         {
-            string name = fileName;
-            if (fileName.Contains('.'))
-                name = fileName[0..fileName.IndexOf('.')];
-            switch (algo)
-            {
-                case TSPAlgorithms.NearestAddition:
-                    return StartAlgorithmCalculations(name, graph, new NearestAddition(), TSPAlgorithms.NearestAddition);
-                case TSPAlgorithms.DoubleTree:
-                    return StartAlgorithmCalculations(name, graph, new DoubleTree(), TSPAlgorithms.DoubleTree);
-                case TSPAlgorithms.Christofides:
-                    return StartAlgorithmCalculations(name, graph, new Christofides(), TSPAlgorithms.Christofides);
-                case TSPAlgorithms.KernighanLin:
-                    return StartAlgorithmCalculations(name, graph, new KernighanLin(), TSPAlgorithms.KernighanLin);
-                case TSPAlgorithms.KernighanLinRb:
-                    return StartAlgorithmCalculations(name, graph, new KeringhanLinReducedBacktracking(), TSPAlgorithms.KernighanLinRb);
-                default:
-                    return null;
-            }            
-        }
-
-        private AlgorithmResultModel StartAlgorithmCalculations(string name, Graph graph, ITspAlgorithm algo, TSPAlgorithms algoType)
-        {
-            var input = (InputViewModel)InputViewModel;
+            if (cancellationToken.Token.IsCancellationRequested)
+                return null;
 
             Stopwatch sw = new();
-            TimeSpan? averageTime = null;
-            TimeSpan? bestTime = null;
-            if (input.Stopwatch)
+            TimeSpan? time = null;
+            if (stopwatch)
                 sw.Start();
 
-            List<Path> paths = new ();
-            List<TimeSpan> times = new();
-            for (int i = 0; i < input.NumberOfCalculations; i++)
+            if (stopwatch)
+                sw.Start();
+
+            Path path = GetAlgorithm(algo).FindShortestPath(graph);
+
+            if (stopwatch)
             {
-                if (input.Stopwatch)
-                    sw.Start();
-
-                paths.Add(algo.FindShortestPath(graph));
-
-                if (input.Stopwatch)
-                {
-                    sw.Stop();
-                    times.Add(sw.Elapsed);
-                }
+                sw.Stop();
+                time = sw.Elapsed;
             }
 
-            if (input.Stopwatch)
-            {
-                averageTime = TimeSpan.FromMicroseconds(times.Select(t => ((TimeSpan)t).TotalMicroseconds).Average());
-                bestTime = times.Min();
-            }
+            return new AlgorithmResultModel(name, algo, stopwatch, path.Length, path.Length, graph, path, time, time);
+        }
 
-            return new AlgorithmResultModel(name, algoType, input.Stopwatch, paths.Min(p => p.Length), paths.Average(p => p.Length), graph, paths.MinBy(p => p.Length), averageTime, bestTime);
-        }     
+        private void SaveCalculationsResult(AlgorithmResultModel result, TSPAlgorithm algo)
+        {
+            if (result.Path != null)
+                TourSerializer.SerializePath(result.Path, outputFolderPath, $"{result.Name}_{TSPAlgorithmExtentions.ToAbbreviationString(algo)}");
+        }
+
+        public ITspAlgorithm GetAlgorithm(TSPAlgorithm algo)
+        {
+            switch (algo)
+            {
+                case TSPAlgorithm.NearestAddition:
+                    return nearestAdditionAlgo;
+                case TSPAlgorithm.DoubleTree:
+                    return doubleTreeAlgo;
+                case TSPAlgorithm.Christofides:
+                    return christofidesAlgo;
+                case TSPAlgorithm.KernighanLin:
+                    return kernighanLinAlgo;
+                case TSPAlgorithm.KernighanLinRb:
+                    return kernignahLinRbAlgo;
+                default:
+                    throw new Exception("Unknown algorithm type");
+            }
+        }
 
         public override Task ExecuteAsync(object parameter)
         {
             var t = Task.Factory.StartNew(() =>
             {
-                _results.CalculationsFinished = false;
+                results.CalculationsFinished = false;
                 try
                 {
                     StartCalculations();
@@ -540,7 +392,8 @@ namespace TSP.Commands
 
                     MessageBox.Show(exception.Message, "Error", button, icon, MessageBoxResult.Yes);
                 }
-                _results.CalculationsFinished = true;
+                cancellationToken.RestoreToken();
+                results.CalculationsFinished = true;
             });
             return t;
         }

@@ -25,7 +25,7 @@ namespace TSP.Views
 
         private void SearchForOutputFolder(object sender, RoutedEventArgs e) => SearchForFolder(OutputFolderTextBlock);
 
-        private void SearchForFolder(TextBlock folderPathTextBlock)
+        private void SearchForFolder(TextBox folderPathTextBlock)
         {
             var dialog = new Microsoft.Win32.OpenFolderDialog();
 

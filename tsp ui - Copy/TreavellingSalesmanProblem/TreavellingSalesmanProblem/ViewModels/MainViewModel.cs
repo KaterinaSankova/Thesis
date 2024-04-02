@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TSP.Models;
-using TSP.Stores;
+﻿using TSP.Stores;
 
 namespace TSP.ViewModels
 {
 
     public class MainViewModel : ViewModelBase
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly ResultsViewModel _resultsViewModel;
+        private readonly NavigationStore navigationStore;
+        private readonly ResultsViewModel resultsViewModel;
 
-        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public ViewModelBase CurrentViewModel => navigationStore.CurrentViewModel;
 
-        public ResultsViewModel CurrentResultsViewModel => _resultsViewModel;
+        public ResultsViewModel CurrentResultsViewModel => resultsViewModel;
 
-        public MainViewModel(NavigationStore navigationStore, ResultsViewModel resultsViewModel)
+        public MainViewModel(ResultsViewModel resultsViewModel, NavigationStore navigationStore)
         {
-            _navigationStore = navigationStore;
-
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
-            _resultsViewModel = resultsViewModel;
+            this.resultsViewModel = resultsViewModel;
+            this.navigationStore = navigationStore;
+            this.navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
         private void OnCurrentViewModelChanged()

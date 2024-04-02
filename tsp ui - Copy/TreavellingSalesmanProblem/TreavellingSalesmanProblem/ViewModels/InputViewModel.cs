@@ -1,30 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
-using TravellingSalesmanProblem.Algorithms.Enums;
 using TSP.Commands;
-using TSP.Models;
 using TSP.Stores;
 
 namespace TSP.ViewModels
 {
     public class InputViewModel : ViewModelBase
     {
-        private bool _nearestAddition;
-        private bool _doubleTree;
-        private bool _christofides;
-        private bool _kernighanLin;
-        private bool _kernighanLinRb;
-        private bool _stopwatch;
+        private bool _nearestAddition = true;
+        private bool _doubleTree = false;
+        private bool _christofides = false;
+        private bool _kernighanLin = false;
+        private bool _kernighanLinRb = false;
+        private bool _stopwatch = true;
         private bool _ignoreNotFoundResultFiles = true;
-        private string _outputFolderPath;
-        private int _numberOfCalculations = 1;
+        private string _outputFolderPath = "";
 
         public bool NearestAddition
         {
@@ -76,6 +66,7 @@ namespace TSP.ViewModels
                 OnPropertyChanged(nameof(KernighanLin));
             }
         }
+
         public bool KernighanLinRb
         {
             get
@@ -101,6 +92,7 @@ namespace TSP.ViewModels
                 OnPropertyChanged(nameof(Stopwatch));
             }
         }
+
         public bool IgnoreNotFoundResultFiles
         {
             get
@@ -128,16 +120,22 @@ namespace TSP.ViewModels
             }
         }
 
-        public int NumberOfCalculations
+        public int NumberOfSelectedAlgorithms
         {
             get
             {
-                return _numberOfCalculations;
-            }
-            set
-            {
-                _numberOfCalculations = value;
-                OnPropertyChanged(nameof(_numberOfCalculations));
+                int i = 0;
+                if (NearestAddition)
+                    i++;
+                if (DoubleTree)
+                    i++;
+                if (Christofides)
+                    i++;
+                if (KernighanLin)
+                    i++;
+                if (KernighanLinRb)
+                    i++;
+                return i;
             }
         }
 
@@ -155,7 +153,6 @@ namespace TSP.ViewModels
             NavigateToFolderInput = new NavigateCommand(navigationStore, createFolderInputViewModel);
             NavigateToGenerateInput = new NavigateCommand(navigationStore, createGenerateInputViewModel);
             ClearOutputFolderCommand = new ClearOutputFolderCommand(this);
-            NearestAddition = true;
         }
     }
 }

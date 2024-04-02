@@ -1,2 +1,0 @@
-D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Release\net6.0\win-x64\publish\TravellingSalesmanProblem.pdb
-D:\Documents\Vyska\Thesis\TravellingSalesmanProblem - Osicka\TravellingSalesmanProblem\bin\Release\net6.0\win-x64\publish\TravellingSalesmanProblem.exe

@@ -1,23 +1,21 @@
 ﻿using System.Windows.Input;
-using System;
-using TSP.Commands;
-using TSP.Models;
 using TSP.Stores;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using System.Collections.Generic;
+using TSP.Commands;
 
 namespace TSP.ViewModels
 {
     public class ResultsViewModel : ViewModelBase
     {
-        private string _message;
-        private ObservableCollection<AlgorithmResultViewModel> _algoResults;
-
         private NavigationStore _navigationStore;
+        private ObservableCollection<AlgorithmResultViewModel> _algoResults = new();
+        private string _message = "";
         private bool _isInputValid = false;
         private bool _calculationsFinished = true;
         private bool _canStartCalculations = false;
+
+        public NavigationStore NavigationStore { get => _navigationStore; set => _navigationStore = value; }
 
         public ObservableCollection<AlgorithmResultViewModel> AlgoResults
         {
@@ -56,8 +54,6 @@ namespace TSP.ViewModels
             }
         }
 
-        public NavigationStore NavigationStore { get => _navigationStore; set => _navigationStore = value; }
-
 
         public bool CalculationsFinished
         {
@@ -70,8 +66,11 @@ namespace TSP.ViewModels
                 _calculationsFinished = value;
                 CanStartCalculations = IsInputValid && _calculationsFinished;
                 OnPropertyChanged(nameof(CalculationsFinished));
+                OnPropertyChanged(nameof(CalculationsStarted));
             }
         }
+
+        public bool CalculationsStarted => !CalculationsFinished;
 
         public bool CanStartCalculations
         {
@@ -88,16 +87,29 @@ namespace TSP.ViewModels
 
         public ICommand StartCalculations { get; }
 
-        public ICommand AbortCalculations { get; }
+        public ICommand CancelCalculations { get; }
 
-        public ResultsViewModel(NavigationStore navigationStore)
+        public ResultsViewModel(NavigationStore navigationStore, CancellationTokenStore cancelationTokenStore)
         {
-            NavigationStore = navigationStore;
-            StartCalculations = new StartCalculationsCommand(this);
-            AlgoResults = new();
+            this._navigationStore = navigationStore;
+            StartCalculations = new StartCalculationsCommand(this, cancelationTokenStore);
+            CancelCalculations = new CancelCalculationsCommand(this, cancelationTokenStore);
 
             _navigationStore.CurrentViewModel.PropertyChanged += OnInputChanged;
             navigationStore.CurrentViewModelChanged += OnInputChanged;
+        }
+
+        public void WriteMessage(string message) => Message = message;
+
+        public void AddMessage(string message) => Message += message;
+
+        public void RemoveLastMessage()
+        {
+            int indexOfNewLine = Message.IndexOf('\n');
+            if (indexOfNewLine != -1)
+                Message = Message[..indexOfNewLine];
+            else
+                Message = "";
         }
 
         private void OnInputChanged(object? sender, PropertyChangedEventArgs e) => IsInputValid = ValidateInput();

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Reflection;
-using System.Text;
+﻿using System.Text;
 
 namespace TravellingSalesmanProblem.GraphStructures
 {
     public class Path
     {
         internal List<Node> path;
-        internal int _currentIndex;
+
         internal List<Edge>? _edges;
+        internal int _currentIndex;
         internal double _length;
 
-        public double Length => _length;
-        public int Count { get; }
-        public Direction Direction { get; set; }
-        public Node CurrentNode { get => path[CurrentIndex]; }
         public List<Edge> Edges
         {
             get
@@ -51,6 +46,13 @@ namespace TravellingSalesmanProblem.GraphStructures
                 _currentIndex = value;
             }
         }
+        public double Length => _length;
+
+        public int Count { get; }
+
+        public Direction Direction { get; set; }
+
+        public Node CurrentNode { get => path[CurrentIndex]; }
 
         public void SetCurrentIndex(Node node)
         {
@@ -68,7 +70,6 @@ namespace TravellingSalesmanProblem.GraphStructures
             else
                 throw new ArgumentException($"Index is out of range.");
         }
-
 
         public void SetDirection(Node fromNode, Node toNode)
         {
@@ -202,54 +203,10 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public int IndexOf(Node node) => path.IndexOf(node);
 
-        public IEnumerable<Node> Where(Func<Node, bool> predicate) => path.Where(predicate);
-
         public List<Node> ToList()
         {
             var pathNodes = path.ToList();
             return pathNodes;
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-            this.CurrentIndex = 0;
-            for (int i = 0; i < path.Count; i++)
-            {
-                hash ^= path[i].GetHashCode();
-                this.Next();
-            }
-            return hash;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
-                return false;
-
-            Path otherPath = (Path)obj;
-            if (this.Count != otherPath.Count)
-                return false;
-
-            int currentIndex = CurrentIndex, otherCurrentIndex = otherPath.CurrentIndex;
-            Direction direction = this.Direction;
-
-            this.CurrentIndex = 0;
-            otherPath.CurrentIndex = otherPath.IndexOf(path[0]);
-            if (this.PeekNext() != otherPath.PeekNext() && this.PeekNext() != otherPath.PeekPrev())
-                this.Direction = (Direction)(-1 * (int)this.Direction);
-
-            for (int i = 0; i < path.Count; i++)
-            {
-                if (this.Next() != otherPath.Next())
-                    return false;
-            }
-
-            CurrentIndex = currentIndex;
-            otherPath.CurrentIndex = otherCurrentIndex;
-            this.Direction = direction;
-
-            return true;
         }
 
         public override string ToString()

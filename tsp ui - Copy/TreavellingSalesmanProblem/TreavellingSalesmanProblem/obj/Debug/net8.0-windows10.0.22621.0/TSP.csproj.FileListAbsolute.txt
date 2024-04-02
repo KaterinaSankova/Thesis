@@ -26,8 +26,6 @@ E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\Treavellin
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\Views\GenerateInputView.baml
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\Views\ResultsView.baml
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.g.resources
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.Properties.Resources.resources
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.csproj.GenerateResource.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.GeneratedMSBuildEditorConfig.editorconfig
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.AssemblyInfoInputs.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.AssemblyInfo.cs
@@ -39,4 +37,3 @@ E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\Treavellin
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.pdb
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\TSP.genruntimeconfig.cache
 E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\ref\TSP.dll
-E:\Documents\Škola\Výška\Bakalářská práce\Thesis\tsp ui - Copy\TreavellingSalesmanProblem\TreavellingSalesmanProblem\obj\Debug\net8.0-windows10.0.22621.0\App.baml

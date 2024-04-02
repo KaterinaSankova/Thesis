@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
+using TreavellingSalesmanProblem;
 
 namespace TSP.Commands
 {
@@ -20,7 +17,7 @@ namespace TSP.Commands
 
         protected void OnCanExecutedChanged()
         {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
+            App.Current.Dispatcher.Invoke(() => CanExecuteChanged?.Invoke(this, new EventArgs()));
         }
     }
 }

@@ -11,17 +11,27 @@ namespace TSP.Models
     public class AlgorithmResultModel
     {
         public string Name { get; set; }
-        public TSPAlgorithms Algorithm { get; set; }
+
+        public TSPAlgorithm Algorithm { get; set; }
+
         public Graph? Graph { get; set; }
+
         public Path? Path { get; set; }
+
         public bool Stopwatch { get; set; }
+
         public double BestPathLength { get; set; }
+
         public double AveragePathLength { get; set; }
+
         public TimeSpan? AverageTime { get; set; }
+
         public TimeSpan? BestTime { get; set; }
+
         public Path? ResultPath { get; set; }
 
-        public AlgorithmResultModel(string name, TSPAlgorithms algo, bool stopwatch, double bestPathLength, double averagePathLength, Graph? graph = null, Path? path = null, TimeSpan? averageTime = null, TimeSpan? bestTime = null, Path? resultPath = null)
+
+        public AlgorithmResultModel(string name, TSPAlgorithm algo, bool stopwatch, double bestPathLength, double averagePathLength, Graph? graph = null, Path? path = null, TimeSpan? averageTime = null, TimeSpan? bestTime = null, Path? resultPath = null)
         {
             Name = name;
             Algorithm = algo;

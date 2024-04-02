@@ -2,15 +2,15 @@
 {
     public class Node
     {
-        public int id;
-        public double x;
-        public double y;
+        public int Id;
+        public double X;
+        public double Y;
 
         public Node(int id, double x, double y)
         {
-            this.id = id;
-            this.x = x;
-            this.y = y;
+            this.Id = id;
+            this.X = x;
+            this.Y = y;
         }
 
         public List<Node> ConnectedNodes(List<Edge> edges)
@@ -18,19 +18,19 @@
             List<Node> connectedNodes = new();
             foreach (var edge in edges)
             {
-                if (edge.node1 == this)
-                    connectedNodes.Add(edge.node2);
-                if (edge.node2 == this)
-                    connectedNodes.Add(edge.node1);
+                if (edge.Node1 == this)
+                    connectedNodes.Add(edge.Node2);
+                if (edge.Node2 == this)
+                    connectedNodes.Add(edge.Node1);
             }
             return connectedNodes;
         }
 
-        public double Distance(Node node) => Math.Sqrt(Math.Pow(this.x - node.x, 2) + Math.Pow(this.y - node.y, 2));
+        public double Distance(Node node) => Math.Sqrt(Math.Pow(this.X - node.X, 2) + Math.Pow(this.Y - node.Y, 2));
 
         public override string ToString()
         {
-            return $"{id}:[{x}, {y}]";
+            return $"{Id}:[{X}, {Y}]";
         }
 
         public override bool Equals(object? obj)
@@ -42,14 +42,10 @@
             else
             {
                 Node node = (Node)obj;
-                return node.id == id;
+                return node.Id == Id;
             }
         }
 
-        public override int GetHashCode()
-        {
-            int hashId = id.GetHashCode();
-            return hashId;
-        }
+        public override int GetHashCode() => Id.GetHashCode();
     }
 }

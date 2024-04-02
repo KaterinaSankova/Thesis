@@ -29,7 +29,7 @@ namespace TSP.Views
         private void SearchForResultFile(object sender, RoutedEventArgs e) => SearchForFile(ResultFileTextBlock, "opt.tour");
         private void SearchForOutputFolder(object sender, RoutedEventArgs e) => SearchForFolder(OutputFolderTextBlock);
 
-        private void SearchForFile(TextBlock filePathTextBlock, string extention)
+        private void SearchForFile(TextBox filePathTextBlock, string extention)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog();
             dialog.FileName = ""; // Default file name
@@ -46,7 +46,7 @@ namespace TSP.Views
             }
         }
 
-        private void SearchForFolder(TextBlock folderPathTextBlock)
+        private void SearchForFolder(TextBox folderPathTextBlock)
         {
             var dialog = new Microsoft.Win32.OpenFolderDialog();
 

@@ -16,7 +16,7 @@ namespace TravellingSalesmanProblem.Formats
             if (id == -1)
                 return null; //some files end with EOF some with -1 as an id of last node - in this case LineToNode returns null
 
-            var nodesWithId = graph.nodes.Where((node) => node.id == id).ToList();
+            var nodesWithId = graph.nodes.Where((node) => node.Id == id).ToList();
 
             if (nodesWithId.Count == 0)
                 throw new Exception($"No node with ID {id} was found in input graph");

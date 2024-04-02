@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using TravellingSalesmanProblem.GraphStructures;
+﻿using TravellingSalesmanProblem.GraphStructures;
 
 namespace TravellingSalesmanProblem.Algorithms
 {
@@ -17,11 +16,11 @@ namespace TravellingSalesmanProblem.Algorithms
 
             List<Edge> path = new();
 
-            includedCities.Add(firstEdge.node1);
-            includedCities.Add(firstEdge.node2);
+            includedCities.Add(firstEdge.Node1);
+            includedCities.Add(firstEdge.Node2);
 
-            remainingCities.Remove(firstEdge.node1);
-            remainingCities.Remove(firstEdge.node2);
+            remainingCities.Remove(firstEdge.Node1);
+            remainingCities.Remove(firstEdge.Node2);
 
             path.Add(firstEdge);
 
@@ -29,8 +28,8 @@ namespace TravellingSalesmanProblem.Algorithms
             {
                 shortestEdge = graph.ShortestEdge(includedCities, remainingCities);
                 path.Add(shortestEdge);
-                includedCities.Add(shortestEdge.node2);
-                remainingCities.Remove(shortestEdge.node2);
+                includedCities.Add(shortestEdge.Node2);
+                remainingCities.Remove(shortestEdge.Node2);
             }
             return path;
         }

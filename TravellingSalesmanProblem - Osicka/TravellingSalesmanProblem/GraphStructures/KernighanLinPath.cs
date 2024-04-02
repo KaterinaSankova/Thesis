@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TravellingSalesmanProblem.GraphStructures
+﻿namespace TravellingSalesmanProblem.GraphStructures
 {
     public class KernighanLinPath : Path
     {
@@ -13,7 +6,7 @@ namespace TravellingSalesmanProblem.GraphStructures
 
         public KernighanLinPath(List<Node> path) : base(path) { }
 
-        public KernighanLinPath(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge> edges) : base(path, count, length, currentIndex, direction, edges) { }
+        public KernighanLinPath(List<Node> path, int count, double length, int currentIndex, Direction direction, List<Edge>? edges) : base(path, count, length, currentIndex, direction, edges) { }
 
         public new KernighanLinPath ToPath() => new KernighanLinPath(path, Count, Length, CurrentIndex, Direction, _edges);
 
@@ -48,7 +41,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             path = newPath;
         }
 
-        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6) //connected properly
+        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6)
         {
             List<Node> newPath = new();
 
@@ -103,7 +96,7 @@ namespace TravellingSalesmanProblem.GraphStructures
             path = newPath;
         }
 
-        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6, Node node7, Node node8) //connected properly
+        public void ReconnectEdges(Node node1, Node node2, Node node3, Node node4, Node node5, Node node6, Node node7, Node node8)
         {
             List<Node> newPath = new();
             SetDirection(node2, node1);
@@ -162,53 +155,6 @@ namespace TravellingSalesmanProblem.GraphStructures
             _length += node2.Distance(node3) + node4.Distance(node5) + node6.Distance(node7) + node8.Distance(node1) - node1.Distance(node2) - node3.Distance(node4) - node5.Distance(node6) - node7.Distance(node8);
             this._edges = null;
 
-            path = newPath;
-        }
-
-        public void ReconnectEdges((Edge[] BrokenEdges, Edge[] AddedEdges, double Improvement) edgesToReconnect)
-        {
-            List<Node> newPath = new();
-
-            SetDirection(edgesToReconnect.BrokenEdges[0].node1, edgesToReconnect.BrokenEdges[0].node2);
-
-            SetCurrentIndex(edgesToReconnect.BrokenEdges[0].node2);
-            var node = edgesToReconnect.BrokenEdges[0].node2;
-            while (node != edgesToReconnect.BrokenEdges[3].node1)
-            {
-                newPath.Add(node);
-                node = Next();
-            }
-            newPath.Add(edgesToReconnect.BrokenEdges[3].node1);
-
-            SetCurrentIndex(edgesToReconnect.BrokenEdges[2].node2);
-            node = edgesToReconnect.BrokenEdges[2].node2;
-            while (node != edgesToReconnect.BrokenEdges[0].node1)
-            {
-                newPath.Add(node);
-                node = Next();
-            }
-            newPath.Add(edgesToReconnect.BrokenEdges[0].node1);
-
-            SetCurrentIndex(edgesToReconnect.BrokenEdges[1].node2);
-            node = edgesToReconnect.BrokenEdges[1].node2;
-            while (node != edgesToReconnect.BrokenEdges[2].node1)
-            {
-                newPath.Add(node);
-                node = Next();
-            }
-            newPath.Add(edgesToReconnect.BrokenEdges[2].node1);
-
-            SetCurrentIndex(edgesToReconnect.BrokenEdges[3].node2);
-            node = edgesToReconnect.BrokenEdges[3].node2;
-            while (node != edgesToReconnect.BrokenEdges[1].node1)
-            {
-                newPath.Add(node);
-                node = Next();
-            }
-            newPath.Add(edgesToReconnect.BrokenEdges[1].node1);
-
-            _length -= edgesToReconnect.Improvement;
-            this._edges = null;
             path = newPath;
         }
     }
